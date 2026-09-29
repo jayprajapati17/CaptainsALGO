@@ -1,0 +1,81 @@
+@model LiveIndexViewModel
+@{
+    ViewData["Title"] = "Live";
+}
+
+<div id="liveRoot"
+     data-hub-url="@Model.PositionsHubUrl"
+     data-close-url="@Url.Action("Close", "Live")"
+     data-open-url="@Url.Action("Open", "Live")">
+
+    @* ---- Header strip: Nifty spot + CPR + (Task 9) token ---- *@
+    <div class="market-strip card bg-body-tertiary mb-3">
+        <div class="card-body py-2 d-flex flex-wrap align-items-center gap-4">
+            <div>
+                <div class="strip-label">Nifty 50</div>
+                <div class="strip-value" id="niftySpot">--</div>
+            </div>
+
+            <div class="vr d-none d-md-block"></div>
+
+            <div>
+                <div class="strip-label">
+                    CPR
+                    @if (Model.Cpr is { IsForToday: false })
+                    {
+                        <span class="badge text-bg-warning ms-1" title="Latest available -- not computed for today yet">@Model.Cpr.ForTradingDay.ToString("dd MMM")</span>
+                    }
+                </div>
+                @if (Model.Cpr is { } cpr)
+                {
+                    <div class="strip-value">
+                        <span title="Bottom central">BC @cpr.Bc.ToString("N2")</span>
+                        <span class="text-secondary mx-1">|</span>
+                        <span title="Pivot">P @cpr.Pivot.ToString("N2")</span>
+                        <span class="text-secondary mx-1">|</span>
+                        <span title="Top central">TC @cpr.Tc.ToString("N2")</span>
+                        <span class="badge text-bg-secondary ms-2" title="@cpr.BiasNote">@cpr.Reading (@cpr.WidthPercent.ToString("0.00")%)</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="strip-value text-secondary">Not available yet</div>
+                }
+            </div>
+
+            <div class="vr d-none d-md-block"></div>
+
+            <div class="ms-md-auto d-flex align-items-center gap-3">
+                @* Task 9's token widget is global -- see the navbar in _Layout.cshtml, shown on every page, not just here. *@
+                <div class="d-flex align-items-center gap-2 small">
+                    <span class="status-dot status-connecting" id="hubDot"></span>
+                    <span id="hubStatus" class="text-secondary">Connecting...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.WorkerError is not null)
+    {
+        <div class="alert alert-warning py-2" role="alert">@Model.WorkerError</div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Live Positions <span class="badge text-bg-secondary align-middle" id="openCount">0</span></h4>
+    </div>
+
+    <div id="emptyState" class="card bg-body-tertiary d-none">
+        <div class="card-body text-center text-secondary py-5">
+            No Open Positions
+        </div>
+    </div>
+
+    <div id="positionGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3"></div>
+</div>
+
+<script type="application/json" id="initialPositions">@Html.Raw(Json.Serialize(Model.Positions))</script>
+
+@section Scripts {
+    @* signalr.min.js is now loaded once, globally, from _Layout.cshtml (Task 9 needs it on every page for the token widget). *@
+    <script src="~/js/live.js" asp-append-version="true"></script>
+}

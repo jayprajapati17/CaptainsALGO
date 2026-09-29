@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/AlgoData/">
+    <Project Path="AlgoData/AlgoData.csproj" />
+  </Folder>
+  <Folder Name="/AlgoWorker/">
+    <Project Path="AlgoWorker/AlgoWorker.csproj" />
+  </Folder>
+  <Project Path="Dashboard/Dashboard.csproj" />
+</Solution>

@@ -1,0 +1,231 @@
+body {
+    background-color: #0f1115;
+    color: #e6e6e6;
+}
+
+.navbar-brand {
+    letter-spacing: 0.02em;
+}
+
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Used from Task 8 onward for live P&L coloring. */
+.pnl-positive {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.pnl-negative {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+code {
+    color: #9cdcfe;
+}
+
+/* ---------- Live page (Task 8) ---------- */
+.market-strip .strip-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #8b93a1;
+}
+
+.market-strip .strip-value {
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #6c757d;
+}
+
+.status-live {
+    background: #2ecc71;
+    box-shadow: 0 0 6px rgba(46, 204, 113, 0.7);
+}
+
+.status-connecting {
+    background: #f1c40f;
+}
+
+.status-offline {
+    background: #e74c3c;
+}
+
+.pos-card {
+    background: #171a21;
+    transition: opacity 0.4s ease, border-color 0.2s ease;
+}
+
+    .pos-card:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+.pos-card-closed {
+    opacity: 0.55;
+    border-style: dashed;
+}
+
+.pos-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+.pos-icon-ce {
+    background: rgba(52, 152, 219, 0.18);
+    color: #5dade2;
+}
+
+.pos-icon-pe {
+    background: rgba(155, 89, 182, 0.2);
+    color: #bb8fce;
+}
+
+.pnl-chip {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255, 255, 255, 0.08);
+    color: #cfd4dc;
+}
+
+.pnl-chip-pos {
+    background: rgba(46, 204, 113, 0.16);
+    color: #2ecc71;
+}
+
+.pnl-chip-neg {
+    background: rgba(231, 76, 60, 0.16);
+    color: #e74c3c;
+}
+
+.pnl-chip-flat {
+    background: rgba(255, 255, 255, 0.08);
+    color: #cfd4dc;
+}
+
+.pos-exit {
+    line-height: 1;
+    padding: 0.3rem 0.5rem;
+}
+
+/* ---------- History + Signals Log (Tasks 10/11) ---------- */
+.stat-card {
+    background: #171a21;
+}
+
+    .stat-card .stat-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #8b93a1;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.4rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .stat-card .stat-sub {
+        font-size: 0.75rem;
+        color: #8b93a1;
+    }
+
+.chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.chip-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #8b93a1;
+    margin-right: 0.15rem;
+}
+
+.chip {
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #cfd4dc;
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+    .chip:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+    }
+
+.chip-active {
+    background: rgba(93, 173, 226, 0.2);
+    border-color: #5dade2;
+    color: #fff;
+    font-weight: 600;
+}
+
+.data-table {
+    font-size: 0.88rem;
+    --bs-table-bg: #171a21;
+}
+
+    .data-table thead th {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #8b93a1;
+        font-weight: 600;
+        border-bottom-color: rgba(255, 255, 255, 0.15);
+    }
+
+.sort-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+    .sort-link:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+.reason-cell {
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- Token widget (Task 9, in the navbar -- every page) ---------- */
+.token-pill {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.token-pill-ok {
+    background: rgba(46, 204, 113, 0.16);
+    color: #2ecc71;
+}

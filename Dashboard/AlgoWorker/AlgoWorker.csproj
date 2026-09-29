@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<InvariantGlobalization>false</InvariantGlobalization>
+		<UserSecretsId>d3f1a1a0-9c1e-4b0e-9f2a-nifty-ema-bot</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.13" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Graph" Version="6.7.0" />
+		<PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+		<!--
+      Telegram.Bot: pinned to 19.0.0 deliberately. Versions 21.x/22.x (which
+      renamed SendTextMessageAsync -> SendMessage) are NOT published on
+      nuget.org due to an ongoing false-positive malware-scan issue on the
+      maintainers' side; they're only available from a separate feed
+      (nuget.voids.site). Rather than make you add a non-standard package
+      source just to get a newer version, this uses the latest version that
+      restores cleanly from the default NuGet feed. If you'd rather use the
+      newer API, add the feed yourself and bump this version + rename
+      SendTextMessageAsync -> SendMessage in TelegramAlertService.cs.
+    -->
+		<PackageReference Include="Telegram.Bot" Version="19.0.0" />
+		<!--
+      Protobuf support for Upstox Market Data Feed V3.
+      Once you download the official .proto file from Upstox developer docs
+      (Market Data Feed V3 page -> "Download Proto File"), drop it into this
+      project as MarketDataFeedV3.proto and these packages will auto-generate
+      the C# message classes at build time. See Services/Decoding/README.md.
+    -->
+		<PackageReference Include="Google.Protobuf" Version="3.28.2" />
+		<PackageReference Include="Grpc.Tools" Version="2.66.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AlgoData\AlgoData.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Uncomment once MarketDataFeedV3.proto is placed in the project root -->
+		<Protobuf Include="MarketDataFeedV3.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="appsettings.Development.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

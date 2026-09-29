@@ -1,0 +1,173 @@
+@model HistoryViewModel
+@{
+    ViewData["Title"] = "History";
+}
+@functions {
+    // Builds a link that keeps the current filters and overrides only what's passed in.
+    string Link(string? strategy = null, string? period = null, string? sort = null, int page = 1) =>
+        Url.Action("Index", "History", new
+        {
+            strategy = strategy ?? Model.StrategyFilter,
+            period = period ?? Model.Period,
+            sort = sort ?? Model.Sort,
+            page
+        })!;
+
+    string Chip(bool active) => active ? "chip chip-active" : "chip";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Closed Positions</h4>
+</div>
+
+@if (Model.Error is not null)
+{
+    <div class="alert alert-warning py-2" role="alert">@Model.Error</div>
+}
+
+@* ---------- Summary cards (respect the active filters) ---------- *@
+<div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-3 mb-3">
+    <div class="col">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label">Total trades</div>
+                <div class="stat-value">@Model.Summary.TotalTrades</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label">Win rate</div>
+                <div class="stat-value">@Model.Summary.WinRatePercent.ToString("0.0")%</div>
+                <div class="stat-sub">@Model.Summary.Wins of @Model.Summary.TotalTrades trades</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label">Total P&amp;L</div>
+                <div class="stat-value @Display.PnlClass(Model.Summary.TotalPnl)">@Display.Money(Model.Summary.TotalPnl)</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label">Avg P&amp;L / trade</div>
+                <div class="stat-value @Display.PnlClass(Model.Summary.AvgPnl)">@Display.Money(Model.Summary.AvgPnl)</div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label">Best / Worst</div>
+                <div class="stat-value fs-6">
+                    <span class="@Display.PnlClass(Model.Summary.Best)">@Display.Money(Model.Summary.Best)</span>
+                    <span class="text-secondary mx-1">/</span>
+                    <span class="@Display.PnlClass(Model.Summary.Worst)">@Display.Money(Model.Summary.Worst)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ---------- Filter chips ---------- *@
+<div class="d-flex flex-wrap gap-4 mb-3">
+    <div class="chip-group">
+        <span class="chip-label">Strategy</span>
+        <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
+        <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
+        <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
+        <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
+    </div>
+    <div class="chip-group">
+        <span class="chip-label">Period</span>
+        <a class="@Chip(Model.Period == "today")" href="@Link(period: "today")">Today</a>
+        <a class="@Chip(Model.Period == "7d")" href="@Link(period: "7d")">7 days</a>
+        <a class="@Chip(Model.Period == "30d")" href="@Link(period: "30d")">30 days</a>
+        <a class="@Chip(Model.Period == "all")" href="@Link(period: "all")">All time</a>
+    </div>
+</div>
+
+@if (Model.Rows.Count == 0)
+{
+    <div class="card bg-body-tertiary">
+        <div class="card-body text-center text-secondary py-5">
+            @if (Model.Error is null)
+            {
+                @:No closed positions found for this filter.
+            }
+            else
+            {
+                @:Unable to load data.
+            }
+        </div>
+    </div>
+}
+else
+{
+    var pnlNextSort = Model.Sort == "pnl_desc" ? "pnl_asc" : "pnl_desc";
+
+    <div class="table-responsive">
+        <table class="table table-dark table-sm table-hover align-middle data-table">
+            <thead>
+                <tr>
+                    <th>
+                        <a class="sort-link" href="@Link(sort: "time")">Closed @(Model.Sort == "time" ? "\u25BC" : "")</a>
+                    </th>
+                    <th>Strategy</th>
+                    <th>Instrument</th>
+                    <th>Entry &rarr; Exit</th>
+                    <th>Held</th>
+                    <th class="text-end">
+                        <a class="sort-link" href="@Link(sort: pnlNextSort)">P&amp;L @(Model.Sort == "pnl_desc" ? "\u25BC" : Model.Sort == "pnl_asc" ? "\u25B2" : "")</a>
+                    </th>
+                    <th>Exit reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model.Rows)
+                {
+                    <tr>
+                        <td class="text-nowrap">
+                            @(r.ExitTime?.ToString("dd MMM, hh:mm tt") ?? "\u2014")
+                            <div class="small text-secondary">#@r.Id</div>
+                        </td>
+                        <td>
+                            <span class="badge text-bg-secondary">@Display.Strategy(r.Strategy)</span>
+                            @if (r.Leg is not null)
+                            {
+                                <div class="small text-secondary mt-1">@Display.Leg(r.Leg)</div>
+                            }
+                        </td>
+                        <td class="text-nowrap">
+                            <span class="fw-semibold">@r.TradingSymbol</span>
+                            <div class="small @(Display.IsBullish(r.Direction) ? "text-success" : "text-danger")">@Display.DirectionLabel(r.Direction)</div>
+                        </td>
+                        <td class="text-nowrap">
+                            &#8377;@Display.Number(r.EntryPremium) &rarr; @(r.ExitPremium is { } ex ? "\u20B9" + Display.Number(ex) : "\u2014")
+                        </td>
+                        <td class="text-nowrap text-secondary">@Display.Duration(r.Held)</td>
+                        <td class="text-end text-nowrap">
+                            <span class="@Display.PnlClass(r.FinalPnlRupees)">@Display.Money(r.FinalPnlRupees)</span>
+                            <div class="small @Display.PnlClass(r.FinalPnlRupees)">@Display.Pct(r.FinalPnlPercent)</div>
+                        </td>
+                        <td class="small text-secondary reason-cell" title="@r.ExitReason">@r.ExitReason</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    if (Model.TotalPages > 1)
+    {
+        <nav class="d-flex justify-content-between align-items-center mt-3">
+            <a class="btn btn-sm btn-outline-secondary @(Model.Page <= 1 ? "disabled" : "")" href="@Link(page: Model.Page - 1)">&larr; Newer</a>
+            <span class="small text-secondary">Page @Model.Page of @Model.TotalPages</span>
+            <a class="btn btn-sm btn-outline-secondary @(Model.Page >= Model.TotalPages ? "disabled" : "")" href="@Link(page: Model.Page + 1)">Older &rarr;</a>
+        </nav>
+    }
+}
