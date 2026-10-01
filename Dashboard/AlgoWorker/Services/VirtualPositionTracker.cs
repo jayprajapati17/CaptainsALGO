@@ -130,7 +130,7 @@ public sealed class VirtualPositionTracker
             AdxPeakSinceEntry = signal.AdxAtConfirmation,
             LastUpdateSentAt = DateTimeOffset.Now,
             PeakPremium = entryPremium,
-            CurrentStopLossPremium = entryPremium - (decimal)_options.EmaStopLossPoints
+            CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(entryPremium, entryPremium, _options)
         };
 
         _activePositions.Add(position);
@@ -157,13 +157,10 @@ public sealed class VirtualPositionTracker
     }
 
     /// <summary>
-    /// >>> CHANGED: now async and checks each open leg's stop-loss / trailing
-    /// stop-loss on EVERY tick (in addition to the existing per-candle exits:
-    /// opposite crossover, expiry day, hard EMA50 stop, ADX flat/decline):
-    ///   - Fixed stop-loss: EmaStopLossPoints below entry premium.
-    ///   - Once a leg's premium has moved EmaTrailingTriggerPoints+ above entry,
-    ///     its stop switches to trailing mode: EmaTrailingStepPoints behind the
-    ///     highest premium seen since entry. The stop only ever moves up.
+    /// Checks each open leg's stop-loss / trailing stop-loss on EVERY tick (in
+    /// addition to the existing per-candle exits: opposite crossover, expiry
+    /// day, hard EMA50 stop, ADX flat/decline) using the shared 3-phase
+    /// "Final Updated Trailing Rule" (see TrailingStopCalculator.cs).
     /// </summary>
     public async Task OnOptionTick(MarketTick tick, CancellationToken ct)
     {
@@ -177,19 +174,12 @@ public sealed class VirtualPositionTracker
             if (tick.LastTradedPrice > position.PeakPremium)
                 position.PeakPremium = tick.LastTradedPrice;
 
-            var profitFromEntry = position.PeakPremium - position.EntryPremium;
-            if (profitFromEntry >= (decimal)_options.EmaTrailingTriggerPoints)
-            {
-                position.TrailingActive = true;
-                position.CurrentStopLossPremium = position.PeakPremium - (decimal)_options.EmaTrailingStepPoints;
-            }
+            position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+            position.TrailingActive = position.PeakPremium - position.EntryPremium >= (decimal)_options.TrailingPhase2TriggerPoints;
 
             if (tick.LastTradedPrice <= position.CurrentStopLossPremium)
             {
-                var reason = position.TrailingActive
-                    ? $"Trailing stop-loss hit -- {_options.EmaTrailingStepPoints:N0} pts behind peak ₹{position.PeakPremium:N2}"
-                    : $"Stop-loss hit -- {_options.EmaStopLossPoints:N0} pts below entry ₹{position.EntryPremium:N2}";
-
+                var reason = $"Stop-loss hit at ₹{position.CurrentStopLossPremium:N2} (peak ₹{position.PeakPremium:N2})";
                 await ClosePositionAsync(position, reason, ct);
                 continue;
             }

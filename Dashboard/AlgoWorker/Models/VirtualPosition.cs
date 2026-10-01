@@ -35,11 +35,11 @@ public sealed class VirtualPosition
     /// <summary>Highest premium observed since this leg's entry -- the anchor the trailing stop is measured back from.</summary>
     public decimal PeakPremium { get; set; }
 
-    /// <summary>Currently active stop-loss premium for this leg. Fixed (Entry - EmaStopLossPoints) until trailing
-    /// activates, then ratchets up to (PeakPremium - EmaTrailingStepPoints) -- never moves down.</summary>
+    /// <summary>Currently active stop-loss premium for this leg, per the shared 3-phase
+    /// trailing rule (see TrailingStopCalculator.cs) -- never moves down.</summary>
     public decimal CurrentStopLossPremium { get; set; }
 
-    /// <summary>True once this leg's profit has crossed EmaTrailingTriggerPoints and its stop is trailing the peak.</summary>
+    /// <summary>True once this leg's profit has reached Phase 2 (or beyond) of the shared trailing rule.</summary>
     public bool TrailingActive { get; set; }
 
     public decimal PnlRupees => (LastKnownPremium - EntryPremium) * LotSize;

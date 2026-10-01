@@ -58,11 +58,11 @@
         <div class="card-body text-center text-secondary py-5">
             @if (Model.Error is null)
             {
-                @:No signals found for this filter.
+                @:Is filter mein koi signal nahi mila.
             }
             else
             {
-                @:Unable to load data.
+                @:Data load nahi ho paya.
             }
         </div>
     </div>
@@ -70,7 +70,7 @@
 else
 {
     <div class="table-responsive">
-        <table class="table table-dark table-sm table-hover align-middle data-table">
+        <table class="table table-sm table-hover align-middle data-table">
             <thead>
                 <tr>
                     <th>Signal time</th>
@@ -94,7 +94,7 @@ else
                             </span>
                             @if (r.IsCatchUp)
                             {
-                                <span class="badge text-bg-info ms-1" title="An old but still active crossover was detected when the bot started — not a fresh live signal.">catch-up</span>
+                                <span class="badge text-bg-info ms-1" title="Bot start hone par purana, abhi bhi active crossover pakda gaya -- fresh live signal nahi.">catch-up</span>
                             }
                         </td>
                         <td>

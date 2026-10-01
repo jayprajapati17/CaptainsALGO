@@ -1,6 +1,8 @@
+/* NiftyBot Dashboard -- light theme throughout (no dark mode). */
+
 body {
-    background-color: #0f1115;
-    color: #e6e6e6;
+    background-color: #f5f6f8;
+    color: #212529;
 }
 
 .navbar-brand {
@@ -8,22 +10,26 @@ body {
 }
 
 .card {
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 /* Used from Task 8 onward for live P&L coloring. */
 .pnl-positive {
-    color: #2ecc71;
+    color: #1e8e3e;
     font-weight: 600;
 }
 
 .pnl-negative {
-    color: #e74c3c;
+    color: #d33;
     font-weight: 600;
 }
 
 code {
-    color: #9cdcfe;
+    color: #a6006b;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.05rem 0.3rem;
+    border-radius: 4px;
 }
 
 /* ---------- Live page (Task 8) ---------- */
@@ -31,7 +37,7 @@ code {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #8b93a1;
+    color: #6c757d;
 }
 
 .market-strip .strip-value {
@@ -45,33 +51,33 @@ code {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #6c757d;
+    background: #adb5bd;
 }
 
 .status-live {
-    background: #2ecc71;
-    box-shadow: 0 0 6px rgba(46, 204, 113, 0.7);
+    background: #1e8e3e;
+    box-shadow: 0 0 6px rgba(30, 142, 62, 0.5);
 }
 
 .status-connecting {
-    background: #f1c40f;
+    background: #e6a700;
 }
 
 .status-offline {
-    background: #e74c3c;
+    background: #d33;
 }
 
 .pos-card {
-    background: #171a21;
+    background: #fff;
     transition: opacity 0.4s ease, border-color 0.2s ease;
 }
 
     .pos-card:hover {
-        border-color: rgba(255, 255, 255, 0.2);
+        border-color: rgba(0, 0, 0, 0.18);
     }
 
 .pos-card-closed {
-    opacity: 0.55;
+    opacity: 0.6;
     border-style: dashed;
 }
 
@@ -86,13 +92,13 @@ code {
 }
 
 .pos-icon-ce {
-    background: rgba(52, 152, 219, 0.18);
-    color: #5dade2;
+    background: rgba(13, 110, 253, 0.12);
+    color: #0d6efd;
 }
 
 .pos-icon-pe {
-    background: rgba(155, 89, 182, 0.2);
-    color: #bb8fce;
+    background: rgba(111, 66, 193, 0.12);
+    color: #6f42c1;
 }
 
 .pnl-chip {
@@ -101,23 +107,23 @@ code {
     border-radius: 999px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    background: rgba(255, 255, 255, 0.08);
-    color: #cfd4dc;
+    background: rgba(0, 0, 0, 0.06);
+    color: #495057;
 }
 
 .pnl-chip-pos {
-    background: rgba(46, 204, 113, 0.16);
-    color: #2ecc71;
+    background: rgba(30, 142, 62, 0.12);
+    color: #1e8e3e;
 }
 
 .pnl-chip-neg {
-    background: rgba(231, 76, 60, 0.16);
-    color: #e74c3c;
+    background: rgba(221, 51, 51, 0.12);
+    color: #d33;
 }
 
 .pnl-chip-flat {
-    background: rgba(255, 255, 255, 0.08);
-    color: #cfd4dc;
+    background: rgba(0, 0, 0, 0.06);
+    color: #495057;
 }
 
 .pos-exit {
@@ -127,14 +133,14 @@ code {
 
 /* ---------- History + Signals Log (Tasks 10/11) ---------- */
 .stat-card {
-    background: #171a21;
+    background: #fff;
 }
 
     .stat-card .stat-label {
         font-size: 0.7rem;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        color: #8b93a1;
+        color: #6c757d;
     }
 
     .stat-card .stat-value {
@@ -145,7 +151,7 @@ code {
 
     .stat-card .stat-sub {
         font-size: 0.75rem;
-        color: #8b93a1;
+        color: #6c757d;
     }
 
 .chip-group {
@@ -159,44 +165,45 @@ code {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #8b93a1;
+    color: #6c757d;
     margin-right: 0.15rem;
 }
 
 .chip {
     padding: 0.2rem 0.75rem;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #cfd4dc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #495057;
     font-size: 0.82rem;
     text-decoration: none;
+    background: #fff;
     transition: background 0.15s ease, border-color 0.15s ease;
 }
 
     .chip:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: #fff;
+        background: rgba(0, 0, 0, 0.05);
+        color: #212529;
     }
 
 .chip-active {
-    background: rgba(93, 173, 226, 0.2);
-    border-color: #5dade2;
-    color: #fff;
+    background: rgba(13, 110, 253, 0.12);
+    border-color: #0d6efd;
+    color: #0d6efd;
     font-weight: 600;
 }
 
 .data-table {
     font-size: 0.88rem;
-    --bs-table-bg: #171a21;
+    background: #fff;
 }
 
     .data-table thead th {
         font-size: 0.7rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: #8b93a1;
+        color: #6c757d;
         font-weight: 600;
-        border-bottom-color: rgba(255, 255, 255, 0.15);
+        border-bottom-color: rgba(0, 0, 0, 0.12);
     }
 
 .sort-link {
@@ -205,7 +212,7 @@ code {
 }
 
     .sort-link:hover {
-        color: #fff;
+        color: #0d6efd;
         text-decoration: underline;
     }
 
@@ -226,6 +233,6 @@ code {
 }
 
 .token-pill-ok {
-    background: rgba(46, 204, 113, 0.16);
-    color: #2ecc71;
+    background: rgba(30, 142, 62, 0.12);
+    color: #1e8e3e;
 }

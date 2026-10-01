@@ -87,9 +87,8 @@ public sealed class BreakoutPositionTracker
             return;
         }
 
-        // >>> NEW: fixed stop-loss starts BreakoutStopLossPoints below entry;
-        // trailing takes over once profit crosses BreakoutTrailingTriggerPoints (see OnOptionTick).
-        var initialStopLoss = entryPremium - (decimal)_options.BreakoutStopLossPoints;
+        // Initial SL from the shared 3-phase "Final Updated Trailing Rule" (see TrailingStopCalculator.cs).
+        var initialStopLoss = TrailingStopCalculator.ComputeStopLoss(entryPremium, entryPremium, _options);
 
         _active = new BreakoutPosition
         {
@@ -122,13 +121,10 @@ public sealed class BreakoutPositionTracker
     }
 
     /// <summary>
-    /// >>> CHANGED: now async and checks the stop-loss / trailing stop-loss rule on
-    /// EVERY tick (not just candle close), so a fast intraday move against the
-    /// position exits immediately rather than waiting up to 5 minutes:
-    ///   - Fixed stop-loss: BreakoutStopLossPoints below entry premium.
-    ///   - Once the premium has moved BreakoutTrailingTriggerPoints+ above entry,
-    ///     the stop switches to trailing mode: BreakoutTrailingStepPoints behind
-    ///     the highest premium seen since entry. The stop only ever moves up.
+    /// Checks the stop-loss / trailing stop-loss rule on EVERY tick (not just
+    /// candle close), so a fast intraday move against the position exits
+    /// immediately rather than waiting up to 5 minutes. Uses the shared
+    /// 3-phase "Final Updated Trailing Rule" (see TrailingStopCalculator.cs).
     /// </summary>
     public async Task OnOptionTick(MarketTick tick, CancellationToken ct)
     {
@@ -140,19 +136,12 @@ public sealed class BreakoutPositionTracker
         if (tick.LastTradedPrice > position.PeakPremium)
             position.PeakPremium = tick.LastTradedPrice;
 
-        var profitFromEntry = position.PeakPremium - position.EntryPremium;
-        if (profitFromEntry >= (decimal)_options.BreakoutTrailingTriggerPoints)
-        {
-            position.TrailingActive = true;
-            position.CurrentStopLossPremium = position.PeakPremium - (decimal)_options.BreakoutTrailingStepPoints;
-        }
+        position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+        position.TrailingActive = position.PeakPremium - position.EntryPremium >= (decimal)_options.TrailingPhase2TriggerPoints;
 
         if (tick.LastTradedPrice <= position.CurrentStopLossPremium)
         {
-            var reason = position.TrailingActive
-                ? $"Trailing stop-loss hit -- {_options.BreakoutTrailingStepPoints:N0} pts behind peak ₹{position.PeakPremium:N2}"
-                : $"Stop-loss hit -- {_options.BreakoutStopLossPoints:N0} pts below entry ₹{position.EntryPremium:N2}";
-
+            var reason = $"Stop-loss hit at ₹{position.CurrentStopLossPremium:N2} (peak ₹{position.PeakPremium:N2})";
             await CloseAsync(position, reason, ct);
             return;
         }

@@ -56,33 +56,31 @@ public sealed class StrategyOptions
     /// <summary>IST time-of-day at which any open breakout position is force-closed (no overnight carry).</summary>
     public string BreakoutForceExitTime { get; set; } = "15:20";
 
-    // >>> NEW: Breakout strategy stop-loss / trailing stop-loss (points = option premium rupees).
+    // >>> CHANGED ("Final Updated Trailing Rule"): all three strategies (EMA,
+    // Breakout, MACD) now share ONE common 3-phase stop-loss rule -- see
+    // TrailingStopCalculator.cs for the exact formula and a worked example.
+    // This replaces each strategy's previous separate SL/trailing config
+    // (Breakout's 10/10/3, EMA's 10/10/3, MACD's 10/10/5-step). This is IN
+    // ADDITION TO each strategy's own other exit rules (EMA's ADX-flat/decline
+    // and opposite-crossover, Breakout's/MACD's intraday cutoff, MACD's
+    // opposite-crossover) -- whichever exit condition triggers first wins.
 
-    /// <summary>Fixed stop-loss, in premium points, below entry -- active from the moment the position opens.</summary>
-    public double BreakoutStopLossPoints { get; set; } = 10.0;
+    /// <summary>Phase 1 (initial) stop-loss, in premium points, below entry.</summary>
+    public double TrailingInitialRiskPoints { get; set; } = 15.0;
 
-    /// <summary>Once the premium has moved this many points above entry (favorably), the stop switches to trailing mode.</summary>
-    public double BreakoutTrailingTriggerPoints { get; set; } = 10.0;
+    /// <summary>Once profit reaches this many points, the stop jumps to TrailingPhase2RiskPoints below entry (Phase 2).</summary>
+    public double TrailingPhase2TriggerPoints { get; set; } = 15.0;
 
-    /// <summary>Once trailing, the stop is held this many points behind the highest premium seen since entry (ratchets up only).</summary>
-    public double BreakoutTrailingStepPoints { get; set; } = 3.0;
+    /// <summary>Phase 2's flat stop-loss, in premium points, below entry.</summary>
+    public double TrailingPhase2RiskPoints { get; set; } = 5.0;
 
-    // >>> NEW: same fixed-SL + trailing-SL mechanism as the breakout strategy,
-    // applied per-leg to the EMA crossover strategy's virtual positions
-    // (current-week ITM leg and next-week ATM leg each get their own SL).
-    // This is IN ADDITION TO the existing ADX-flat/decline and opposite-crossover
-    // exits -- whichever exit condition triggers first wins.
+    /// <summary>Once profit reaches this many points, the stop switches to continuous trailing (Phase 3): Peak - TrailingContinuousGapPoints.</summary>
+    public double TrailingPhase3TriggerPoints { get; set; } = 25.0;
 
-    /// <summary>Fixed stop-loss, in premium points, below entry -- active from the moment each leg opens.</summary>
-    public double EmaStopLossPoints { get; set; } = 10.0;
+    /// <summary>Phase 3's trailing gap, in premium points, behind the highest premium seen since entry (ratchets up only).</summary>
+    public double TrailingContinuousGapPoints { get; set; } = 25.0;
 
-    /// <summary>Once a leg's premium has moved this many points above its entry, its stop switches to trailing mode.</summary>
-    public double EmaTrailingTriggerPoints { get; set; } = 10.0;
-
-    /// <summary>Once trailing, a leg's stop is held this many points behind its highest premium since entry.</summary>
-    public double EmaTrailingStepPoints { get; set; } = 3.0;
-
-    // >>> NEW: 3-Minute MACD (12/26/9) Intraday Strategy with Dynamic Step-Trailing SL
+    // >>> NEW: 3-Minute MACD (12/26/9) Intraday Strategy
     // (per "3-Minute MACD & Dynamic Trailing SL Strategy" doc). Scoped to Nifty only for
     // now, same as the rest of this bot -- Bank Nifty/Sensex values are listed in the doc
     // but wiring a second/third index (own instrument key, own option chain, own
@@ -92,17 +90,8 @@ public sealed class StrategyOptions
     /// <summary>Nifty 50 lot size for this strategy (same as the other two strategies).</summary>
     public int MacdLotSize { get; set; } = 65;
 
-    /// <summary>Hard initial stop-loss, in premium points, below entry (Nifty row of the doc's table).</summary>
-    public double MacdInitialStopLossPoints { get; set; } = 10.0;
-
-    /// <summary>First target, in premium points, above entry (1:3 risk-reward per the doc; informational milestone only, does not auto-exit).</summary>
+    /// <summary>First target, in premium points, above entry (informational milestone only -- sends one "Target Hit" alert, does not auto-exit; the shared trailing rule above governs the actual stop-loss).</summary>
     public double MacdFirstTargetPoints { get; set; } = 30.0;
-
-    /// <summary>Premium move (points) that counts as one trailing "step" (doc: every +10 points).</summary>
-    public double MacdTrailStepTriggerPoints { get; set; } = 10.0;
-
-    /// <summary>How much the stop-loss ratchets up per step (doc: 5-point blocks), applied for every MacdTrailStepTriggerPoints of favorable move -- continues indefinitely past the first target.</summary>
-    public double MacdTrailStepSizePoints { get; set; } = 5.0;
 
     /// <summary>IST time-of-day at which any open MACD position is force-closed (no overnight carry, same intraday-only philosophy as the breakout strategy).</summary>
     public string MacdForceExitTime { get; set; } = "15:20";

@@ -30,11 +30,11 @@ public sealed class BreakoutPosition
     /// <summary>Highest premium observed since entry -- the anchor the trailing stop is measured back from.</summary>
     public decimal PeakPremium { get; set; }
 
-    /// <summary>The currently active stop-loss premium. Fixed (Entry - BreakoutStopLossPoints) until trailing
-    /// activates, then ratchets up to (PeakPremium - BreakoutTrailingStepPoints) -- never moves down.</summary>
+    /// <summary>The currently active stop-loss premium, per the shared 3-phase trailing
+    /// rule (see TrailingStopCalculator.cs) -- never moves down.</summary>
     public decimal CurrentStopLossPremium { get; set; }
 
-    /// <summary>True once profit has crossed BreakoutTrailingTriggerPoints and the stop is trailing the peak.</summary>
+    /// <summary>True once profit has reached Phase 2 (or beyond) of the shared trailing rule.</summary>
     public bool TrailingActive { get; set; }
 
     public decimal PnlRupees => (LastKnownPremium - EntryPremium) * LotSize;

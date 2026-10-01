@@ -98,11 +98,11 @@
         <div class="card-body text-center text-secondary py-5">
             @if (Model.Error is null)
             {
-                @:No closed positions found for this filter.
+                @:Is filter mein koi closed position nahi mili.
             }
             else
             {
-                @:Unable to load data.
+                @:Data load nahi ho paya.
             }
         </div>
     </div>
@@ -112,7 +112,7 @@ else
     var pnlNextSort = Model.Sort == "pnl_desc" ? "pnl_asc" : "pnl_desc";
 
     <div class="table-responsive">
-        <table class="table table-dark table-sm table-hover align-middle data-table">
+        <table class="table table-sm table-hover align-middle data-table">
             <thead>
                 <tr>
                     <th>

@@ -93,7 +93,8 @@ public sealed class MacdPositionTracker
             return;
         }
 
-        var initialStopLoss = entryPremium - (decimal)_options.MacdInitialStopLossPoints;
+        // Initial SL from the shared 3-phase "Final Updated Trailing Rule" (see TrailingStopCalculator.cs).
+        var initialStopLoss = TrailingStopCalculator.ComputeStopLoss(entryPremium, entryPremium, _options);
 
         _active = new MacdPosition
         {
@@ -122,12 +123,10 @@ public sealed class MacdPositionTracker
     }
 
     /// <summary>
-    /// Checked on every tick: updates PeakPremium, recomputes the step-trailing
-    /// stop-loss, sends a one-time "target hit" alert, and exits if the current
-    /// stop is breached.
-    ///   SL = Entry - InitialStopLossPoints + StepSize * floor((Peak - Entry) / StepTrigger)
-    /// e.g. Entry 100, SL 90: Peak 110 -> SL 95; Peak 120 -> SL 100 (cost-to-cost);
-    /// Peak 130 (target) -> SL 105; Peak 140 -> SL 110; and so on, matching the doc exactly.
+    /// Checked on every tick: updates PeakPremium, recomputes the stop-loss via
+    /// the shared 3-phase "Final Updated Trailing Rule" (see
+    /// TrailingStopCalculator.cs), sends a one-time "target hit" informational
+    /// alert (does not exit), and exits if the current stop is breached.
     /// </summary>
     public async Task OnOptionTick(MarketTick tick, CancellationToken ct)
     {
@@ -139,15 +138,9 @@ public sealed class MacdPositionTracker
         if (tick.LastTradedPrice > position.PeakPremium)
             position.PeakPremium = tick.LastTradedPrice;
 
-        var pointsGained = position.PeakPremium - position.EntryPremium;
-        if (pointsGained > 0)
-        {
-            var steps = Math.Floor(pointsGained / (decimal)_options.MacdTrailStepTriggerPoints);
-            var steppedStop = position.EntryPremium - (decimal)_options.MacdInitialStopLossPoints + steps * (decimal)_options.MacdTrailStepSizePoints;
-            if (steppedStop > position.CurrentStopLossPremium)
-                position.CurrentStopLossPremium = steppedStop;
-        }
+        position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
 
+        var pointsGained = position.PeakPremium - position.EntryPremium;
         if (!position.TargetAlertSent && pointsGained >= (decimal)_options.MacdFirstTargetPoints)
         {
             position.TargetAlertSent = true;
@@ -156,10 +149,7 @@ public sealed class MacdPositionTracker
 
         if (tick.LastTradedPrice <= position.CurrentStopLossPremium)
         {
-            var reason = position.CurrentStopLossPremium > position.EntryPremium - (decimal)_options.MacdInitialStopLossPoints
-                ? $"Step-trailing stop-loss hit at ₹{position.CurrentStopLossPremium:N2} ({_options.MacdTrailStepSizePoints:N0}-pt steps behind peak ₹{position.PeakPremium:N2})"
-                : $"Initial stop-loss hit -- {_options.MacdInitialStopLossPoints:N0} pts below entry ₹{position.EntryPremium:N2}";
-
+            var reason = $"Stop-loss hit at ₹{position.CurrentStopLossPremium:N2} (peak ₹{position.PeakPremium:N2})";
             await CloseAsync(position, reason, ct);
             return;
         }
