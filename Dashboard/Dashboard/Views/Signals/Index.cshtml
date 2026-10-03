@@ -54,7 +54,7 @@
 
 @if (Model.Rows.Count == 0)
 {
-    <div class="card bg-body-tertiary">
+    <div class="card empty-state">
         <div class="card-body text-center text-secondary py-5">
             @if (Model.Error is null)
             {
@@ -107,7 +107,7 @@ else
                                 <span class="text-secondary">&mdash;</span>
                             }
                         </td>
-                        <td class="text-end text-nowrap">@Display.Number(r.SpotPrice)</td>
+                        <td class="text-end text-nowrap num">@Display.Number(r.SpotPrice)</td>
                         <td class="small text-secondary text-nowrap">
                             @if (r.AdxAtSignal is not null)
                             {

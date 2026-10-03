@@ -7,9 +7,16 @@ namespace AlgoWorker.Services.Indicators;
 /// </summary>
 public sealed class MacdCalculator
 {
-    private readonly EmaCalculator _fast = new(12);
-    private readonly EmaCalculator _slow = new(26);
-    private readonly EmaCalculator _signal = new(9);
+    rivate readonly EmaCalculator _fast;
+    private readonly EmaCalculator _slow;
+    private readonly EmaCalculator _signal;
+
+    public MacdCalculator(int fastPeriod, int slowPeriod, int signalPeriod)
+    {
+        _fast = new EmaCalculator(fastPeriod);
+        _slow = new EmaCalculator(slowPeriod);
+        _signal = new EmaCalculator(signalPeriod);
+    }
 
     public double MacdLine { get; private set; }
     public double SignalLine { get; private set; }

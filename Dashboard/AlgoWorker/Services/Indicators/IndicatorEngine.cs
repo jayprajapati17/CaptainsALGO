@@ -1,4 +1,6 @@
+using AlgoWorker.Configuration;
 using AlgoWorker.Models;
+using Microsoft.Extensions.Options;
 
 namespace AlgoWorker.Services.Indicators;
 
@@ -10,13 +12,22 @@ namespace AlgoWorker.Services.Indicators;
 /// </summary>
 public sealed class IndicatorEngine
 {
-    private readonly EmaCalculator _ema10 = new(10);
-    private readonly EmaCalculator _ema21 = new(21);
-    private readonly EmaCalculator _ema50 = new(50);
-    private readonly AdxCalculator _adx = new(14);
+    private readonly EmaCalculator _ema10;
+    private readonly EmaCalculator _ema21;
+    private readonly EmaCalculator _ema50;
+    private readonly AdxCalculator _adx;
 
     private readonly LinkedList<IndicatorSnapshot> _history = new();
-    private const int MaxHistoryKept = 200; // ~8 trading days of 15-min candles, plenty for all lookbacks
+    private const int MaxHistoryKept = 200; // plenty of candles for all lookbacks, whatever the configured timeframe
+
+    public IndicatorEngine(IOptions<StrategyOptions> options)
+    {
+        var o = options.Value;
+        _ema10 = new EmaCalculator(o.EmaFastPeriod);
+        _ema21 = new EmaCalculator(o.EmaMidPeriod);
+        _ema50 = new EmaCalculator(o.EmaSlowPeriod);
+        _adx = new AdxCalculator(o.AdxPeriod);
+    }
 
     public IReadOnlyCollection<IndicatorSnapshot> History => _history;
 

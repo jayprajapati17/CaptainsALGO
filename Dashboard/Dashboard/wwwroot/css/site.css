@@ -1,157 +1,297 @@
-/* NiftyBot Dashboard -- light theme throughout (no dark mode). */
+/* ====================================================================
+   NiftyBot Dashboard -- design tokens
+   A trading-terminal feel built for one person scanning numbers fast
+   during market hours: calm paper background, a single confident navy
+   accent, gold used sparingly for milestones, and monospace figures
+   wherever a price/P&L actually needs to line up in a column.
+   ==================================================================== */
+:root {
+    --bg: #F6F6F3;
+    --surface: #FFFFFF;
+    --surface-sunken: #F0F1ED;
+    --border: #E2E1DB;
+    --border-strong: #C9C8C0;
+    --ink: #1C1F26;
+    --ink-muted: #6B7280;
+    --ink-faint: #9A9C95;
+    --brand: #1D3461;
+    --brand-ink: #14233F;
+    --brand-tint: #E8ECF3;
+    --gold: #B8860B;
+    --gold-tint: #FBF3DF;
+    --gain: #15803D;
+    --gain-tint: #E6F4EA;
+    --loss: #B91C1C;
+    --loss-tint: #FBEAEA;
+    --font-ui: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+    --font-num: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 body {
-    background-color: #f5f6f8;
-    color: #212529;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.num, code {
+    font-family: var(--font-num);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+}
+
+code {
+    color: var(--brand-ink);
+    background: var(--brand-tint);
+    padding: 0.05rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.92em;
+}
+
+a {
+    color: var(--brand);
+}
+
+    a:hover {
+        color: var(--brand-ink);
+    }
+
+/* ---------- Navbar ---------- */
+.navbar {
+    border-bottom: 1px solid var(--border) !important;
 }
 
 .navbar-brand {
-    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
 }
 
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    font-family: var(--font-num);
+}
+
+.brand-word {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.nb-tabs .nav-link {
+    position: relative;
+    color: var(--ink-muted);
+    font-weight: 500;
+    padding: 0.9rem 0.9rem 0.75rem;
+}
+
+    .nb-tabs .nav-link:hover {
+        color: var(--ink);
+    }
+
+    .nb-tabs .nav-link.active {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+        .nb-tabs .nav-link.active::after {
+            content: "";
+            position: absolute;
+            left: 0.9rem;
+            right: 0.9rem;
+            bottom: -1px;
+            height: 2px;
+            background: var(--brand);
+            border-radius: 2px 2px 0 0;
+        }
+
+/* ---------- Cards, generically ---------- */
 .card {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: none;
 }
 
-/* Used from Task 8 onward for live P&L coloring. */
 .pnl-positive {
-    color: #1e8e3e;
+    color: var(--gain);
     font-weight: 600;
 }
 
 .pnl-negative {
-    color: #d33;
+    color: var(--loss);
     font-weight: 600;
 }
 
-code {
-    color: #a6006b;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 0.05rem 0.3rem;
-    border-radius: 4px;
+/* ---------- Live page: market strip ---------- */
+.market-strip {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-md);
 }
 
-/* ---------- Live page (Task 8) ---------- */
-.market-strip .strip-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #6c757d;
-}
+    .market-strip .strip-label {
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink-faint);
+    }
 
-.market-strip .strip-value {
-    font-size: 1.05rem;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-}
+    .market-strip .strip-value {
+        font-family: var(--font-num);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--ink);
+    }
 
 .status-dot {
     display: inline-block;
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: #adb5bd;
+    background: var(--ink-faint);
 }
 
 .status-live {
-    background: #1e8e3e;
-    box-shadow: 0 0 6px rgba(30, 142, 62, 0.5);
+    background: var(--gain);
+    box-shadow: 0 0 0 3px var(--gain-tint);
 }
 
 .status-connecting {
-    background: #e6a700;
+    background: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-tint);
 }
 
 .status-offline {
-    background: #d33;
+    background: var(--loss);
+    box-shadow: 0 0 0 3px var(--loss-tint);
 }
 
+/* ---------- Live page: position cards ---------- */
 .pos-card {
-    background: #fff;
-    transition: opacity 0.4s ease, border-color 0.2s ease;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s ease, opacity 0.4s ease;
 }
 
-    .pos-card:hover {
-        border-color: rgba(0, 0, 0, 0.18);
+    .pos-card.pos-card-gain {
+        border-left-color: var(--gain);
+    }
+
+    .pos-card.pos-card-loss {
+        border-left-color: var(--loss);
     }
 
 .pos-card-closed {
-    opacity: 0.6;
-    border-style: dashed;
+    opacity: 0.55;
+    border-left-style: dashed;
 }
 
 .pos-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    font-family: var(--font-num);
 }
 
 .pos-icon-ce {
-    background: rgba(13, 110, 253, 0.12);
-    color: #0d6efd;
+    background: var(--brand-tint);
+    color: var(--brand);
 }
 
 .pos-icon-pe {
-    background: rgba(111, 66, 193, 0.12);
-    color: #6f42c1;
+    background: var(--gold-tint);
+    color: var(--gold);
+}
+
+.pos-symbol {
+    font-family: var(--font-num);
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .pnl-chip {
     display: inline-block;
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
+    font-family: var(--font-num);
+    font-size: 1.15rem;
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    background: rgba(0, 0, 0, 0.06);
-    color: #495057;
+    letter-spacing: -0.01em;
 }
 
 .pnl-chip-pos {
-    background: rgba(30, 142, 62, 0.12);
-    color: #1e8e3e;
+    color: var(--gain);
 }
 
 .pnl-chip-neg {
-    background: rgba(221, 51, 51, 0.12);
-    color: #d33;
+    color: var(--loss);
 }
 
 .pnl-chip-flat {
-    background: rgba(0, 0, 0, 0.06);
-    color: #495057;
+    color: var(--ink-muted);
 }
 
 .pos-exit {
     line-height: 1;
-    padding: 0.3rem 0.5rem;
+    padding: 0.35rem 0.55rem;
+    border-color: var(--border-strong);
+    color: var(--ink-muted);
 }
 
-/* ---------- History + Signals Log (Tasks 10/11) ---------- */
+    .pos-exit:hover {
+        border-color: var(--loss);
+        color: var(--loss);
+    }
+
+/* ---------- History + Signals Log: stat cards, chips, tables ---------- */
 .stat-card {
-    background: #fff;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
 }
 
     .stat-card .stat-label {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: #6c757d;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink-faint);
     }
 
     .stat-card .stat-value {
-        font-size: 1.4rem;
-        font-weight: 700;
-        font-variant-numeric: tabular-nums;
+        font-family: var(--font-num);
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
     }
 
     .stat-card .stat-sub {
         font-size: 0.75rem;
-        color: #6c757d;
+        color: var(--ink-faint);
     }
 
 .chip-group {
@@ -162,48 +302,55 @@ code {
 }
 
 .chip-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #6c757d;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
     margin-right: 0.15rem;
 }
 
 .chip {
-    padding: 0.2rem 0.75rem;
+    padding: 0.25rem 0.8rem;
     border-radius: 999px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    color: #495057;
+    border: 1px solid var(--border-strong);
+    color: var(--ink-muted);
     font-size: 0.82rem;
+    font-weight: 500;
     text-decoration: none;
-    background: #fff;
-    transition: background 0.15s ease, border-color 0.15s ease;
+    background: var(--surface);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
     .chip:hover {
-        background: rgba(0, 0, 0, 0.05);
-        color: #212529;
+        border-color: var(--brand);
+        color: var(--brand);
     }
 
 .chip-active {
-    background: rgba(13, 110, 253, 0.12);
-    border-color: #0d6efd;
-    color: #0d6efd;
-    font-weight: 600;
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
 }
 
 .data-table {
     font-size: 0.88rem;
-    background: #fff;
+    background: var(--surface);
 }
 
     .data-table thead th {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #6c757d;
+        font-size: 0.68rem;
         font-weight: 600;
-        border-bottom-color: rgba(0, 0, 0, 0.12);
+        letter-spacing: 0.05em;
+        color: var(--ink-faint);
+        border-bottom-color: var(--border);
+    }
+
+    .data-table td {
+        border-color: var(--border);
+    }
+
+    .data-table tbody tr:hover {
+        background: var(--surface-sunken);
     }
 
 .sort-link {
@@ -212,7 +359,7 @@ code {
 }
 
     .sort-link:hover {
-        color: #0d6efd;
+        color: var(--brand);
         text-decoration: underline;
     }
 
@@ -223,16 +370,37 @@ code {
     white-space: nowrap;
 }
 
-/* ---------- Token widget (Task 9, in the navbar -- every page) ---------- */
+/* ---------- Token widget (navbar, every page) ---------- */
 .token-pill {
-    display: inline-block;
-    padding: 0.25rem 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.8rem;
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: 600;
 }
 
 .token-pill-ok {
-    background: rgba(30, 142, 62, 0.12);
-    color: #1e8e3e;
+    background: var(--gain-tint);
+    color: var(--gain);
+}
+
+#generateTokenBtn {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+    font-weight: 600;
+}
+
+    #generateTokenBtn:hover {
+        background: #9c7209;
+        border-color: #9c7209;
+    }
+
+/* ---------- Empty / placeholder states ---------- */
+.empty-state {
+    background: var(--surface-sunken) !important;
+    border: 1px dashed var(--border-strong) !important;
+    border-radius: var(--radius-md);
 }

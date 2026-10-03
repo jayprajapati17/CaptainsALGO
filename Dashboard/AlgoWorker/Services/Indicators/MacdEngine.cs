@@ -1,4 +1,6 @@
+using AlgoWorker.Configuration;
 using AlgoWorker.Models;
+using Microsoft.Extensions.Options;
 
 namespace AlgoWorker.Services.Indicators;
 
@@ -9,15 +11,21 @@ namespace AlgoWorker.Services.Indicators;
 /// </summary>
 public sealed class MacdEngine
 {
-    private readonly MacdCalculator _macd = new();
+    private readonly MacdCalculator _macd;
     private readonly LinkedList<MacdSnapshot> _history = new();
-    private const int MaxHistoryKept = 200; // ~10 hours of 3-min candles
+    private const int MaxHistoryKept = 200; // plenty of candles for all lookbacks, whatever the configured timeframe
+
+    public MacdEngine(IOptions<StrategyOptions> options)
+    {
+        var o = options.Value;
+        _macd = new MacdCalculator(o.MacdFastPeriod, o.MacdSlowPeriod, o.MacdSignalPeriod);
+    }
 
     public IReadOnlyCollection<MacdSnapshot> History => _history;
 
     public MacdSnapshot? Latest => _history.Last?.Value;
 
-    /// <summary>Feed one CLOSED 3-min candle in chronological order. Returns null until the Signal line has warmed up.</summary>
+    /// <summary>Feed one CLOSED candle (at whatever timeframe MacdCandleMinutes is configured to) in chronological order. Returns null until the Signal line has warmed up.</summary>
     public MacdSnapshot? OnCandleClosed(Candle candle)
     {
         if (!candle.IsClosed)

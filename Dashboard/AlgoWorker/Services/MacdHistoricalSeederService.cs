@@ -47,7 +47,7 @@ public sealed class MacdHistoricalSeederService
         _logger.LogInformation("Seeding MACD 3-min candles: fetching {From} to {To}, keeping the last {Days} trading day(s)...",
             from, yesterday, tradingDaysToKeep);
 
-        var fetched = await _restClient.GetHistoricalCandles3MinAsync(_upstox.NiftyInstrumentKey, from, yesterday, ct);
+        var fetched = await _restClient.GetHistoricalCandles3MinAsync(_upstox.NiftyInstrumentKey, from, yesterday, _strategy.MacdCandleMinutes, ct);
 
         // Keep only the most recent `tradingDaysToKeep` DISTINCT trading dates
         // (the fetch window is deliberately wider than that to survive holidays).
@@ -66,7 +66,7 @@ public sealed class MacdHistoricalSeederService
         List<Candle> todaysCandles;
         try
         {
-            todaysCandles = await _restClient.GetIntraday3MinCandlesAsync(_upstox.NiftyInstrumentKey, ct);
+            todaysCandles = await _restClient.GetIntraday3MinCandlesAsync(_upstox.NiftyInstrumentKey, _strategy.MacdCandleMinutes, ct);
         }
         catch (Exception ex)
         {

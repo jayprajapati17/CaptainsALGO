@@ -1,4 +1,6 @@
+using AlgoWorker.Configuration;
 using AlgoWorker.Models;
+using Microsoft.Extensions.Options;
 
 namespace AlgoWorker.Services;
 
@@ -11,7 +13,12 @@ namespace AlgoWorker.Services;
 /// </summary>
 public sealed class ThreeMinCandleAggregatorService
 {
-    private readonly CandleAggregatorService _inner = new(TimeSpan.FromMinutes(3));
+    private readonly CandleAggregatorService _inner;
+
+    public ThreeMinCandleAggregatorService(IOptions<StrategyOptions> options)
+    {
+        _inner = new CandleAggregatorService(TimeSpan.FromMinutes(options.Value.MacdCandleMinutes));
+    }
 
     public event Action<Candle>? CandleClosed
     {

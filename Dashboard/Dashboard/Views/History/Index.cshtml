@@ -94,7 +94,7 @@
 
 @if (Model.Rows.Count == 0)
 {
-    <div class="card bg-body-tertiary">
+    <div class="card empty-state">
         <div class="card-body text-center text-secondary py-5">
             @if (Model.Error is null)
             {
@@ -147,12 +147,12 @@ else
                             <span class="fw-semibold">@r.TradingSymbol</span>
                             <div class="small @(Display.IsBullish(r.Direction) ? "text-success" : "text-danger")">@Display.DirectionLabel(r.Direction)</div>
                         </td>
-                        <td class="text-nowrap">
+                        <td class="text-nowrap num">
                             &#8377;@Display.Number(r.EntryPremium) &rarr; @(r.ExitPremium is { } ex ? "\u20B9" + Display.Number(ex) : "\u2014")
                         </td>
                         <td class="text-nowrap text-secondary">@Display.Duration(r.Held)</td>
-                        <td class="text-end text-nowrap">
-                            <span class="@Display.PnlClass(r.FinalPnlRupees)">@Display.Money(r.FinalPnlRupees)</span>
+                        <td class="text-end text-nowrap num">
+                            <span class="fw-semibold @Display.PnlClass(r.FinalPnlRupees)">@Display.Money(r.FinalPnlRupees)</span>
                             <div class="small @Display.PnlClass(r.FinalPnlRupees)">@Display.Pct(r.FinalPnlPercent)</div>
                         </td>
                         <td class="small text-secondary reason-cell" title="@r.ExitReason">@r.ExitReason</td>

@@ -102,13 +102,14 @@ public sealed class UpstoxRestClient
     }
 
     public async Task<List<Candle>> GetHistoricalCandlesAsync(
-        string instrumentKey, DateOnly from, DateOnly to, CancellationToken ct)
+        string instrumentKey, DateOnly from, DateOnly to, int intervalMinutes, CancellationToken ct)
     {
         var url = string.Format(
             _options.CurrentValue.HistoricalCandleUrlTemplate,
             Uri.EscapeDataString(instrumentKey),
             to.ToString("yyyy-MM-dd"),
-            from.ToString("yyyy-MM-dd"));
+            from.ToString("yyyy-MM-dd"),
+            intervalMinutes);
 
         using var request = new HttpRequestMessage(HttpMethod.Get, url);
         await ApplyAuthHeaderAsync(request, ct);
@@ -194,13 +195,14 @@ public sealed class UpstoxRestClient
     // their own template config keys with "3" baked in.
 
     public async Task<List<Candle>> GetHistoricalCandles3MinAsync(
-        string instrumentKey, DateOnly from, DateOnly to, CancellationToken ct)
+        string instrumentKey, DateOnly from, DateOnly to, int intervalMinutes, CancellationToken ct)
     {
         var url = string.Format(
             _options.CurrentValue.HistoricalCandleUrlTemplate3Min,
             Uri.EscapeDataString(instrumentKey),
             to.ToString("yyyy-MM-dd"),
-            from.ToString("yyyy-MM-dd"));
+            from.ToString("yyyy-MM-dd"),
+            intervalMinutes);
 
         using var request = new HttpRequestMessage(HttpMethod.Get, url);
         await ApplyAuthHeaderAsync(request, ct);
@@ -231,16 +233,17 @@ public sealed class UpstoxRestClient
         }
 
         candles.Reverse();
-        _logger.LogInformation("Fetched {Count} historical 3-min candles for {Instrument} ({From} to {To})",
-            candles.Count, instrumentKey, from, to);
+        _logger.LogInformation("Fetched {Count} historical {Interval}-min candles for {Instrument} ({From} to {To})",
+            candles.Count, intervalMinutes, instrumentKey, from, to);
         return candles;
     }
 
-    public async Task<List<Candle>> GetIntraday3MinCandlesAsync(string instrumentKey, CancellationToken ct)
+    public async Task<List<Candle>> GetIntraday3MinCandlesAsync(string instrumentKey, int intervalMinutes, CancellationToken ct)
     {
         var url = string.Format(
             _options.CurrentValue.IntradayCandleUrlTemplate3Min,
-            Uri.EscapeDataString(instrumentKey));
+            Uri.EscapeDataString(instrumentKey),
+            intervalMinutes);
 
         using var request = new HttpRequestMessage(HttpMethod.Get, url);
         await ApplyAuthHeaderAsync(request, ct);
@@ -271,7 +274,7 @@ public sealed class UpstoxRestClient
         }
 
         candles.Reverse();
-        _logger.LogInformation("Fetched {Count} intraday (today's) 3-min candles for {Instrument}", candles.Count, instrumentKey);
+        _logger.LogInformation("Fetched {Count} intraday (today's) {Interval}-min candles for {Instrument}", candles.Count, intervalMinutes, instrumentKey);
         return candles;
     }
 

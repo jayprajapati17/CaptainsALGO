@@ -13,6 +13,7 @@ using AlgoWorker.Services.Persistence;
 using Serilog;
 using Telegram.Bot;
 
+
 // >>> CHANGED (Task 2): was `Host.CreateApplicationBuilder(args)`. Now
 // `WebApplication.CreateBuilder(args)` so this process can ALSO host Kestrel
 // (SignalR hub in this task; Command API + OAuth callback come in Tasks 5/6).
@@ -90,7 +91,11 @@ builder.Services.AddNiftyBotDatabase(builder.Configuration["NiftyBot:ConnectionS
 builder.Services.AddSingleton<IClock, SystemClock>();
 builder.Services.AddSingleton<IMarketDataDecoder, ProtobufMarketDataDecoder>();
 builder.Services.AddSingleton<UpstoxWebSocketClient>();
-builder.Services.AddSingleton<CandleAggregatorService>();
+// >>> CHANGED: was AddSingleton<CandleAggregatorService>() with no factory, which
+// resolves via the class's own default (15 minutes), ignoring config. Now explicitly
+// uses the configured EmaCandleMinutes (StrategyOptions), default still 15.
+builder.Services.AddSingleton<CandleAggregatorService>(sp =>
+    new CandleAggregatorService(TimeSpan.FromMinutes(sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<StrategyOptions>>().Value.EmaCandleMinutes)));
 builder.Services.AddSingleton<IndicatorEngine>();
 builder.Services.AddSingleton<SignalEngine>();
 builder.Services.AddSingleton<ExpiryResolver>();
@@ -292,7 +297,7 @@ app.MapGet("/api/token/status", async (ITokenRepository tokenRepository, Cancell
 // shows phantom positions that nothing is tracking anymore.
 using (var scope = app.Services.CreateScope())
 {
-    var positionRepository = scope.ServiceProvider.GetRequiredService<IPositionRepository>();
+    var positionRepository = scope.ServiceProvider.GetRequiredService<AlgoWorker.Services.Persistence.IPositionRepository>();
     await positionRepository.CloseOrphanedOpenPositionsAsync("Worker restarted -- position no longer tracked", CancellationToken.None);
 }
 

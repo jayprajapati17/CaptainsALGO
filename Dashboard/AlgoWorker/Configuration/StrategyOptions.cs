@@ -6,6 +6,30 @@ namespace AlgoWorker.Configuration;
 /// </summary>
 public sealed class StrategyOptions
 {
+    // >>> NEW: EMA strategy's periods and candle timeframe, now configurable
+    // instead of hardcoded in IndicatorEngine.cs. The crossover (and the hard
+    // EMA50 stop) use EmaMidPeriod vs EmaSlowPeriod -- EmaFastPeriod is tracked
+    // but not currently used by any signal/exit logic.
+    // NOTE: if you change EmaCandleMinutes, the historical seeder fetches
+    // candles at this SAME interval automatically (no separate setting needed) --
+    // but double check HistoricalCandleUrlTemplate / IntradayCandleUrlTemplate
+    // below still make sense for whatever interval you pick (Upstox supports
+    // 1/3/5/10/15/30 minute candles).
+    public int EmaFastPeriod { get; set; } = 10;
+    public int EmaMidPeriod { get; set; } = 21;
+    public int EmaSlowPeriod { get; set; } = 50;
+    public int AdxPeriod { get; set; } = 14;
+    public int EmaCandleMinutes { get; set; } = 15;
+
+    // >>> NEW: MACD strategy's periods and candle timeframe, now configurable
+    // instead of hardcoded in MacdCalculator.cs / ThreeMinCandleAggregatorService.cs.
+    // Same seeding note as above applies -- MacdCandleMinutes drives both the
+    // live candle aggregator AND the seeder's fetch interval.
+    public int MacdFastPeriod { get; set; } = 12;
+    public int MacdSlowPeriod { get; set; } = 26;
+    public int MacdSignalPeriod { get; set; } = 9;
+    public int MacdCandleMinutes { get; set; } = 3;
+
     public const string SectionName = "Strategy";
 
     /// <summary>Number of 15-min candles a crossover must hold before it's "confirmed" (default 4 = 1 hour).</summary>

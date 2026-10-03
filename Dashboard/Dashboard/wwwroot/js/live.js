@@ -84,7 +84,7 @@
                         <span class="pnl-chip"></span>
                     </div>
 
-                    <div class="mt-3 small">
+                    <div class="mt-3 small num">
                         Entry \u20B9${inr.format(p.entryPremium)} \u2192
                         <strong class="pos-current"></strong>
                     </div>
@@ -102,6 +102,11 @@
         chip.classList.toggle('pnl-chip-neg', p.pnlRupees < 0);
         chip.classList.toggle('pnl-chip-flat', p.pnlRupees === 0);
         el.querySelector('.pos-current').textContent = `\u20B9${inr.format(p.currentPremium)}`;
+
+        // The card's left border encodes P&L sign at a glance (scanning many cards fast).
+        const cardEl = el.querySelector('.pos-card');
+        cardEl.classList.toggle('pos-card-gain', p.pnlRupees > 0);
+        cardEl.classList.toggle('pos-card-loss', p.pnlRupees < 0);
     }
 
     function refreshChrome() {
@@ -248,11 +253,4 @@
     } catch { /* malformed/empty initial payload -- SignalR resync will fill it in */ }
     refreshChrome();
     start();
-
-    // Periodically refresh the position grid every 5 seconds in case events were missed
-    try {
-        setInterval(function () { resync(); }, 5000);
-    } catch (e) {
-        console && console.error && console.error('Periodic resync failed', e);
-    }
 })();

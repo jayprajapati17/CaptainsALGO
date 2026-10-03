@@ -63,14 +63,14 @@ public sealed class HistoricalSeederService
         var from = yesterday.AddDays(-lookbackDays);
 
         _logger.LogInformation("Seeding historical candles from {From} to {To}...", from, yesterday);
-        var historicalCandles = await _restClient.GetHistoricalCandlesAsync(_upstox.NiftyInstrumentKey, from, yesterday, ct);
+        var historicalCandles = await _restClient.GetHistoricalCandlesAsync(_upstox.NiftyInstrumentKey, from, yesterday, _strategy.EmaCandleMinutes, ct);
 
         // >>> NEW: separate call for today's candles (Historical API rejects a
         // to_date of today -- see UpstoxRestClient.GetIntradayCandlesAsync).
         List<Candle> todaysCandles;
         try
         {
-            todaysCandles = await _restClient.GetIntradayCandlesAsync(_upstox.NiftyInstrumentKey, 15, ct);
+            todaysCandles = await _restClient.GetIntradayCandlesAsync(_upstox.NiftyInstrumentKey, _strategy.EmaCandleMinutes, ct);
         }
         catch (Exception ex)
         {
