@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
 using AlgoData.Data;
 using AlgoWorker;
 using AlgoWorker.Configuration;
@@ -10,9 +6,15 @@ using AlgoWorker.Services;
 using AlgoWorker.Services.Decoding;
 using AlgoWorker.Services.Indicators;
 using AlgoWorker.Services.Persistence;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Telegram.Bot;
-
 
 // >>> CHANGED (Task 2): was `Host.CreateApplicationBuilder(args)`. Now
 // `WebApplication.CreateBuilder(args)` so this process can ALSO host Kestrel
@@ -27,6 +29,18 @@ builder.Configuration.AddJsonFile(
     $"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddUserSecrets<Program>(optional: true);
+
+// >>> NEW (DB-backed settings): Upstox / Telegram / Strategy values saved from the Dashboard's
+// Settings page live in the AppSettings table. Added LAST so a value in the DB overrides the same
+// key in appsettings.json / env vars. NiftyBot:ConnectionString itself (and Instruments, Serilog)
+// stay in appsettings.json -- the DB address can't be read from the DB.
+DbConfigurationSource? dbConfigSource = null;
+var bootstrapConnectionString = builder.Configuration["NiftyBot:ConnectionString"];
+if (!string.IsNullOrWhiteSpace(bootstrapConnectionString))
+{
+    dbConfigSource = new DbConfigurationSource(bootstrapConnectionString);
+    ((Microsoft.Extensions.Configuration.IConfigurationBuilder)builder.Configuration).Add(dbConfigSource);
+}
 
 // >>> NEW: make the Worker listen on the address everything else expects.
 // Without this a WebApplication with no launchSettings binds to http://localhost:5000, so the
@@ -50,13 +64,13 @@ if (string.IsNullOrWhiteSpace(builder.Configuration["NiftyBot:DashboardOrigin"])
 
 // >>> NEW: print this LOUDLY at startup -- a wrong/missing DashboardOrigin is a silent
 // CORS failure otherwise (the browser console shows the error, but nothing here did).
-Console.WriteLine($"[NiftyBot] Dashboard CORS origin resolved to: {builder.Configuration["NiftyBot:DashboardOrigin"]}");
+//Console.WriteLine($"[NiftyBot] Dashboard CORS origin resolved to: {builder.Configuration["NiftyBot:DashboardOrigin"]}");
 
 // ---- Serilog ----
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
-    .WriteTo.Console()
+    //.WriteTo.Console()
     .WriteTo.File(
         path: "logs/nifty-bot-.log",
         rollingInterval: RollingInterval.Day,
@@ -71,6 +85,14 @@ builder.Services.AddSerilog();
 builder.Services.Configure<UpstoxOptions>(builder.Configuration.GetSection(UpstoxOptions.SectionName));
 builder.Services.Configure<TelegramOptions>(builder.Configuration.GetSection(TelegramOptions.SectionName));
 builder.Services.Configure<StrategyOptions>(builder.Configuration.GetSection(StrategyOptions.SectionName));
+
+// >>> NEW (multi-instrument, Phase 1): root-level "Instruments" JSON array binds
+// directly to List<InstrumentDefinition> -- no wrapper object needed. Not yet
+// consumed by the live trading pipeline (that's Phase 2+); this just makes the
+// config and the two services below available to build on.
+builder.Services.Configure<System.Collections.Generic.List<InstrumentDefinition>>(builder.Configuration.GetSection("Instruments"));
+builder.Services.AddSingleton<InstrumentRegistry>();
+builder.Services.AddSingleton<CapitalBasedStrikeSelector>();
 
 // ---- HTTP client for Upstox REST calls ----
 builder.Services.AddHttpClient<UpstoxRestClient>();
@@ -290,6 +312,55 @@ app.MapGet("/api/token/status", async (ITokenRepository tokenRepository, Cancell
         generatedAt = entity?.GeneratedAt
     });
 });
+
+// =====================================================================
+// >>> NEW (DB-backed settings): the Dashboard's Settings page saves rows into the AppSettings
+// table, then calls this endpoint (server-to-server). We re-read the table and push the new
+// values into the live options objects. Anything the Worker only reads at startup is flagged
+// RequiresRestart in the table and shown as such on the Settings page.
+// =====================================================================
+static void RebindOptions(IServiceProvider sp, IConfiguration config)
+{
+    // Services hold on to IOptions<T>.Value (one shared instance), so updating that instance IN PLACE
+    // makes the new values visible everywhere immediately. IOptionsMonitor<T> consumers (the REST
+    // client) refresh through the configuration reload token.
+    config.GetSection(UpstoxOptions.SectionName).Bind(sp.GetRequiredService<IOptions<UpstoxOptions>>().Value);
+    config.GetSection(TelegramOptions.SectionName).Bind(sp.GetRequiredService<IOptions<TelegramOptions>>().Value);
+    config.GetSection(StrategyOptions.SectionName).Bind(sp.GetRequiredService<IOptions<StrategyOptions>>().Value);
+}
+
+app.MapPost("/api/settings/reload", (IServiceProvider sp, IConfiguration config, ILogger<Program> logger) =>
+{
+    if (dbConfigSource?.Provider is null)
+        return Results.Problem("DB-backed settings are not available (NiftyBot:ConnectionString missing).");
+
+    dbConfigSource.Provider.Reload();
+    RebindOptions(sp, config);
+    logger.LogInformation("Settings reloaded from the AppSettings table (triggered by the Dashboard).");
+    return Results.Ok(new { reloaded = true });
+});
+
+// Create the AppSettings table if needed and add a row for every setting that doesn't have one yet
+// (first run: copies the current appsettings.json values in; later runs: only brand-new settings).
+try
+{
+    using var settingsScope = app.Services.CreateScope();
+    var scopeSp = settingsScope.ServiceProvider;
+    await SettingsSeeder.SeedAsync(
+        scopeSp.GetRequiredService<IDbContextFactory<AlgoData.Data.NiftyBotDbContext>>(),
+        scopeSp.GetRequiredService<IOptions<UpstoxOptions>>().Value,
+        scopeSp.GetRequiredService<IOptions<TelegramOptions>>().Value,
+        scopeSp.GetRequiredService<IOptions<StrategyOptions>>().Value,
+        scopeSp.GetRequiredService<ILogger<Program>>(),
+        CancellationToken.None);
+
+    dbConfigSource?.Provider?.Reload();
+    RebindOptions(app.Services, app.Configuration);
+}
+catch (Exception ex)
+{
+    Log.Warning(ex, "Settings: could not create/seed the AppSettings table -- continuing with appsettings.json values.");
+}
 
 // >>> NEW (Task 3): trackers keep open positions in memory only, so any row still
 // marked Open in the DB at process start is an orphan from a previous run

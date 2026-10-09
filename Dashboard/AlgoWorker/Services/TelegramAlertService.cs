@@ -80,7 +80,7 @@ public sealed class TelegramAlertService
     // Direction is derived from the option type: CE = bullish, PE = bearish.
     private static string EmaName(OptionInstrument i) => i.Type == OptionType.Call ? "GOLDEN CROSSOVER" : "DEATH CROSSOVER";
 
-    private static string BreakoutName(OptionInstrument i) => i.Type == OptionType.Call ? "PDH BREAKOUT" : "PDH BREAKDOWN";
+    private static string BreakoutName(OptionInstrument i) => i.Type == OptionType.Call ? "ORB BREAKOUT" : "ORB BREAKDOWN";
 
     private const string MacdName = "MACD";
 
@@ -172,7 +172,7 @@ public sealed class TelegramAlertService
     {
         var up = signal.Direction == BreakoutDirection.Up;
         var emoji = up ? "🟢" : "🔴";
-        var title = up ? "PDH BREAKOUT" : "PDH BREAKDOWN";
+        var title = up ? "ORB BREAKOUT" : "ORB BREAKDOWN";
 
         var text =
             $"{emoji} <b>{title}</b>\n" +

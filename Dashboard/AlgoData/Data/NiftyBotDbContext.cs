@@ -9,6 +9,7 @@ public sealed class NiftyBotDbContext : DbContext
     public DbSet<SignalLogEntity> SignalLogs => Set<SignalLogEntity>();
     public DbSet<DailyCprEntity> DailyCprs => Set<DailyCprEntity>();
     public DbSet<AccessTokenEntity> AccessTokens => Set<AccessTokenEntity>();
+    public DbSet<AppSettingEntity> AppSettings => Set<AppSettingEntity>();
 
     public NiftyBotDbContext(DbContextOptions<NiftyBotDbContext> options) : base(options)
     {
@@ -31,6 +32,7 @@ public sealed class NiftyBotDbContext : DbContext
             e.Property(p => p.Status).HasConversion<string>().HasColumnName("Status").IsRequired();
 
             e.Property(p => p.Direction).HasColumnName("Direction").IsRequired();
+            e.Property(p => p.Underlying).HasColumnName("Underlying").IsRequired(); // >>> NEW (multi-instrument)
             e.Property(p => p.InstrumentKey).HasColumnName("InstrumentKey").IsRequired();
             e.Property(p => p.TradingSymbol).HasColumnName("TradingSymbol").IsRequired();
             e.Property(p => p.Strike).HasColumnName("Strike").IsRequired();
@@ -63,6 +65,7 @@ public sealed class NiftyBotDbContext : DbContext
             e.HasIndex(p => p.Status);
             e.HasIndex(p => p.EntryTime);
             e.HasIndex(p => p.Strategy);
+            e.HasIndex(p => p.Underlying); // >>> NEW (multi-instrument): Dashboard will filter by this
         });
 
         // ---- SignalLog ----
@@ -72,6 +75,7 @@ public sealed class NiftyBotDbContext : DbContext
             e.HasKey(s => s.Id);
 
             e.Property(s => s.Strategy).HasConversion<string>().IsRequired();
+            e.Property(s => s.Underlying).HasColumnName("Underlying").IsRequired(); // >>> NEW (multi-instrument)
             e.Property(s => s.Confidence).HasConversion<string>();
             e.Property(s => s.Direction).IsRequired();
             e.Property(s => s.SignalTime).IsRequired();
@@ -80,6 +84,7 @@ public sealed class NiftyBotDbContext : DbContext
 
             e.HasIndex(s => s.SignalTime);
             e.HasIndex(s => s.Strategy);
+            e.HasIndex(s => s.Underlying); // >>> NEW (multi-instrument)
         });
 
         // ---- DailyCpr ----
@@ -116,6 +121,22 @@ public sealed class NiftyBotDbContext : DbContext
             e.Property(t => t.GeneratedAt).IsRequired();
 
             e.HasIndex(t => t.TokenDate).IsUnique();
+        });
+
+        // ---- AppSettings (DB-backed Upstox/Telegram/Strategy configuration) ----
+        modelBuilder.Entity<AppSettingEntity>(e =>
+        {
+            e.ToTable("AppSettings");
+            e.HasKey(a => a.Id);
+
+            e.Property(a => a.Section).HasMaxLength(100).IsRequired();
+            e.Property(a => a.Key).HasMaxLength(150).IsRequired();
+            e.Property(a => a.ValueType).HasMaxLength(20).IsRequired();
+            e.Property(a => a.GroupName).HasMaxLength(100).IsRequired();
+            e.Property(a => a.Description).HasMaxLength(500).IsRequired();
+            e.Property(a => a.UpdatedAt).IsRequired();
+
+            e.HasIndex(a => new { a.Section, a.Key }).IsUnique();
         });
     }
 }

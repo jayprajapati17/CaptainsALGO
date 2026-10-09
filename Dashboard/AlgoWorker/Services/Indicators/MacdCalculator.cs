@@ -7,7 +7,7 @@ namespace AlgoWorker.Services.Indicators;
 /// </summary>
 public sealed class MacdCalculator
 {
-    rivate readonly EmaCalculator _fast;
+    private readonly EmaCalculator _fast;
     private readonly EmaCalculator _slow;
     private readonly EmaCalculator _signal;
 

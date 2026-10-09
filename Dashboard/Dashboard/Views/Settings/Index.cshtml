@@ -1,0 +1,135 @@
+﻿@model SettingsViewModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Settings</h4>
+    <span class="small text-secondary">Worker settings stored in the database</span>
+</div>
+
+@if (Model.Message is not null)
+{
+    <div class="alert alert-success py-2" role="alert">@Model.Message</div>
+}
+@if (Model.Warning is not null)
+{
+    <div class="alert alert-warning py-2" role="alert">@Model.Warning</div>
+}
+@if (Model.Error is not null)
+{
+    <div class="alert alert-danger py-2" role="alert">@Model.Error</div>
+}
+
+@if (Model.Sections.Count > 0)
+{
+    <form method="post" asp-controller="Settings" asp-action="Save" id="settingsForm">
+        <input type="hidden" name="tab" id="activeTab" value="@Model.ActiveTab" />
+
+        <ul class="nav nav-tabs mb-3" role="tablist">
+            @foreach (var sec in Model.Sections)
+            {
+                var active = sec.Name == Model.ActiveTab;
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link @(active ? "active" : "")" type="button" role="tab"
+                            data-bs-toggle="tab" data-bs-target="#tab-@sec.Name" data-tab-name="@sec.Name">
+                        @sec.Name
+                        @if (sec.ErrorCount > 0)
+                        {
+                            <span class="badge text-bg-danger ms-1">@sec.ErrorCount</span>
+                        }
+                    </button>
+                </li>
+            }
+        </ul>
+
+        <div class="tab-content">
+            @foreach (var sec in Model.Sections)
+            {
+                var active = sec.Name == Model.ActiveTab;
+                <div class="tab-pane fade @(active ? "show active" : "")" id="tab-@sec.Name" role="tabpanel">
+                    @foreach (var group in sec.Groups)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-header bg-white fw-semibold">@group.Name</div>
+                            <div class="card-body">
+                                @foreach (var item in group.Items)
+                                {
+                                    var name = $"values[{item.Id}]";
+                                    <div class="row align-items-center g-2 py-2 border-bottom setting-row">
+                                        <div class="col-12 col-lg-4">
+                                            <label class="form-label mb-0 fw-medium" for="s-@item.Id">@item.Key</label>
+                                            @if (item.RequiresRestart)
+                                            {
+                                                <span class="badge text-bg-warning ms-1" title="Only read when the Worker starts">restart required</span>
+                                            }
+                                            @if (!string.IsNullOrWhiteSpace(item.Description))
+                                            {
+                                                <div class="small text-secondary">@item.Description</div>
+                                            }
+                                        </div>
+                                        <div class="col-12 col-lg-8">
+                                            @if (item.ValueType == "bool")
+                                            {
+                                                <select class="form-select form-select-sm w-auto @(item.Error is not null ? "is-invalid" : "")" id="s-@item.Id" name="@name">
+                                                    <option value="true" selected="@(item.Value == "true")">true</option>
+                                                    <option value="false" selected="@(item.Value != "true")">false</option>
+                                                </select>
+                                            }
+                                            else if (item.IsSecret)
+                                            {
+                                                <div class="input-group input-group-sm">
+                                                    <input type="password" class="form-control num @(item.Error is not null ? "is-invalid" : "")"
+                                                           id="s-@item.Id" name="@name" value="@item.Value" autocomplete="off" />
+                                                    <button class="btn btn-outline-secondary" type="button" data-toggle-secret="s-@item.Id">Show</button>
+                                                </div>
+                                            }
+                                            else if (item.ValueType is "int" or "double")
+                                            {
+                                                <input type="number" step="@(item.ValueType == "int" ? "1" : "any")"
+                                                       class="form-control form-control-sm num w-auto @(item.Error is not null ? "is-invalid" : "")"
+                                                       id="s-@item.Id" name="@name" value="@item.Value" />
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control form-control-sm num @(item.Error is not null ? "is-invalid" : "")"
+                                                       id="s-@item.Id" name="@name" value="@item.Value" autocomplete="off" />
+                                            }
+                                            @if (item.Error is not null)
+                                            {
+                                                <div class="text-danger small mt-1">@item.Error</div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="settings-savebar d-flex align-items-center gap-3 py-3">
+            <button type="submit" class="btn btn-primary">Save &amp; apply</button>
+            <span class="small text-secondary">Changes are applied to the running Worker immediately, except settings marked "restart required".</span>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('[data-tab-name]').forEach(function (btn) {
+            btn.addEventListener('shown.bs.tab', function () {
+                document.getElementById('activeTab').value = btn.getAttribute('data-tab-name');
+            });
+        });
+        document.querySelectorAll('[data-toggle-secret]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var input = document.getElementById(btn.getAttribute('data-toggle-secret'));
+                var show = input.type === 'password';
+                input.type = show ? 'text' : 'password';
+                btn.textContent = show ? 'Hide' : 'Show';
+            });
+        });
+    </script>
+}

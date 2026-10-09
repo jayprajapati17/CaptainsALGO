@@ -1,0 +1,838 @@
+2026-10-09 09:02:04.442 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-09 09:02:35.240 +05:30 [INF] AlgoWorker.Services.Persistence.TokenRepository: Access token saved for "2026-10-09".
+2026-10-09 09:02:35.250 +05:30 [INF] Program: Upstox access token generated and saved via the dashboard OAuth flow.
+2026-10-09 09:15:06.404 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-09 09:15:06.433 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-09 09:15:06.433 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-11" to "2026-10-08"...
+2026-10-09 09:15:06.486 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-11" to "2026-10-08")
+2026-10-09 09:15:06.518 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-09 09:15:06.534 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-11T10:00:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.536 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-11T11:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.541 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-15T13:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.541 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-15T14:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.542 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:00:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.542 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.542 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.542 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.542 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.542 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.543 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.543 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.544 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.544 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.544 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:15:06.544 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:06.544 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 450 candles replayed through the indicator pipeline (450 historical + 0 today).
+2026-10-09 09:15:06.545 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "DeathCross" originally crossed at "2026-10-07T14:45:00.0000000+05:30" (28 candles ago), still active as of "2026-10-08T15:15:00.0000000+05:30".
+2026-10-09 09:15:07.446 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-08", High=22599.05, Low=22179.9, Close=22231.8
+2026-10-09 09:15:07.451 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-09": Pivot=22336.916666666666666666666667, TC=22284.358333333333333333333334, BC=22389.475, Width%=0.473, Reading=Wide CPR -- Sideways/Range-bound day likely, mean-reversion between S1-R1 more probable
+2026-10-09 09:15:07.538 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-09-28" to "2026-10-08", keeping the last 2 trading day(s)...
+2026-10-09 09:15:07.621 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1000 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-09-28" to "2026-10-08")
+2026-10-09 09:15:07.661 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-09 09:15:07.664 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T09:21:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-07T09:24:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T09:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.59, Signal 0.73, likely choppy/hugging zero).
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T09:48:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T10:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -1.62, Signal 0.19, likely choppy/hugging zero).
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T10:09:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T10:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 12.69, Signal 12.69, likely choppy/hugging zero).
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T10:54:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T11:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.16, Signal 16.32, likely choppy/hugging zero).
+2026-10-09 09:15:07.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T12:03:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T12:09:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 6.45, Signal 7.14, likely choppy/hugging zero).
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -20.33, Signal -21.27, likely choppy/hugging zero).
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-07T14:09:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T14:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -15.31, Signal -15.88, likely choppy/hugging zero).
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T14:57:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.90, Signal 1.00, likely choppy/hugging zero).
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T15:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.08, Signal -0.75, likely choppy/hugging zero).
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T09:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -2.57, Signal 0.31, likely choppy/hugging zero).
+2026-10-09 09:15:07.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T10:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -29.19, Signal -29.90, likely choppy/hugging zero).
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T11:24:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T11:48:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.58, Signal -26.74, likely choppy/hugging zero).
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T12:18:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T13:03:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.51, Signal -27.50, likely choppy/hugging zero).
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T13:18:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T13:21:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -24.18, Signal -25.08, likely choppy/hugging zero).
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T13:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T13:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -24.55, Signal -24.82, likely choppy/hugging zero).
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T14:03:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.667 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T14:12:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -18.60, Signal -18.82, likely choppy/hugging zero).
+2026-10-09 09:15:07.668 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T14:18:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.668 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T14:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -18.60, Signal -18.78, likely choppy/hugging zero).
+2026-10-09 09:15:07.668 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T14:57:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:15:07.668 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T15:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.80, Signal -11.63, likely choppy/hugging zero).
+2026-10-09 09:15:07.668 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 250 3-min candles replayed (2 trading day(s) + 0 today).
+2026-10-09 09:15:07.668 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-09 09:15:08.715 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 09:15:08.715 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 09:15:08.718 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 09:15:08.758 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-09 09:19:59.942 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T03:45:00.0000000+00:00"): High=22383.2, Low=22300.15
+2026-10-09 09:34:59.986 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT UP confirmed at "2026-10-09T04:00:00.0000000+00:00": close 22393.8 vs level 22383.2
+2026-10-09 09:34:59.993 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Call" option for breakout: strike 22400, expiry "2026-10-13".
+2026-10-09 09:35:00.415 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44602
+2026-10-09 09:35:01.272 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Up" position opened: NIFTY 22400 CE 13 OCT 26 @ 140.55
+2026-10-09 09:41:33.625 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44602
+2026-10-09 09:41:33.657 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹162.50 (peak ₹167.50). P&L: 1,326.00 (14.5%)
+2026-10-09 09:51:22.940 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-09 09:51:24.893 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-09 09:51:24.903 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-09 09:51:24.904 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-11" to "2026-10-08"...
+2026-10-09 09:51:24.972 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-11" to "2026-10-08")
+2026-10-09 09:51:25.011 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 3 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-09 09:51:25.019 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-11T10:00:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.021 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-11T11:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.026 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-15T13:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.026 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-15T14:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.027 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:00:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.027 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.028 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.028 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.028 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.028 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.028 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.028 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.029 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.029 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.029 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-09 09:51:25.030 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.030 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 453 candles replayed through the indicator pipeline (450 historical + 3 today).
+2026-10-09 09:51:25.034 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "DeathCross" originally crossed at "2026-10-07T14:45:00.0000000+05:30" (31 candles ago), still active as of "2026-10-09T09:45:00.0000000+05:30".
+2026-10-09 09:51:25.432 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-08", High=22599.05, Low=22179.9, Close=22231.8
+2026-10-09 09:51:25.437 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-09": Pivot=22336.916666666666666666666667, TC=22284.358333333333333333333334, BC=22389.475, Width%=0.473, Reading=Wide CPR -- Sideways/Range-bound day likely, mean-reversion between S1-R1 more probable
+2026-10-09 09:51:25.616 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-09-28" to "2026-10-08", keeping the last 2 trading day(s)...
+2026-10-09 09:51:25.674 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1000 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-09-28" to "2026-10-08")
+2026-10-09 09:51:25.728 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 12 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-09 09:51:25.731 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T09:21:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.731 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-07T09:24:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T09:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.59, Signal 0.73, likely choppy/hugging zero).
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T09:48:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T10:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -1.62, Signal 0.19, likely choppy/hugging zero).
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T10:09:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T10:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 12.69, Signal 12.69, likely choppy/hugging zero).
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T10:54:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T11:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.16, Signal 16.32, likely choppy/hugging zero).
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-07T12:03:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T12:09:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 6.45, Signal 7.14, likely choppy/hugging zero).
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -20.33, Signal -21.27, likely choppy/hugging zero).
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-07T14:09:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.732 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T14:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -15.31, Signal -15.88, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T14:57:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.90, Signal 1.00, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-07T15:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.08, Signal -0.75, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T09:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -2.57, Signal 0.31, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T10:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -29.19, Signal -29.90, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T11:24:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T11:48:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.58, Signal -26.74, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T12:18:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T13:03:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.51, Signal -27.50, likely choppy/hugging zero).
+2026-10-09 09:51:25.733 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T13:18:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T13:21:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -24.18, Signal -25.08, likely choppy/hugging zero).
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T13:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T13:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -24.55, Signal -24.82, likely choppy/hugging zero).
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T14:03:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T14:12:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -18.60, Signal -18.82, likely choppy/hugging zero).
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T14:18:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T14:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -18.60, Signal -18.78, likely choppy/hugging zero).
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-08T14:57:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-09 09:51:25.734 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-08T15:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.80, Signal -11.63, likely choppy/hugging zero).
+2026-10-09 09:51:25.734 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 262 3-min candles replayed (2 trading day(s) + 12 today).
+2026-10-09 09:51:25.734 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-09 09:51:26.309 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 09:51:26.309 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 09:51:26.313 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 09:51:26.356 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-09 09:54:59.896 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T04:20:00.0000000+00:00"): High=22461.6, Low=22434.85
+2026-10-09 09:57:57.598 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.IO.Stream.ReadAtLeastAsyncCore(Memory`1 buffer, Int32 minimumBytes, Boolean throwOnEndOfStream, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-09 09:57:57.622 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-09 09:58:03.001 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 09:58:03.001 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 09:58:03.003 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 09:59:23.530 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-09 09:59:23.530 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-09 09:59:28.869 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 10s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 09:59:28.870 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 09:59:39.130 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 20s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 09:59:39.132 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 09:59:59.359 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 40s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 09:59:59.360 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:00:39.625 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:00:39.626 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:01:39.869 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:01:39.870 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:02:40.081 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:02:40.082 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:03:40.377 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:03:40.378 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:04:40.609 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:04:40.610 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:05:40.833 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:05:40.834 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:06:41.111 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:06:41.112 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:07:41.377 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:07:41.378 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:08:41.604 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:08:41.605 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:09:41.850 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:09:41.851 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:10:42.083 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:10:42.084 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:11:42.303 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:11:42.304 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:12:42.548 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:12:42.549 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:13:42.780 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:13:42.781 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:14:43.006 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:14:43.007 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:15:43.253 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:15:43.254 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:16:43.499 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:16:43.500 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:17:43.721 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:17:43.722 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:18:43.955 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 10:18:43.956 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 10:19:45.257 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 10:19:45.257 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 10:19:45.257 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 10:19:45.288 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT UP confirmed at "2026-10-09T04:25:00.0000000+00:00": close 22472.7 vs level 22461.6
+2026-10-09 10:19:45.304 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Call" option for breakout: strike 22450, expiry "2026-10-13".
+2026-10-09 10:19:45.655 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44608
+2026-10-09 10:19:46.457 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Up" position opened: NIFTY 22450 CE 13 OCT 26 @ 145.4
+2026-10-09 10:29:53.727 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44608
+2026-10-09 10:29:53.740 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹168.85 (peak ₹173.85). P&L: 1,482.00 (15.7%)
+2026-10-09 10:38:59.930 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T05:06:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 55.44, Signal 56.75, likely choppy/hugging zero).
+2026-10-09 12:34:34.784 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-09 12:34:34.788 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-09 12:34:51.770 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 10s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 12:34:51.772 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 12:35:02.216 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 20s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 407
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-09 12:35:02.218 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-09 12:35:22.973 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 12:35:22.973 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 12:35:22.973 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 12:39:00.060 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T07:06:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD -0.57, Signal -0.66, likely choppy/hugging zero).
+2026-10-09 13:33:00.035 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T08:00:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 6.14, Signal 6.35, likely choppy/hugging zero).
+2026-10-09 13:42:00.034 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bullish" crossover confirmed at "2026-10-09T08:09:00.0000000+00:00": MACD 6.27, Signal 6.19
+2026-10-09 13:42:00.039 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Call" option for breakout: strike 22500, expiry "2026-10-13".
+2026-10-09 13:42:01.847 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44612
+2026-10-09 13:42:02.983 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD "Bullish" position opened: NIFTY 22500 CE 13 OCT 26 @ 132.35
+2026-10-09 13:45:00.035 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T08:00:00.0000000+00:00", tracking for 4 candles before confirming.
+2026-10-09 14:00:06.721 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44612
+2026-10-09 14:00:06.737 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD position closed. Reason: Stop-loss hit at ₹150.70 (peak ₹155.70). P&L: 1,179.75 (13.7%)
+2026-10-09 14:19:34.363 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
+ ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.IO.Stream.ReadAtLeastAsyncCore(Memory`1 buffer, Int32 minimumBytes, Boolean throwOnEndOfStream, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-09 14:19:34.366 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-09 14:19:51.333 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 14:19:51.333 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 14:19:51.334 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 14:27:12.792 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.IO.Stream.ReadAtLeastAsyncCore(Memory`1 buffer, Int32 minimumBytes, Boolean throwOnEndOfStream, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-09 14:27:12.795 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-09 14:27:27.155 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-09 14:27:27.155 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-09 14:27:27.155 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-09 14:32:59.942 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:00:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 14.42, Signal 14.72, likely choppy/hugging zero).
+2026-10-09 14:44:59.952 +05:30 [INF] AlgoWorker.Services.SignalEngine: CONFIRMED "GoldenCross" signal ("High" confidence) at "2026-10-09T09:00:00.0000000+00:00", spot=22562.6, ADX 34.011348547697544->36.240132038612465.
+2026-10-09 14:44:59.971 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ITM "Call" option: strike 22450 (2 strikes ITM), expiry "2026-10-13".
+2026-10-09 14:45:00.868 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving NEXT-WEEK ATM "Call" option: strike 22550, expiry "2026-10-20".
+2026-10-09 14:45:00.933 +05:30 [WRN] AlgoWorker.Services.UpstoxRestClient: No CE contract found near strike 22550 for expiry "2026-10-20"
+2026-10-09 14:45:00.933 +05:30 [WRN] AlgoWorker.Services.OptionInstrumentResolver: Could not resolve next-week ATM leg (strike 22550, expiry "2026-10-20"). Possible causes: expiry not listed this far out yet.
+2026-10-09 14:45:01.040 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44608
+2026-10-09 14:45:02.496 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "GoldenCross" position opened ["CurrentWeekItm"]: NIFTY 22450 CE 13 OCT 26 @ 192.45
+2026-10-09 15:00:54.540 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44608
+2026-10-09 15:00:54.565 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "GoldenCross" position closed ["CurrentWeekItm"]. Reason: Stop-loss hit at ₹182.45 (peak ₹198.30). P&L: -672.75 (-5.4%)
+2026-10-09 23:27:26.485 +05:30 [INF] Program: Settings: seeded 54 new row(s) into AppSettings from appsettings.json / defaults.
+2026-10-09 23:27:26.641 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...

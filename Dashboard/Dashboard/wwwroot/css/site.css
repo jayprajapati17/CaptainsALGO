@@ -188,59 +188,46 @@ a {
     box-shadow: 0 0 0 3px var(--loss-tint);
 }
 
-/* ---------- Live page: position cards ---------- */
-.pos-card {
+/* ---------- Live page: compact position table ---------- */
+.live-position-table {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-left: 4px solid var(--border-strong);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.live-pos-row td {
+    border-left: 3px solid transparent;
     transition: border-color 0.2s ease, opacity 0.4s ease;
 }
 
-    .pos-card.pos-card-gain {
-        border-left-color: var(--gain);
+    .live-pos-row td:first-child {
+        padding-left: 10px;
     }
 
-    .pos-card.pos-card-loss {
-        border-left-color: var(--loss);
+.live-pos-row-gain td:first-child {
+    border-left-color: var(--gain);
+}
+
+.live-pos-row-loss td:first-child {
+    border-left-color: var(--loss);
+}
+
+.live-pos-row-closed {
+    opacity: 0.5;
+}
+
+    .live-pos-row-closed td:first-child {
+        border-left-style: dashed;
     }
 
-.pos-card-closed {
-    opacity: 0.55;
-    border-left-style: dashed;
-}
-
-.pos-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
+.pos-subtitle {
     font-family: var(--font-num);
-}
-
-.pos-icon-ce {
-    background: var(--brand-tint);
-    color: var(--brand);
-}
-
-.pos-icon-pe {
-    background: var(--gold-tint);
-    color: var(--gold);
-}
-
-.pos-symbol {
-    font-family: var(--font-num);
-    font-weight: 600;
-    letter-spacing: -0.01em;
 }
 
 .pnl-chip {
     display: inline-block;
-    font-family: var(--font-num);
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: -0.01em;
 }
@@ -259,12 +246,12 @@ a {
 
 .pos-exit {
     line-height: 1;
-    padding: 0.35rem 0.55rem;
+    padding: 0.3rem 0.5rem;
     border-color: var(--border-strong);
     color: var(--ink-muted);
 }
 
-    .pos-exit:hover {
+    .pos-exit:hover:not(:disabled) {
         border-color: var(--loss);
         color: var(--loss);
     }
@@ -403,4 +390,17 @@ a {
     background: var(--surface-sunken) !important;
     border: 1px dashed var(--border-strong) !important;
     border-radius: var(--radius-md);
+}
+
+/* ---------- Settings page ---------- */
+.setting-row:last-child {
+    border-bottom: 0 !important;
+}
+
+.settings-savebar {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    z-index: 5;
 }

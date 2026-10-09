@@ -19,7 +19,6 @@
 
     const inr = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const STRATEGY_LABELS = { Ema: 'EMA', Breakout: 'Breakout', Macd: 'MACD' };
-    const LEG_LABELS = { CurrentWeekItm: 'Curr-wk ITM', NextWeekAtm: 'Next-wk ATM' };
 
     // key -> { dto, el }. Keyed by strategy|symbol|entryTime rather than positionId,
     // because a position whose DB save failed carries Id -1 (and two EMA legs could collide).
@@ -44,69 +43,49 @@
 
     function fmtExpiry(iso) {
         const d = new Date(iso + 'T00:00:00');
-        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
     }
 
-    function fmtEntry(iso) {
-        const d = new Date(iso);
-        const sameDay = d.toDateString() === new Date().toDateString();
-        const time = d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
-        return sameDay ? `Entered ${time}` : `Entered ${d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}, ${time}`;
+    // Entry time as its own table column -- positions are always intraday (force-closed
+    // by cutoff), so a bare time is enough; no need to disambiguate the date.
+    function fmtEntryTime(iso) {
+        return new Date(iso).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
     }
 
-    function createCard(p) {
-        const col = document.createElement('div');
-        col.className = 'col';
-        const isCall = p.optionType === 'CE';
-        const leg = p.leg ? `<span class="badge text-bg-dark border ms-1">${esc(LEG_LABELS[p.leg] ?? p.leg)}</span>` : '';
+    // Row layout confirmed: Symbol (strike + type, with expiry/strategy as a small
+    // subtitle) | Entry time | Entry -> LTP (merged) | P&L | Exit button.
+    function createRow(p) {
+        const tr = document.createElement('tr');
+        tr.className = 'live-pos-row';
         const canClose = p.positionId > 0;
 
-        col.innerHTML = `
-            <div class="card pos-card h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="pos-icon ${isCall ? 'pos-icon-ce' : 'pos-icon-pe'}" title="${isCall ? 'Call (CE)' : 'Put (PE)'}">${isCall ? '\u25B2' : '\u25BC'}</div>
-                            <div>
-                                <div class="fw-semibold pos-symbol">${esc(p.tradingSymbol)}</div>
-                                <div class="small text-secondary">
-                                    Exp ${esc(fmtExpiry(p.expiry))}
-                                    <span class="badge text-bg-secondary ms-1">${esc(STRATEGY_LABELS[p.strategy] ?? p.strategy)}</span>${leg}
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-danger pos-exit"
-                                title="${canClose ? 'Exit this position' : 'Not saved to DB -- cannot be closed from the Dashboard'}"
-                                ${canClose ? '' : 'disabled'}>\u23FB</button>
-                    </div>
-
-                    <div class="mt-3">
-                        <span class="pnl-chip"></span>
-                    </div>
-
-                    <div class="mt-3 small num">
-                        Entry \u20B9${inr.format(p.entryPremium)} \u2192
-                        <strong class="pos-current"></strong>
-                    </div>
-                    <div class="small text-secondary mt-1 pos-entry-time">${esc(fmtEntry(p.entryTime))}</div>
-                    <div class="small mt-2 pos-closed-note d-none"></div>
-                </div>
-            </div>`;
-        return col;
+        tr.innerHTML = `
+            <td>
+                <span class="num fw-semibold">${esc(p.strike)} ${esc(p.optionType)}</span>
+                <div class="small text-secondary num pos-subtitle">${esc(fmtExpiry(p.expiry))} &middot; ${esc(STRATEGY_LABELS[p.strategy] ?? p.strategy)}</div>
+            </td>
+            <td class="num text-secondary text-nowrap">${esc(fmtEntryTime(p.entryTime))}</td>
+            <td class="text-end num text-nowrap">\u20B9${inr.format(p.entryPremium)}&rarr;<span class="pos-current"></span></td>
+            <td class="text-end"><span class="pnl-chip num"></span></td>
+            <td class="text-end">
+                <button type="button" class="btn btn-sm btn-outline-danger pos-exit"
+                        title="${canClose ? 'Exit this position' : 'Not saved to DB -- cannot be closed from the Dashboard'}"
+                        ${canClose ? '' : 'disabled'}>\u23FB</button>
+            </td>`;
+        return tr;
     }
 
-    function updateCard(el, p) {
-        const chip = el.querySelector('.pnl-chip');
-        chip.textContent = `${fmtMoney(p.pnlRupees)}  (${fmtPct(p.pnlPercent)})`;
+    function updateRow(tr, p) {
+        const chip = tr.querySelector('.pnl-chip');
+        chip.textContent = `${fmtMoney(p.pnlRupees)} (${fmtPct(p.pnlPercent)})`;
         chip.classList.toggle('pnl-chip-pos', p.pnlRupees > 0);
         chip.classList.toggle('pnl-chip-neg', p.pnlRupees < 0);
         chip.classList.toggle('pnl-chip-flat', p.pnlRupees === 0);
-        el.querySelector('.pos-current').textContent = `\u20B9${inr.format(p.currentPremium)}`;
+        tr.querySelector('.pos-current').textContent = `\u20B9${inr.format(p.currentPremium)}`;
 
-        // The card's left border encodes P&L sign at a glance (scanning many cards fast).
-        const cardEl = el.querySelector('.pos-card');
-        cardEl.classList.toggle('pos-card-gain', p.pnlRupees > 0);
-        cardEl.classList.toggle('pos-card-loss', p.pnlRupees < 0);
+        // The row's left edge encodes P&L sign at a glance (scanning many rows fast).
+        tr.classList.toggle('live-pos-row-gain', p.pnlRupees > 0);
+        tr.classList.toggle('live-pos-row-loss', p.pnlRupees < 0);
     }
 
     function refreshChrome() {
@@ -125,26 +104,23 @@
         }
 
         if (!entry) {
-            const el = createCard(p);
+            const el = createRow(p);
             grid.appendChild(el);
             entry = { dto: p, el, closing: false };
             cards.set(key, entry);
         }
         entry.dto = p;
-        updateCard(entry.el, p);
+        updateRow(entry.el, p);
         refreshChrome();
     }
 
-    // Show the final state + exit reason for a few seconds, then drop the card.
+    // Show the final state + exit reason for a few seconds, then drop the row.
     function markClosed(key, entry, p) {
         entry.closing = true;
-        updateCard(entry.el, p);
-        const cardEl = entry.el.querySelector('.pos-card');
-        cardEl.classList.add('pos-card-closed');
+        updateRow(entry.el, p);
+        entry.el.classList.add('live-pos-row-closed');
         entry.el.querySelector('.pos-exit').disabled = true;
-        const note = entry.el.querySelector('.pos-closed-note');
-        note.textContent = `Closed: ${p.exitReason ?? 'exited'}`;
-        note.classList.remove('d-none');
+        entry.el.querySelector('.pos-subtitle').textContent = `Closed: ${p.exitReason ?? 'exited'}`;
         refreshChrome();
 
         setTimeout(() => {
@@ -179,8 +155,8 @@
         const btn = ev.target.closest('.pos-exit');
         if (!btn || btn.disabled) return;
 
-        const colEl = btn.closest('.col');
-        const entry = [...cards.values()].find(c => c.el === colEl);
+        const rowEl = btn.closest('tr');
+        const entry = [...cards.values()].find(c => c.el === rowEl);
         if (!entry) return;
 
         const p = entry.dto;

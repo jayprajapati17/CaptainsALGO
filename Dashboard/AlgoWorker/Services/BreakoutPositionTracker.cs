@@ -137,7 +137,7 @@ public sealed class BreakoutPositionTracker
             position.PeakPremium = tick.LastTradedPrice;
 
         position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
-        position.TrailingActive = position.PeakPremium - position.EntryPremium >= (decimal)_options.TrailingPhase2TriggerPoints;
+        position.TrailingActive = TrailingStopCalculator.IsTrailing(position.EntryPremium, position.PeakPremium, _options);
 
         if (tick.LastTradedPrice <= position.CurrentStopLossPremium)
         {

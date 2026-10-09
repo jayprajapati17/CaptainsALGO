@@ -35,6 +35,9 @@
                     <li class="nav-item">
                         <a class="nav-link @(currentController == "Signals" ? "active" : "")" asp-controller="Signals" asp-action="Index">Signals Log</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Settings" ? "active" : "")" asp-controller="Settings" asp-action="Index">Settings</a>
+                    </li>
                 </ul>
 
                 @* ---- Task 9: Upstox daily token, shown/updated on every page ---- *@

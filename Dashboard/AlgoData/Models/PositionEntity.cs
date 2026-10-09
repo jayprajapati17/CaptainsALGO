@@ -9,6 +9,12 @@ public sealed class PositionEntity
     public string Direction { get; set; } = string.Empty; // "GoldenCross" | "DeathCross" | "Up" | "Down"
     public PositionLeg? Leg { get; set; }                  // null for Breakout
 
+    // >>> NEW (multi-instrument): which underlying (InstrumentDefinition.Key, e.g.
+    // "NIFTY50", "BANKNIFTY", "RELIANCE") this position belongs to -- NOT the option
+    // contract's own Upstox key, that's still InstrumentKey below. Defaults to
+    // "NIFTY50" for rows written before multi-instrument support existed.
+    public string Underlying { get; set; } = "NIFTY50";
+
     public string InstrumentKey { get; set; } = string.Empty;
     public string TradingSymbol { get; set; } = string.Empty; // e.g. "NIFTY50 24350CE"
     public int Strike { get; set; }

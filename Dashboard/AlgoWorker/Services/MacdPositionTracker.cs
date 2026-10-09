@@ -141,7 +141,7 @@ public sealed class MacdPositionTracker
         position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
 
         var pointsGained = position.PeakPremium - position.EntryPremium;
-        if (!position.TargetAlertSent && pointsGained >= (decimal)_options.MacdFirstTargetPoints)
+        if (!position.TargetAlertSent && pointsGained >= (decimal)_options.TrailingTargetPoints)
         {
             position.TargetAlertSent = true;
             await _telegram.SendMacdTargetHitAlertAsync(position, ct);
