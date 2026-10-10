@@ -185,6 +185,63 @@ public sealed class UpstoxRestClient
         return candles;
     }
 
+
+    // >>> NEW: 5-min candle fetch (Reversal strategy + ORB seeding). Reuses the 3-min URL templates
+    // from config with the interval swapped, so no new config keys are needed.
+    private static string To5Min(string template3Min) => template3Min.Replace("/minutes/3", "/minutes/5");
+
+    public async Task<List<Candle>> GetHistoricalCandles5MinAsync(string instrumentKey, DateOnly from, DateOnly to, CancellationToken ct)
+    {
+        var url = string.Format(
+            To5Min(_options.CurrentValue.HistoricalCandleUrlTemplate3Min),
+            Uri.EscapeDataString(instrumentKey),
+            to.ToString("yyyy-MM-dd"),
+            from.ToString("yyyy-MM-dd"));
+        return await FetchCandleListAsync(url, "5-min historical", ct);
+    }
+
+    public async Task<List<Candle>> GetIntraday5MinCandlesAsync(string instrumentKey, CancellationToken ct)
+    {
+        var url = string.Format(
+            To5Min(_options.CurrentValue.IntradayCandleUrlTemplate3Min),
+            Uri.EscapeDataString(instrumentKey));
+        return await FetchCandleListAsync(url, "5-min intraday", ct);
+    }
+
+    private async Task<List<Candle>> FetchCandleListAsync(string url, string what, CancellationToken ct)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
+        await ApplyAuthHeaderAsync(request, ct);
+
+        using var response = await _http.SendAsync(request, ct);
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            throw new UnauthorizedTokenException($"Upstox access token rejected (401) while fetching {what} candles.");
+        response.EnsureSuccessStatusCode();
+
+        var body = await response.Content.ReadAsStringAsync(ct);
+        using var doc = JsonDocument.Parse(body);
+
+        var candles = new List<Candle>();
+        foreach (var row in doc.RootElement.GetProperty("data").GetProperty("candles").EnumerateArray())
+        {
+            var arr = row.EnumerateArray().ToArray();
+            candles.Add(new Candle
+            {
+                OpenTime = DateTimeOffset.Parse(arr[0].GetString()!),
+                Open = arr[1].GetDecimal(),
+                High = arr[2].GetDecimal(),
+                Low = arr[3].GetDecimal(),
+                Close = arr[4].GetDecimal(),
+                Volume = arr[5].GetInt64(),
+                IsClosed = true
+            });
+        }
+
+        candles.Reverse();
+        _logger.LogInformation("Fetched {Count} {What} candles.", candles.Count, what);
+        return candles;
+    }
+
     // >>> NEW: dedicated 3-min candle methods for the MACD strategy's seeder.
     // NOTE: kept separate rather than reusing GetHistoricalCandlesAsync /
     // GetIntradayCandlesAsync above, because HistoricalCandleUrlTemplate has

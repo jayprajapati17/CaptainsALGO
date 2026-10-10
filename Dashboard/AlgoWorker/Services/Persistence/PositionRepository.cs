@@ -1,4 +1,4 @@
-﻿using AlgoData.Data;
+using AlgoData.Data;
 using AlgoData.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +33,70 @@ public sealed class PositionRepository : IPositionRepository
             // dashboard until the next successful write.
             _logger.LogError(ex, "Failed to persist newly-opened position ({Symbol}) to the database.", position.TradingSymbol);
             return -1;
+        }
+    }
+
+    public async Task<int> CountBreakoutTradesOpenedOnAsync(DateOnly day, CancellationToken ct)
+    {
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            var start = new DateTimeOffset(day.ToDateTime(TimeOnly.MinValue));
+            var end = start.AddDays(1);
+            return await db.Positions.AsNoTracking()
+                .CountAsync(p => p.Strategy == StrategyType.Breakout && p.EntryTime >= start && p.EntryTime < end, ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Could not count today's breakout trades; assuming 0.");
+            return 0;
+        }
+    }
+
+    public async Task<(int Opened, int ConsecutiveLosses)> GetReversalDayStatsAsync(DateOnly day, CancellationToken ct)
+    {
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            var start = new DateTimeOffset(day.ToDateTime(TimeOnly.MinValue));
+            var end = start.AddDays(1);
+            var rows = await db.Positions.AsNoTracking()
+                .Where(p => p.Strategy == StrategyType.Reversal && p.EntryTime >= start && p.EntryTime < end)
+                .OrderByDescending(p => p.EntryTime)
+                .Select(p => new { p.Status, p.FinalPnlRupees })
+                .ToListAsync(ct);
+
+            var losses = 0;
+            foreach (var r in rows)
+            {
+                if (r.Status != PositionStatus.Closed) continue;   // an open one is handled by the "already open" check
+                if (r.FinalPnlRupees is < 0) losses++; else break;
+            }
+            return (rows.Count, losses);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Could not read today's Reversal trade stats; assuming none.");
+            return (0, 0);
+        }
+    }
+
+    public async Task UpdateStopLossAsync(int positionId, decimal? stopLossPremium, decimal? stopLossSpot, CancellationToken ct)
+    {
+        if (positionId < 0) return;
+
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            await db.Positions
+                .Where(p => p.Id == positionId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(p => p.StopLossPremium, stopLossPremium)
+                    .SetProperty(p => p.StopLossSpot, stopLossSpot), ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to update stop-loss for PositionId {Id}.", positionId);
         }
     }
 

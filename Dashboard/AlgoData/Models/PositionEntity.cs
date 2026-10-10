@@ -35,6 +35,12 @@ public sealed class PositionEntity
     public decimal LastKnownPremium { get; set; }
     public DateTimeOffset LastUpdateTime { get; set; }
 
+    /// <summary>Current (trailing) stop-loss as an OPTION PREMIUM -- set at entry, updated whenever it moves, and left at its final value once the position closes. Null for Reversal (spot-based SL).</summary>
+    public decimal? StopLossPremium { get; set; }
+
+    /// <summary>Current stop-loss as a NIFTY SPOT level -- Reversal strategy only (null for the premium-based strategies).</summary>
+    public decimal? StopLossSpot { get; set; }
+
     public decimal? ExitPremium { get; set; }
     public DateTimeOffset? ExitTime { get; set; }
     public string? ExitReason { get; set; }

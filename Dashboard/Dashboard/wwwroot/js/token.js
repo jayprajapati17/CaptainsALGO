@@ -1,4 +1,4 @@
-﻿// Upstox daily token widget (Task 9). Loaded globally (see _Layout.cshtml), so it
+// Upstox daily token widget (Task 9). Loaded globally (see _Layout.cshtml), so it
 // shows/updates on every page, not just Live.
 //
 // Flow (per the design doc, section 3a):
@@ -22,19 +22,19 @@
 
     function render(state, extra) {
         if (state === 'checking') {
-            widget.innerHTML = '<span class="small text-secondary">Checking token...</span>';
+            widget.innerHTML = '<span class="ct-sub">Checking token...</span>';
         } else if (state === 'generated') {
             const time = extra ? new Date(extra).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : '';
             widget.innerHTML =
-                `<span class="token-pill token-pill-ok" title="Aaj ka Upstox token generate ho chuka hai">` +
-                `\u2713 Token OK${time ? ' \u2022 ' + time : ''}</span>`;
+                `<span class="token-pill token-pill-ok" title="Today's Upstox token has been generated">` +
+                `Token OK${time ? ' \u2022 ' + time : ''}</span>`;
         } else if (state === 'missing') {
-            widget.innerHTML = '<button type="button" class="btn btn-sm btn-warning fw-semibold" id="generateTokenBtn">Generate Token</button>';
+            widget.innerHTML = '<span class="token-pill token-pill-missing">Token missing for today</span><button type="button" class="ct-btn" id="generateTokenBtn">Generate Token</button>';
             document.getElementById('generateTokenBtn').addEventListener('click', () => {
                 window.open(authorizeUrl, '_blank', 'noopener');
             });
         } else {
-            widget.innerHTML = '<span class="small text-danger" title="Worker Service unreachable">Token status unknown</span>';
+            widget.innerHTML = '<span class="ct-sub" style="color:var(--loss-ink)" title="Worker Service unreachable">Token status unknown</span>';
         }
     }
 

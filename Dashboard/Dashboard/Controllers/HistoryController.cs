@@ -15,7 +15,7 @@ namespace Dashboard.Controllers;
 /// </summary>
 public sealed class HistoryController : Controller
 {
-    private const int PageSize = 50;
+    private const int PageSize = 10;
 
     private readonly NiftyBotDbContext _db;
     private readonly ILogger<HistoryController> _logger;
@@ -26,14 +26,15 @@ public sealed class HistoryController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index(string? strategy, string? period, string? sort, int page = 1, CancellationToken ct = default)
+    public async Task<IActionResult> Index(string? strategy, string? from, string? to, string? sort, int page = 1, CancellationToken ct = default)
     {
         StrategyType? strategyFilter = Enum.TryParse<StrategyType>(strategy, ignoreCase: true, out var parsed) && Enum.IsDefined(parsed)
             ? parsed
             : null;
 
-        var periodKey = (period ?? "all").ToLowerInvariant();
-        if (periodKey is not ("today" or "7d" or "30d" or "all")) periodKey = "all";
+        DateOnly? fromDate = DateOnly.TryParse(from, System.Globalization.CultureInfo.InvariantCulture, out var f) ? f : null;
+        DateOnly? toDate = DateOnly.TryParse(to, System.Globalization.CultureInfo.InvariantCulture, out var t) ? t : null;
+        if (fromDate is { } ff && toDate is { } tt && ff > tt) (fromDate, toDate) = (toDate, fromDate);
 
         var sortKey = (sort ?? "time").ToLowerInvariant();
         if (sortKey is not ("time" or "pnl_desc" or "pnl_asc")) sortKey = "time";
@@ -41,7 +42,8 @@ public sealed class HistoryController : Controller
         var vm = new HistoryViewModel
         {
             StrategyFilter = strategyFilter?.ToString().ToLowerInvariant() ?? "all",
-            Period = periodKey,
+            From = fromDate?.ToString("yyyy-MM-dd") ?? "",
+            To = toDate?.ToString("yyyy-MM-dd") ?? "",
             Sort = sortKey,
             PageSize = PageSize
         };
@@ -53,21 +55,23 @@ public sealed class HistoryController : Controller
             if (strategyFilter is { } s)
                 q = q.Where(p => p.Strategy == s);
 
-            if (CutoffFor(periodKey) is { } cutoff)
-                q = q.Where(p => p.ExitTime >= cutoff);
-
-            // ---- summary over the whole filtered set ----
-            vm.Summary.TotalTrades = await q.CountAsync(ct);
-            if (vm.Summary.TotalTrades > 0)
+            if (fromDate is { } fd)
             {
-                vm.Summary.Wins = await q.CountAsync(p => p.FinalPnlRupees > 0, ct);
-                vm.Summary.TotalPnl = await q.SumAsync(p => p.FinalPnlRupees ?? 0m, ct);
-                vm.Summary.Best = await q.MaxAsync(p => p.FinalPnlRupees, ct);
-                vm.Summary.Worst = await q.MinAsync(p => p.FinalPnlRupees, ct);
+                var start = new DateTimeOffset(fd.ToDateTime(TimeOnly.MinValue));
+                q = q.Where(p => p.ExitTime >= start);
+            }
+            if (toDate is { } td)
+            {
+                var endExclusive = new DateTimeOffset(td.AddDays(1).ToDateTime(TimeOnly.MinValue));
+                q = q.Where(p => p.ExitTime < endExclusive);
             }
 
             // ---- paging ----
-            vm.TotalPages = Math.Max(1, (int)Math.Ceiling(vm.Summary.TotalTrades / (double)PageSize));
+            var totalRows = await q.CountAsync(ct);
+            vm.TotalRows = totalRows;
+            if (totalRows > 0)
+                vm.TotalPnl = await q.SumAsync(p => p.FinalPnlRupees ?? 0m, ct);
+            vm.TotalPages = Math.Max(1, (int)Math.Ceiling(totalRows / (double)PageSize));
             vm.Page = Math.Clamp(page, 1, vm.TotalPages);
 
             var ordered = sortKey switch
@@ -93,6 +97,8 @@ public sealed class HistoryController : Controller
                     EntryTime = p.EntryTime,
                     ExitTime = p.ExitTime,
                     ExitReason = p.ExitReason,
+                    StopLossPremium = p.StopLossPremium,
+                    StopLossSpot = p.StopLossSpot,
                     FinalPnlRupees = p.FinalPnlRupees,
                     FinalPnlPercent = p.FinalPnlPercent
                 })
@@ -101,18 +107,10 @@ public sealed class HistoryController : Controller
         catch (Exception ex)
         {
             _logger.LogError(ex, "Could not load closed positions for the History page.");
-            vm.Error = "Database se closed positions load nahi ho payi -- connection string / SQL Server check karo.";
+            vm.Error = "Could not load closed positions from the database -- check the connection string / SQL Server.";
         }
 
         return View(vm);
     }
 
-    /// <summary>Start of the selected period in local time, or null for "all time".</summary>
-    private static DateTimeOffset? CutoffFor(string period) => period switch
-    {
-        "today" => new DateTimeOffset(DateTime.Today),
-        "7d" => new DateTimeOffset(DateTime.Today.AddDays(-6)),
-        "30d" => new DateTimeOffset(DateTime.Today.AddDays(-29)),
-        _ => null
-    };
 }

@@ -138,7 +138,12 @@ public sealed class MacdPositionTracker
         if (tick.LastTradedPrice > position.PeakPremium)
             position.PeakPremium = tick.LastTradedPrice;
 
-        position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+        var newStopLoss = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+        if (newStopLoss != position.CurrentStopLossPremium)
+        {
+            position.CurrentStopLossPremium = newStopLoss;
+            await _positionRepository.UpdateStopLossAsync(position.Id, newStopLoss, null, ct);   // persist the trailing SL
+        }
 
         var pointsGained = position.PeakPremium - position.EntryPremium;
         if (!position.TargetAlertSent && pointsGained >= (decimal)_options.TrailingTargetPoints)
@@ -253,7 +258,8 @@ public sealed class MacdPositionTracker
         PnlRupees: p.PnlRupees,
         PnlPercent: p.PnlPercent,
         Status: status,
-        ExitReason: exitReason);
+        ExitReason: exitReason,
+        StopLossPremium: p.CurrentStopLossPremium);
 
     /// <summary>Broadcasts on PositionHub's "PositionChanged" event -- the Dashboard's Live page (Task 8) listens for this.</summary>
     private async Task BroadcastAsync(MacdPosition position, string status, string? exitReason, CancellationToken ct)
@@ -282,6 +288,7 @@ public sealed class MacdPositionTracker
         SpotAtEntry = position.Signal.NiftySpotAtConfirmation,
         EntryPremium = entryPremium,
         EntryTime = position.OpenedAt,
+        StopLossPremium = position.CurrentStopLossPremium,
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
         LastUpdateTime = position.OpenedAt,

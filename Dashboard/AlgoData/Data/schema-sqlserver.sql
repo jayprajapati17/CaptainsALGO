@@ -18,7 +18,7 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Positions')
 BEGIN
     CREATE TABLE Positions (
         Id                  INT IDENTITY(1,1) PRIMARY KEY,
-        Strategy            NVARCHAR(20)    NOT NULL CHECK (Strategy IN ('Ema', 'Breakout', 'Macd')),
+        Strategy            NVARCHAR(20)    NOT NULL CHECK (Strategy IN ('Ema', 'Breakout', 'Macd', 'Reversal')),
         Direction           NVARCHAR(30)    NOT NULL,             -- 'GoldenCross' | 'DeathCross' | 'Up' | 'Down'
         Leg                 NVARCHAR(20)    NULL,                  -- 'CurrentWeekItm' | 'NextWeekAtm' | NULL for Breakout
         InstrumentKey       NVARCHAR(100)   NOT NULL,
@@ -41,6 +41,9 @@ BEGIN
                                              CHECK (Status IN ('Open', 'Closed')),
         LastKnownPremium    DECIMAL(18,2)   NOT NULL,
         LastUpdateTime      DATETIMEOFFSET  NOT NULL,
+
+        StopLossPremium     DECIMAL(18,2)   NULL,
+        StopLossSpot        DECIMAL(18,2)   NULL,
 
         ExitPremium         DECIMAL(18,2)   NULL,
         ExitTime            DATETIMEOFFSET  NULL,
@@ -72,7 +75,7 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'SignalLog')
 BEGIN
     CREATE TABLE SignalLog (
         Id                  INT IDENTITY(1,1) PRIMARY KEY,
-        Strategy            NVARCHAR(20)    NOT NULL CHECK (Strategy IN ('Ema', 'Breakout', 'Macd')),
+        Strategy            NVARCHAR(20)    NOT NULL CHECK (Strategy IN ('Ema', 'Breakout', 'Macd', 'Reversal')),
         Direction           NVARCHAR(30)    NOT NULL,
         Confidence          NVARCHAR(10)    NULL CHECK (Confidence IN ('High', 'Medium', 'Low')),
         SignalTime          DATETIMEOFFSET  NOT NULL,
@@ -202,12 +205,12 @@ BEGIN
     FROM sys.check_constraints cc
     JOIN sys.columns col ON col.object_id = cc.parent_object_id AND col.column_id = cc.parent_column_id
     WHERE cc.parent_object_id = OBJECT_ID('Positions') AND col.name = 'Strategy'
-      AND cc.definition NOT LIKE '%Macd%';
+      AND cc.definition NOT LIKE '%Reversal%';
 
     IF @posStrategyCk IS NOT NULL
     BEGIN
         EXEC('ALTER TABLE Positions DROP CONSTRAINT [' + @posStrategyCk + ']');
-        ALTER TABLE Positions ADD CHECK (Strategy IN ('Ema', 'Breakout', 'Macd'));
+        ALTER TABLE Positions ADD CHECK (Strategy IN ('Ema', 'Breakout', 'Macd', 'Reversal'));
     END
 END
 GO
@@ -219,12 +222,49 @@ BEGIN
     FROM sys.check_constraints cc
     JOIN sys.columns col ON col.object_id = cc.parent_object_id AND col.column_id = cc.parent_column_id
     WHERE cc.parent_object_id = OBJECT_ID('SignalLog') AND col.name = 'Strategy'
-      AND cc.definition NOT LIKE '%Macd%';
+      AND cc.definition NOT LIKE '%Reversal%';
 
     IF @sigStrategyCk IS NOT NULL
     BEGIN
         EXEC('ALTER TABLE SignalLog DROP CONSTRAINT [' + @sigStrategyCk + ']');
-        ALTER TABLE SignalLog ADD CHECK (Strategy IN ('Ema', 'Breakout', 'Macd'));
+        ALTER TABLE SignalLog ADD CHECK (Strategy IN ('Ema', 'Breakout', 'Macd', 'Reversal'));
     END
 END
+GO
+
+-- ---------------------------------------------------------------------
+-- AppSettings -- the Worker's Upstox / Telegram / Strategy settings,
+-- editable from the Dashboard's Settings page. The Worker creates this
+-- table itself and seeds it from appsettings.json on its first start, so
+-- running this block manually is optional (it is idempotent either way).
+-- ---------------------------------------------------------------------
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'AppSettings')
+BEGIN
+    CREATE TABLE AppSettings (
+        Id               INT IDENTITY(1,1) PRIMARY KEY,
+        Section          NVARCHAR(100)   NOT NULL,
+        [Key]            NVARCHAR(150)   NOT NULL,
+        [Value]          NVARCHAR(MAX)   NULL,
+        ValueType        NVARCHAR(20)    NOT NULL CONSTRAINT DF_AppSettings_ValueType DEFAULT ('string'),
+        IsSecret         BIT             NOT NULL CONSTRAINT DF_AppSettings_IsSecret DEFAULT (0),
+        RequiresRestart  BIT             NOT NULL CONSTRAINT DF_AppSettings_RequiresRestart DEFAULT (0),
+        GroupName        NVARCHAR(100)   NOT NULL CONSTRAINT DF_AppSettings_GroupName DEFAULT (''),
+        SortOrder        INT             NOT NULL CONSTRAINT DF_AppSettings_SortOrder DEFAULT (0),
+        [Description]    NVARCHAR(500)   NOT NULL CONSTRAINT DF_AppSettings_Description DEFAULT (''),
+        UpdatedAt        DATETIMEOFFSET  NOT NULL CONSTRAINT DF_AppSettings_UpdatedAt DEFAULT (SYSDATETIMEOFFSET()),
+
+        CONSTRAINT UQ_AppSettings_Section_Key UNIQUE (Section, [Key])
+    );
+END
+GO
+
+-- ---------------------------------------------------------------------
+-- Migration: stop-loss columns on Positions (current/trailing SL; the Worker also adds
+-- these itself at startup). Idempotent.
+-- ---------------------------------------------------------------------
+IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossPremium') IS NULL
+    ALTER TABLE Positions ADD StopLossPremium DECIMAL(18,2) NULL;
+GO
+IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossSpot') IS NULL
+    ALTER TABLE Positions ADD StopLossSpot DECIMAL(18,2) NULL;
 GO

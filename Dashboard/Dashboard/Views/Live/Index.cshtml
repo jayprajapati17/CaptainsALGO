@@ -3,92 +3,119 @@
     ViewData["Title"] = "Live";
 }
 
-<div id="liveRoot"
+<div id="liveRoot" class="d-flex flex-column gap-4"
      data-hub-url="@Model.PositionsHubUrl"
      data-close-url="@Url.Action("Close", "Live")"
-     data-open-url="@Url.Action("Open", "Live")">
+     data-open-url="@Url.Action("Open", "Live")"
+     data-initial-risk="@Model.InitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
+     data-target-points="@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
+     data-cpr-bc="@(Model.Cpr is { } c0 ? c0.Bc.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")"
+     data-cpr-tc="@(Model.Cpr is { } c1 ? c1.Tc.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")">
 
-    @* ---- Header strip: Nifty spot + CPR + (Task 9) token ---- *@
-    <div class="market-strip card mb-3">
-        <div class="card-body py-2 d-flex flex-wrap align-items-center gap-4">
-            <div>
-                <div class="strip-label">Nifty 50</div>
-                <div class="strip-value" id="niftySpot">--</div>
-            </div>
-
-            <div class="vr d-none d-md-block"></div>
-
-            <div>
-                <div class="strip-label">
-                    CPR
-                    @if (Model.Cpr is { IsForToday: false })
-                    {
-                        <span class="badge text-bg-warning ms-1" title="Latest available -- not computed for today yet">@Model.Cpr.ForTradingDay.ToString("dd MMM")</span>
-                    }
-                </div>
-                @if (Model.Cpr is { } cpr)
-                {
-                    <div class="strip-value">
-                        <span title="Bottom central">BC @cpr.Bc.ToString("N2")</span>
-                        <span class="text-secondary mx-1">|</span>
-                        <span title="Pivot">P @cpr.Pivot.ToString("N2")</span>
-                        <span class="text-secondary mx-1">|</span>
-                        <span title="Top central">TC @cpr.Tc.ToString("N2")</span>
-                        <span class="badge text-bg-secondary ms-2" title="@cpr.BiasNote">@cpr.Reading (@cpr.WidthPercent.ToString("0.00")%)</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="strip-value text-secondary">Not available yet</div>
-                }
-            </div>
-
-            <div class="vr d-none d-md-block"></div>
-
-            <div class="ms-md-auto d-flex align-items-center gap-3">
-                @* Task 9's token widget is global -- see the navbar in _Layout.cshtml, shown on every page, not just here. *@
-                <div class="d-flex align-items-center gap-2 small">
-                    <span class="status-dot status-connecting" id="hubDot"></span>
-                    <span id="hubStatus" class="text-secondary">Connecting...</span>
-                </div>
-            </div>
+    <header class="ct-head">
+        <div>
+            <div class="ct-eyebrow">@DateTime.Now.ToString("ddd, dd MMM yyyy")</div>
+            <h1 class="ct-title">Live desk</h1>
         </div>
-    </div>
+        <div class="ct-pill" id="hubPill">
+            <span class="status-dot status-connecting" id="hubDot"></span>
+            <span id="hubStatus">Connecting...</span>
+        </div>
+    </header>
 
     @if (Model.WorkerError is not null)
     {
-        <div class="alert alert-warning py-2" role="alert">@Model.WorkerError</div>
+        <div class="alert alert-warning py-2 mb-0" role="alert">@Model.WorkerError</div>
     }
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Live Positions <span class="badge text-bg-secondary align-middle" id="openCount">0</span></h4>
-    </div>
-
-    <div id="emptyState" class="card empty-state d-none">
-        <div class="card-body text-center text-secondary py-5">
-            Koi position abhi open nahi hai. Naya signal aate hi yahan row apne aap aa jayegi.
+    @* ---------- Market band ---------- *@
+    <section class="ct-grid">
+        <div class="ct-card ct-stat">
+            <span class="ct-stat-label">Nifty 50</span>
+            <span class="ct-stat-value" id="niftySpot">--</span>
+            <span class="ct-stat-sub">Live spot</span>
         </div>
-    </div>
 
-    <div class="table-responsive" id="positionTableWrap">
-        <table class="table table-sm align-middle data-table live-position-table">
-            <thead>
-                <tr>
-                    <th>Symbol</th>
-                    <th>Entry</th>
-                    <th class="text-end">Entry &rarr; LTP</th>
-                    <th class="text-end">P&amp;L</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="positionGrid"></tbody>
-        </table>
-    </div>
+        <div class="ct-card ct-stat" style="gap:14px">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="ct-stat-label">
+                    @(Model.Cpr is { IsForToday: false } ? "CPR (" + Model.Cpr.ForTradingDay.ToString("dd MMM") + ")" : "Today's CPR")
+                </span>
+                @if (Model.Cpr is { } cprBadge)
+                {
+                    <span class="cpr-badge" title="@cprBadge.BiasNote">@cprBadge.Reading &middot; @cprBadge.WidthPercent.ToString("0.00")%</span>
+                }
+            </div>
+            @if (Model.Cpr is { } cpr)
+            {
+                <div class="cpr-bar" id="cprBar">
+                    <div class="cpr-track"></div>
+                    <div class="cpr-range" id="cprRange" style="left:30%;width:40%"></div>
+                    <div class="cpr-spot d-none" id="cprSpot"></div>
+                </div>
+                <div class="cpr-levels">
+                    <span title="Bottom central">BC @cpr.Bc.ToString("N2")</span>
+                    <span title="Pivot">P @cpr.Pivot.ToString("N2")</span>
+                    <span title="Top central">TC @cpr.Tc.ToString("N2")</span>
+                </div>
+            }
+            else
+            {
+                <span class="ct-sub">Not available yet</span>
+            }
+        </div>
+
+        <div class="ct-card ct-stat ct-stat-accent">
+            <span class="ct-stat-label">Open P&amp;L</span>
+            <span class="ct-stat-value" id="totalPnl">&#8377;0.00</span>
+            <span class="ct-stat-sub"><span id="openCount">0</span> open positions &middot; 1 lot each</span>
+        </div>
+    </section>
+
+    @* ---------- Positions ---------- *@
+    <section class="d-flex flex-column gap-3">
+        <div class="ct-toolbar">
+            <h2 class="ct-section-title">Open positions</h2>
+            <div class="chip-group" id="strategyFilter">
+                <a href="#" class="chip chip-active" data-filter="all">All</a>
+                <a href="#" class="chip" data-filter="Ema">EMA</a>
+                <a href="#" class="chip" data-filter="Breakout">Breakout</a>
+                <a href="#" class="chip" data-filter="Macd">MACD</a>
+                <a href="#" class="chip" data-filter="Reversal">Reversal</a>
+            </div>
+        </div>
+
+        <div id="emptyState" class="ct-card empty-state d-none">
+            No open positions right now. A new row will appear here automatically when a signal fires.
+        </div>
+
+        <div class="ct-card ct-table-wrap" id="positionTableWrap">
+            <table class="ct-table live-table">
+                <thead>
+                    <tr>
+                        <th>Instrument</th>
+                        <th>Entry time</th>
+                        <th style="width:34%">Entry &rarr; LTP</th>
+                        <th>Stop-loss</th>
+                        <th class="text-end">P&amp;L</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="positionGrid"></tbody>
+            </table>
+        </div>
+
+        <div class="gauge-legend">
+            <span><i style="background:var(--loss)"></i>Stop-loss</span>
+            <span><i style="background:var(--ink)"></i>Entry</span>
+            <span><i style="background:var(--amber)"></i>Target (+<span id="targetLegend">@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)</span>)</span>
+        </div>
+    </section>
 </div>
 
 <script type="application/json" id="initialPositions">@Html.Raw(Json.Serialize(Model.Positions))</script>
 
 @section Scripts {
-    @* signalr.min.js is now loaded once, globally, from _Layout.cshtml (Task 9 needs it on every page for the token widget). *@
+    @* signalr.min.js is loaded once, globally, from _Layout.cshtml (the token widget needs it on every page). *@
     <script src="~/js/live.js" asp-append-version="true"></script>
 }

@@ -50,6 +50,9 @@ public sealed class NiftyBotDbContext : DbContext
             e.Property(p => p.LastKnownPremium).HasColumnName("LastKnownPremium").HasColumnType("decimal(18,2)").IsRequired();
             e.Property(p => p.LastUpdateTime).HasColumnName("LastUpdateTime").IsRequired();
 
+            e.Property(p => p.StopLossPremium).HasColumnName("StopLossPremium").HasColumnType("decimal(18,2)");
+            e.Property(p => p.StopLossSpot).HasColumnName("StopLossSpot").HasColumnType("decimal(18,2)");
+
             e.Property(p => p.ExitPremium).HasColumnName("ExitPremium").HasColumnType("decimal(18,2)");
             e.Property(p => p.ExitTime).HasColumnName("ExitTime");
             e.Property(p => p.ExitReason).HasColumnName("ExitReason");

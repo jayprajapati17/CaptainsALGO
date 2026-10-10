@@ -12,7 +12,7 @@ namespace Dashboard.Controllers;
 /// </summary>
 public sealed class SignalsController : Controller
 {
-    private const int PageSize = 50;
+    private const int PageSize = 10;
 
     private readonly NiftyBotDbContext _db;
     private readonly ILogger<SignalsController> _logger;
@@ -68,6 +68,7 @@ public sealed class SignalsController : Controller
                 _ => vm.TotalSignals
             };
 
+            vm.FilteredCount = filteredCount;
             vm.TotalPages = Math.Max(1, (int)Math.Ceiling(filteredCount / (double)PageSize));
             vm.Page = Math.Clamp(page, 1, vm.TotalPages);
 
@@ -97,7 +98,7 @@ public sealed class SignalsController : Controller
         catch (Exception ex)
         {
             _logger.LogError(ex, "Could not load the signal log for the Signals page.");
-            vm.Error = "Database se signals load nahi ho paye -- connection string / SQL Server check karo.";
+            vm.Error = "Could not load signals from the database -- check the connection string / SQL Server.";
         }
 
         return View(vm);

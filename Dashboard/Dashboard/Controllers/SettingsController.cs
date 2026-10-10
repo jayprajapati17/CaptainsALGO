@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using AlgoData.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,10 @@ namespace Dashboard.Controllers;
 /// </summary>
 public sealed class SettingsController : Controller
 {
-    private static readonly string[] SectionOrder = { "Upstox", "Telegram", "Strategy" };
+    private static readonly string[] SectionOrder = { "Telegram", "Strategy", "Upstox" };
+
+    // Upstox settings are view-only on the dashboard (edit them in the Worker's appsettings / database directly).
+    private const string ReadOnlySection = "Upstox";
 
     private readonly NiftyBotDbContext _db;
     private readonly IHttpClientFactory _httpClientFactory;
@@ -29,7 +32,7 @@ public sealed class SettingsController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(string? tab, CancellationToken ct)
     {
-        var vm = new SettingsViewModel { ActiveTab = tab ?? "Upstox" };
+        var vm = new SettingsViewModel { ActiveTab = string.IsNullOrWhiteSpace(tab) ? "Telegram" : tab };
         vm.Message = TempData["SettingsMessage"] as string;
         vm.Warning = TempData["SettingsWarning"] as string;
 
@@ -58,6 +61,7 @@ public sealed class SettingsController : Controller
 
         foreach (var row in rows)
         {
+            if (row.Section == ReadOnlySection) continue;
             if (!values.TryGetValue(row.Id, out var raw)) continue;
             var value = (raw ?? string.Empty).Trim();
             submitted[row.Id] = value;
@@ -70,7 +74,7 @@ public sealed class SettingsController : Controller
         {
             var vmWithErrors = new SettingsViewModel
             {
-                ActiveTab = tab ?? "Upstox",
+                ActiveTab = string.IsNullOrWhiteSpace(tab) ? "Telegram" : tab,
                 Error = $"{errors.Count} value(s) are invalid -- nothing was saved. Fix the highlighted fields and save again.",
                 Sections = await BuildSectionsAsync(submitted, errors, ct)
             };
@@ -150,6 +154,7 @@ public sealed class SettingsController : Controller
                         IsSecret = r.IsSecret,
                         RequiresRestart = r.RequiresRestart,
                         Description = r.Description,
+                        ReadOnly = r.Section == ReadOnlySection,
                         Error = errors is not null && errors.TryGetValue(r.Id, out var e) ? e : null
                     }).ToList()
                 });

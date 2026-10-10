@@ -80,6 +80,52 @@ public sealed class StrategyOptions
     /// <summary>IST time-of-day at which any open breakout position is force-closed (no overnight carry).</summary>
     public string BreakoutForceExitTime { get; set; } = "15:20";
 
+    /// <summary>Maximum number of ORB trades opened per day (re-entries after a stop-loss count). Signals beyond this are logged as skipped.</summary>
+    public int BreakoutMaxTradesPerDay { get; set; } = 3;
+
+
+    // =====================================================================
+    // Nifty 50 UPSIDE REVERSAL strategy (5-min, bullish only, buys CE).
+    // Setups: A = Double Bottom, C = Liquidity Sweep + confirmation window.
+    // Exits are on NIFTY SPOT levels: SL below the setup low, T1 -> SL to cost, T2 -> exit.
+    // Volume / VWAP / VPVR filters from the logic document are NOT used (the index feed has no volume).
+    // =====================================================================
+    public bool ReversalStrategyEnabled { get; set; } = true;
+    public bool ReversalSetupAEnabled { get; set; } = true;
+    public bool ReversalSetupCEnabled { get; set; } = true;
+
+    /// <summary>No entries before this time (HH:mm) -- avoids the first 15 min of opening volatility.</summary>
+    public string ReversalEarliestEntryTime { get; set; } = "09:30";
+    /// <summary>No new entries after this time (HH:mm).</summary>
+    public string ReversalLastEntryTime { get; set; } = "14:45";
+    /// <summary>Open Reversal positions are force-closed at this time (HH:mm, IST).</summary>
+    public string ReversalForceExitTime { get; set; } = "15:20";
+
+    public int ReversalEmaFastPeriod { get; set; } = 21;
+    public int ReversalEmaSlowPeriod { get; set; } = 50;
+    public int ReversalSeedLookbackTradingDays { get; set; } = 2;
+
+    /// <summary>Setup A: the second low must be within +/- this many points of the first low.</summary>
+    public double ReversalDoubleBottomTolerancePoints { get; set; } = 10.0;
+    /// <summary>Setup A: minimum bounce (points) between the two lows.</summary>
+    public double ReversalMinBouncePoints { get; set; } = 30.0;
+    /// <summary>Setup C: max candles to wait for confirmation (document suggests 3-4; backtest 2-5).</summary>
+    public int ReversalConfirmCandles { get; set; } = 4;
+    /// <summary>Setup C: minimum candles in the window with a low above the sweep low (higher lows).</summary>
+    public int ReversalMinHigherLows { get; set; } = 1;
+    /// <summary>Stop-loss buffer (points) below the setup low (document: 5-10).</summary>
+    public double ReversalSlBufferPoints { get; set; } = 7.0;
+    /// <summary>Minimum reward:risk to T2; setups below this are skipped.</summary>
+    public double ReversalMinRiskReward { get; set; } = 2.0;
+    /// <summary>The setup low must be within this many points of the previous-day low or today's low (support zone).</summary>
+    public double ReversalSupportTolerancePoints { get; set; } = 25.0;
+    /// <summary>Skip when EMA21 &lt; EMA50 AND price is this % below today's open (strong down-trend day). 0 = filter off.</summary>
+    public double ReversalTrendDownPercent { get; set; } = 0.75;
+
+    public int ReversalMaxTradesPerDay { get; set; } = 3;
+    /// <summary>No more Reversal trades for the day after this many consecutive losses.</summary>
+    public int ReversalMaxConsecutiveLosses { get; set; } = 2;
+
     // >>> CHANGED (step-trailing rule): all three strategies (EMA, Breakout, MACD)
     // share ONE stop-loss rule -- see TrailingStopCalculator.cs for the formula and a
     // worked example. This is IN ADDITION TO each strategy's own other exit rules

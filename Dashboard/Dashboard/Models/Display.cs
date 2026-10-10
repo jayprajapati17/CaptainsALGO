@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using AlgoData.Models;
 
 namespace Dashboard.Models;
@@ -13,6 +13,7 @@ public static class Display
         StrategyType.Ema => "EMA",
         StrategyType.Breakout => "Breakout",
         StrategyType.Macd => "MACD",
+        StrategyType.Reversal => "Reversal",
         _ => s.ToString()
     };
 

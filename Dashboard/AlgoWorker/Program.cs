@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Options;
 using Serilog;
 using Telegram.Bot;
@@ -129,6 +128,9 @@ builder.Services.AddSingleton<HistoricalSeederService>();
 builder.Services.AddSingleton<FiveMinCandleAggregatorService>();
 builder.Services.AddSingleton<BreakoutSignalEngine>();
 builder.Services.AddSingleton<BreakoutPositionTracker>();
+builder.Services.AddSingleton<ReversalSignalEngine>();
+builder.Services.AddSingleton<ReversalPositionTracker>();
+builder.Services.AddSingleton<FiveMinHistoricalSeederService>();
 
 // >>> NEW: 3-Minute MACD(12,26,9) + Dynamic Step-Trailing SL strategy --
 // third independent pipeline, own 3-min candle stream.
@@ -195,7 +197,7 @@ app.MapHub<PositionHub>("/hubs/positions");
 // =====================================================================
 
 app.MapPost("/api/positions/{id:int}/close", async (
-    int id, VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt, CancellationToken ct) =>
+    int id, VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt, ReversalPositionTracker rpt, CancellationToken ct) =>
 {
     if (await vpt.ForceCloseAsync(id, ct))
         return Results.Ok(new { closed = true, strategy = "Ema" });
@@ -206,14 +208,18 @@ app.MapPost("/api/positions/{id:int}/close", async (
     if (await mpt.ForceCloseAsync(id, ct))
         return Results.Ok(new { closed = true, strategy = "Macd" });
 
+    if (await rpt.ForceCloseAsync(id, ct))
+        return Results.Ok(new { closed = true, strategy = "Reversal" });
+
     return Results.NotFound(new { closed = false, message = $"No OPEN position found with Id {id}." });
 });
 
-app.MapGet("/api/positions/open", (VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt) =>
+app.MapGet("/api/positions/open", (VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt, ReversalPositionTracker rpt) =>
 {
     var all = vpt.GetOpenPositionsSnapshot()
         .Concat(bpt.GetOpenPositionsSnapshot())
-        .Concat(mpt.GetOpenPositionsSnapshot());
+        .Concat(mpt.GetOpenPositionsSnapshot())
+        .Concat(rpt.GetOpenPositionsSnapshot());
     return Results.Ok(all);
 });
 
@@ -351,6 +357,10 @@ try
         scopeSp.GetRequiredService<IOptions<UpstoxOptions>>().Value,
         scopeSp.GetRequiredService<IOptions<TelegramOptions>>().Value,
         scopeSp.GetRequiredService<IOptions<StrategyOptions>>().Value,
+        scopeSp.GetRequiredService<ILogger<Program>>(),
+        CancellationToken.None);
+    await SchemaMigrator.ApplyAsync(
+        scopeSp.GetRequiredService<IDbContextFactory<AlgoData.Data.NiftyBotDbContext>>(),
         scopeSp.GetRequiredService<ILogger<Program>>(),
         CancellationToken.None);
 

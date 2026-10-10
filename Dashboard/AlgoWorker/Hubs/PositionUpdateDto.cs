@@ -1,4 +1,4 @@
-﻿namespace AlgoWorker.Hubs;
+namespace AlgoWorker.Hubs;
 
 /// <summary>
 /// >>> NEW (Task 4): shape broadcast over PositionHub's "PositionChanged"
@@ -27,4 +27,7 @@ public sealed record PositionUpdateDto(
     decimal PnlRupees,
     double PnlPercent,
     string Status,           // "Open" | "Closed"
-    string? ExitReason);
+    string? ExitReason,
+    decimal StopLossPremium = 0m,  // current (trailing) stop-loss premium; 0 = n/a
+    decimal StopLossSpot = 0m,     // Reversal only: current stop-loss as a Nifty spot level; 0 = n/a
+    bool StopLossTrailing = false); // Reversal only: true once the SL has moved to cost (after T1)

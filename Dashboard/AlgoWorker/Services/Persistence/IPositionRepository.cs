@@ -1,4 +1,4 @@
-﻿using AlgoData.Models;
+using AlgoData.Models;
 
 namespace AlgoWorker.Services.Persistence;
 
@@ -16,6 +16,15 @@ public interface IPositionRepository
 
     /// <summary>Updates the live premium snapshot on an open position (called on each periodic P&amp;L update).</summary>
     Task UpdateLivePremiumAsync(int positionId, decimal lastKnownPremium, DateTimeOffset lastUpdateTime, CancellationToken ct);
+
+    /// <summary>How many Breakout positions were opened on the given local day (used for the daily trade cap; survives Worker restarts).</summary>
+    Task<int> CountBreakoutTradesOpenedOnAsync(DateOnly day, CancellationToken ct);
+
+    /// <summary>For the Reversal strategy's daily risk rules: trades opened on the given local day and the current run of consecutive losing closed trades (most recent first).</summary>
+    Task<(int Opened, int ConsecutiveLosses)> GetReversalDayStatsAsync(DateOnly day, CancellationToken ct);
+
+    /// <summary>Persists the position's current (trailing) stop-loss. Pass null for the kind that doesn't apply (premium for Reversal, spot for the others).</summary>
+    Task UpdateStopLossAsync(int positionId, decimal? stopLossPremium, decimal? stopLossSpot, CancellationToken ct);
 
     /// <summary>Marks a position Closed with its final outcome.</summary>
     Task CloseAsync(

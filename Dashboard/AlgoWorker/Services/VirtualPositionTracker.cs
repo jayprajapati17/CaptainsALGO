@@ -174,7 +174,12 @@ public sealed class VirtualPositionTracker
             if (tick.LastTradedPrice > position.PeakPremium)
                 position.PeakPremium = tick.LastTradedPrice;
 
-            position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+            var newStopLoss = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+            if (newStopLoss != position.CurrentStopLossPremium)
+            {
+                position.CurrentStopLossPremium = newStopLoss;
+                await _positionRepository.UpdateStopLossAsync(position.Id, newStopLoss, null, ct);   // persist the trailing SL
+            }
             position.TrailingActive = TrailingStopCalculator.IsTrailing(position.EntryPremium, position.PeakPremium, _options);
 
             if (tick.LastTradedPrice <= position.CurrentStopLossPremium)
@@ -328,7 +333,8 @@ public sealed class VirtualPositionTracker
         PnlRupees: p.PnlRupees,
         PnlPercent: p.PnlPercent,
         Status: status,
-        ExitReason: exitReason);
+        ExitReason: exitReason,
+        StopLossPremium: p.CurrentStopLossPremium);
 
     /// <summary>Broadcasts on PositionHub's "PositionChanged" event -- the Dashboard's Live page (Task 8) listens for this.</summary>
     private async Task BroadcastAsync(VirtualPosition position, string status, string? exitReason, CancellationToken ct)
@@ -359,6 +365,7 @@ public sealed class VirtualPositionTracker
         SpotAtEntry = position.Signal.NiftySpotAtConfirmation,
         EntryPremium = entryPremium,
         EntryTime = position.OpenedAt,
+        StopLossPremium = position.CurrentStopLossPremium,
         Confidence = MapConfidence(position.Signal.Confidence),
         AdxAtEntry = position.Signal.AdxAtConfirmation,
         AdxNCandlesAgo = position.Signal.AdxNCandlesAgo,

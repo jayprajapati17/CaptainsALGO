@@ -13,34 +13,41 @@
         })!;
 
     string Chip(bool active) => active ? "chip chip-active" : "chip";
+
+    string StrategyClass(AlgoData.Models.StrategyType s) => s switch
+    {
+        AlgoData.Models.StrategyType.Breakout => "st-chip st-breakout",
+        AlgoData.Models.StrategyType.Macd => "st-chip st-macd",
+        AlgoData.Models.StrategyType.Reversal => "st-chip st-reversal",
+        _ => "st-chip st-ema"
+    };
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">Signals Log</h4>
-    <div class="small text-secondary">
-        <span class="me-3">Total <strong class="text-body">@Model.TotalSignals</strong></span>
-        <span class="me-3">Trade opened <strong class="text-success">@Model.OpenedCount</strong></span>
-        <span>Skipped <strong class="text-warning">@Model.SkippedCount</strong></span>
+<header class="ct-head">
+    <div>
+        <div class="ct-eyebrow">Every signal, taken or skipped</div>
+        <h1 class="ct-title">Signals Log</h1>
     </div>
-</div>
+</header>
 
 @if (Model.Error is not null)
 {
-    <div class="alert alert-warning py-2" role="alert">@Model.Error</div>
+    <div class="alert alert-warning py-2 mb-0" role="alert">@Model.Error</div>
 }
 
-<div class="d-flex flex-wrap gap-4 mb-3">
+<section class="ct-card ct-filterbar">
     <div class="chip-group">
         <span class="chip-label">Strategy</span>
         <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
         <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
         <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
         <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
+            <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
     </div>
     <div class="chip-group">
         <span class="chip-label">Outcome</span>
         <a class="@Chip(Model.Outcome == "all")" href="@Link(outcome: "all")">All</a>
-        <a class="@Chip(Model.Outcome == "opened")" href="@Link(outcome: "opened")">Trade opened</a>
+        <a class="@Chip(Model.Outcome == "opened")" href="@Link(outcome: "opened")">Opened</a>
         <a class="@Chip(Model.Outcome == "skipped")" href="@Link(outcome: "skipped")">Skipped</a>
     </div>
     <div class="chip-group">
@@ -50,30 +57,28 @@
         <a class="@Chip(Model.Period == "30d")" href="@Link(period: "30d")">30 days</a>
         <a class="@Chip(Model.Period == "all")" href="@Link(period: "all")">All time</a>
     </div>
-</div>
+</section>
 
 @if (Model.Rows.Count == 0)
 {
-    <div class="card empty-state">
-        <div class="card-body text-center text-secondary py-5">
-            @if (Model.Error is null)
-            {
-                @:Is filter mein koi signal nahi mila.
-            }
-            else
-            {
-                @:Data load nahi ho paya.
-            }
-        </div>
+    <div class="ct-card empty-state">
+        @if (Model.Error is null)
+        {
+            @:No signals match this filter.
+        }
+        else
+        {
+            @:Could not load data.
+        }
     </div>
 }
 else
 {
-    <div class="table-responsive">
-        <table class="table table-sm table-hover align-middle data-table">
+    <div class="ct-card ct-table-wrap">
+        <table class="ct-table ct-compact">
             <thead>
                 <tr>
-                    <th>Signal time</th>
+                    <th>Time</th>
                     <th>Strategy</th>
                     <th>Signal</th>
                     <th>Confidence</th>
@@ -86,29 +91,32 @@ else
                 @foreach (var r in Model.Rows)
                 {
                     <tr>
-                        <td class="text-nowrap">@r.SignalTime.ToString("dd MMM, hh:mm tt")</td>
-                        <td><span class="badge text-bg-secondary">@Display.Strategy(r.Strategy)</span></td>
                         <td class="text-nowrap">
-                            <span class="fw-semibold @(Display.IsBullish(r.Direction) ? "text-success" : "text-danger")">
-                                @(Display.IsBullish(r.Direction) ? "\u25B2" : "\u25BC") @Display.DirectionLabel(r.Direction)
+                            <div class="num fw-semibold" style="font-size:14px">@r.SignalTime.ToString("hh:mm tt")</div>
+                            <div class="ct-sub">@r.SignalTime.ToString("dd MMM")</div>
+                        </td>
+                        <td><span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span></td>
+                        <td class="text-nowrap">
+                            <span class="fw-semibold @(Display.IsBullish(r.Direction) ? "dir-up" : "dir-down")">
+                                <span class="dir-dot">@(Display.IsBullish(r.Direction) ? "▲" : "▼")</span>@Display.DirectionLabel(r.Direction)
                             </span>
                             @if (r.IsCatchUp)
                             {
-                                <span class="badge text-bg-info ms-1" title="Bot start hone par purana, abhi bhi active crossover pakda gaya -- fresh live signal nahi.">catch-up</span>
+                                <span class="out-pill out-skip ms-1" title="An older crossover that was still active when the bot started -- not a fresh live signal.">Catch-up</span>
                             }
                         </td>
                         <td>
                             @if (r.Confidence is not null)
                             {
-                                <span class="badge @Display.ConfidenceBadge(r.Confidence)">@r.Confidence</span>
+                                <span style="font-size:13px;font-weight:500">@r.Confidence</span>
                             }
                             else
                             {
-                                <span class="text-secondary">&mdash;</span>
+                                <span class="ct-sub">&mdash;</span>
                             }
                         </td>
-                        <td class="text-end text-nowrap num">@Display.Number(r.SpotPrice)</td>
-                        <td class="small text-secondary text-nowrap">
+                        <td class="text-end text-nowrap num" style="font-size:14px">@Display.Number(r.SpotPrice)</td>
+                        <td class="ct-sub text-nowrap" style="font-size:13px">
                             @if (r.AdxAtSignal is not null)
                             {
                                 <span>ADX @r.AdxAtSignal.Value.ToString("0.0")</span>
@@ -129,18 +137,18 @@ else
                         <td>
                             @if (r.PositionOpened)
                             {
-                                <span class="badge text-bg-success">Trade opened</span>
+                                <span class="out-pill">Opened</span>
                                 if (r.PositionId is not null)
                                 {
-                                    <span class="small text-secondary ms-1">#@r.PositionId</span>
+                                    <span class="ct-sub ms-1">#@r.PositionId</span>
                                 }
                             }
                             else
                             {
-                                <span class="badge text-bg-warning">Skipped</span>
+                                <span class="out-pill out-skip">Skipped</span>
                                 if (!string.IsNullOrWhiteSpace(r.SkipReason))
                                 {
-                                    <div class="small text-secondary reason-cell" title="@r.SkipReason">@r.SkipReason</div>
+                                    <div class="ct-sub reason-cell mt-1" title="@r.SkipReason">@r.SkipReason</div>
                                 }
                             }
                         </td>
@@ -150,12 +158,5 @@ else
         </table>
     </div>
 
-    if (Model.TotalPages > 1)
-    {
-        <nav class="d-flex justify-content-between align-items-center mt-3">
-            <a class="btn btn-sm btn-outline-secondary @(Model.Page <= 1 ? "disabled" : "")" href="@Link(page: Model.Page - 1)">&larr; Newer</a>
-            <span class="small text-secondary">Page @Model.Page of @Model.TotalPages</span>
-            <a class="btn btn-sm btn-outline-secondary @(Model.Page >= Model.TotalPages ? "disabled" : "")" href="@Link(page: Model.Page + 1)">Older &rarr;</a>
-        </nav>
-    }
+    <partial name="_Pager" model="@(new PagerModel(Model.Page, Model.TotalPages, Model.FilteredCount, Model.PageSize, p => Link(page: p)))" />
 }

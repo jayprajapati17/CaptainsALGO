@@ -11,6 +11,10 @@ namespace AlgoWorker.Services;
 /// of each trading day defines the range, and every candle after it is
 /// checked against that range's High/Low on CLOSE.
 ///
+/// Re-entry: each side (UP / DOWN) can fire again after a candle has closed back inside the range
+/// and then closes outside it once more (see RE-ARM below). Late-start/restart catch-up is unchanged:
+/// a breakout already in progress at startup never trades.
+///
 /// Day-boundary detection is automatic: whenever a candle's date differs from
 /// the last one seen, that candle becomes the new day's opening-range candle
 /// and all "already triggered today" flags reset. No external SetXxxLevels
@@ -75,6 +79,13 @@ public sealed class BreakoutSignalEngine
             _logger.LogDebug("Breakout check skipped -- opening range not captured yet for {Day}.", candleDay);
             return;
         }
+
+        // RE-ARM: a breakout side is "armed" again once a candle closes back inside the range
+        // (at/below High re-arms UP; at/above Low re-arms DOWN). So after a reversal / stop-loss,
+        // a NEW close outside the range is treated as a fresh breakout and can trade again.
+        // While price just stays outside the range without ever closing back inside, no repeat signal fires.
+        if (candle.Close <= _openingRangeHigh.Value) _upTriggeredToday = false;
+        if (candle.Close >= _openingRangeLow.Value) _downTriggeredToday = false;
 
         if (!_upTriggeredToday && candle.Close > _openingRangeHigh.Value)
         {

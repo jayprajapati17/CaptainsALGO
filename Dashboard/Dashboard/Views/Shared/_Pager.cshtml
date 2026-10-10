@@ -1,0 +1,30 @@
+@model PagerModel
+@if (Model.TotalPages > 1)
+{
+    // Window of page numbers around the current page, with first/last always shown.
+    var pages = new SortedSet<int> { 1, Model.TotalPages };
+    for (var i = Model.Page - 2; i <= Model.Page + 2; i++)
+        if (i >= 1 && i <= Model.TotalPages) pages.Add(i);
+
+    <nav class="ct-pager" aria-label="Pagination">
+        <span class="ct-sub">Showing @Model.FirstRow&ndash;@Model.LastRow of @Model.TotalRows</span>
+        <div class="ct-pager-links">
+            <a class="ct-page @(Model.Page <= 1 ? "disabled" : "")" href="@Model.LinkFor(Math.Max(1, Model.Page - 1))">&lsaquo; Prev</a>
+            @{ var prev = 0; }
+            @foreach (var p in pages)
+            {
+                if (p - prev > 1)
+                {
+                    <span class="ct-page-gap">&hellip;</span>
+                }
+                <a class="ct-page @(p == Model.Page ? "active" : "")" href="@Model.LinkFor(p)">@p</a>
+                prev = p;
+            }
+            <a class="ct-page @(Model.Page >= Model.TotalPages ? "disabled" : "")" href="@Model.LinkFor(Math.Min(Model.TotalPages, Model.Page + 1))">Next &rsaquo;</a>
+        </div>
+    </nav>
+}
+else if (Model.TotalRows > 0)
+{
+    <nav class="ct-pager"><span class="ct-sub">Showing @Model.FirstRow&ndash;@Model.LastRow of @Model.TotalRows</span></nav>
+}

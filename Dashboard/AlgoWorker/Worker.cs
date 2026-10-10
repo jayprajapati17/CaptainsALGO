@@ -25,6 +25,9 @@ public sealed class Worker : BackgroundService
     private readonly FiveMinCandleAggregatorService _fiveMinAggregator;
     private readonly BreakoutSignalEngine _breakoutEngine;
     private readonly BreakoutPositionTracker _breakoutPositionTracker;
+    private readonly ReversalSignalEngine _reversalEngine;
+    private readonly ReversalPositionTracker _reversalPositionTracker;
+    private readonly FiveMinHistoricalSeederService _fiveMinSeeder;
     // >>> NEW: 3-Minute MACD strategy pipeline (own 3-min candles, own MACD engine).
     private readonly ThreeMinCandleAggregatorService _threeMinAggregator;
     private readonly MacdEngine _macdEngine;
@@ -56,6 +59,9 @@ public sealed class Worker : BackgroundService
         FiveMinCandleAggregatorService fiveMinAggregator,
         BreakoutSignalEngine breakoutEngine,
         BreakoutPositionTracker breakoutPositionTracker,
+        ReversalSignalEngine reversalEngine,
+        ReversalPositionTracker reversalPositionTracker,
+        FiveMinHistoricalSeederService fiveMinSeeder,
         ThreeMinCandleAggregatorService threeMinAggregator,
         MacdEngine macdEngine,
         MacdSignalEngine macdSignalEngine,
@@ -80,6 +86,9 @@ public sealed class Worker : BackgroundService
         _fiveMinAggregator = fiveMinAggregator;
         _breakoutEngine = breakoutEngine;
         _breakoutPositionTracker = breakoutPositionTracker;
+        _reversalEngine = reversalEngine;
+        _reversalPositionTracker = reversalPositionTracker;
+        _fiveMinSeeder = fiveMinSeeder;
         _threeMinAggregator = threeMinAggregator;
         _macdEngine = macdEngine;
         _macdSignalEngine = macdSignalEngine;
@@ -105,6 +114,9 @@ public sealed class Worker : BackgroundService
         // >>> NEW: breakout strategy wiring -- own 5-min candle stream, own signal engine, own position tracker.
         _fiveMinAggregator.CandleClosed += OnFiveMinCandleClosed;
         _breakoutEngine.BreakoutConfirmed += signal => _ = SafeAsync(ct => _breakoutPositionTracker.OnBreakoutConfirmedAsync(signal, ct), "OnBreakoutConfirmedAsync");
+
+        // >>> NEW: Upside Reversal strategy -- same 5-min candle stream.
+        _reversalEngine.ReversalConfirmed += signal => _ = SafeAsync(ct => _reversalPositionTracker.OnReversalConfirmedAsync(signal, ct), "OnReversalConfirmedAsync");
 
         // >>> NEW: MACD strategy wiring -- own 3-min candle stream, own MACD engine, own signal/position pipeline.
         _threeMinAggregator.CandleClosed += OnThreeMinCandleClosed;
@@ -200,8 +212,8 @@ public sealed class Worker : BackgroundService
         if (catchUpSignal is not null)
         {
             await _telegram.SendStatusAsync(
-                $"{catchUpSignal.Direction} pehle se active hai (originally crossed at {catchUpSignal.ConfirmedAtCandleTime:dd-MMM-yyyy hh:mm tt}). " +
-                "Yeh startup par mila purana crossover hai -- ispar trade NAHI liya gaya. Agla FRESH crossover hi trade trigger karega.", ct);
+                $"{catchUpSignal.Direction} is already active (originally crossed at {catchUpSignal.ConfirmedAtCandleTime:dd-MMM-yyyy hh:mm tt}). " +
+                "This is an older crossover found at startup -- NO trade was taken on it. Only the next FRESH crossover will trigger a trade.", ct);
         }
 
         // >>> REMOVED: this used to fetch yesterday's High/Low for the breakout
@@ -283,6 +295,26 @@ public sealed class Worker : BackgroundService
         {
             _macdSignalEngine.IsSeeding = false;
         }
+
+        // >>> NEW: replay 5-min candles (previous days + today so far) into the ORB and Reversal engines.
+        // Fixes the mid-day-restart gap for ORB (the real 09:15 range is restored, and a breakout that already
+        // happened never trades) and warms up EMA21/50 + previous-day low for the Reversal strategy.
+        _breakoutEngine.IsSeeding = true;
+        _reversalEngine.IsSeeding = true;
+        try
+        {
+            await _fiveMinSeeder.SeedAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "5-min seeding failed -- ORB / Reversal will build their state from live candles instead.");
+            await _telegram.SendWarningAsync("Could not seed 5-min history -- ORB and Reversal strategies will build their state live (Reversal needs ~1 hour of live candles before it can trade).", ct);
+        }
+        finally
+        {
+            _breakoutEngine.IsSeeding = false;
+            _reversalEngine.IsSeeding = false;
+        }
     }
 
     private async Task IdleUntilNextWindowAsync(CancellationToken ct)
@@ -296,6 +328,7 @@ public sealed class Worker : BackgroundService
             _threeMinAggregator.ForceCloseCurrentCandle(); // >>> NEW
             await _positionTracker.CloseAllForMarketCloseAsync(ct);
             await _breakoutPositionTracker.CloseForMarketCloseAsync(ct); // >>> NEW
+            await _reversalPositionTracker.CloseForMarketCloseAsync(ct);
             await _macdPositionTracker.CloseForMarketCloseAsync(ct); // >>> NEW
             _seededToday = false;
             await _telegram.SendStatusAsync("Market closed for the day. Bot going idle until next session.", ct);
@@ -346,6 +379,7 @@ public sealed class Worker : BackgroundService
                 _aggregator.OnTick(tick);
                 _fiveMinAggregator.OnTick(tick); // same Nifty ticks also feed the breakout strategy's 5-min candles
                 _threeMinAggregator.OnTick(tick); // >>> NEW: same Nifty ticks also feed the MACD strategy's 3-min candles
+                await _reversalPositionTracker.OnSpotTick(tick.LastTradedPrice, CancellationToken.None); // Reversal SL/T1/T2 are Nifty spot levels
                 await BroadcastSpotAsync(tick.LastTradedPrice); // >>> NEW (Task 8): Dashboard header spot
             }
             else
@@ -355,6 +389,7 @@ public sealed class Worker : BackgroundService
                 // tracker doesn't own that instrument key.
                 await _positionTracker.OnOptionTick(tick, CancellationToken.None); // >>> CHANGED: now checks per-leg SL/trailing-SL per tick
                 await _breakoutPositionTracker.OnOptionTick(tick, CancellationToken.None); // >>> CHANGED: now checks SL/trailing-SL per tick
+                await _reversalPositionTracker.OnOptionTick(tick, CancellationToken.None);
                 await _macdPositionTracker.OnOptionTick(tick, CancellationToken.None); // >>> NEW: MACD step-trailing SL per tick
             }
         }
@@ -372,6 +407,8 @@ public sealed class Worker : BackgroundService
         {
             _breakoutEngine.OnCandleClosed(candle);
             await _breakoutPositionTracker.OnCandleClosedAsync(candle.OpenTime, CancellationToken.None);
+            _reversalEngine.OnCandleClosed(candle);
+            await _reversalPositionTracker.OnCandleClosedAsync(candle.OpenTime, CancellationToken.None);
         }
         catch (Exception ex)
         {

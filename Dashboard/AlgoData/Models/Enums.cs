@@ -4,7 +4,8 @@ public enum StrategyType
 {
     Ema,
     Breakout,
-    Macd
+    Macd,
+    Reversal
 }
 
 public enum ConfidenceLevel

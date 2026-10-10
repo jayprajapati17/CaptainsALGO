@@ -1,4 +1,4 @@
-﻿using AlgoData.Models;
+using AlgoData.Models;
 
 namespace Dashboard.Models;
 
@@ -27,10 +27,11 @@ public sealed class SignalsViewModel
     public string Outcome { get; set; } = "all";          // all | opened | skipped
     public string Period { get; set; } = "all";           // today | 7d | 30d | all
     public int Page { get; set; } = 1;
-    public int PageSize { get; set; } = 50;
+    public int PageSize { get; set; } = 10;
     public int TotalPages { get; set; } = 1;
 
     public int TotalSignals { get; set; }
+    public int FilteredCount { get; set; }
     public int OpenedCount { get; set; }
     public int SkippedCount => TotalSignals - OpenedCount;
 

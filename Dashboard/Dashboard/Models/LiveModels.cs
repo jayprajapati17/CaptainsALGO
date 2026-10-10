@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Dashboard.Models;
 
@@ -23,7 +23,10 @@ public sealed record OpenPositionDto(
     decimal PnlRupees,
     double PnlPercent,
     string Status,
-    string? ExitReason);
+    string? ExitReason,
+    decimal StopLossPremium = 0m,
+    decimal StopLossSpot = 0m,
+    bool StopLossTrailing = false);
 
 /// <summary>Compact CPR reading for the Live page's header strip.</summary>
 public sealed class CprStrip
@@ -47,4 +50,8 @@ public sealed class LiveIndexViewModel
     public string? WorkerError { get; set; }
 
     public CprStrip? Cpr { get; set; }
+
+    /// <summary>Target (points above entry) shown as a marker on each position's gauge -- read from the AppSettings table.</summary>
+    public double TargetPoints { get; set; } = 30;
+    public double InitialRiskPoints { get; set; } = 15;
 }

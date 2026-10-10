@@ -30,6 +30,10 @@ public sealed class BreakoutPositionTracker
 
     private BreakoutPosition? _active;
 
+    // Daily trade cap (BreakoutMaxTradesPerDay). Loaded from the DB on the first signal of a day so a Worker restart doesn't reset it.
+    private DateOnly _tradeCountDay;
+    private int _tradesOpenedToday;
+
     public BreakoutPositionTracker(
         OptionInstrumentResolver instrumentResolver,
         UpstoxRestClient restClient,
@@ -63,9 +67,21 @@ public sealed class BreakoutPositionTracker
             return;
         }
 
-        var optionType = signal.Direction == BreakoutDirection.Up ? OptionType.Call : OptionType.Put;
         var today = DateOnly.FromDateTime(signal.ConfirmedAtCandleTime.Date);
 
+        if (_tradeCountDay != today)
+        {
+            _tradeCountDay = today;
+            _tradesOpenedToday = await _positionRepository.CountBreakoutTradesOpenedOnAsync(today, ct);
+        }
+        if (_tradesOpenedToday >= _options.BreakoutMaxTradesPerDay)
+        {
+            _logger.LogInformation("Daily ORB trade limit ({Max}) reached -- ignoring {Direction} breakout.", _options.BreakoutMaxTradesPerDay, signal.Direction);
+            await LogSignalAsync(signal, positionOpened: false, positionId: null, skipReason: $"Daily limit of {_options.BreakoutMaxTradesPerDay} ORB trades reached", ct);
+            return;
+        }
+
+        var optionType = signal.Direction == BreakoutDirection.Up ? OptionType.Call : OptionType.Put;
         var instrument = await _instrumentResolver.ResolveCurrentWeekAtmAsync(signal.NiftySpotAtConfirmation, optionType, today, ct);
         if (instrument is null)
         {
@@ -109,6 +125,7 @@ public sealed class BreakoutPositionTracker
         // on the Dashboard until the next successful write.
         var dbId = await _positionRepository.SaveOpenedAsync(ToEntity(_active, entryPremium), ct);
         _active.Id = dbId;
+        _tradesOpenedToday++;
         await LogSignalAsync(signal, positionOpened: dbId >= 0, positionId: dbId >= 0 ? dbId : null,
             skipReason: dbId < 0 ? "Position DB write failed (see logs)" : null, ct);
 
@@ -136,7 +153,12 @@ public sealed class BreakoutPositionTracker
         if (tick.LastTradedPrice > position.PeakPremium)
             position.PeakPremium = tick.LastTradedPrice;
 
-        position.CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+        var newStopLoss = TrailingStopCalculator.ComputeStopLoss(position.EntryPremium, position.PeakPremium, _options);
+        if (newStopLoss != position.CurrentStopLossPremium)
+        {
+            position.CurrentStopLossPremium = newStopLoss;
+            await _positionRepository.UpdateStopLossAsync(position.Id, newStopLoss, null, ct);   // persist the trailing SL
+        }
         position.TrailingActive = TrailingStopCalculator.IsTrailing(position.EntryPremium, position.PeakPremium, _options);
 
         if (tick.LastTradedPrice <= position.CurrentStopLossPremium)
@@ -235,7 +257,8 @@ public sealed class BreakoutPositionTracker
         PnlRupees: p.PnlRupees,
         PnlPercent: p.PnlPercent,
         Status: status,
-        ExitReason: exitReason);
+        ExitReason: exitReason,
+        StopLossPremium: p.CurrentStopLossPremium);
 
     /// <summary>Broadcasts on PositionHub's "PositionChanged" event -- the Dashboard's Live page (Task 8) listens for this.</summary>
     private async Task BroadcastAsync(BreakoutPosition position, string status, string? exitReason, CancellationToken ct)
@@ -265,6 +288,7 @@ public sealed class BreakoutPositionTracker
         EntryPremium = entryPremium,
         EntryTime = position.OpenedAt,
         BrokenLevel = position.Signal.BrokenLevel,
+        StopLossPremium = position.CurrentStopLossPremium,
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
         LastUpdateTime = position.OpenedAt,

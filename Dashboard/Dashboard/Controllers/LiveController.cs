@@ -46,10 +46,12 @@ public sealed class LiveController : Controller
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Could not load open positions from the Worker Service at {Url}.", _workerEndpoints.BaseUrl);
-            vm.WorkerError = $"Worker Service ({_workerEndpoints.BaseUrl}) se connect nahi ho pa raha -- open positions load nahi hui. Worker chalu hai?";
+            vm.WorkerError = $"Worker Service ({_workerEndpoints.BaseUrl}) is unreachable -- open positions could not be loaded. Is the Worker running?";
         }
 
         vm.Cpr = await LoadCprAsync(ct);
+        vm.TargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 30, ct);
+        vm.InitialRiskPoints = await LoadStrategyNumberAsync("TrailingInitialRiskPoints", 15, ct);
         return View(vm);
     }
 
@@ -90,6 +92,25 @@ public sealed class LiveController : Controller
             _logger.LogError(ex, "Close request for position {Id} failed to reach the Worker.", id);
             return StatusCode(502, new { closed = false, message = "Worker Service unreachable -- position NOT closed." });
         }
+    }
+
+    /// <summary>A numeric Strategy:* value from the AppSettings table (falls back to the given default).</summary>
+    private async Task<double> LoadStrategyNumberAsync(string key, double fallback, CancellationToken ct)
+    {
+        try
+        {
+            var raw = await _db.AppSettings.AsNoTracking()
+                .Where(a => a.Section == "Strategy" && a.Key == key)
+                .Select(a => a.Value)
+                .FirstOrDefaultAsync(ct);
+            if (double.TryParse(raw, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var v) && v > 0)
+                return v;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogDebug(ex, "Could not read Strategy:{Key} from AppSettings; using {Fallback}.", key, fallback);
+        }
+        return fallback;
     }
 
     private async Task<List<OpenPositionDto>> FetchOpenPositionsAsync(CancellationToken ct)
