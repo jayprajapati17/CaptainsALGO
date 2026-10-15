@@ -44,13 +44,13 @@ public sealed class TokenRepository : ITokenRepository
             {
                 TokenDate = today,
                 Token = token,
-                GeneratedAt = _clock.Now
+                GeneratedAt = _clock.UtcNow
             });
         }
         else
         {
             existing.Token = token;
-            existing.GeneratedAt = _clock.Now;
+            existing.GeneratedAt = _clock.UtcNow;
         }
 
         await db.SaveChangesAsync(ct);

@@ -35,7 +35,7 @@ public sealed class FiveMinHistoricalSeederService
     public async Task SeedAsync(CancellationToken ct)
     {
         var daysToKeep = Math.Max(1, _strategy.ReversalSeedLookbackTradingDays);
-        var yesterday = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
+        var yesterday = AlgoData.Models.MarketTime.Today.AddDays(-1);
         var from = yesterday.AddDays(-10);
 
         var fetched = await _restClient.GetHistoricalCandles5MinAsync(_upstox.NiftyInstrumentKey, from, yesterday, ct);
@@ -49,7 +49,7 @@ public sealed class FiveMinHistoricalSeederService
         {
             // Only fully elapsed candles -- the in-progress one will arrive live.
             today = (await _restClient.GetIntraday5MinCandlesAsync(_upstox.NiftyInstrumentKey, ct))
-                .Where(c => c.OpenTime.AddMinutes(5) <= DateTimeOffset.Now)
+                .Where(c => c.OpenTime.AddMinutes(5) <= DateTimeOffset.UtcNow)
                 .ToList();
         }
         catch (Exception ex)

@@ -15,10 +15,10 @@ public sealed class HistoricalSeederService
 {
     private readonly UpstoxRestClient _restClient;
     private readonly CandleAggregatorService _aggregator;
-    private readonly StrategyOptions _strategy;
-    private readonly UpstoxOptions _upstox;
+    private readonly IEmaSettings _strategy;
+    private readonly string _instrumentKey;
     private readonly IClock _clock;
-    private readonly ILogger<HistoricalSeederService> _logger;
+    private readonly ILogger _logger;
 
     public HistoricalSeederService(
         UpstoxRestClient restClient,
@@ -27,11 +27,21 @@ public sealed class HistoricalSeederService
         IOptions<UpstoxOptions> upstox,
         IClock clock,
         ILogger<HistoricalSeederService> logger)
+        : this(restClient, aggregator, strategy.Value, upstox.Value.NiftyInstrumentKey, clock, logger) { }
+
+    /// <summary>Generic form: seeds any index's EMA pipeline (Nifty from DI, Bank Nifty from its pipeline).</summary>
+    public HistoricalSeederService(
+        UpstoxRestClient restClient,
+        CandleAggregatorService aggregator,
+        IEmaSettings strategy,
+        string instrumentKey,
+        IClock clock,
+        ILogger logger)
     {
         _restClient = restClient;
         _aggregator = aggregator;
-        _strategy = strategy.Value;
-        _upstox = upstox.Value;
+        _strategy = strategy;
+        _instrumentKey = instrumentKey;
         _clock = clock;
         _logger = logger;
     }
@@ -63,14 +73,14 @@ public sealed class HistoricalSeederService
         var from = yesterday.AddDays(-lookbackDays);
 
         _logger.LogInformation("Seeding historical candles from {From} to {To}...", from, yesterday);
-        var historicalCandles = await _restClient.GetHistoricalCandlesAsync(_upstox.NiftyInstrumentKey, from, yesterday, _strategy.EmaCandleMinutes, ct);
+        var historicalCandles = await _restClient.GetHistoricalCandlesAsync(_instrumentKey, from, yesterday, _strategy.EmaCandleMinutes, ct);
 
         // >>> NEW: separate call for today's candles (Historical API rejects a
         // to_date of today -- see UpstoxRestClient.GetIntradayCandlesAsync).
         List<Candle> todaysCandles;
         try
         {
-            todaysCandles = await _restClient.GetIntradayCandlesAsync(_upstox.NiftyInstrumentKey, _strategy.EmaCandleMinutes, ct);
+            todaysCandles = await _restClient.GetIntradayCandlesAsync(_instrumentKey, _strategy.EmaCandleMinutes, ct);
         }
         catch (Exception ex)
         {

@@ -102,9 +102,9 @@ public sealed class MacdPositionTracker
             Instrument = instrument,
             LotSize = _options.MacdLotSize,
             EntryPremium = entryPremium,
-            OpenedAt = DateTimeOffset.Now,
+            OpenedAt = DateTimeOffset.UtcNow,
             LastKnownPremium = entryPremium,
-            LastUpdateSentAt = DateTimeOffset.Now,
+            LastUpdateSentAt = DateTimeOffset.UtcNow,
             PeakPremium = entryPremium,
             CurrentStopLossPremium = initialStopLoss
         };
@@ -160,9 +160,9 @@ public sealed class MacdPositionTracker
         }
 
         // >>> NEW (Task 8): live premium/P&L push to the Dashboard, throttled to ~1/sec.
-        if (DateTimeOffset.Now - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
+        if (DateTimeOffset.UtcNow - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
         {
-            position.LastBroadcastAt = DateTimeOffset.Now;
+            position.LastBroadcastAt = DateTimeOffset.UtcNow;
             await BroadcastAsync(position, "Open", null, ct);
         }
     }
@@ -183,27 +183,27 @@ public sealed class MacdPositionTracker
             return;
         }
 
-        var cutoff = TimeOnly.Parse(_options.MacdForceExitTime);
-        var candleTimeOfDay = TimeOnly.FromDateTime(current.CandleTime.DateTime);
+        var cutoff = TimeOfDay.Parse(_options.MacdForceExitTime);
+        var candleTimeOfDay = TimeOfDay.Of(current.CandleTime);
         if (candleTimeOfDay >= cutoff)
         {
             await CloseAsync(position, $"Intraday cutoff reached ({_options.MacdForceExitTime}) -- MACD trades are never carried overnight", ct);
             return;
         }
 
-        if (DateTimeOffset.Now - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
+        if (DateTimeOffset.UtcNow - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
         {
             await _telegram.SendMacdPositionUpdateAsync(position, ct);
-            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.Now, ct);
+            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
             await BroadcastAsync(position, "Open", null, ct);
-            position.LastUpdateSentAt = DateTimeOffset.Now;
+            position.LastUpdateSentAt = DateTimeOffset.UtcNow;
         }
     }
 
     private async Task CloseAsync(MacdPosition position, string reason, CancellationToken ct)
     {
         position.IsOpen = false;
-        var exitTime = DateTimeOffset.Now;
+        var exitTime = DateTimeOffset.UtcNow;
         await _telegram.SendMacdExitAlertAsync(position, reason, ct);
         await _webSocketClient.UnsubscribeAsync(position.Instrument.InstrumentKey, ct);
         await _positionRepository.CloseAsync(position.Id, position.LastKnownPremium, exitTime, reason, position.PnlRupees, position.PnlPercent, ct);
@@ -264,14 +264,7 @@ public sealed class MacdPositionTracker
     /// <summary>Broadcasts on PositionHub's "PositionChanged" event -- the Dashboard's Live page (Task 8) listens for this.</summary>
     private async Task BroadcastAsync(MacdPosition position, string status, string? exitReason, CancellationToken ct)
     {
-        try
-        {
-            await _hub.Clients.All.SendAsync("PositionChanged", ToDto(position, status, exitReason), ct);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to broadcast PositionChanged for PositionId {Id}.", position.Id);
-        }
+        await PositionBroadcast.PublishAsync(_hub, ToDto(position, status, exitReason), _logger, ct);
     }
 
     private SharedModels.PositionEntity ToEntity(MacdPosition position, decimal entryPremium) => new()
@@ -292,7 +285,7 @@ public sealed class MacdPositionTracker
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
         LastUpdateTime = position.OpenedAt,
-        CreatedAt = _clock.Now
+        CreatedAt = _clock.UtcNow
     };
 
     private async Task LogSignalAsync(MacdSignal signal, bool positionOpened, int? positionId, string? skipReason, CancellationToken ct)
@@ -307,7 +300,7 @@ public sealed class MacdPositionTracker
             PositionOpened = positionOpened,
             PositionId = positionId,
             SkipReason = skipReason,
-            CreatedAt = _clock.Now
+            CreatedAt = _clock.UtcNow
         };
         await _signalLogRepository.LogAsync(entry, ct);
     }

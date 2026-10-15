@@ -11,20 +11,20 @@ public sealed record ResolvedLeg(OptionLeg Leg, OptionInstrument Instrument);
 public sealed class OptionInstrumentResolver
 {
     private readonly UpstoxRestClient _restClient;
-    private readonly ExpiryResolver _expiryResolver;
+    private readonly ExpiryProvider _expiries;
     private readonly StrategyOptions _strategy;
     private readonly UpstoxOptions _upstox;
     private readonly ILogger<OptionInstrumentResolver> _logger;
 
     public OptionInstrumentResolver(
         UpstoxRestClient restClient,
-        ExpiryResolver expiryResolver,
+        ExpiryProvider expiries,
         IOptions<StrategyOptions> strategy,
         IOptions<UpstoxOptions> upstox,
         ILogger<OptionInstrumentResolver> logger)
     {
         _restClient = restClient;
-        _expiryResolver = expiryResolver;
+        _expiries = expiries;
         _strategy = strategy.Value;
         _upstox = upstox.Value;
         _logger = logger;
@@ -36,44 +36,48 @@ public sealed class OptionInstrumentResolver
     //   2) Next-week expiry, ATM strike
     // Both are resolved and returned; the caller (VirtualPositionTracker)
     // opens a separate tracked position for each one that resolves successfully.
-    public async Task<List<ResolvedLeg>> ResolveAllLegsAsync(TradeSignal signal, CancellationToken ct)
+    public Task<List<ResolvedLeg>> ResolveAllLegsAsync(TradeSignal signal, CancellationToken ct) =>
+        ResolveAllLegsAsync(signal, _upstox.NiftyInstrumentKey, _strategy.StrikeStepPoints, _strategy.ItmStrikeDepth, ct);
+
+    /// <summary>Same two legs for ANY index (underlying key, strike spacing and ITM depth come from that index's settings).</summary>
+    public async Task<List<ResolvedLeg>> ResolveAllLegsAsync(TradeSignal signal, string underlyingKey, int strikeStep, int itmDepth, CancellationToken ct)
     {
         var today = DateOnly.FromDateTime(signal.ConfirmedAtCandleTime.Date);
         var optionType = signal.Direction == SignalDirection.GoldenCross ? OptionType.Call : OptionType.Put;
-        var atmStrike = RoundToNearestStrike(signal.NiftySpotAtConfirmation, _strategy.StrikeStepPoints);
+        var atmStrike = RoundToNearestStrike(signal.NiftySpotAtConfirmation, strikeStep);
 
         var results = new List<ResolvedLeg>();
 
-        // --- Leg 1: current-week ITM ---
-        var currentWeekExpiry = _expiryResolver.ResolveCurrentWeekExpiry(today);
-        var itmStrike = ComputeItmStrike(atmStrike, optionType, _strategy.ItmStrikeDepth, _strategy.StrikeStepPoints);
+        // --- Leg 1: current-expiry ITM ---
+        var currentWeekExpiry = await _expiries.ResolveCurrentAsync(underlyingKey, today, ct);
+        var itmStrike = ComputeItmStrike(atmStrike, optionType, itmDepth, strikeStep);
 
-        _logger.LogInformation("Resolving CURRENT-WEEK ITM {Type} option: strike {Strike} ({Depth} strikes ITM), expiry {Expiry}.",
-            optionType, itmStrike, _strategy.ItmStrikeDepth, currentWeekExpiry);
+        _logger.LogInformation("Resolving CURRENT-EXPIRY ITM {Type} option on {Underlying}: strike {Strike} ({Depth} strikes ITM), expiry {Expiry}.",
+            optionType, underlyingKey, itmStrike, itmDepth, currentWeekExpiry);
 
         var itmInstrument = await _restClient.FindNearestStrikeContractAsync(
-            _upstox.NiftyInstrumentKey, currentWeekExpiry, itmStrike, optionType, ct);
+            underlyingKey, currentWeekExpiry, itmStrike, optionType, ct);
 
         if (itmInstrument is not null)
             results.Add(new ResolvedLeg(OptionLeg.CurrentWeekItm, itmInstrument));
         else
-            _logger.LogWarning("Could not resolve current-week ITM leg (strike {Strike}, expiry {Expiry}). " +
-                                "Possible causes: expiry shifted for a holiday, or option chain not listed.", itmStrike, currentWeekExpiry);
+            _logger.LogWarning("Could not resolve current-expiry ITM leg on {Underlying} (strike {Strike}, expiry {Expiry}). " +
+                                "Possible causes: expiry shifted for a holiday, or option chain not listed.", underlyingKey, itmStrike, currentWeekExpiry);
 
-        // --- Leg 2: next-week ATM ---
-        var nextWeekExpiry = _expiryResolver.ResolveNextWeekExpiry(today);
+        // --- Leg 2: next-expiry ATM ---
+        var nextWeekExpiry = await _expiries.ResolveNextAsync(underlyingKey, today, ct);
 
-        _logger.LogInformation("Resolving NEXT-WEEK ATM {Type} option: strike {Strike}, expiry {Expiry}.",
-            optionType, atmStrike, nextWeekExpiry);
+        _logger.LogInformation("Resolving NEXT-EXPIRY ATM {Type} option on {Underlying}: strike {Strike}, expiry {Expiry}.",
+            optionType, underlyingKey, atmStrike, nextWeekExpiry);
 
         var atmInstrument = await _restClient.FindNearestStrikeContractAsync(
-            _upstox.NiftyInstrumentKey, nextWeekExpiry, atmStrike, optionType, ct);
+            underlyingKey, nextWeekExpiry, atmStrike, optionType, ct);
 
         if (atmInstrument is not null)
             results.Add(new ResolvedLeg(OptionLeg.NextWeekAtm, atmInstrument));
         else
-            _logger.LogWarning("Could not resolve next-week ATM leg (strike {Strike}, expiry {Expiry}). " +
-                                "Possible causes: expiry not listed this far out yet.", atmStrike, nextWeekExpiry);
+            _logger.LogWarning("Could not resolve next-expiry ATM leg on {Underlying} (strike {Strike}, expiry {Expiry}). " +
+                                "Possible causes: expiry not listed this far out yet.", underlyingKey, atmStrike, nextWeekExpiry);
 
         return results;
     }
@@ -81,22 +85,29 @@ public sealed class OptionInstrumentResolver
     private static int RoundToNearestStrike(decimal spot, int step)
         => (int)(Math.Round(spot / step, MidpointRounding.AwayFromZero) * step);
 
-    // >>> NEW: for the Previous-Day High/Low Breakout strategy -- simpler than
-    // ResolveAllLegsAsync, just one current-week ATM contract, no ITM leg.
-    public async Task<OptionInstrument?> ResolveCurrentWeekAtmAsync(
-        decimal spot, OptionType optionType, DateOnly today, CancellationToken ct)
+    // For the Opening Range Breakout (ORB) strategy -- simpler than ResolveAllLegsAsync:
+    // just one current-expiry ATM contract, no ITM leg.
+    public Task<OptionInstrument?> ResolveCurrentWeekAtmAsync(
+        decimal spot, OptionType optionType, DateOnly today, CancellationToken ct) =>
+        ResolveCurrentAtmAsync(_upstox.NiftyInstrumentKey, spot, optionType, _strategy.StrikeStepPoints, today, ct);
+
+    /// <summary>
+    /// Current-expiry ATM contract for ANY index (Nifty, Bank Nifty): the nearest listed expiry on/after today
+    /// (from Upstox's own contract list) and the strike nearest to spot rounded to <paramref name="strikeStep"/>.
+    /// </summary>
+    public async Task<OptionInstrument?> ResolveCurrentAtmAsync(
+        string underlyingKey, decimal spot, OptionType optionType, int strikeStep, DateOnly today, CancellationToken ct)
     {
-        var expiry = _expiryResolver.ResolveCurrentWeekExpiry(today);
-        var atmStrike = RoundToNearestStrike(spot, _strategy.StrikeStepPoints);
+        var expiry = await _expiries.ResolveCurrentAsync(underlyingKey, today, ct);
+        var atmStrike = RoundToNearestStrike(spot, strikeStep);
 
-        _logger.LogInformation("Resolving CURRENT-WEEK ATM {Type} option for breakout: strike {Strike}, expiry {Expiry}.",
-            optionType, atmStrike, expiry);
+        _logger.LogInformation("Resolving CURRENT-EXPIRY ATM {Type} option for breakout on {Underlying}: strike {Strike}, expiry {Expiry}.",
+            optionType, underlyingKey, atmStrike, expiry);
 
-        var instrument = await _restClient.FindNearestStrikeContractAsync(
-            _upstox.NiftyInstrumentKey, expiry, atmStrike, optionType, ct);
+        var instrument = await _restClient.FindNearestStrikeContractAsync(underlyingKey, expiry, atmStrike, optionType, ct);
 
         if (instrument is null)
-            _logger.LogWarning("Could not resolve breakout ATM contract (strike {Strike}, expiry {Expiry}).", atmStrike, expiry);
+            _logger.LogWarning("Could not resolve breakout ATM contract on {Underlying} (strike {Strike}, expiry {Expiry}).", underlyingKey, atmStrike, expiry);
 
         return instrument;
     }

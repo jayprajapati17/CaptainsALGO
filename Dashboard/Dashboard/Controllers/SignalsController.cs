@@ -23,7 +23,7 @@ public sealed class SignalsController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index(string? strategy, string? outcome, string? period, int page = 1, CancellationToken ct = default)
+    public async Task<IActionResult> Index(string? strategy, string? underlying, string? outcome, string? period, int page = 1, CancellationToken ct = default)
     {
         StrategyType? strategyFilter = Enum.TryParse<StrategyType>(strategy, ignoreCase: true, out var parsed) && Enum.IsDefined(parsed)
             ? parsed
@@ -35,8 +35,12 @@ public sealed class SignalsController : Controller
         var periodKey = (period ?? "all").ToLowerInvariant();
         if (periodKey is not ("today" or "7d" or "30d" or "all")) periodKey = "all";
 
+        var underlyingKey = (underlying ?? "all").ToLowerInvariant();
+        if (underlyingKey is not ("nifty" or "banknifty")) underlyingKey = "all";
+
         var vm = new SignalsViewModel
         {
+            UnderlyingFilter = underlyingKey,
             StrategyFilter = strategyFilter?.ToString().ToLowerInvariant() ?? "all",
             Outcome = outcomeKey,
             Period = periodKey,
@@ -49,6 +53,8 @@ public sealed class SignalsController : Controller
 
             if (strategyFilter is { } s)
                 q = q.Where(x => x.Strategy == s);
+
+            q = q.ForUnderlying(Underlyings.FromFilterKey(underlyingKey));
 
             if (CutoffFor(periodKey) is { } cutoff)
                 q = q.Where(x => x.SignalTime >= cutoff);
@@ -81,6 +87,7 @@ public sealed class SignalsController : Controller
                 {
                     Id = x.Id,
                     Strategy = x.Strategy,
+                    Underlying = x.Underlying,
                     Direction = x.Direction,
                     Confidence = x.Confidence,
                     SignalTime = x.SignalTime,
@@ -106,9 +113,9 @@ public sealed class SignalsController : Controller
 
     private static DateTimeOffset? CutoffFor(string period) => period switch
     {
-        "today" => new DateTimeOffset(DateTime.Today),
-        "7d" => new DateTimeOffset(DateTime.Today.AddDays(-6)),
-        "30d" => new DateTimeOffset(DateTime.Today.AddDays(-29)),
+        "today" => AlgoData.Models.MarketTime.StartOfDay(AlgoData.Models.MarketTime.Today),
+        "7d" => AlgoData.Models.MarketTime.StartOfDay(AlgoData.Models.MarketTime.Today.AddDays(-6)),
+        "30d" => AlgoData.Models.MarketTime.StartOfDay(AlgoData.Models.MarketTime.Today.AddDays(-29)),
         _ => null
     };
 }

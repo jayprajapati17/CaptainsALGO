@@ -4,8 +4,8 @@ namespace AlgoWorker.Services;
 
 /// <summary>
 /// A distinct type (not just another instance of CandleAggregatorService) so
-/// it can be registered separately in DI -- this one feeds the Previous-Day
-/// High/Low Breakout strategy, independently of the 15-min aggregator used
+/// it can be registered separately in DI -- this one feeds the Opening Range
+/// Breakout strategy, independently of the 15-min aggregator used
 /// by the EMA21/50 strategy. Both consume the same underlying Nifty tick
 /// stream (see Worker.OnTickReceived). Uses composition (wraps an internal
 /// CandleAggregatorService) rather than inheritance, since

@@ -1,0 +1,1168 @@
+2026-10-15 08:44:43.445 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-15 08:44:43.715 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-15 08:45:14.754 +05:30 [INF] AlgoWorker.Services.Persistence.TokenRepository: Access token saved for "2026-10-15".
+2026-10-15 08:45:14.761 +05:30 [INF] Program: Upstox access token generated and saved via the dashboard OAuth flow.
+2026-10-15 08:50:58.459 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: removed 17 obsolete Bank Nifty row(s).
+2026-10-15 08:50:58.544 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: seeded 4 new row(s) into AppSettings from appsettings.json / defaults.
+2026-10-15 08:50:58.741 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-15 08:50:58.877 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-15 09:15:00.300 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "PreOpen" (open=false)
+2026-10-15 09:15:00.300 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "PreOpen" (open=false)
+2026-10-15 09:15:00.301 +05:30 [INF] AlgoWorker.Worker: Within configured time window but Upstox reports market not open (holiday?). Idling 5 min.
+2026-10-15 09:15:10.343 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-15 09:15:10.389 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 5-min intraday candles.
+2026-10-15 09:15:10.390 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 0 of today's 5-min candles.
+2026-10-15 09:20:00.792 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-15 09:20:00.802 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-15 09:20:00.802 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-17" to "2026-10-14"...
+2026-10-15 09:20:00.860 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-17" to "2026-10-14")
+2026-10-15 09:20:00.918 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-15 09:20:00.926 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.927 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.930 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.930 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.930 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.930 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.930 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.930 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.931 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.931 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.931 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.931 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.931 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.931 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.931 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.931 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.931 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 09:20:00.931 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-13T11:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:00.931 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 476 candles replayed through the indicator pipeline (475 historical + 1 today).
+2026-10-15 09:20:00.932 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "GoldenCross" originally crossed at "2026-10-13T10:30:00.0000000+05:30" (46 candles ago), still active as of "2026-10-15T09:15:00.0000000+05:30".
+2026-10-15 09:20:02.524 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-14", High=22757.95, Low=22558.95, Close=22622.7
+2026-10-15 09:20:02.528 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-15": Pivot=22646.533333333333333333333333, TC=22634.616666666666666666666666, BC=22658.45, Width%=0.105, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-15 09:20:02.615 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-04" to "2026-10-14", keeping the last 2 trading day(s)...
+2026-10-15 09:20:02.696 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1000 historical 5-min candles for NSE_INDEX|Nifty 50 ("2026-10-04" to "2026-10-14")
+2026-10-15 09:20:02.742 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2 intraday (today's) 5-min candles for NSE_INDEX|Nifty 50
+2026-10-15 09:20:02.747 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.22, Signal -0.40, likely choppy/hugging zero).
+2026-10-15 09:20:02.747 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T10:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 25.42, Signal 27.27, likely choppy/hugging zero).
+2026-10-15 09:20:02.747 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T11:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.43, Signal -4.74, likely choppy/hugging zero).
+2026-10-15 09:20:02.748 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T13:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.53, Signal 8.11, likely choppy/hugging zero).
+2026-10-15 09:20:02.748 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-13T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:02.748 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T13:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.16, Signal 7.53, likely choppy/hugging zero).
+2026-10-15 09:20:02.748 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-13T13:42:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:02.748 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 32.51, Signal 32.71, likely choppy/hugging zero).
+2026-10-15 09:20:02.748 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-14T09:48:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T09:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 19.50, Signal 20.25, likely choppy/hugging zero).
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-14T10:42:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T11:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.14, Signal 8.45, likely choppy/hugging zero).
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T11:48:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.58, Signal -3.72, likely choppy/hugging zero).
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T12:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 4.50, Signal 5.14, likely choppy/hugging zero).
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T13:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -32.10, Signal -32.34, likely choppy/hugging zero).
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-14T14:57:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 09:20:02.749 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T15:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.83, Signal -4.40, likely choppy/hugging zero).
+2026-10-15 09:20:02.750 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 252 3-min candles replayed (2 trading day(s) + 2 today).
+2026-10-15 09:20:02.815 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 600 5-min historical candles.
+2026-10-15 09:20:02.855 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1 5-min intraday candles.
+2026-10-15 09:20:02.857 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-15 09:20:02.860 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-13T09:25:00.0000000+05:30": close vs level 22458.55 -- not alerting yet, historical replay only.
+2026-10-15 09:20:02.863 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-14" from first 5-min candle ("2026-10-14T09:15:00.0000000+05:30"): High=22752.3, Low=22663.8
+2026-10-15 09:20:02.864 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-14T11:35:00.0000000+05:30": low 22655.35 swept red low 22667.45; waiting up to 4 candles.
+2026-10-15 09:20:02.865 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-14T13:00:00.0000000+05:30": close vs level 22663.8 -- not alerting yet, historical replay only.
+2026-10-15 09:20:02.865 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-15" from first 5-min candle ("2026-10-15T09:15:00.0000000+05:30"): High=22737.8, Low=22637.4
+2026-10-15 09:20:02.865 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 151 candles replayed (2 previous day(s) + 1 today).
+2026-10-15 09:20:02.866 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-15 09:20:03.917 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-15 09:20:03.917 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-15 09:20:03.924 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_INDEX|Nifty Bank
+2026-10-15 09:20:03.967 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-15 09:20:03.981 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty: first index tick received from the shared feed (55,472.35).
+2026-10-15 09:20:03.983 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,472.35 | opening range not captured yet | open position: none
+2026-10-15 09:21:04.033 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,382.00 | opening range not captured yet | open position: none
+2026-10-15 09:22:04.364 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,357.80 | opening range not captured yet | open position: none
+2026-10-15 09:23:04.469 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,316.15 | opening range not captured yet | open position: none
+2026-10-15 09:24:04.762 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,382.60 | opening range not captured yet | open position: none
+2026-10-15 09:25:00.562 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:20 closed: O 55,472.35 H 55,482.10 L 55,290.05 C 55,388.30 | range not captured yet
+2026-10-15 09:25:00.568 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: Opening range "2026-10-15": High=55482.1 Low=55290.05 width=0.35%
+2026-10-15 09:25:05.058 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,401.70 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:26:05.082 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,463.65 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:27:05.343 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,480.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:28:05.389 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,426.65 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:29:05.479 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,423.25 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:30:00.474 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT UP confirmed at "2026-10-15T09:25:00.0000000+05:30": close 22750.35 vs level 22737.8
+2026-10-15 09:30:00.577 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:25 closed: O 55,385.80 H 55,494.80 L 55,384.25 C 55,413.15 | range 55,290.05 - 55,482.10
+2026-10-15 09:30:00.946 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1830 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-10-15 09:30:00.951 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty 50: 19-Oct-2026 (Mon), 27-Oct-2026 (Tue), 03-Nov-2026 (Tue), 09-Nov-2026 (Mon), 17-Nov-2026 (Tue), 23-Nov-2026 (Mon)
+2026-10-15 09:30:00.954 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Call" option for breakout on NSE_INDEX|Nifty 50: strike 22750, expiry "2026-10-19".
+2026-10-15 09:30:01.223 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47149
+2026-10-15 09:30:02.097 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Up" position opened: NIFTY 22750 CE 19 OCT 26 @ 130.2
+2026-10-15 09:30:05.798 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,434.00 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:31:06.069 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,422.60 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:32:06.412 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,456.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:33:06.501 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,429.50 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:34:06.822 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,476.15 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:35:00.337 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:30 closed: O 55,423.00 H 55,479.15 L 55,399.30 C 55,418.30 | range 55,290.05 - 55,482.10
+2026-10-15 09:35:07.090 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,393.05 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:36:07.231 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,449.10 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:37:07.525 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,465.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:38:07.821 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,516.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:39:08.116 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,459.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:40:00.314 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:35 closed: O 55,416.10 H 55,522.60 L 55,389.55 C 55,473.60 | range 55,290.05 - 55,482.10
+2026-10-15 09:40:08.263 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,503.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:41:08.556 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,475.50 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:42:04.054 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47149
+2026-10-15 09:42:04.085 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹129.20 (peak ₹146.15). P&L: -81.25 (-1.0%)
+2026-10-15 09:42:08.850 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,433.70 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:43:09.087 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,447.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:44:09.307 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,476.85 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:45:00.289 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:40 closed: O 55,476.05 H 55,506.95 L 55,419.10 C 55,435.15 | range 55,290.05 - 55,482.10
+2026-10-15 09:45:09.588 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,442.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:46:09.590 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,477.15 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:47:09.878 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,543.85 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:48:10.026 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,558.15 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:49:10.319 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,526.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 09:50:00.263 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:45 closed: O 55,436.00 H 55,582.65 L 55,433.65 C 55,519.00 | range 55,290.05 - 55,482.10
+2026-10-15 09:50:00.268 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: ORB breakout "Up" confirmed: close 55519 vs level 55482.1
+2026-10-15 09:50:00.290 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty ORB: 0 trade(s) already opened today.
+2026-10-15 09:50:00.598 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 949 option contracts for NSE_INDEX|Nifty Bank (6 expiries).
+2026-10-15 09:50:00.598 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty Bank: 27-Oct-2026 (Tue), 23-Nov-2026 (Mon), 29-Dec-2026 (Tue), 30-Mar-2027 (Tue), 29-Jun-2027 (Tue), 28-Sept-2027 (Tue)
+2026-10-15 09:50:00.599 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Call" option for breakout on NSE_INDEX|Nifty Bank: strike 55500, expiry "2026-10-27".
+2026-10-15 09:50:00.752 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|49457
+2026-10-15 09:50:01.651 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty ORB "Up" opened: BANKNIFTY 55500 CE 27 OCT 26 @ 694.6, SL 664.6
+2026-10-15 09:50:01.653 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 694.60 | entry 694.60 | peak 694.60 | SL 664.60 | P&L 0 (0.0%)
+2026-10-15 09:50:10.613 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,519.85 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:50:32.211 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 694.00 | entry 694.60 | peak 696.10 | SL 664.60 | P&L -18 (-0.1%)
+2026-10-15 09:51:02.659 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 695.55 | entry 694.60 | peak 699.05 | SL 664.60 | P&L 29 (0.1%)
+2026-10-15 09:51:10.756 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,522.70 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:51:21.705 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Stop-loss moved 664.60 -> 669.60 (peak 704.75, LTP 704.75) on BANKNIFTY 55500 CE 27 OCT 26
+2026-10-15 09:51:33.406 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 708.60 | entry 694.60 | peak 710.00 | SL 669.60 | P&L 420 (2.0%)
+2026-10-15 09:51:38.508 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Stop-loss moved 669.60 -> 674.60 (peak 714.85, LTP 714.85) on BANKNIFTY 55500 CE 27 OCT 26
+2026-10-15 09:52:03.558 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 716.00 | entry 694.60 | peak 716.55 | SL 674.60 | P&L 642 (3.1%)
+2026-10-15 09:52:10.902 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,563.05 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:52:33.700 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 720.10 | entry 694.60 | peak 722.90 | SL 674.60 | P&L 765 (3.7%)
+2026-10-15 09:53:04.762 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 715.40 | entry 694.60 | peak 724.50 | SL 674.60 | P&L 624 (3.0%)
+2026-10-15 09:53:11.050 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,565.35 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:53:34.897 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 715.95 | entry 694.60 | peak 724.50 | SL 674.60 | P&L 641 (3.1%)
+2026-10-15 09:53:44.797 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Stop-loss moved 674.60 -> 679.60 (peak 725.00, LTP 725.00) on BANKNIFTY 55500 CE 27 OCT 26
+2026-10-15 09:54:05.795 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 724.50 | entry 694.60 | peak 729.90 | SL 679.60 | P&L 897 (4.3%)
+2026-10-15 09:54:11.362 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,589.90 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:54:35.943 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 726.85 | entry 694.60 | peak 731.00 | SL 679.60 | P&L 968 (4.6%)
+2026-10-15 09:55:00.399 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:50 closed: O 55,516.35 H 55,607.95 L 55,501.80 C 55,587.10 | range 55,290.05 - 55,482.10
+2026-10-15 09:55:05.943 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 727.25 | entry 694.60 | peak 731.00 | SL 679.60 | P&L 980 (4.7%)
+2026-10-15 09:55:11.674 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,605.60 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:55:17.190 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Stop-loss moved 679.60 -> 684.60 (peak 734.80, LTP 734.80) on BANKNIFTY 55500 CE 27 OCT 26
+2026-10-15 09:55:36.839 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 727.20 | entry 694.60 | peak 734.80 | SL 684.60 | P&L 978 (4.7%)
+2026-10-15 09:56:07.287 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 723.30 | entry 694.60 | peak 734.80 | SL 684.60 | P&L 861 (4.1%)
+2026-10-15 09:56:11.787 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,589.05 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:56:37.885 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 719.05 | entry 694.60 | peak 734.80 | SL 684.60 | P&L 734 (3.5%)
+2026-10-15 09:57:08.636 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 725.95 | entry 694.60 | peak 734.80 | SL 684.60 | P&L 941 (4.5%)
+2026-10-15 09:57:12.081 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,595.85 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:57:39.021 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 731.60 | entry 694.60 | peak 734.80 | SL 684.60 | P&L 1,110 (5.3%)
+2026-10-15 09:58:09.231 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 726.60 | entry 694.60 | peak 735.00 | SL 684.60 | P&L 960 (4.6%)
+2026-10-15 09:58:12.379 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,595.25 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:58:39.978 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 732.00 | entry 694.60 | peak 735.00 | SL 684.60 | P&L 1,122 (5.4%)
+2026-10-15 09:59:09.979 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 732.00 | entry 694.60 | peak 739.75 | SL 684.60 | P&L 1,122 (5.4%)
+2026-10-15 09:59:12.681 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,604.00 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 09:59:40.049 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 735.90 | entry 694.60 | peak 739.75 | SL 684.60 | P&L 1,239 (5.9%)
+2026-10-15 10:00:00.378 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:55 closed: O 55,588.85 H 55,624.60 L 55,581.25 C 55,612.50 | range 55,290.05 - 55,482.10
+2026-10-15 10:00:10.883 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 739.95 | entry 694.60 | peak 740.00 | SL 684.60 | P&L 1,361 (6.5%)
+2026-10-15 10:00:12.822 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,614.00 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 10:00:41.081 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 739.25 | entry 694.60 | peak 743.75 | SL 684.60 | P&L 1,340 (6.4%)
+2026-10-15 10:00:58.572 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Stop-loss moved 684.60 -> 719.60 (peak 744.75, LTP 744.75) on BANKNIFTY 55500 CE 27 OCT 26
+2026-10-15 10:01:12.070 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 737.70 | entry 694.60 | peak 744.75 | SL 719.60 | P&L 1,293 (6.2%)
+2026-10-15 10:01:13.119 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,614.15 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 10:01:42.217 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 731.65 | entry 694.60 | peak 744.75 | SL 719.60 | P&L 1,112 (5.3%)
+2026-10-15 10:02:12.310 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 723.50 | entry 694.60 | peak 744.75 | SL 719.60 | P&L 867 (4.2%)
+2026-10-15 10:02:13.415 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,591.15 | opening range 55,290.05 - 55,482.10 | open position: yes
+2026-10-15 10:02:42.963 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 CE 27 OCT 26: LTP 726.65 | entry 694.60 | peak 744.75 | SL 719.60 | P&L 962 (4.6%)
+2026-10-15 10:02:53.992 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|49457
+2026-10-15 10:02:54.037 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty position closed. Stop-loss hit at ₹719.60 (peak ₹744.75). P&L 715.50
+2026-10-15 10:03:13.440 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,587.10 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:04:13.709 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,579.50 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:05:00.238 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:00 closed: O 55,613.20 H 55,629.25 L 55,558.25 C 55,593.95 | range 55,290.05 - 55,482.10
+2026-10-15 10:05:14.005 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,587.80 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:06:14.151 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,599.85 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:07:14.446 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,605.10 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:08:14.743 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,622.55 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:09:14.893 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,623.60 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:10:00.187 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:05 closed: O 55,592.50 H 55,636.00 L 55,583.95 C 55,622.05 | range 55,290.05 - 55,482.10
+2026-10-15 10:10:15.000 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,616.40 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:11:15.206 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,635.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:12:15.211 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,639.10 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:13:15.480 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,698.20 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:14:15.778 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,712.60 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:15:00.275 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:10 closed: O 55,621.20 H 55,726.40 L 55,613.05 C 55,720.70 | range 55,290.05 - 55,482.10
+2026-10-15 10:15:15.925 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,762.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:16:16.073 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,734.75 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:17:16.154 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,724.80 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:18:16.160 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,669.50 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:18:55.487 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-10-15 10:18:55.516 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-15 10:19:00.843 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 10s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:19:00.852 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:19:11.093 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 20s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:19:11.096 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:19:31.314 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 40s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:19:31.318 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:20:11.553 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:20:11.556 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:21:11.760 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:21:11.764 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:22:12.006 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:22:12.010 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:23:12.237 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:23:12.243 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:24:12.522 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:24:12.528 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:25:12.748 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:25:12.751 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:26:12.950 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:26:12.953 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:27:13.188 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:27:13.190 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:28:13.399 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:28:13.401 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:29:13.652 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:29:13.656 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:30:13.908 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:30:13.912 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:31:14.166 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:31:14.169 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:32:14.427 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:32:14.431 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:33:14.671 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:33:14.674 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:34:14.896 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:34:14.899 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:35:15.137 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:35:15.139 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:36:15.402 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:36:15.406 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:37:15.669 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-10-15 10:37:15.671 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-15 10:38:16.301 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-15 10:38:16.301 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-15 10:38:16.302 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_INDEX|Nifty Bank
+2026-10-15 10:38:16.320 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:15 closed: O 55,717.30 H 55,767.90 L 55,667.40 C 55,673.55 | range 55,290.05 - 55,482.10
+2026-10-15 10:38:16.329 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,809.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:39:16.550 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,805.50 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:40:00.348 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:35 closed: O 55,809.95 H 55,816.85 L 55,760.95 C 55,760.95 | range 55,290.05 - 55,482.10
+2026-10-15 10:40:16.708 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,759.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:41:16.976 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,773.05 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:42:16.981 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,789.30 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:43:17.294 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,773.30 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:44:17.578 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,779.75 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:45:00.349 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:40 closed: O 55,761.10 H 55,804.25 L 55,754.05 C 55,779.35 | range 55,290.05 - 55,482.10
+2026-10-15 10:45:17.749 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,790.80 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:46:17.789 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,808.10 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:47:18.013 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,839.70 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:48:18.057 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,855.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:49:18.190 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,873.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:50:00.367 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:45 closed: O 55,780.75 H 55,883.95 L 55,780.75 C 55,878.90 | range 55,290.05 - 55,482.10
+2026-10-15 10:50:18.357 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,883.05 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:51:18.646 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,852.70 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:52:18.798 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,836.05 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:53:19.017 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,842.00 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:54:19.067 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,845.05 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:55:00.215 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:50 closed: O 55,879.05 H 55,887.20 L 55,827.40 C 55,849.60 | range 55,290.05 - 55,482.10
+2026-10-15 10:55:19.364 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,852.70 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:56:19.649 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,850.05 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:57:19.662 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,844.55 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:58:19.983 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,866.60 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 10:59:20.131 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,875.25 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:00:00.150 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:55 closed: O 55,847.30 H 55,881.00 L 55,840.25 C 55,869.60 | range 55,290.05 - 55,482.10
+2026-10-15 11:00:20.400 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,843.95 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:01:20.701 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,829.80 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:02:21.005 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,799.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:03:21.009 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,831.55 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:04:21.185 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,834.00 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:05:00.180 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:00 closed: O 55,870.65 H 55,873.85 L 55,784.30 C 55,833.00 | range 55,290.05 - 55,482.10
+2026-10-15 11:05:21.442 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,838.45 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:06:21.739 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,841.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:07:22.040 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,790.90 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:08:22.043 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,775.85 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:09:22.199 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,764.30 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:10:00.330 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:05 closed: O 55,832.55 H 55,848.55 L 55,750.20 C 55,754.20 | range 55,290.05 - 55,482.10
+2026-10-15 11:10:22.490 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,757.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:11:22.790 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,777.20 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:12:23.084 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,757.35 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:13:23.361 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,752.80 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:14:23.545 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,762.40 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:15:00.301 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:10 closed: O 55,752.50 H 55,792.00 L 55,749.90 C 55,766.15 | range 55,290.05 - 55,482.10
+2026-10-15 11:15:23.828 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,761.70 | opening range 55,290.05 - 55,482.10 | open position: none
+2026-10-15 11:19:50.511 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: seeded 1 new row(s) into AppSettings from appsettings.json / defaults.
+2026-10-15 11:19:50.945 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-15 11:19:51.171 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-15 11:19:52.530 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-15 11:19:52.535 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-15 11:19:52.535 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-17" to "2026-10-14"...
+2026-10-15 11:19:52.679 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-15 11:19:52.783 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 25 5-min intraday candles.
+2026-10-15 11:19:52.790 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-17" to "2026-10-14")
+2026-10-15 11:19:52.788 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:15 closed: O 55,445.75 H 55,561.85 L 55,279.00 C 55,465.20 | range not captured yet
+2026-10-15 11:19:52.798 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: Opening range "2026-10-15": High=55561.85 Low=55279.0 width=0.51%
+2026-10-15 11:19:52.806 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:20 closed: O 55,464.75 H 55,482.10 L 55,290.05 C 55,388.30 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.809 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:25 closed: O 55,385.80 H 55,494.80 L 55,384.25 C 55,413.15 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.811 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:30 closed: O 55,423.00 H 55,479.15 L 55,399.30 C 55,416.10 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.813 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:35 closed: O 55,419.10 H 55,522.60 L 55,389.55 C 55,476.05 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.815 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:40 closed: O 55,474.40 H 55,506.95 L 55,419.10 C 55,436.00 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.818 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:45 closed: O 55,436.40 H 55,583.60 L 55,433.65 C 55,519.00 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.820 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:50 closed: O 55,516.35 H 55,608.30 L 55,501.80 C 55,587.10 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.823 +05:30 [DBG] AlgoWorker.BankNifty.OrbSignalEngine: (seeding) ORB "Up" at "2026-10-15T09:50:00.0000000+05:30" -- historical, not traded.
+2026-10-15 11:19:52.827 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:55 closed: O 55,588.85 H 55,625.05 L 55,581.25 C 55,612.50 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.829 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:00 closed: O 55,613.20 H 55,630.35 L 55,558.25 C 55,592.50 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.831 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:05 closed: O 55,591.75 H 55,637.05 L 55,583.95 C 55,621.20 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.834 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:10 closed: O 55,627.45 H 55,730.50 L 55,613.05 C 55,720.70 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.837 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:15 closed: O 55,717.30 H 55,769.45 L 55,666.00 C 55,704.70 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.840 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:20 closed: O 55,703.55 H 55,773.30 L 55,690.25 C 55,740.45 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.842 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:25 closed: O 55,743.05 H 55,780.95 L 55,737.05 C 55,753.40 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.844 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:30 closed: O 55,754.10 H 55,799.65 L 55,738.25 C 55,775.55 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.846 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:35 closed: O 55,776.85 H 55,817.55 L 55,760.95 C 55,761.10 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.848 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:40 closed: O 55,766.95 H 55,804.25 L 55,754.05 C 55,779.35 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.852 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:45 closed: O 55,780.75 H 55,886.80 L 55,780.75 C 55,878.90 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.855 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:50 closed: O 55,879.05 H 55,888.30 L 55,827.40 C 55,847.30 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.858 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:55 closed: O 55,848.80 H 55,881.00 L 55,840.25 C 55,870.65 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.860 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:00 closed: O 55,869.70 H 55,873.85 L 55,784.30 C 55,832.55 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.863 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:05 closed: O 55,835.05 H 55,848.55 L 55,750.20 C 55,754.20 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.865 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:10 closed: O 55,752.50 H 55,792.00 L 55,749.90 C 55,766.15 | range 55,279.00 - 55,561.85
+2026-10-15 11:19:52.868 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 24 of today's 5-min candles.
+2026-10-15 11:19:53.679 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 9 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-15 11:19:53.687 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.688 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.693 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.693 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.693 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.693 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.693 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.694 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.695 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.695 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.695 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.695 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.695 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.695 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.695 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.695 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.696 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-15 11:19:53.696 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-13T11:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:53.696 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 484 candles replayed through the indicator pipeline (475 historical + 9 today).
+2026-10-15 11:19:53.697 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "GoldenCross" originally crossed at "2026-10-13T10:30:00.0000000+05:30" (54 candles ago), still active as of "2026-10-15T11:15:00.0000000+05:30".
+2026-10-15 11:19:56.320 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-14", High=22757.95, Low=22558.95, Close=22622.7
+2026-10-15 11:19:56.325 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-15": Pivot=22646.533333333333333333333333, TC=22634.616666666666666666666666, BC=22658.45, Width%=0.105, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-15 11:19:56.424 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-04" to "2026-10-14", keeping the last 2 trading day(s)...
+2026-10-15 11:19:56.872 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1000 historical 5-min candles for NSE_INDEX|Nifty 50 ("2026-10-04" to "2026-10-14")
+2026-10-15 11:19:57.021 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 42 intraday (today's) 5-min candles for NSE_INDEX|Nifty 50
+2026-10-15 11:19:57.025 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.22, Signal -0.40, likely choppy/hugging zero).
+2026-10-15 11:19:57.025 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T10:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 25.42, Signal 27.27, likely choppy/hugging zero).
+2026-10-15 11:19:57.025 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T11:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.43, Signal -4.74, likely choppy/hugging zero).
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T13:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.53, Signal 8.11, likely choppy/hugging zero).
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-13T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T13:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.16, Signal 7.53, likely choppy/hugging zero).
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-13T13:42:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 32.51, Signal 32.71, likely choppy/hugging zero).
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-14T09:48:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T09:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 19.50, Signal 20.25, likely choppy/hugging zero).
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-14T10:42:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T11:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.14, Signal 8.45, likely choppy/hugging zero).
+2026-10-15 11:19:57.026 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T11:48:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.58, Signal -3.72, likely choppy/hugging zero).
+2026-10-15 11:19:57.027 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T12:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 4.50, Signal 5.14, likely choppy/hugging zero).
+2026-10-15 11:19:57.027 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T13:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -32.10, Signal -32.34, likely choppy/hugging zero).
+2026-10-15 11:19:57.027 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-14T14:57:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-15 11:19:57.027 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-14T15:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.83, Signal -4.40, likely choppy/hugging zero).
+2026-10-15 11:19:57.027 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-15T10:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 55.57, Signal 55.78, likely choppy/hugging zero).
+2026-10-15 11:19:57.027 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 292 3-min candles replayed (2 trading day(s) + 42 today).
+2026-10-15 11:19:57.221 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 600 5-min historical candles.
+2026-10-15 11:19:57.441 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 25 5-min intraday candles.
+2026-10-15 11:19:57.444 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-15 11:19:57.446 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-13T09:25:00.0000000+05:30": close vs level 22458.55 -- not alerting yet, historical replay only.
+2026-10-15 11:19:57.449 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-14" from first 5-min candle ("2026-10-14T09:15:00.0000000+05:30"): High=22752.3, Low=22663.8
+2026-10-15 11:19:57.450 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-14T11:35:00.0000000+05:30": low 22655.35 swept red low 22667.45; waiting up to 4 candles.
+2026-10-15 11:19:57.450 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-14T13:00:00.0000000+05:30": close vs level 22663.8 -- not alerting yet, historical replay only.
+2026-10-15 11:19:57.451 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-15" from first 5-min candle ("2026-10-15T09:15:00.0000000+05:30"): High=22737.8, Low=22637.4
+2026-10-15 11:19:57.451 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-15T09:25:00.0000000+05:30": close vs level 22737.8 -- not alerting yet, historical replay only.
+2026-10-15 11:19:57.451 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 174 candles replayed (2 previous day(s) + 24 today).
+2026-10-15 11:19:57.451 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-15 11:19:58.354 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-15 11:19:58.354 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-15 11:19:58.361 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_INDEX|Nifty Bank
+2026-10-15 11:19:58.397 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-15 11:19:58.416 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty: first index tick received from the shared feed (55,692.75).
+2026-10-15 11:19:58.419 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,692.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:20:00.111 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:15 closed: O 55,692.75 H 55,693.45 L 55,691.25 C 55,691.25 | range 55,279.00 - 55,561.85
+2026-10-15 11:20:58.622 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,730.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:21:58.764 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,729.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:22:58.911 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,726.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:23:59.057 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,723.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:24:59.057 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,714.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:25:00.106 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:20 closed: O 55,687.70 H 55,744.05 L 55,684.90 C 55,714.90 | range 55,279.00 - 55,561.85
+2026-10-15 11:25:59.349 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,720.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:26:59.358 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,761.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:27:59.682 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,777.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:28:59.683 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,818.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:29:59.962 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,825.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:30:00.104 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:25 closed: O 55,712.50 H 55,833.15 L 55,707.80 C 55,825.30 | range 55,279.00 - 55,561.85
+2026-10-15 11:31:00.155 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,785.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:32:00.408 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,800.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:33:00.569 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,815.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:34:00.770 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,776.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:35:00.274 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:30 closed: O 55,820.50 H 55,829.45 L 55,770.70 C 55,811.50 | range 55,279.00 - 55,561.85
+2026-10-15 11:35:01.005 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,808.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:36:01.012 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,796.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:37:01.154 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,806.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:38:01.155 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,811.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:39:01.452 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,835.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:40:00.292 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:35 closed: O 55,805.10 H 55,842.05 L 55,792.30 C 55,822.00 | range 55,279.00 - 55,561.85
+2026-10-15 11:40:01.749 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,823.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:41:02.047 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,838.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:42:02.054 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,824.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:43:02.194 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,817.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:44:02.227 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,809.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:45:00.159 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:40 closed: O 55,820.10 H 55,842.65 L 55,792.90 C 55,810.15 | range 55,279.00 - 55,561.85
+2026-10-15 11:45:02.508 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:46:02.782 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,818.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:47:02.789 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,790.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:48:02.792 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,796.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:49:03.097 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,801.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:50:00.105 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:45 closed: O 55,808.00 H 55,830.35 L 55,779.45 C 55,811.10 | range 55,279.00 - 55,561.85
+2026-10-15 11:50:03.117 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,809.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:51:03.399 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,815.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:52:03.525 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,820.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:53:03.534 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,808.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:54:03.538 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,807.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:55:00.080 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:50 closed: O 55,810.75 H 55,828.85 L 55,791.85 C 55,805.80 | range 55,279.00 - 55,561.85
+2026-10-15 11:55:00.085 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bullish" crossover confirmed at "2026-10-15T11:50:00.0000000+05:30": MACD 24.78, Signal 24.75
+2026-10-15 11:55:01.396 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1830 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-10-15 11:55:01.414 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty 50: 19-Oct-2026 (Mon), 27-Oct-2026 (Tue), 03-Nov-2026 (Tue), 09-Nov-2026 (Mon), 17-Nov-2026 (Tue), 23-Nov-2026 (Mon)
+2026-10-15 11:55:01.429 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Call" option for breakout on NSE_INDEX|Nifty 50: strike 22950, expiry "2026-10-19".
+2026-10-15 11:55:02.020 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47159
+2026-10-15 11:55:02.940 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD "Bullish" position opened: NIFTY 22950 CE 19 OCT 26 @ 140.0
+2026-10-15 11:55:03.688 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,803.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:56:03.714 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,814.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:57:03.840 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,817.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:58:04.133 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,822.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 11:59:04.137 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,822.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:00:00.076 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:55 closed: O 55,802.65 H 55,839.65 L 55,791.90 C 55,827.20 | range 55,279.00 - 55,561.85
+2026-10-15 12:00:04.450 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,818.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:01:04.472 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,832.85 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:02:04.844 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,809.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:02:14.247 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47159
+2026-10-15 12:02:14.267 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD position closed. Reason: Manually closed from Dashboard. P&L: -276.25 (-3.0%)
+2026-10-15 12:02:26.833 +05:30 [INF] Program: Settings reloaded from the AppSettings table (triggered by the Dashboard).
+2026-10-15 12:03:04.888 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,813.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:04:05.177 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,804.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:05:00.097 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-15T12:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 23.31, Signal 24.52, likely choppy/hugging zero).
+2026-10-15 12:05:00.240 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:00 closed: O 55,819.85 H 55,840.35 L 55,788.90 C 55,792.65 | range 55,279.00 - 55,561.85
+2026-10-15 12:05:05.505 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,791.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:06:05.780 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,783.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:07:05.932 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,793.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:08:06.223 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,774.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:09:06.536 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,790.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:10:00.072 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:05 closed: O 55,793.00 H 55,817.10 L 55,771.50 C 55,811.45 | range 55,279.00 - 55,561.85
+2026-10-15 12:10:06.821 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,803.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:11:06.844 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,814.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:12:06.878 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,834.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:13:06.974 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,830.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:14:07.060 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,831.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:15:00.072 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:10 closed: O 55,807.60 H 55,844.90 L 55,801.30 C 55,832.00 | range 55,279.00 - 55,561.85
+2026-10-15 12:15:07.126 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,818.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:16:07.135 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,817.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:17:07.277 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,807.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:18:07.287 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,824.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:19:07.424 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,828.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:20:00.074 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:15 closed: O 55,829.95 H 55,843.40 L 55,799.10 C 55,837.00 | range 55,279.00 - 55,561.85
+2026-10-15 12:20:07.565 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,838.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:21:07.585 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,841.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:22:07.883 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,829.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:23:07.884 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,832.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:24:07.931 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,838.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:25:00.070 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:20 closed: O 55,833.35 H 55,849.15 L 55,819.20 C 55,847.85 | range 55,279.00 - 55,561.85
+2026-10-15 12:25:08.166 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,848.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:26:08.294 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,855.20 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:27:08.467 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,858.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:28:08.468 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,842.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:29:08.488 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,835.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:30:00.219 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:25 closed: O 55,842.25 H 55,869.35 L 55,821.55 C 55,831.15 | range 55,279.00 - 55,561.85
+2026-10-15 12:30:08.532 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,843.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:31:08.787 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,855.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:32:08.926 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,842.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:33:09.288 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,839.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:34:09.576 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,870.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:35:02.291 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:30 closed: O 55,830.80 H 55,894.00 L 55,823.40 C 55,894.00 | range 55,279.00 - 55,561.85
+2026-10-15 12:35:09.601 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,916.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:36:09.938 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,950.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:37:09.966 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,954.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:38:10.032 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,939.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:39:10.137 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,955.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:40:00.069 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:35 closed: O 55,892.35 H 55,972.00 L 55,892.35 C 55,960.10 | range 55,279.00 - 55,561.85
+2026-10-15 12:40:10.333 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,953.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:41:10.450 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,957.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:42:10.628 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,967.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:43:10.666 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,989.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:44:10.870 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,970.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:45:00.290 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:40 closed: O 55,956.90 H 56,005.50 L 55,940.90 C 55,962.45 | range 55,279.00 - 55,561.85
+2026-10-15 12:45:00.300 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bullish" crossover confirmed at "2026-10-15T12:40:00.0000000+05:30": MACD 21.34, Signal 21.07
+2026-10-15 12:45:10.979 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,950.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:46:11.225 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,979.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:47:11.321 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,981.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:48:11.395 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,963.20 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:49:11.595 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,968.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:50:00.062 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:45 closed: O 55,959.80 H 55,997.65 L 55,933.55 C 55,969.35 | range 55,279.00 - 55,561.85
+2026-10-15 12:50:11.683 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,967.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:51:11.914 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,971.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:52:11.922 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,958.20 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:53:11.925 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,965.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:54:12.280 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,960.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:55:00.231 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:50 closed: O 55,964.45 H 55,992.45 L 55,953.05 C 55,989.55 | range 55,279.00 - 55,561.85
+2026-10-15 12:55:12.501 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,987.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:56:12.506 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,987.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:57:12.513 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,984.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:58:12.663 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,983.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 12:59:12.806 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,979.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:00:00.055 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:55 closed: O 55,988.45 H 55,998.25 L 55,960.65 C 55,983.05 | range 55,279.00 - 55,561.85
+2026-10-15 13:00:12.807 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,981.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:01:13.178 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,996.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:02:13.307 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,992.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:03:13.562 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,988.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:04:13.737 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,986.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:05:00.053 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:00 closed: O 55,982.40 H 56,005.65 L 55,965.65 C 55,968.60 | range 55,279.00 - 55,561.85
+2026-10-15 13:05:13.885 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,974.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:06:14.006 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,974.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:07:14.305 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,976.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:08:14.315 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,000.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:09:14.618 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,991.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:10:00.054 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:05 closed: O 55,964.30 H 56,003.25 L 55,957.95 C 55,977.45 | range 55,279.00 - 55,561.85
+2026-10-15 13:10:14.913 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,973.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:11:14.925 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,960.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:12:15.002 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,933.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:13:15.084 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,933.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:14:15.354 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,961.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:15:00.066 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:10 closed: O 55,976.05 H 55,980.25 L 55,920.50 C 55,952.60 | range 55,279.00 - 55,561.85
+2026-10-15 13:15:15.655 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,947.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:16:15.980 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,948.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:17:15.980 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,952.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:18:16.123 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,933.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:19:16.126 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,910.20 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:20:00.049 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-15T13:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 22.48, Signal 23.33, likely choppy/hugging zero).
+2026-10-15 13:20:00.215 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:15 closed: O 55,947.30 H 55,957.75 L 55,881.30 C 55,905.20 | range 55,279.00 - 55,561.85
+2026-10-15 13:20:16.284 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,912.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:21:16.398 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,929.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:22:16.699 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,938.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:23:16.707 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,947.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:24:16.868 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,941.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:25:00.217 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:20 closed: O 55,905.60 H 55,953.85 L 55,897.55 C 55,939.75 | range 55,279.00 - 55,561.85
+2026-10-15 13:25:17.024 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,945.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:26:17.327 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,957.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:27:17.386 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,977.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:28:17.462 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,981.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:29:17.472 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,001.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:30:00.048 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:25 closed: O 55,935.35 H 56,012.90 L 55,935.35 C 56,007.80 | range 55,279.00 - 55,561.85
+2026-10-15 13:30:17.617 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,026.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:31:17.752 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,024.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:32:17.900 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,010.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:33:18.058 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,990.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:34:18.351 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,978.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:35:00.060 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:30 closed: O 56,005.70 H 56,044.80 L 55,965.50 C 56,014.50 | range 55,279.00 - 55,561.85
+2026-10-15 13:35:00.063 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bullish" crossover confirmed at "2026-10-15T13:30:00.0000000+05:30": MACD 23.11, Signal 22.93
+2026-10-15 13:35:18.362 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,026.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:36:18.652 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,034.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:37:18.657 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,051.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:38:18.786 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,047.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:39:18.791 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,031.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:40:00.046 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:35 closed: O 56,012.75 H 56,065.15 L 56,002.85 C 56,014.20 | range 55,279.00 - 55,561.85
+2026-10-15 13:40:18.798 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,006.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:41:18.957 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,967.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:42:19.110 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,989.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:43:19.164 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,988.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:44:19.407 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,997.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:45:00.192 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:40 closed: O 56,010.65 H 56,019.55 L 55,960.20 C 56,003.90 | range 55,279.00 - 55,561.85
+2026-10-15 13:45:19.702 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,009.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:46:19.871 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,014.35 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:47:19.996 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,985.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:48:20.146 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,980.85 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:49:20.156 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,970.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:50:00.207 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:45 closed: O 56,003.20 H 56,017.90 L 55,953.85 C 56,001.25 | range 55,279.00 - 55,561.85
+2026-10-15 13:50:20.441 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,001.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:51:20.446 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,004.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:52:20.743 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,005.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:53:21.044 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,012.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:54:21.044 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,011.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:55:00.044 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:50 closed: O 55,997.00 H 56,018.30 L 55,986.05 C 56,004.55 | range 55,279.00 - 55,561.85
+2026-10-15 13:55:21.051 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,005.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:56:21.355 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,995.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:57:21.488 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,990.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:58:21.499 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 56,003.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 13:59:21.800 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,986.85 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:00:00.060 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:55 closed: O 56,002.75 H 56,015.35 L 55,977.05 C 55,997.85 | range 55,279.00 - 55,561.85
+2026-10-15 14:00:22.107 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,979.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:01:22.114 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,979.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:02:22.386 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,972.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:03:22.398 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,947.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:04:22.448 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,933.20 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:05:00.039 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-15T14:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 23.29, Signal 23.90, likely choppy/hugging zero).
+2026-10-15 14:05:00.201 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:00 closed: O 55,997.00 H 55,999.10 L 55,888.10 C 55,894.85 | range 55,279.00 - 55,561.85
+2026-10-15 14:05:22.700 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,864.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:06:22.843 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,821.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:07:23.147 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,818.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:08:23.439 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,858.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:09:23.445 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,855.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:10:00.455 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:05 closed: O 55,891.15 H 55,901.20 L 55,777.50 C 55,848.65 | range 55,279.00 - 55,561.85
+2026-10-15 14:10:23.743 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,848.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:11:23.892 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,874.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:12:24.200 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,844.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:13:24.498 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,845.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:14:24.633 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,837.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:15:00.039 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:10 closed: O 55,852.90 H 55,886.35 L 55,824.30 C 55,829.80 | range 55,279.00 - 55,561.85
+2026-10-15 14:15:24.788 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,821.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:16:24.794 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,776.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:17:24.934 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,806.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:18:24.943 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,836.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:19:24.951 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,857.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:20:00.036 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:15 closed: O 55,829.20 H 55,868.50 L 55,766.65 C 55,857.30 | range 55,279.00 - 55,561.85
+2026-10-15 14:20:25.243 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,821.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:21:25.556 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,809.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:22:25.832 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,814.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:23:25.833 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,807.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:24:25.835 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,779.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:25:00.037 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:20 closed: O 55,856.35 H 55,859.65 L 55,770.20 C 55,793.90 | range 55,279.00 - 55,561.85
+2026-10-15 14:25:25.836 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,801.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:26:26.131 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,753.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:27:26.284 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,769.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:28:26.287 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,713.10 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:29:26.580 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,735.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:30:00.032 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:25 closed: O 55,793.25 H 55,807.90 L 55,708.85 C 55,741.00 | range 55,279.00 - 55,561.85
+2026-10-15 14:30:26.588 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,733.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:31:26.898 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,747.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:32:27.176 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,737.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:33:27.179 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,745.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:34:27.193 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,711.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:35:00.196 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:30 closed: O 55,739.45 H 55,755.45 L 55,704.55 C 55,722.60 | range 55,279.00 - 55,561.85
+2026-10-15 14:35:27.332 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,716.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:36:27.628 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,764.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:37:27.631 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,780.25 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:38:27.965 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,749.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:39:27.969 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,740.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:40:00.181 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:35 closed: O 55,722.25 H 55,786.00 L 55,716.05 C 55,753.10 | range 55,279.00 - 55,561.85
+2026-10-15 14:40:28.233 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,752.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:41:28.387 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,750.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:42:28.677 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,759.30 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:43:28.679 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,790.80 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:44:28.978 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,776.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:45:00.027 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:40 closed: O 55,749.00 H 55,817.45 L 55,745.70 C 55,761.20 | range 55,279.00 - 55,561.85
+2026-10-15 14:45:28.994 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,733.00 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:46:29.275 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,716.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:47:29.280 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,765.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:48:29.284 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,767.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:49:29.287 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,753.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:50:00.036 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:45 closed: O 55,759.70 H 55,787.80 L 55,704.45 C 55,731.45 | range 55,279.00 - 55,561.85
+2026-10-15 14:50:29.582 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,737.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:51:29.872 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,734.95 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:52:29.875 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,734.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:53:29.880 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,733.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:54:29.888 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,713.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:55:01.221 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:50 closed: O 55,735.25 H 55,756.85 L 55,703.40 C 55,712.75 | range 55,279.00 - 55,561.85
+2026-10-15 14:55:30.458 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,699.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:56:30.641 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,683.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:57:30.931 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,675.15 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:58:31.072 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,681.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 14:59:32.138 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,682.45 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:00:00.174 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:55 closed: O 55,712.85 H 55,716.65 L 55,658.70 C 55,683.60 | range 55,279.00 - 55,561.85
+2026-10-15 15:00:32.447 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,694.85 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:01:32.545 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,707.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:02:32.590 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,670.90 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:03:32.875 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,689.85 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:04:33.174 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,686.70 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:05:00.181 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:00 closed: O 55,680.10 H 55,716.85 L 55,619.40 C 55,673.90 | range 55,279.00 - 55,561.85
+2026-10-15 15:05:33.177 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,663.20 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:06:33.475 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,673.05 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:07:33.631 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,670.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:08:33.631 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,685.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:09:33.791 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,672.40 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:10:00.174 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:05 closed: O 55,673.20 H 55,703.20 L 55,660.20 C 55,685.65 | range 55,279.00 - 55,561.85
+2026-10-15 15:10:34.001 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,670.65 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:11:34.251 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,655.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:12:34.523 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,612.75 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:13:34.671 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,613.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:14:34.836 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,632.60 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:15:00.034 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:10 closed: O 55,684.20 H 55,687.05 L 55,587.10 C 55,637.55 | range 55,279.00 - 55,561.85
+2026-10-15 15:15:34.973 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:16:35.267 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:17:35.279 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:18:35.568 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:19:35.583 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:20:00.059 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:15 closed: O 55,634.55 H 55,634.55 L 55,634.55 C 55,634.55 | range 55,279.00 - 55,561.85
+2026-10-15 15:20:00.773 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:20 closed: O 55,634.55 H 55,634.55 L 55,634.55 C 55,634.55 | range 55,279.00 - 55,561.85
+2026-10-15 15:20:35.867 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:21:36.010 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:22:36.018 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:23:36.021 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:24:36.316 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:25:00.015 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:20 closed: O 55,634.55 H 55,634.55 L 55,634.55 C 55,634.55 | range 55,279.00 - 55,561.85
+2026-10-15 15:25:36.331 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:26:36.611 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:27:36.628 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:28:36.909 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.55 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:29:36.909 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:30:00.065 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:25 closed: O 55,634.55 H 55,810.50 L 55,634.55 C 55,810.50 | range 55,279.00 - 55,561.85
+2026-10-15 15:30:37.199 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:31:37.350 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:32:37.352 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:33:37.497 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:34:37.655 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:34:59.999 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:30 closed: O 55,810.50 H 55,810.50 L 55,810.50 C 55,810.50 | range 55,279.00 - 55,561.85
+2026-10-15 15:35:37.656 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 15:36:37.802 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,810.50 | opening range 55,279.00 - 55,561.85 | open position: none
+2026-10-15 17:36:53.832 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: removed 1 obsolete Bank Nifty row(s).
+2026-10-15 17:36:53.996 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: seeded 16 new row(s) into AppSettings from appsettings.json / defaults.
+2026-10-15 17:36:54.388 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-15 17:36:54.666 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-15 17:38:26.000 +05:30 [INF] Program: Settings reloaded from the AppSettings table (triggered by the Dashboard).
+2026-10-15 17:40:08.993 +05:30 [INF] Program: Settings reloaded from the AppSettings table (triggered by the Dashboard).

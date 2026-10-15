@@ -1,0 +1,17 @@
+@model SettingItem
+<div class="st-row">
+    <div class="st-label">
+        <b title="@Model.Key">@SettingsUi.Pretty(Model.Key)<i class="st-dot" hidden title="Changed, not saved yet"></i>@if (Model.RequiresRestart){<span class="ct-badge-restart" title="Only read when the Worker starts">restart required</span>}</b>
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <small>@Model.Description</small>
+        }
+    </div>
+    <div class="st-ctl">
+        <partial name="_Field" model="Model" />
+        @if (Model.Error is not null)
+        {
+            <div class="st-err">@Model.Error</div>
+        }
+    </div>
+</div>

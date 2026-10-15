@@ -1,3 +1,4 @@
+using AlgoData.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AlgoWorker.Configuration;
@@ -30,12 +31,13 @@ public sealed class MarketHoursService
     /// <summary>Cheap, local-only check: are we within the configured HH:mm window on a weekday? No API call.</summary>
     public bool IsWithinConfiguredWindow(DateTimeOffset now)
     {
+        now = now.ToIst();   // the session window is IST wall-clock; "now" arrives as UTC
         if (now.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday)
             return false;
 
-        var start = TimeOnly.Parse(_options.SessionStartTime);
-        var end = TimeOnly.Parse(_options.SessionEndTime);
-        var nowTime = TimeOnly.FromDateTime(now.DateTime);
+        var start = TimeOfDay.Parse(_options.SessionStartTime);
+        var end = TimeOfDay.Parse(_options.SessionEndTime);
+        var nowTime = TimeOfDay.Of(now);
         return nowTime >= start && nowTime <= end;
     }
 
@@ -56,7 +58,7 @@ public sealed class MarketHoursService
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Could not reach Upstox exchange-status API -- falling back to local time window.");
-            return IsWithinConfiguredWindow(_clock.Now);
+            return IsWithinConfiguredWindow(_clock.UtcNow);
         }
     }
 }

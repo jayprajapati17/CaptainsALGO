@@ -1,0 +1,1024 @@
+2026-10-13 09:01:05.849 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-13 09:01:44.778 +05:30 [INF] AlgoWorker.Services.Persistence.TokenRepository: Access token saved for "2026-10-13".
+2026-10-13 09:01:44.788 +05:30 [INF] Program: Upstox access token generated and saved via the dashboard OAuth flow.
+2026-10-13 09:15:08.581 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 09:15:08.595 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-13 09:15:08.597 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-15" to "2026-10-12"...
+2026-10-13 09:15:08.680 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-15" to "2026-10-12")
+2026-10-13 09:15:08.726 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-13 09:15:08.763 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.765 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.766 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:15:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.767 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.767 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.767 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.768 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.768 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.771 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.771 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.771 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.772 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.772 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.772 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.773 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:15:08.773 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:08.773 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 475 candles replayed through the indicator pipeline (475 historical + 0 today).
+2026-10-13 09:15:08.776 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "DeathCross" originally crossed at "2026-10-12T11:30:00.0000000+05:30" (16 candles ago), still active as of "2026-10-12T15:15:00.0000000+05:30".
+2026-10-13 09:15:09.701 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-12", High=22651.1, Low=22304.45, Close=22363.35
+2026-10-13 09:15:09.713 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-13": Pivot=22439.633333333333333333333333, TC=22401.491666666666666666666666, BC=22477.775, Width%=0.341, Reading=Normal CPR -- Moderate movement expected
+2026-10-13 09:15:09.947 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-02" to "2026-10-12", keeping the last 2 trading day(s)...
+2026-10-13 09:15:10.018 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-10-02" to "2026-10-12")
+2026-10-13 09:15:10.089 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-13 09:15:10.097 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.96, Signal -2.84, likely choppy/hugging zero).
+2026-10-13 09:15:10.098 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T10:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 26.44, Signal 27.08, likely choppy/hugging zero).
+2026-10-13 09:15:10.098 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T12:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.62, Signal -3.66, likely choppy/hugging zero).
+2026-10-13 09:15:10.099 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.43, Signal 5.60, likely choppy/hugging zero).
+2026-10-13 09:15:10.099 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-09T13:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:10.099 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T14:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.47, Signal 14.68, likely choppy/hugging zero).
+2026-10-13 09:15:10.100 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:10.100 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.87, Signal 3.93, likely choppy/hugging zero).
+2026-10-13 09:15:10.100 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:10.100 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.69, Signal 4.39, likely choppy/hugging zero).
+2026-10-13 09:15:10.101 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T11:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.37, Signal -27.25, likely choppy/hugging zero).
+2026-10-13 09:15:10.101 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:10.101 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T13:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -5.47, Signal -5.60, likely choppy/hugging zero).
+2026-10-13 09:15:10.102 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T14:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:10.102 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T14:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -11.72, Signal -12.11, likely choppy/hugging zero).
+2026-10-13 09:15:10.102 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T15:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:15:10.102 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.63, Signal -10.75, likely choppy/hugging zero).
+2026-10-13 09:15:10.102 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 250 3-min candles replayed (2 trading day(s) + 0 today).
+2026-10-13 09:15:10.167 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-13 09:15:10.210 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 5-min intraday candles.
+2026-10-13 09:15:10.214 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T09:15:00.0000000+05:30"): High=22383.45, Low=22299.25
+2026-10-13 09:15:10.221 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-09T09:30:00.0000000+05:30": close vs level 22383.45 -- not alerting yet, historical replay only.
+2026-10-13 09:15:10.227 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-12" from first 5-min candle ("2026-10-12T09:15:00.0000000+05:30"): High=22651.1, Low=22581.9
+2026-10-13 09:15:10.227 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-12T09:20:00.0000000+05:30": close vs level 22581.9 -- not alerting yet, historical replay only.
+2026-10-13 09:15:10.228 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:15:00.0000000+05:30": low 22473.4 swept red low 22483.2; waiting up to 4 candles.
+2026-10-13 09:15:10.230 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.14 below minimum 2.0.
+2026-10-13 09:15:10.231 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:30:00.0000000+05:30": low 22455.1 swept red low 22462.95; waiting up to 4 candles.
+2026-10-13 09:15:10.231 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.66 below minimum 2.0.
+2026-10-13 09:15:10.232 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Reversal "DoubleBottom" at "2026-10-12T10:35:00.0000000+05:30" -- historical replay only, not raised.
+2026-10-13 09:15:10.233 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 150 candles replayed (2 previous day(s) + 0 today).
+2026-10-13 09:15:10.234 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-13 09:15:11.715 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 09:15:11.716 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 09:15:11.726 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 09:15:11.805 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-13 09:19:59.406 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T03:45:00.0000000+00:00"): High=22457.9, Low=22289.35
+2026-10-13 09:27:20.881 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-13 09:27:23.418 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 09:27:23.436 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-13 09:27:23.437 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-15" to "2026-10-12"...
+2026-10-13 09:27:23.531 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-15" to "2026-10-12")
+2026-10-13 09:27:23.578 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-13 09:27:23.609 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.614 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.615 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:15:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.615 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.616 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.616 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.616 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.616 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.618 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.618 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.619 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.619 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.620 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.620 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.620 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:27:23.620 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:23.620 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 476 candles replayed through the indicator pipeline (475 historical + 1 today).
+2026-10-13 09:27:23.622 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "DeathCross" originally crossed at "2026-10-12T11:30:00.0000000+05:30" (17 candles ago), still active as of "2026-10-13T09:15:00.0000000+05:30".
+2026-10-13 09:27:24.182 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-12", High=22651.1, Low=22304.45, Close=22363.35
+2026-10-13 09:27:24.193 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-13": Pivot=22439.633333333333333333333333, TC=22401.491666666666666666666666, BC=22477.775, Width%=0.341, Reading=Normal CPR -- Moderate movement expected
+2026-10-13 09:27:24.620 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-02" to "2026-10-12", keeping the last 2 trading day(s)...
+2026-10-13 09:27:24.709 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-10-02" to "2026-10-12")
+2026-10-13 09:27:24.782 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 4 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-13 09:27:24.790 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.96, Signal -2.84, likely choppy/hugging zero).
+2026-10-13 09:27:24.791 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T10:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 26.44, Signal 27.08, likely choppy/hugging zero).
+2026-10-13 09:27:24.791 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T12:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.62, Signal -3.66, likely choppy/hugging zero).
+2026-10-13 09:27:24.792 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.43, Signal 5.60, likely choppy/hugging zero).
+2026-10-13 09:27:24.792 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-09T13:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:24.792 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T14:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.47, Signal 14.68, likely choppy/hugging zero).
+2026-10-13 09:27:24.793 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:24.793 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.87, Signal 3.93, likely choppy/hugging zero).
+2026-10-13 09:27:24.793 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:24.793 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.69, Signal 4.39, likely choppy/hugging zero).
+2026-10-13 09:27:24.793 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T11:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.37, Signal -27.25, likely choppy/hugging zero).
+2026-10-13 09:27:24.794 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:24.794 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T13:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -5.47, Signal -5.60, likely choppy/hugging zero).
+2026-10-13 09:27:24.794 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T14:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:24.794 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T14:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -11.72, Signal -12.11, likely choppy/hugging zero).
+2026-10-13 09:27:24.794 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T15:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:27:24.794 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.63, Signal -10.75, likely choppy/hugging zero).
+2026-10-13 09:27:24.795 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 254 3-min candles replayed (2 trading day(s) + 4 today).
+2026-10-13 09:27:24.857 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-13 09:27:24.904 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 3 5-min intraday candles.
+2026-10-13 09:27:24.908 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T09:15:00.0000000+05:30"): High=22383.45, Low=22299.25
+2026-10-13 09:27:24.917 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-09T09:30:00.0000000+05:30": close vs level 22383.45 -- not alerting yet, historical replay only.
+2026-10-13 09:27:24.927 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-12" from first 5-min candle ("2026-10-12T09:15:00.0000000+05:30"): High=22651.1, Low=22581.9
+2026-10-13 09:27:24.927 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-12T09:20:00.0000000+05:30": close vs level 22581.9 -- not alerting yet, historical replay only.
+2026-10-13 09:27:24.928 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:15:00.0000000+05:30": low 22473.4 swept red low 22483.2; waiting up to 4 candles.
+2026-10-13 09:27:24.931 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.14 below minimum 2.0.
+2026-10-13 09:27:24.932 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:30:00.0000000+05:30": low 22455.1 swept red low 22462.95; waiting up to 4 candles.
+2026-10-13 09:27:24.932 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.66 below minimum 2.0.
+2026-10-13 09:27:24.934 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Reversal "DoubleBottom" at "2026-10-12T10:35:00.0000000+05:30" -- historical replay only, not raised.
+2026-10-13 09:27:24.935 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-13 09:27:24.936 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 152 candles replayed (2 previous day(s) + 2 today).
+2026-10-13 09:27:24.936 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-13 09:27:25.599 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 09:27:25.600 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 09:27:25.664 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 09:27:25.735 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-13 09:29:59.572 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT UP confirmed at "2026-10-13T03:55:00.0000000+00:00": close 22471.4 vs level 22458.55
+2026-10-13 09:29:59.852 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Call" option for breakout: strike 22450, expiry "2026-10-13".
+2026-10-13 09:30:00.801 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44608
+2026-10-13 09:30:01.732 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Up" position opened: NIFTY 22450 CE 13 OCT 26 @ 84.6
+2026-10-13 09:35:13.939 +05:30 [WRN] AlgoWorker.Services.Persistence.PositionRepository: Closed 1 orphaned Open position(s) left over from a previous Worker run.
+2026-10-13 09:35:14.087 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-13 09:35:16.718 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 09:35:16.729 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-13 09:35:16.729 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-15" to "2026-10-12"...
+2026-10-13 09:35:16.801 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-15" to "2026-10-12")
+2026-10-13 09:35:16.841 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-13 09:35:16.873 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.878 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.880 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:15:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.880 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.881 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.881 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.881 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.882 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.885 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.885 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.886 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.886 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.887 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.887 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.887 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 09:35:16.888 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:16.888 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 477 candles replayed through the indicator pipeline (475 historical + 2 today).
+2026-10-13 09:35:16.891 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "DeathCross" originally crossed at "2026-10-12T11:30:00.0000000+05:30" (18 candles ago), still active as of "2026-10-13T09:30:00.0000000+05:30".
+2026-10-13 09:35:17.408 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-12", High=22651.1, Low=22304.45, Close=22363.35
+2026-10-13 09:35:17.420 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-13": Pivot=22439.633333333333333333333333, TC=22401.491666666666666666666666, BC=22477.775, Width%=0.341, Reading=Normal CPR -- Moderate movement expected
+2026-10-13 09:35:17.585 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-02" to "2026-10-12", keeping the last 2 trading day(s)...
+2026-10-13 09:35:17.697 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-10-02" to "2026-10-12")
+2026-10-13 09:35:17.815 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 7 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-13 09:35:17.834 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.96, Signal -2.84, likely choppy/hugging zero).
+2026-10-13 09:35:17.835 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T10:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 26.44, Signal 27.08, likely choppy/hugging zero).
+2026-10-13 09:35:17.836 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T12:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.62, Signal -3.66, likely choppy/hugging zero).
+2026-10-13 09:35:17.837 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.43, Signal 5.60, likely choppy/hugging zero).
+2026-10-13 09:35:17.837 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-09T13:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:17.838 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T14:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.47, Signal 14.68, likely choppy/hugging zero).
+2026-10-13 09:35:17.838 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:17.839 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.87, Signal 3.93, likely choppy/hugging zero).
+2026-10-13 09:35:17.839 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:17.839 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.69, Signal 4.39, likely choppy/hugging zero).
+2026-10-13 09:35:17.840 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T11:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.37, Signal -27.25, likely choppy/hugging zero).
+2026-10-13 09:35:17.840 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:17.841 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T13:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -5.47, Signal -5.60, likely choppy/hugging zero).
+2026-10-13 09:35:17.841 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T14:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:17.842 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T14:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -11.72, Signal -12.11, likely choppy/hugging zero).
+2026-10-13 09:35:17.842 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T15:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 09:35:17.843 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.63, Signal -10.75, likely choppy/hugging zero).
+2026-10-13 09:35:17.843 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 257 3-min candles replayed (2 trading day(s) + 7 today).
+2026-10-13 09:35:17.934 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-13 09:35:17.992 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 4 5-min intraday candles.
+2026-10-13 09:35:18.003 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T09:15:00.0000000+05:30"): High=22383.45, Low=22299.25
+2026-10-13 09:35:18.017 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-09T09:30:00.0000000+05:30": close vs level 22383.45 -- not alerting yet, historical replay only.
+2026-10-13 09:35:18.026 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-12" from first 5-min candle ("2026-10-12T09:15:00.0000000+05:30"): High=22651.1, Low=22581.9
+2026-10-13 09:35:18.026 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-12T09:20:00.0000000+05:30": close vs level 22581.9 -- not alerting yet, historical replay only.
+2026-10-13 09:35:18.027 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:15:00.0000000+05:30": low 22473.4 swept red low 22483.2; waiting up to 4 candles.
+2026-10-13 09:35:18.030 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.14 below minimum 2.0.
+2026-10-13 09:35:18.031 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:30:00.0000000+05:30": low 22455.1 swept red low 22462.95; waiting up to 4 candles.
+2026-10-13 09:35:18.031 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.66 below minimum 2.0.
+2026-10-13 09:35:18.032 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Reversal "DoubleBottom" at "2026-10-12T10:35:00.0000000+05:30" -- historical replay only, not raised.
+2026-10-13 09:35:18.033 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-13 09:35:18.033 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-13T09:25:00.0000000+05:30": close vs level 22458.55 -- not alerting yet, historical replay only.
+2026-10-13 09:35:18.034 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 154 candles replayed (2 previous day(s) + 4 today).
+2026-10-13 09:35:18.034 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-13 09:35:18.736 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 09:35:18.736 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 09:35:18.806 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 09:35:18.883 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-13 09:45:20.563 +05:30 [INF] Program: Settings reloaded from the AppSettings table (triggered by the Dashboard).
+2026-10-13 10:11:59.903 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T04:39:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 50.39, Signal 50.56, likely choppy/hugging zero).
+2026-10-13 10:29:59.993 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T04:45:00.0000000+00:00", tracking for 4 candles before confirming.
+2026-10-13 10:33:09.143 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-13 10:33:09.188 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-13 10:33:15.166 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 10s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:33:15.179 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:33:25.862 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 20s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:33:25.865 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:33:46.648 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 40s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:33:46.651 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:34:27.419 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:34:27.422 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:35:28.161 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:35:28.164 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:36:29.122 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:36:29.125 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:37:29.901 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:37:29.904 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:38:30.638 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:38:30.640 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:39:31.410 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:39:31.413 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:40:32.119 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:40:32.122 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:41:32.807 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:41:32.809 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:42:33.577 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:42:33.580 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:43:34.358 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:43:34.362 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:44:35.112 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:44:35.116 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:45:35.860 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:45:35.862 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:46:36.758 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:46:36.760 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:47:37.609 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:47:37.611 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:48:38.370 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:48:38.372 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:49:39.133 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:49:39.136 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:50:39.898 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 60s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 554
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 88
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 52
+2026-10-13 10:50:39.901 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-10-13 10:51:40.468 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 10:51:40.468 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 10:51:40.469 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 10:58:38.314 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-13 10:58:38.499 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-13 10:58:40.524 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 10:58:40.525 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 10:58:40.534 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-13 10:58:40.534 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-15" to "2026-10-12"...
+2026-10-13 10:58:40.591 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 21 5-min intraday candles.
+2026-10-13 10:58:40.592 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-15" to "2026-10-12")
+2026-10-13 10:58:40.604 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: Opening range "2026-10-13": High=55169.8 Low=54735.95 width=0.79% valid=false range 0.79% is above the maximum 0.60%
+2026-10-13 10:58:40.609 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 20 of today's 5-min candles.
+2026-10-13 10:58:40.628 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 7 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-13 10:58:40.641 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.644 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.644 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:15:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.645 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.645 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.645 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.645 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.645 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.647 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.647 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.647 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.647 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.647 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.647 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.647 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.648 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:40.648 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 10:58:40.648 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 482 candles replayed through the indicator pipeline (475 historical + 7 today).
+2026-10-13 10:58:40.649 +05:30 [DBG] AlgoWorker.Services.SignalEngine: Catch-up check: current EMA state only 2 candle(s) old, needs 4 to count as confirmed -- will confirm live if it holds.
+2026-10-13 10:58:40.700 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-12", High=22651.1, Low=22304.45, Close=22363.35
+2026-10-13 10:58:40.702 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-13": Pivot=22439.633333333333333333333333, TC=22401.491666666666666666666666, BC=22477.775, Width%=0.341, Reading=Normal CPR -- Moderate movement expected
+2026-10-13 10:58:40.942 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-02" to "2026-10-12", keeping the last 2 trading day(s)...
+2026-10-13 10:58:41.017 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-10-02" to "2026-10-12")
+2026-10-13 10:58:41.082 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 35 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-13 10:58:41.088 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.96, Signal -2.84, likely choppy/hugging zero).
+2026-10-13 10:58:41.089 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T10:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 26.44, Signal 27.08, likely choppy/hugging zero).
+2026-10-13 10:58:41.089 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T12:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.62, Signal -3.66, likely choppy/hugging zero).
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.43, Signal 5.60, likely choppy/hugging zero).
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-09T13:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T14:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.47, Signal 14.68, likely choppy/hugging zero).
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.87, Signal 3.93, likely choppy/hugging zero).
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:41.090 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.69, Signal 4.39, likely choppy/hugging zero).
+2026-10-13 10:58:41.091 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T11:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.37, Signal -27.25, likely choppy/hugging zero).
+2026-10-13 10:58:41.091 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:41.091 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T13:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -5.47, Signal -5.60, likely choppy/hugging zero).
+2026-10-13 10:58:41.091 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T14:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:41.092 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T14:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -11.72, Signal -12.11, likely choppy/hugging zero).
+2026-10-13 10:58:41.092 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T15:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 10:58:41.092 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.63, Signal -10.75, likely choppy/hugging zero).
+2026-10-13 10:58:41.092 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T10:12:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 49.48, Signal 51.07, likely choppy/hugging zero).
+2026-10-13 10:58:41.092 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 285 3-min candles replayed (2 trading day(s) + 35 today).
+2026-10-13 10:58:41.157 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-13 10:58:41.195 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 21 5-min intraday candles.
+2026-10-13 10:58:41.197 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T09:15:00.0000000+05:30"): High=22383.45, Low=22299.25
+2026-10-13 10:58:41.202 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-09T09:30:00.0000000+05:30": close vs level 22383.45 -- not alerting yet, historical replay only.
+2026-10-13 10:58:41.207 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-12" from first 5-min candle ("2026-10-12T09:15:00.0000000+05:30"): High=22651.1, Low=22581.9
+2026-10-13 10:58:41.208 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-12T09:20:00.0000000+05:30": close vs level 22581.9 -- not alerting yet, historical replay only.
+2026-10-13 10:58:41.208 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:15:00.0000000+05:30": low 22473.4 swept red low 22483.2; waiting up to 4 candles.
+2026-10-13 10:58:41.210 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.14 below minimum 2.0.
+2026-10-13 10:58:41.210 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:30:00.0000000+05:30": low 22455.1 swept red low 22462.95; waiting up to 4 candles.
+2026-10-13 10:58:41.210 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.66 below minimum 2.0.
+2026-10-13 10:58:41.211 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Reversal "DoubleBottom" at "2026-10-12T10:35:00.0000000+05:30" -- historical replay only, not raised.
+2026-10-13 10:58:41.212 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-13 10:58:41.212 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-13T09:25:00.0000000+05:30": close vs level 22458.55 -- not alerting yet, historical replay only.
+2026-10-13 10:58:41.213 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 170 candles replayed (2 previous day(s) + 20 today).
+2026-10-13 10:58:41.213 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-13 10:58:41.866 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 10:58:41.867 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 10:58:41.877 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 10:58:41.912 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-13 11:05:41.466 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-13 11:05:41.712 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-13 11:05:43.733 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 11:05:43.748 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 11:05:43.752 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-13 11:05:43.752 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-15" to "2026-10-12"...
+2026-10-13 11:05:43.798 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 22 5-min intraday candles.
+2026-10-13 11:05:43.802 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:15 closed: O 54,907.55 H 55,169.80 L 54,735.95 C 55,150.85 | range not captured yet
+2026-10-13 11:05:43.811 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-15" to "2026-10-12")
+2026-10-13 11:05:43.813 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: Opening range "2026-10-13": High=55169.8 Low=54735.95 width=0.79% valid=false range 0.79% is above the maximum 0.60%
+2026-10-13 11:05:43.819 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:20 closed: O 55,154.75 H 55,178.60 L 55,053.55 C 55,166.45 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.821 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:25 closed: O 55,169.15 H 55,200.20 L 55,142.50 C 55,174.95 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.822 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:30 closed: O 55,179.15 H 55,202.30 L 55,144.65 C 55,195.15 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.824 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:35 closed: O 55,195.30 H 55,241.20 L 55,168.25 C 55,216.85 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.826 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:40 closed: O 55,219.30 H 55,298.55 L 55,215.90 C 55,261.30 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.828 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:45 closed: O 55,259.10 H 55,340.50 L 55,259.10 C 55,325.10 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.830 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:50 closed: O 55,323.15 H 55,340.35 L 55,288.20 C 55,319.70 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.832 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:55 closed: O 55,320.25 H 55,365.75 L 55,310.65 C 55,326.75 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.834 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:00 closed: O 55,326.75 H 55,335.25 L 55,272.80 C 55,282.80 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.836 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:05 closed: O 55,284.20 H 55,322.05 L 55,279.80 C 55,298.95 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.838 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:10 closed: O 55,301.20 H 55,304.45 L 55,265.45 C 55,272.90 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.839 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:15 closed: O 55,276.15 H 55,307.80 L 55,253.95 C 55,257.60 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.842 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:20 closed: O 55,255.70 H 55,300.15 L 55,246.95 C 55,279.25 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.844 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:25 closed: O 55,277.90 H 55,283.75 L 55,224.80 C 55,234.70 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.847 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:30 closed: O 55,234.80 H 55,258.85 L 55,185.55 C 55,203.05 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.848 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:35 closed: O 55,204.20 H 55,218.95 L 55,155.50 C 55,181.80 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.850 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:40 closed: O 55,182.05 H 55,228.50 L 55,169.90 C 55,215.95 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.852 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:45 closed: O 55,215.95 H 55,290.35 L 55,210.60 C 55,283.10 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.854 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:50 closed: O 55,287.25 H 55,291.05 L 55,238.05 C 55,260.35 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.856 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:55 closed: O 55,260.55 H 55,266.80 L 55,208.65 C 55,210.15 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.860 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 8 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-13 11:05:43.858 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:00 closed: O 55,211.30 H 55,247.65 L 55,203.15 C 55,243.25 | range 54,735.95 - 55,169.80
+2026-10-13 11:05:43.862 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 22 of today's 5-min candles.
+2026-10-13 11:05:43.875 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.878 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.879 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:15:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.879 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.879 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.879 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.880 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.880 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.881 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.881 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.881 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.881 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.881 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.882 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.882 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.882 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:43.882 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 11:05:43.882 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 483 candles replayed through the indicator pipeline (475 historical + 8 today).
+2026-10-13 11:05:43.883 +05:30 [DBG] AlgoWorker.Services.SignalEngine: Catch-up check: current EMA state only 3 candle(s) old, needs 4 to count as confirmed -- will confirm live if it holds.
+2026-10-13 11:05:43.916 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-12", High=22651.1, Low=22304.45, Close=22363.35
+2026-10-13 11:05:43.918 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-13": Pivot=22439.633333333333333333333333, TC=22401.491666666666666666666666, BC=22477.775, Width%=0.341, Reading=Normal CPR -- Moderate movement expected
+2026-10-13 11:05:44.088 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-02" to "2026-10-12", keeping the last 2 trading day(s)...
+2026-10-13 11:05:44.140 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-10-02" to "2026-10-12")
+2026-10-13 11:05:44.184 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 37 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-13 11:05:44.209 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.96, Signal -2.84, likely choppy/hugging zero).
+2026-10-13 11:05:44.210 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T10:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 26.44, Signal 27.08, likely choppy/hugging zero).
+2026-10-13 11:05:44.210 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T12:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.62, Signal -3.66, likely choppy/hugging zero).
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.43, Signal 5.60, likely choppy/hugging zero).
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-09T13:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T14:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.47, Signal 14.68, likely choppy/hugging zero).
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.87, Signal 3.93, likely choppy/hugging zero).
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:44.211 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.69, Signal 4.39, likely choppy/hugging zero).
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T11:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.37, Signal -27.25, likely choppy/hugging zero).
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T13:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -5.47, Signal -5.60, likely choppy/hugging zero).
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T14:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T14:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -11.72, Signal -12.11, likely choppy/hugging zero).
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T15:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.63, Signal -10.75, likely choppy/hugging zero).
+2026-10-13 11:05:44.212 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T10:12:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 49.48, Signal 51.07, likely choppy/hugging zero).
+2026-10-13 11:05:44.213 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 287 3-min candles replayed (2 trading day(s) + 37 today).
+2026-10-13 11:05:44.260 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-13 11:05:44.293 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 22 5-min intraday candles.
+2026-10-13 11:05:44.296 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T09:15:00.0000000+05:30"): High=22383.45, Low=22299.25
+2026-10-13 11:05:44.301 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-09T09:30:00.0000000+05:30": close vs level 22383.45 -- not alerting yet, historical replay only.
+2026-10-13 11:05:44.306 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-12" from first 5-min candle ("2026-10-12T09:15:00.0000000+05:30"): High=22651.1, Low=22581.9
+2026-10-13 11:05:44.306 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-12T09:20:00.0000000+05:30": close vs level 22581.9 -- not alerting yet, historical replay only.
+2026-10-13 11:05:44.307 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:15:00.0000000+05:30": low 22473.4 swept red low 22483.2; waiting up to 4 candles.
+2026-10-13 11:05:44.307 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.14 below minimum 2.0.
+2026-10-13 11:05:44.308 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:30:00.0000000+05:30": low 22455.1 swept red low 22462.95; waiting up to 4 candles.
+2026-10-13 11:05:44.308 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.66 below minimum 2.0.
+2026-10-13 11:05:44.308 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Reversal "DoubleBottom" at "2026-10-12T10:35:00.0000000+05:30" -- historical replay only, not raised.
+2026-10-13 11:05:44.312 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-13 11:05:44.312 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-13T09:25:00.0000000+05:30": close vs level 22458.55 -- not alerting yet, historical replay only.
+2026-10-13 11:05:44.312 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 172 candles replayed (2 previous day(s) + 22 today).
+2026-10-13 11:05:44.313 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-13 11:05:44.890 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 11:05:44.891 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 11:05:44.897 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 11:05:44.926 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-13 11:29:59.998 +05:30 [INF] AlgoWorker.Services.SignalEngine: CONFIRMED "GoldenCross" signal ("Medium" confidence) at "2026-10-13T05:45:00.0000000+00:00", spot=22486.55, ADX 24.85855908036083->24.106925824789922.
+2026-10-13 11:30:00.029 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ITM "Call" option: strike 22400 (2 strikes ITM), expiry "2026-10-13".
+2026-10-13 11:30:00.604 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving NEXT-WEEK ATM "Call" option: strike 22500, expiry "2026-10-20".
+2026-10-13 11:30:00.687 +05:30 [WRN] AlgoWorker.Services.UpstoxRestClient: No CE contract found near strike 22500 for expiry "2026-10-20"
+2026-10-13 11:30:00.687 +05:30 [WRN] AlgoWorker.Services.OptionInstrumentResolver: Could not resolve next-week ATM leg (strike 22500, expiry "2026-10-20"). Possible causes: expiry not listed this far out yet.
+2026-10-13 11:30:01.051 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44602
+2026-10-13 11:30:01.974 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "GoldenCross" position opened ["CurrentWeekItm"]: NIFTY 22400 CE 13 OCT 26 @ 102.8
+2026-10-13 11:39:00.005 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T06:06:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD -0.70, Signal -0.95, likely choppy/hugging zero).
+2026-10-13 11:43:37.534 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44602
+2026-10-13 11:43:37.557 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "GoldenCross" position closed ["CurrentWeekItm"]. Reason: Stop-loss hit at ₹125.80 (peak ₹142.20). P&L: 1,465.75 (21.9%)
+2026-10-13 11:48:00.005 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bearish" crossover confirmed at "2026-10-13T06:15:00.0000000+00:00": MACD -0.65, Signal -0.46
+2026-10-13 11:48:00.015 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Put" option for breakout: strike 22500, expiry "2026-10-13".
+2026-10-13 11:48:00.646 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44613
+2026-10-13 11:48:01.735 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD "Bearish" position opened: NIFTY 22500 PE 13 OCT 26 @ 50.1
+2026-10-13 11:52:07.169 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44613
+2026-10-13 11:52:07.180 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD position closed. Reason: Stop-loss hit at ₹40.10 (peak ₹53.00). P&L: -653.25 (-20.1%)
+2026-10-13 11:54:00.001 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T06:21:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD -0.24, Signal -0.58, likely choppy/hugging zero).
+2026-10-13 13:03:00.010 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T07:30:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 7.89, Signal 8.61, likely choppy/hugging zero).
+2026-10-13 13:11:58.975 +05:30 [INF] Program: Settings reloaded from the AppSettings table (triggered by the Dashboard).
+2026-10-13 13:12:17.126 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-13 13:12:17.308 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-13 13:12:19.138 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 13:12:19.138 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-13 13:12:19.144 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-13 13:12:19.144 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-15" to "2026-10-12"...
+2026-10-13 13:12:19.193 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 48 5-min intraday candles.
+2026-10-13 13:12:19.194 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-15" to "2026-10-12")
+2026-10-13 13:12:19.196 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:15 closed: O 54,907.55 H 55,169.80 L 54,735.95 C 55,150.85 | range not captured yet
+2026-10-13 13:12:19.208 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: Opening range "2026-10-13": High=55169.8 Low=54735.95 width=0.79% valid=false range 0.79% is above the maximum 0.60%
+2026-10-13 13:12:19.213 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:20 closed: O 55,154.75 H 55,178.60 L 55,053.55 C 55,166.45 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.215 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:25 closed: O 55,169.15 H 55,200.20 L 55,142.50 C 55,174.95 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.218 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:30 closed: O 55,179.15 H 55,202.30 L 55,144.65 C 55,195.15 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.220 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:35 closed: O 55,195.30 H 55,241.20 L 55,168.25 C 55,216.85 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.222 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:40 closed: O 55,219.30 H 55,298.55 L 55,215.90 C 55,261.30 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.224 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:45 closed: O 55,259.10 H 55,340.50 L 55,259.10 C 55,325.10 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.226 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:50 closed: O 55,323.15 H 55,340.35 L 55,288.20 C 55,319.70 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.228 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:55 closed: O 55,320.25 H 55,365.75 L 55,310.65 C 55,326.75 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.230 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:00 closed: O 55,326.75 H 55,335.25 L 55,272.80 C 55,282.80 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.232 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:05 closed: O 55,284.20 H 55,322.05 L 55,279.80 C 55,298.95 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.234 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:10 closed: O 55,301.20 H 55,304.45 L 55,265.45 C 55,272.90 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.237 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:15 closed: O 55,276.15 H 55,307.80 L 55,253.95 C 55,257.60 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.241 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 16 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-13 13:12:19.240 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:20 closed: O 55,255.70 H 55,300.15 L 55,246.95 C 55,279.25 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.242 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:25 closed: O 55,277.90 H 55,283.75 L 55,224.80 C 55,234.70 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.244 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:30 closed: O 55,234.80 H 55,258.85 L 55,185.55 C 55,203.05 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.246 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:35 closed: O 55,204.20 H 55,218.95 L 55,155.50 C 55,181.80 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.248 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:40 closed: O 55,182.05 H 55,228.50 L 55,169.90 C 55,215.95 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.253 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-17T12:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.251 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:45 closed: O 55,215.95 H 55,290.35 L 55,210.60 C 55,283.10 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.255 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-17T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.256 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T13:15:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.256 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T14:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.256 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T10:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.256 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.257 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.257 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.254 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:50 closed: O 55,287.25 H 55,291.05 L 55,238.05 C 55,260.35 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.257 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.257 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.258 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.258 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T09:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.258 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.258 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.258 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.258 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.258 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:30:00.0000000+05:30", tracking for 4 candles before confirming.
+2026-10-13 13:12:19.258 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-13T11:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:19.258 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 491 candles replayed through the indicator pipeline (475 historical + 16 today).
+2026-10-13 13:12:19.259 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "GoldenCross" originally crossed at "2026-10-13T10:30:00.0000000+05:30" (11 candles ago), still active as of "2026-10-13T13:00:00.0000000+05:30".
+2026-10-13 13:12:19.257 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:55 closed: O 55,260.55 H 55,266.80 L 55,208.65 C 55,210.15 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.259 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:00 closed: O 55,211.30 H 55,247.65 L 55,203.15 C 55,243.25 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.261 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:05 closed: O 55,243.60 H 55,253.70 L 55,220.40 C 55,236.90 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.264 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:10 closed: O 55,236.90 H 55,237.65 L 55,195.90 C 55,201.55 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.267 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:15 closed: O 55,202.50 H 55,242.35 L 55,177.45 C 55,236.90 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.269 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:20 closed: O 55,235.20 H 55,242.25 L 55,192.65 C 55,195.65 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.271 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:25 closed: O 55,198.00 H 55,198.00 L 55,140.80 C 55,174.75 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.274 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:30 closed: O 55,174.45 H 55,248.35 L 55,161.50 C 55,208.80 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.276 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:35 closed: O 55,207.80 H 55,243.85 L 55,194.15 C 55,232.95 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.278 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:40 closed: O 55,234.10 H 55,234.10 L 55,174.70 C 55,182.85 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.280 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:45 closed: O 55,181.70 H 55,184.70 L 55,053.95 C 55,067.15 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.282 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:50 closed: O 55,068.85 H 55,123.10 L 55,056.75 C 55,112.20 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.284 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:55 closed: O 55,111.50 H 55,128.80 L 55,096.55 C 55,110.75 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.287 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:00 closed: O 55,110.95 H 55,122.30 L 55,076.85 C 55,094.60 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.290 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:05 closed: O 55,094.75 H 55,109.40 L 55,057.90 C 55,065.15 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.293 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:10 closed: O 55,063.35 H 55,105.00 L 55,049.40 C 55,101.15 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.296 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:15 closed: O 55,098.90 H 55,149.20 L 55,087.10 C 55,133.00 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.298 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:20 closed: O 55,132.75 H 55,154.35 L 55,112.60 C 55,122.20 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.300 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:25 closed: O 55,123.65 H 55,129.25 L 55,090.15 C 55,129.25 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.302 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:30 closed: O 55,126.50 H 55,170.95 L 55,124.95 C 55,143.40 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.305 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:35 closed: O 55,147.10 H 55,148.45 L 55,110.05 C 55,125.70 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.307 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:40 closed: O 55,127.15 H 55,135.65 L 55,074.45 C 55,083.80 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.309 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:45 closed: O 55,082.90 H 55,102.05 L 55,070.50 C 55,089.85 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.311 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:50 closed: O 55,100.25 H 55,132.15 L 55,087.45 C 55,101.10 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.314 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:55 closed: O 55,102.35 H 55,109.45 L 55,068.25 C 55,085.75 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.316 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:00 closed: O 55,082.90 H 55,089.50 L 55,046.00 C 55,060.95 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.318 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:05 closed: O 55,064.85 H 55,089.45 L 55,056.60 C 55,085.20 | range 54,735.95 - 55,169.80
+2026-10-13 13:12:19.321 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 47 of today's 5-min candles.
+2026-10-13 13:12:19.721 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-12", High=22651.1, Low=22304.45, Close=22363.35
+2026-10-13 13:12:19.725 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-13": Pivot=22439.633333333333333333333333, TC=22401.491666666666666666666666, BC=22477.775, Width%=0.341, Reading=Normal CPR -- Moderate movement expected
+2026-10-13 13:12:20.026 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-02" to "2026-10-12", keeping the last 2 trading day(s)...
+2026-10-13 13:12:20.104 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 3-min candles for NSE_INDEX|Nifty 50 ("2026-10-02" to "2026-10-12")
+2026-10-13 13:12:20.197 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 79 intraday (today's) 3-min candles for NSE_INDEX|Nifty 50
+2026-10-13 13:12:20.202 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.96, Signal -2.84, likely choppy/hugging zero).
+2026-10-13 13:12:20.203 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T10:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 26.44, Signal 27.08, likely choppy/hugging zero).
+2026-10-13 13:12:20.203 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T12:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.62, Signal -3.66, likely choppy/hugging zero).
+2026-10-13 13:12:20.203 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T13:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.43, Signal 5.60, likely choppy/hugging zero).
+2026-10-13 13:12:20.203 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-09T13:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.203 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-09T14:30:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.47, Signal 14.68, likely choppy/hugging zero).
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.87, Signal 3.93, likely choppy/hugging zero).
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-12T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.69, Signal 4.39, likely choppy/hugging zero).
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T11:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -26.37, Signal -27.25, likely choppy/hugging zero).
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T13:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T13:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -5.47, Signal -5.60, likely choppy/hugging zero).
+2026-10-13 13:12:20.204 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T14:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T14:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -11.72, Signal -12.11, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-12T15:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-12T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.63, Signal -10.75, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T10:12:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 49.48, Signal 51.07, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T11:36:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.63, Signal -0.71, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-13T11:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T11:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.18, Signal -0.46, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T12:09:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 1.08, Signal 1.09, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-13T12:12:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-13 13:12:20.205 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T13:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.86, Signal 8.60, likely choppy/hugging zero).
+2026-10-13 13:12:20.205 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 329 3-min candles replayed (2 trading day(s) + 79 today).
+2026-10-13 13:12:20.266 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-13 13:12:20.310 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 48 5-min intraday candles.
+2026-10-13 13:12:20.312 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-09" from first 5-min candle ("2026-10-09T09:15:00.0000000+05:30"): High=22383.45, Low=22299.25
+2026-10-13 13:12:20.315 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-09T09:30:00.0000000+05:30": close vs level 22383.45 -- not alerting yet, historical replay only.
+2026-10-13 13:12:20.318 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-12" from first 5-min candle ("2026-10-12T09:15:00.0000000+05:30"): High=22651.1, Low=22581.9
+2026-10-13 13:12:20.318 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-12T09:20:00.0000000+05:30": close vs level 22581.9 -- not alerting yet, historical replay only.
+2026-10-13 13:12:20.318 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:15:00.0000000+05:30": low 22473.4 swept red low 22483.2; waiting up to 4 candles.
+2026-10-13 13:12:20.319 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.14 below minimum 2.0.
+2026-10-13 13:12:20.319 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-12T10:30:00.0000000+05:30": low 22455.1 swept red low 22462.95; waiting up to 4 candles.
+2026-10-13 13:12:20.319 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.66 below minimum 2.0.
+2026-10-13 13:12:20.320 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Reversal "DoubleBottom" at "2026-10-12T10:35:00.0000000+05:30" -- historical replay only, not raised.
+2026-10-13 13:12:20.320 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-13" from first 5-min candle ("2026-10-13T09:15:00.0000000+05:30"): High=22458.55, Low=22288.45
+2026-10-13 13:12:20.320 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-13T09:25:00.0000000+05:30": close vs level 22458.55 -- not alerting yet, historical replay only.
+2026-10-13 13:12:20.320 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 197 candles replayed (2 previous day(s) + 47 today).
+2026-10-13 13:12:20.320 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-13 13:12:21.358 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 13:12:21.359 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 13:12:21.364 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-10-13 13:12:21.394 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-13 13:14:59.987 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bullish" crossover confirmed at "2026-10-13T07:42:00.0000000+00:00": MACD 8.24, Signal 7.98
+2026-10-13 13:14:59.995 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Call" option for breakout: strike 22550, expiry "2026-10-13".
+2026-10-13 13:15:00.552 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44614
+2026-10-13 13:15:01.384 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD "Bullish" position opened: NIFTY 22550 CE 13 OCT 26 @ 44.75
+2026-10-13 13:16:57.125 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44614
+2026-10-13 13:16:57.162 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD position closed. Reason: Stop-loss hit at ₹34.75 (peak ₹45.85). P&L: -653.25 (-22.5%)
+2026-10-13 13:17:59.984 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T07:45:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 7.37, Signal 7.86, likely choppy/hugging zero).
+2026-10-13 13:44:59.979 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bullish" crossover confirmed at "2026-10-13T08:12:00.0000000+00:00": MACD 4.07, Signal 3.93
+2026-10-13 13:44:59.979 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-WEEK ATM "Call" option for breakout: strike 22550, expiry "2026-10-13".
+2026-10-13 13:45:00.694 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|44614
+2026-10-13 13:45:01.718 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD "Bullish" position opened: NIFTY 22550 CE 13 OCT 26 @ 41.3
+2026-10-13 14:20:11.947 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|44614
+2026-10-13 14:20:11.973 +05:30 [INF] AlgoWorker.Services.MacdPositionTracker: Virtual MACD position closed. Reason: Stop-loss hit at ₹64.30 (peak ₹77.10). P&L: 1,488.50 (55.4%)
+2026-10-13 15:20:59.965 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-13T09:48:00.0000000+00:00" skipped -- zero-line bias not confirmed (MACD 32.50, Signal 32.70, likely choppy/hugging zero).
+2026-10-13 15:36:17.395 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 139
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 54
+2026-10-13 15:36:17.420 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-10-13 15:36:23.985 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-13 15:36:23.985 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-13 15:36:23.985 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50

@@ -21,7 +21,9 @@ public sealed class Worker : BackgroundService
     private readonly TelegramAlertService _telegram;
     private readonly ExpiryResolver _expiryResolver;
     private readonly UpstoxOptions _upstoxOptions;
-    // >>> NEW: Previous-Day High/Low Breakout strategy pipeline (5-min, intraday).
+    private readonly IEnumerable<IMarketFeedConsumer> _feedConsumers; // other pipelines (e.g. Bank Nifty) that share this feed
+    private HashSet<string> _foreignFeedKeys = new();   // index keys owned by those pipelines -- their ticks are not ours
+    // Opening Range Breakout (ORB) strategy pipeline (5-min, intraday).
     private readonly FiveMinCandleAggregatorService _fiveMinAggregator;
     private readonly BreakoutSignalEngine _breakoutEngine;
     private readonly BreakoutPositionTracker _breakoutPositionTracker;
@@ -71,6 +73,7 @@ public sealed class Worker : BackgroundService
         AlgoWorker.Services.Persistence.ICprRepository cprRepository,
         IHubContext<PositionHub> hub,
         IOptions<UpstoxOptions> upstoxOptions,
+        IEnumerable<IMarketFeedConsumer> feedConsumers,
         ILogger<Worker> logger)
     {
         _restClient = restClient;
@@ -98,6 +101,7 @@ public sealed class Worker : BackgroundService
         _cprRepository = cprRepository;
         _hub = hub;
         _upstoxOptions = upstoxOptions.Value;
+        _feedConsumers = feedConsumers;
         _logger = logger;
 
         WireEvents();
@@ -158,7 +162,7 @@ public sealed class Worker : BackgroundService
     /// </summary>
     private async Task RunOneCycleAsync(CancellationToken ct)
     {
-        if (!_marketHours.IsWithinConfiguredWindow(DateTimeOffset.Now))
+        if (!_marketHours.IsWithinConfiguredWindow(DateTimeOffset.UtcNow))
         {
             await IdleUntilNextWindowAsync(ct);
             return;
@@ -177,7 +181,10 @@ public sealed class Worker : BackgroundService
         _logger.LogInformation("Market is open -- starting live WebSocket feed.");
         await _telegram.SendStatusAsync("Market open. Live tracking started.", ct);
 
-        var instrumentKeys = new[] { _upstoxOptions.NiftyInstrumentKey };
+        // One shared WebSocket for every pipeline: the other pipelines' index keys (Bank Nifty, ...) are subscribed here too;
+        // they consume their own ticks from the same TickReceived event.
+        _foreignFeedKeys = _feedConsumers.SelectMany(c => c.FeedInstrumentKeys).ToHashSet();
+        var instrumentKeys = new[] { _upstoxOptions.NiftyInstrumentKey }.Concat(_foreignFeedKeys).Distinct().ToArray();
         await _webSocketClient.RunAsync(instrumentKeys, ct);
 
         // RunAsync only returns when `ct` is cancelled or after exhausting retries;
@@ -187,7 +194,7 @@ public sealed class Worker : BackgroundService
 
     private async Task EnsureSeededForTodayAsync(CancellationToken ct)
     {
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        var today = AlgoData.Models.MarketTime.Today;
         if (_seededToday && _lastSeededDate == today) return;
 
         // >>> NEW: tell the SignalEngine we're replaying history, not live data,
@@ -216,13 +223,8 @@ public sealed class Worker : BackgroundService
                 "This is an older crossover found at startup -- NO trade was taken on it. Only the next FRESH crossover will trigger a trade.", ct);
         }
 
-        // >>> REMOVED: this used to fetch yesterday's High/Low for the breakout
-        // strategy (GetPreviousTradingDayHighLowAsync / SetPreviousDayLevels).
-        // BreakoutSignalEngine was redesigned to "Opening Range Breakout" --
-        // it now captures its own reference range from TODAY's first 5-min
-        // candle automatically (see BreakoutSignalEngine.OnCandleClosed), so
-        // no external level-setting call is needed here anymore. Those two
-        // methods no longer exist on UpstoxRestClient/BreakoutSignalEngine.
+        // The ORB engine captures its own reference range from TODAY's first 5-min candle
+        // (see BreakoutSignalEngine.OnCandleClosed), so no external level-setting call is needed here.
         //
         // NOTE: today's already-elapsed 5-min candles are NOT currently
         // replayed at startup, so a mid-session restart will miss the
@@ -261,7 +263,7 @@ public sealed class Worker : BackgroundService
                     WidthPercent = levels.WidthPercent,
                     Reading = levels.Reading,
                     BiasNote = levels.BiasNote,
-                    ComputedAt = DateTimeOffset.Now
+                    ComputedAt = DateTimeOffset.UtcNow
                 }, ct);
             }
             else
@@ -342,28 +344,13 @@ public sealed class Worker : BackgroundService
     // doesn't flood the hub. Non-fatal on failure -- never interrupts tick handling.
     private async Task BroadcastSpotAsync(decimal price)
     {
-        // >>> FIXED: was DateTimeOffset.UtcNow -- the only UTC usage anywhere in the
-        // system; every tracker, TelegramAlertService, and market-hours check uses
-        // local DateTimeOffset.Now. To be precise: this particular throttle's math
-        // was NOT actually broken by it (DateTimeOffset subtraction compares the
-        // absolute instant, so it's offset-safe either way) -- but mixing UTC and
-        // local "now" calls elsewhere in a codebase is a real, common source of bugs
-        // (e.g. an off-by-offset error the moment someone compares one of these
-        // timestamps against a local DateTimeOffset.Now-based value, or logs/persists
-        // it expecting local time). Standardized on local Now to match everywhere else.
-        var now = DateTimeOffset.Now;
+        // Throttle only: DateTimeOffset subtraction compares absolute instants, so UTC is fine here.
+        var now = DateTimeOffset.UtcNow;
         if (now - _lastSpotBroadcast < TimeSpan.FromSeconds(1))
             return;
 
         _lastSpotBroadcast = now;
-        try
-        {
-            await _hub.Clients.All.SendAsync("SpotChanged", new { price, time = DateTimeOffset.Now });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogDebug(ex, "Failed to broadcast SpotChanged.");
-        }
+        await PositionBroadcast.PublishSpotAsync(_hub, price, DateTimeOffset.UtcNow, underlying: null, _logger);
     }
 
     // >>> CHANGED: async void (same pattern as OnFiveMinCandleClosed below) so we
@@ -381,6 +368,10 @@ public sealed class Worker : BackgroundService
                 _threeMinAggregator.OnTick(tick); // >>> NEW: same Nifty ticks also feed the MACD strategy's 3-min candles
                 await _reversalPositionTracker.OnSpotTick(tick.LastTradedPrice, CancellationToken.None); // Reversal SL/T1/T2 are Nifty spot levels
                 await BroadcastSpotAsync(tick.LastTradedPrice); // >>> NEW (Task 8): Dashboard header spot
+            }
+            else if (_foreignFeedKeys.Contains(tick.InstrumentKey))
+            {
+                // An index owned by another pipeline (e.g. Bank Nifty) -- that pipeline handles it through its own TickReceived subscription.
             }
             else
             {

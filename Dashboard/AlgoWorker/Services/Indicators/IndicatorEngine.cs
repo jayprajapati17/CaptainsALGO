@@ -20,9 +20,10 @@ public sealed class IndicatorEngine
     private readonly LinkedList<IndicatorSnapshot> _history = new();
     private const int MaxHistoryKept = 200; // plenty of candles for all lookbacks, whatever the configured timeframe
 
-    public IndicatorEngine(IOptions<StrategyOptions> options)
+    public IndicatorEngine(IOptions<StrategyOptions> options) : this(options.Value) { }
+
+    public IndicatorEngine(IEmaSettings o)
     {
-        var o = options.Value;
         _ema10 = new EmaCalculator(o.EmaFastPeriod);
         _ema21 = new EmaCalculator(o.EmaMidPeriod);
         _ema50 = new EmaCalculator(o.EmaSlowPeriod);

@@ -50,6 +50,26 @@ public sealed class TelegramAlertService
         }
     }
 
+    /// <summary>Sends one test message to the configured chat and reports the real outcome (used by the Dashboard's Settings page).</summary>
+    public async Task<(bool Ok, string? Error)> SendTestAsync(CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(_options.ChatId))
+            return (false, "ChatId is not configured.");
+        try
+        {
+            await _bot.SendTextMessageAsync(
+                chatId: _options.ChatId,
+                text: "✅ Test message from Captain's Trail — alerts are working.",
+                cancellationToken: ct);
+            return (true, null);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Telegram test message failed.");
+            return (false, ex.Message);
+        }
+    }
+
     // ------------------------------------------------------------------
     // Formatting helpers (InvariantCulture so output never depends on server locale)
     // ------------------------------------------------------------------
@@ -57,7 +77,7 @@ public sealed class TelegramAlertService
 
     private static string Num(IFormattable value, string format) => value.ToString(format, Inv);
 
-    private static string Time(DateTimeOffset dt) => dt.ToString("hh:mm tt", Inv);
+    private static string Time(DateTimeOffset dt) => AlgoData.Models.MarketTime.ToIst(dt).ToString("hh:mm tt", Inv);   // exchange (IST) time
 
     private static string DateTimeFull(DateTimeOffset dt) => dt.ToString("dd-MMM-yyyy hh:mm tt", Inv);
 
@@ -91,11 +111,11 @@ public sealed class TelegramAlertService
         string strategy, OptionInstrument inst,
         decimal entryPremium, decimal currentPremium,
         decimal pnlRupees, decimal pnlPercent,
-        decimal stopLoss, bool trailing, DateTimeOffset openedAt)
+        decimal stopLoss, bool trailing, DateTimeOffset openedAt, string indexName = "Nifty")
     {
         return
             $"<b>{strategy}</b>\n" +
-            $"📊 Nifty <b>{inst.Strike} {OptType(inst)}</b> | Exp {Exp(inst)}\n" +
+            $"📊 {indexName} <b>{inst.Strike} {OptType(inst)}</b> | Exp {Exp(inst)}\n" +
             $"Entry at <code>{Rs(entryPremium)}</code> → <code>{Rs(currentPremium)}</code>\n" +
             $"{PnlEmoji(pnlRupees)} Profit/Loss: <b>{Pnl(pnlRupees, pnlPercent)}</b>\n" +
             $"SL <code>{Rs(stopLoss)}</code>{(trailing ? " (trailing)" : "")}\n" +
@@ -105,14 +125,14 @@ public sealed class TelegramAlertService
     private static string BuildExit(
         string strategy, OptionInstrument inst, string reason,
         decimal entryPremium, decimal exitPremium,
-        decimal pnlRupees, decimal pnlPercent, DateTimeOffset openedAt)
+        decimal pnlRupees, decimal pnlPercent, DateTimeOffset openedAt, string indexName = "Nifty")
     {
         return
             $"<b>{strategy}</b>\n" +
-            $"📊 Nifty <b>{inst.Strike} {OptType(inst)}</b> | Exp {Exp(inst)}\n" +
+            $"📊 {indexName} <b>{inst.Strike} {OptType(inst)}</b> | Exp {Exp(inst)}\n" +
             $"Reason: {Enc(reason)}\n" +
             $"<code>{Rs(entryPremium)}</code> → <code>{Rs(exitPremium)}</code> | {PnlEmoji(pnlRupees)} Profit/Loss: <b>{Pnl(pnlRupees, pnlPercent)}</b>\n" +
-            $"Since - {Time(openedAt)} | Exit - {Time(DateTimeOffset.Now)}";
+            $"Since - {Time(openedAt)} | Exit - {Time(DateTimeOffset.UtcNow)}";
     }
 
     // ------------------------------------------------------------------
@@ -120,7 +140,7 @@ public sealed class TelegramAlertService
     // (Same message for Current-Week and Next-Week legs; the leg parameter is
     //  kept so existing callers don't break, only its instrument is used.)
     // ------------------------------------------------------------------
-    public Task SendEntryAlertAsync(TradeSignal signal, ResolvedLeg leg, decimal entryPremium, int lotSize, decimal initialStopLoss, CancellationToken ct)
+    public Task SendEntryAlertAsync(TradeSignal signal, ResolvedLeg leg, decimal entryPremium, int lotSize, decimal initialStopLoss, CancellationToken ct, string indexName = "Nifty")
     {
         var instrument = leg.Instrument;
         var golden = signal.Direction == SignalDirection.GoldenCross;
@@ -134,7 +154,7 @@ public sealed class TelegramAlertService
 
         var text =
             $"{emoji} <b>{title}</b>{catchUp}\n" +
-            $"Nifty: <code>{Num(signal.NiftySpotAtConfirmation, "N2")}</code> · {Time(signal.ConfirmedAtCandleTime)}\n" +
+            $"{indexName}: <code>{Num(signal.NiftySpotAtConfirmation, "N2")}</code> · {Time(signal.ConfirmedAtCandleTime)}\n" +
             $"<b>BUY {instrument.Strike} {OptType(instrument)}</b> | Exp {Exp(instrument)}\n" +
             $"Entry <code>{Rs(entryPremium)}</code> | SL <code>{Rs(initialStopLoss)}</code>\n" +
             $"ADX <code>{Num(signal.AdxAtConfirmation, "N1")}</code> | 📝 Virtual";
@@ -142,18 +162,18 @@ public sealed class TelegramAlertService
         return SendAsync(text, ct);
     }
 
-    public Task SendPositionUpdateAsync(VirtualPosition position, CancellationToken ct) =>
+    public Task SendPositionUpdateAsync(VirtualPosition position, CancellationToken ct, string indexName = "Nifty") =>
         SendAsync(BuildUpdate(
             EmaName(position.Instrument), position.Instrument,
             position.EntryPremium, position.LastKnownPremium,
             position.PnlRupees, (decimal)position.PnlPercent,
-            position.CurrentStopLossPremium, position.TrailingActive, position.OpenedAt), ct);
+            position.CurrentStopLossPremium, position.TrailingActive, position.OpenedAt, indexName), ct);
 
-    public Task SendExitAlertAsync(VirtualPosition position, string reason, CancellationToken ct) =>
+    public Task SendExitAlertAsync(VirtualPosition position, string reason, CancellationToken ct, string indexName = "Nifty") =>
         SendAsync(BuildExit(
             EmaName(position.Instrument), position.Instrument, reason,
             position.EntryPremium, position.LastKnownPremium,
-            position.PnlRupees, (decimal)position.PnlPercent, position.OpenedAt), ct);
+            position.PnlRupees, (decimal)position.PnlPercent, position.OpenedAt, indexName), ct);
 
     // ------------------------------------------------------------------
     // Generic status / warning
@@ -166,7 +186,7 @@ public sealed class TelegramAlertService
         SendAsync("ℹ️ <b>Bot started</b> · monitoring Nifty\n💬 <i>Don't miss it, the signal is here!</i>", ct);
 
     // ------------------------------------------------------------------
-    // Previous-Day High/Low Breakout strategy
+    // Opening Range Breakout (ORB) strategy
     // ------------------------------------------------------------------
     public Task SendBreakoutEntryAlertAsync(BreakoutSignal signal, OptionInstrument instrument, decimal entryPremium, int lotSize, decimal initialStopLoss, CancellationToken ct)
     {

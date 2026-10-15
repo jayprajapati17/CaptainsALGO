@@ -41,10 +41,10 @@ public sealed class PositionRepository : IPositionRepository
         try
         {
             await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
-            var start = new DateTimeOffset(day.ToDateTime(TimeOnly.MinValue));
+            var start = AlgoData.Models.MarketTime.StartOfDay(day);
             var end = start.AddDays(1);
             return await db.Positions.AsNoTracking()
-                .CountAsync(p => p.Strategy == StrategyType.Breakout && p.EntryTime >= start && p.EntryTime < end, ct);
+                .CountAsync(p => p.Underlying == Underlyings.Nifty50 && p.Strategy == StrategyType.Breakout && p.EntryTime >= start && p.EntryTime < end, ct);
         }
         catch (Exception ex)
         {
@@ -58,10 +58,10 @@ public sealed class PositionRepository : IPositionRepository
         try
         {
             await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
-            var start = new DateTimeOffset(day.ToDateTime(TimeOnly.MinValue));
+            var start = AlgoData.Models.MarketTime.StartOfDay(day);
             var end = start.AddDays(1);
             var rows = await db.Positions.AsNoTracking()
-                .Where(p => p.Strategy == StrategyType.Reversal && p.EntryTime >= start && p.EntryTime < end)
+                .Where(p => p.Underlying == Underlyings.Nifty50 && p.Strategy == StrategyType.Reversal && p.EntryTime >= start && p.EntryTime < end)
                 .OrderByDescending(p => p.EntryTime)
                 .Select(p => new { p.Status, p.FinalPnlRupees })
                 .ToListAsync(ct);
@@ -78,6 +78,51 @@ public sealed class PositionRepository : IPositionRepository
         {
             _logger.LogError(ex, "Could not read today's Reversal trade stats; assuming none.");
             return (0, 0);
+        }
+    }
+
+    public async Task<(int Opened, int ConsecutiveLosses)> GetDayStatsAsync(DateOnly day, CancellationToken ct)
+    {
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            var start = AlgoData.Models.MarketTime.StartOfDay(day);
+            var end = start.AddDays(1);
+            var rows = await db.Positions.AsNoTracking()
+                .Where(p => p.Underlying == Underlyings.BankNifty && p.EntryTime >= start && p.EntryTime < end)
+                .OrderByDescending(p => p.EntryTime)
+                .Select(p => new { p.Status, p.FinalPnlRupees })
+                .ToListAsync(ct);
+
+            var losses = 0;
+            foreach (var r in rows)
+            {
+                if (r.Status != PositionStatus.Closed) continue;
+                if (r.FinalPnlRupees is < 0) losses++; else break;
+            }
+            return (rows.Count, losses);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Could not read today's Bank Nifty trade stats; assuming none.");
+            return (0, 0);
+        }
+    }
+
+    public async Task<decimal> GetClosedPnlSinceAsync(DateOnly from, CancellationToken ct)
+    {
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            var start = AlgoData.Models.MarketTime.StartOfDay(from);
+            return await db.Positions.AsNoTracking()
+                .Where(p => p.Underlying == Underlyings.BankNifty && p.Status == PositionStatus.Closed && p.EntryTime >= start)
+                .SumAsync(p => p.FinalPnlRupees ?? 0m, ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Could not read this week's Bank Nifty P&L; assuming 0.");
+            return 0m;
         }
     }
 
@@ -152,16 +197,16 @@ public sealed class PositionRepository : IPositionRepository
         }
     }
 
-    public async Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct)
+    public async Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct, string underlying = Underlyings.Nifty50)
     {
         try
         {
             await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
-            var orphans = await db.Positions.Where(p => p.Status == PositionStatus.Open).ToListAsync(ct);
+            var orphans = await db.Positions.Where(p => p.Status == PositionStatus.Open && p.Underlying == underlying).ToListAsync(ct);
             if (orphans.Count == 0)
                 return 0;
 
-            var now = DateTimeOffset.Now;
+            var now = DateTimeOffset.UtcNow;
             foreach (var p in orphans)
             {
                 // Best available outcome: last premium we saw before the process went away.

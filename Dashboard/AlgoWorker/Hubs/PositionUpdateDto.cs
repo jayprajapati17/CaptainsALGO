@@ -30,4 +30,5 @@ public sealed record PositionUpdateDto(
     string? ExitReason,
     decimal StopLossPremium = 0m,  // current (trailing) stop-loss premium; 0 = n/a
     decimal StopLossSpot = 0m,     // Reversal only: current stop-loss as a Nifty spot level; 0 = n/a
-    bool StopLossTrailing = false); // Reversal only: true once the SL has moved to cost (after T1)
+    bool StopLossTrailing = false,
+    string Underlying = AlgoData.Models.Underlyings.Nifty50); // >>> NEW: "NIFTY50" | "BANKNIFTY" -- the Dashboard labels / routes by this // Reversal only: true once the SL has moved to cost (after T1)

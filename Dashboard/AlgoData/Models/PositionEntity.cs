@@ -13,7 +13,7 @@ public sealed class PositionEntity
     // "NIFTY50", "BANKNIFTY", "RELIANCE") this position belongs to -- NOT the option
     // contract's own Upstox key, that's still InstrumentKey below. Defaults to
     // "NIFTY50" for rows written before multi-instrument support existed.
-    public string Underlying { get; set; } = "NIFTY50";
+    public string Underlying { get; set; } = Underlyings.Nifty50;
 
     public string InstrumentKey { get; set; } = string.Empty;
     public string TradingSymbol { get; set; } = string.Empty; // e.g. "NIFTY50 24350CE"

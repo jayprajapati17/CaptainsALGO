@@ -106,9 +106,9 @@ public sealed class ReversalPositionTracker
             Instrument = instrument,
             LotSize = _options.LotSize,
             EntryPremium = entryPremium,
-            OpenedAt = DateTimeOffset.Now,
+            OpenedAt = DateTimeOffset.UtcNow,
             LastKnownPremium = entryPremium,
-            LastUpdateSentAt = DateTimeOffset.Now,
+            LastUpdateSentAt = DateTimeOffset.UtcNow,
             StopLossSpot = signal.StopLossSpot,
             LastSpot = signal.EntrySpot
         };
@@ -163,9 +163,9 @@ public sealed class ReversalPositionTracker
 
         position.LastKnownPremium = tick.LastTradedPrice;
 
-        if (DateTimeOffset.Now - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
+        if (DateTimeOffset.UtcNow - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
         {
-            position.LastBroadcastAt = DateTimeOffset.Now;
+            position.LastBroadcastAt = DateTimeOffset.UtcNow;
             await BroadcastAsync(position, "Open", null, ct);
         }
     }
@@ -174,19 +174,19 @@ public sealed class ReversalPositionTracker
     {
         if (_active is not { IsOpen: true } position) return;
 
-        var cutoff = TimeOnly.Parse(_options.ReversalForceExitTime);
-        if (TimeOnly.FromDateTime(candleTime.DateTime) >= cutoff)
+        var cutoff = TimeOfDay.Parse(_options.ReversalForceExitTime);
+        if (TimeOfDay.Of(candleTime) >= cutoff)
         {
             await CloseAsync(position, $"Intraday cutoff reached ({_options.ReversalForceExitTime}) -- reversal trades are never carried overnight", ct);
             return;
         }
 
-        if (DateTimeOffset.Now - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
+        if (DateTimeOffset.UtcNow - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
         {
             await _telegram.SendReversalPositionUpdateAsync(position, ct);
-            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.Now, ct);
+            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
             await BroadcastAsync(position, "Open", null, ct);
-            position.LastUpdateSentAt = DateTimeOffset.Now;
+            position.LastUpdateSentAt = DateTimeOffset.UtcNow;
         }
     }
 
@@ -194,7 +194,7 @@ public sealed class ReversalPositionTracker
     {
         if (!position.IsOpen) return;
         position.IsOpen = false;
-        var exitTime = DateTimeOffset.Now;
+        var exitTime = DateTimeOffset.UtcNow;
         await _telegram.SendReversalExitAlertAsync(position, reason, ct);
         await _webSocketClient.UnsubscribeAsync(position.Instrument.InstrumentKey, ct);
         await _positionRepository.CloseAsync(position.Id, position.LastKnownPremium, exitTime, reason, position.PnlRupees, position.PnlPercent, ct);
@@ -247,14 +247,7 @@ public sealed class ReversalPositionTracker
 
     private async Task BroadcastAsync(ReversalPosition position, string status, string? exitReason, CancellationToken ct)
     {
-        try
-        {
-            await _hub.Clients.All.SendAsync("PositionChanged", ToDto(position, status, exitReason), ct);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to broadcast PositionChanged for PositionId {Id}.", position.Id);
-        }
+        await PositionBroadcast.PublishAsync(_hub, ToDto(position, status, exitReason), _logger, ct);
     }
 
     private SharedModels.PositionEntity ToEntity(ReversalPosition position, decimal entryPremium) => new()
@@ -276,7 +269,7 @@ public sealed class ReversalPositionTracker
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
         LastUpdateTime = position.OpenedAt,
-        CreatedAt = _clock.Now
+        CreatedAt = _clock.UtcNow
     };
 
     private async Task LogSignalAsync(ReversalSignal signal, bool positionOpened, int? positionId, string? skipReason, CancellationToken ct)
@@ -292,7 +285,7 @@ public sealed class ReversalPositionTracker
             PositionOpened = positionOpened,
             PositionId = positionId,
             SkipReason = skipReason,
-            CreatedAt = _clock.Now
+            CreatedAt = _clock.UtcNow
         };
         await _signalLogRepository.LogAsync(entry, ct);
     }

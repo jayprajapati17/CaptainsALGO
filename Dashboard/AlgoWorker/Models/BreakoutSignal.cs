@@ -2,14 +2,14 @@ namespace AlgoWorker.Models;
 
 public enum BreakoutDirection
 {
-    /// <summary>5-min candle closed ABOVE previous day's high -- buy CE.</summary>
+    /// <summary>5-min candle closed ABOVE the opening-range high -- buy CE.</summary>
     Up,
 
-    /// <summary>5-min candle closed BELOW previous day's low -- buy PE.</summary>
+    /// <summary>5-min candle closed BELOW the opening-range low -- buy PE.</summary>
     Down
 }
 
-/// <summary>A confirmed previous-day high/low breakout on the 5-min timeframe.</summary>
+/// <summary>A confirmed Opening Range Breakout (ORB) on the 5-min timeframe.</summary>
 public sealed record BreakoutSignal(
     BreakoutDirection Direction,
     DateTimeOffset ConfirmedAtCandleTime,

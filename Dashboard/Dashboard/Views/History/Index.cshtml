@@ -4,10 +4,11 @@
 }
 @functions {
     // Builds a link that keeps the current filters and overrides only what's passed in.
-    string Link(string? strategy = null, string? sort = null, int page = 1) =>
+    string Link(string? strategy = null, string? sort = null, int page = 1, string? underlying = null) =>
         Url.Action("Index", "History", new
         {
             strategy = strategy ?? Model.StrategyFilter,
+            underlying = underlying ?? Model.UnderlyingFilter,
             from = Model.From,
             to = Model.To,
             sort = sort ?? Model.Sort,
@@ -32,13 +33,14 @@
     </div>
     <form method="get" asp-controller="History" asp-action="Index" class="ct-daterange">
         <input type="hidden" name="strategy" value="@Model.StrategyFilter" />
+        <input type="hidden" name="underlying" value="@Model.UnderlyingFilter" />
         <input type="hidden" name="sort" value="@Model.Sort" />
         <label>From <input type="date" class="ct-input" name="from" value="@Model.From" /></label>
         <label>To <input type="date" class="ct-input" name="to" value="@Model.To" /></label>
         <button type="submit" class="ct-btn ct-btn-primary border-0">Apply</button>
         @if (Model.From != "" || Model.To != "")
         {
-            <a class="ct-btn" href="@Url.Action("Index", "History", new { strategy = Model.StrategyFilter, sort = Model.Sort })">Clear</a>
+            <a class="ct-btn" href="@Url.Action("Index", "History", new { strategy = Model.StrategyFilter, underlying = Model.UnderlyingFilter, sort = Model.Sort })">Clear</a>
         }
     </form>
 </header>
@@ -59,6 +61,12 @@
 <section class="d-flex flex-column gap-3">
     <div class="ct-toolbar">
         <h2 class="ct-section-title">Trades</h2>
+        <div class="chip-group">
+            <span class="chip-label">Instrument</span>
+            <a class="@Chip(Model.UnderlyingFilter == "all")" href="@Link(underlying: "all")">All</a>
+            <a class="@Chip(Model.UnderlyingFilter == "nifty")" href="@Link(underlying: "nifty")">Nifty</a>
+            <a class="@Chip(Model.UnderlyingFilter == "banknifty")" href="@Link(underlying: "banknifty")">Bank Nifty</a>
+        </div>
         <div class="chip-group">
             <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
             <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
@@ -102,11 +110,15 @@
                     {
                         <tr>
                             <td class="text-nowrap">
-                                <div class="num" style="font-size:14px">@(r.ExitTime?.ToString("dd MMM, hh:mm tt") ?? "—")</div>
+                                <div class="num" style="font-size:14px">@(AlgoData.Models.MarketTime.ToIst(r.ExitTime)?.ToString("dd MMM, hh:mm tt") ?? "—")</div>
                                 <div class="ct-sub">#@r.Id</div>
                             </td>
                             <td>
                                 <span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span>
+                                @if (r.Underlying == AlgoData.Models.Underlyings.BankNifty)
+                                {
+                                    <div class="ct-sub mt-1">Bank Nifty</div>
+                                }
                                 @if (r.Leg is not null)
                                 {
                                     <div class="ct-sub mt-1">@Display.Leg(r.Leg)</div>

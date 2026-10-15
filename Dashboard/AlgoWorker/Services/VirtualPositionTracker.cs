@@ -18,18 +18,22 @@ namespace AlgoWorker.Services;
 /// contract -- both tracked and alerted independently, and both must close
 /// before a new signal is allowed to open the next pair.
 /// </summary>
+/// <summary>Which index an EMA tracker works on: display name for alerts, the Underlying tag stored in the DB, and the Upstox underlying key.</summary>
+public sealed record EmaTarget(string Name, string Underlying, string UnderlyingKey);
+
 public sealed class VirtualPositionTracker
 {
     private readonly OptionInstrumentResolver _instrumentResolver;
     private readonly UpstoxRestClient _restClient;
     private readonly UpstoxWebSocketClient _webSocketClient;
     private readonly TelegramAlertService _telegram;
-    private readonly StrategyOptions _options;
+    private readonly IEmaSettings _options;
+    private readonly EmaTarget _target;
     private readonly IPositionRepository _positionRepository;
     private readonly ISignalLogRepository _signalLogRepository;
     private readonly IHubContext<PositionHub> _hub;
     private readonly IClock _clock;
-    private readonly ILogger<VirtualPositionTracker> _logger;
+    private readonly ILogger _logger;
 
     // >>> CHANGED: was a single `_activePosition`. Now a list because every
     // signal opens up to 2 legs (current-week ITM + next-week ATM) together.
@@ -41,17 +45,37 @@ public sealed class VirtualPositionTracker
         UpstoxWebSocketClient webSocketClient,
         TelegramAlertService telegram,
         IOptions<StrategyOptions> options,
+        IOptions<UpstoxOptions> upstox,
         IPositionRepository positionRepository,
         ISignalLogRepository signalLogRepository,
         IHubContext<PositionHub> hub,
         IClock clock,
         ILogger<VirtualPositionTracker> logger)
+        : this(instrumentResolver, restClient, webSocketClient, telegram, options.Value,
+               new EmaTarget("Nifty", SharedModels.Underlyings.Nifty50, upstox.Value.NiftyInstrumentKey),
+               positionRepository, signalLogRepository, hub, clock, logger)
+    { }
+
+    /// <summary>Generic form: the same EMA position logic for any index (Bank Nifty builds its own instance).</summary>
+    public VirtualPositionTracker(
+        OptionInstrumentResolver instrumentResolver,
+        UpstoxRestClient restClient,
+        UpstoxWebSocketClient webSocketClient,
+        TelegramAlertService telegram,
+        IEmaSettings options,
+        EmaTarget target,
+        IPositionRepository positionRepository,
+        ISignalLogRepository signalLogRepository,
+        IHubContext<PositionHub> hub,
+        IClock clock,
+        ILogger logger)
     {
         _instrumentResolver = instrumentResolver;
         _restClient = restClient;
         _webSocketClient = webSocketClient;
         _telegram = telegram;
-        _options = options.Value;
+        _options = options;
+        _target = target;
         _positionRepository = positionRepository;
         _signalLogRepository = signalLogRepository;
         _hub = hub;
@@ -59,7 +83,7 @@ public sealed class VirtualPositionTracker
         _logger = logger;
     }
 
-    private bool AnyLegOpen => _activePositions.Any(p => p.IsOpen);
+    public bool AnyLegOpen => _activePositions.Any(p => p.IsOpen);
 
     public async Task OnSignalConfirmedAsync(TradeSignal signal, CancellationToken ct)
     {
@@ -78,11 +102,11 @@ public sealed class VirtualPositionTracker
         // Clear out any fully-closed legs from the previous signal before starting fresh.
         _activePositions.Clear();
 
-        var resolvedLegs = await _instrumentResolver.ResolveAllLegsAsync(signal, ct);
+        var resolvedLegs = await _instrumentResolver.ResolveAllLegsAsync(signal, _target.UnderlyingKey, _options.StrikeStepPoints, _options.ItmStrikeDepth, ct);
         if (resolvedLegs.Count == 0)
         {
             await _telegram.SendWarningAsync(
-                $"{signal.Direction} confirmed but neither leg (current-week ITM / next-week ATM) could be resolved (check logs). No virtual positions opened.", ct);
+                $"{signal.Direction} confirmed but neither leg (current-expiry ITM / next-expiry ATM) could be resolved (check logs). No virtual positions opened.", ct);
             await LogSignalAsync(signal, positionOpened: false, positionId: null,
                 skipReason: "Neither leg (current-week ITM / next-week ATM) could be resolved", ct);
             return;
@@ -125,10 +149,10 @@ public sealed class VirtualPositionTracker
             Leg = resolvedLeg.Leg,
             LotSize = _options.LotSize,
             EntryPremium = entryPremium,
-            OpenedAt = DateTimeOffset.Now,
+            OpenedAt = DateTimeOffset.UtcNow,
             LastKnownPremium = entryPremium,
             AdxPeakSinceEntry = signal.AdxAtConfirmation,
-            LastUpdateSentAt = DateTimeOffset.Now,
+            LastUpdateSentAt = DateTimeOffset.UtcNow,
             PeakPremium = entryPremium,
             CurrentStopLossPremium = TrailingStopCalculator.ComputeStopLoss(entryPremium, entryPremium, _options)
         };
@@ -147,7 +171,7 @@ public sealed class VirtualPositionTracker
         position.Id = dbId;
 
         await _webSocketClient.SubscribeAsync(instrument.InstrumentKey, ct);
-        await _telegram.SendEntryAlertAsync(signal, resolvedLeg, entryPremium, _options.LotSize, position.CurrentStopLossPremium, ct);
+        await _telegram.SendEntryAlertAsync(signal, resolvedLeg, entryPremium, _options.LotSize, position.CurrentStopLossPremium, ct, _target.Name);
         await BroadcastAsync(position, "Open", null, ct);
 
         _logger.LogInformation("Virtual {Direction} position opened [{Leg}]: {Symbol} @ {Premium}",
@@ -191,9 +215,9 @@ public sealed class VirtualPositionTracker
 
             // >>> NEW (Task 8): push the live premium/P&L to the Dashboard, throttled
             // to ~1/sec per leg so a busy tick stream doesn't flood the hub.
-            if (position.IsOpen && DateTimeOffset.Now - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
+            if (position.IsOpen && DateTimeOffset.UtcNow - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
             {
-                position.LastBroadcastAt = DateTimeOffset.Now;
+                position.LastBroadcastAt = DateTimeOffset.UtcNow;
                 await BroadcastAsync(position, "Open", null, ct);
             }
         }
@@ -223,12 +247,12 @@ public sealed class VirtualPositionTracker
             return;
         }
 
-        if (DateTimeOffset.Now - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
+        if (DateTimeOffset.UtcNow - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
         {
-            await _telegram.SendPositionUpdateAsync(position, ct);
-            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.Now, ct);
+            await _telegram.SendPositionUpdateAsync(position, ct, _target.Name);
+            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
             await BroadcastAsync(position, "Open", null, ct);
-            position.LastUpdateSentAt = DateTimeOffset.Now;
+            position.LastUpdateSentAt = DateTimeOffset.UtcNow;
         }
     }
 
@@ -278,8 +302,8 @@ public sealed class VirtualPositionTracker
     private async Task ClosePositionAsync(VirtualPosition position, string reason, CancellationToken ct)
     {
         position.IsOpen = false;
-        var exitTime = DateTimeOffset.Now;
-        await _telegram.SendExitAlertAsync(position, reason, ct);
+        var exitTime = DateTimeOffset.UtcNow;
+        await _telegram.SendExitAlertAsync(position, reason, ct, _target.Name);
         await _webSocketClient.UnsubscribeAsync(position.Instrument.InstrumentKey, ct);
         await _positionRepository.CloseAsync(position.Id, position.LastKnownPremium, exitTime, reason, position.PnlRupees, position.PnlPercent, ct);
         await BroadcastAsync(position, "Closed", reason, ct);
@@ -318,7 +342,7 @@ public sealed class VirtualPositionTracker
 
     // >>> NEW (Task 3 + Task 4): DB persistence + SignalR broadcast helpers.
 
-    private static PositionUpdateDto ToDto(VirtualPosition p, string status, string? exitReason) => new(
+    private PositionUpdateDto ToDto(VirtualPosition p, string status, string? exitReason) => new(
         PositionId: p.Id,
         Strategy: "Ema",
         Direction: p.Signal.Direction.ToString(),
@@ -334,26 +358,19 @@ public sealed class VirtualPositionTracker
         PnlPercent: p.PnlPercent,
         Status: status,
         ExitReason: exitReason,
-        StopLossPremium: p.CurrentStopLossPremium);
+        StopLossPremium: p.CurrentStopLossPremium,
+        Underlying: _target.Underlying);
 
     /// <summary>Broadcasts on PositionHub's "PositionChanged" event -- the Dashboard's Live page (Task 8) listens for this.</summary>
     private async Task BroadcastAsync(VirtualPosition position, string status, string? exitReason, CancellationToken ct)
     {
-        try
-        {
-            await _hub.Clients.All.SendAsync("PositionChanged", ToDto(position, status, exitReason), ct);
-        }
-        catch (Exception ex)
-        {
-            // Non-fatal -- same reasoning as the repositories: a Dashboard/SignalR
-            // hiccup should never interrupt live trading logic or Telegram alerts.
-            _logger.LogError(ex, "Failed to broadcast PositionChanged for PositionId {Id}.", position.Id);
-        }
+        await PositionBroadcast.PublishAsync(_hub, ToDto(position, status, exitReason), _logger, ct);
     }
 
     private SharedModels.PositionEntity ToEntity(VirtualPosition position, decimal entryPremium) => new()
     {
         Strategy = SharedModels.StrategyType.Ema,
+        Underlying = _target.Underlying,
         Direction = position.Signal.Direction.ToString(),
         Leg = position.Leg == OptionLeg.CurrentWeekItm ? SharedModels.PositionLeg.CurrentWeekItm : SharedModels.PositionLeg.NextWeekAtm,
         InstrumentKey = position.Instrument.InstrumentKey,
@@ -372,7 +389,7 @@ public sealed class VirtualPositionTracker
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
         LastUpdateTime = position.OpenedAt,
-        CreatedAt = _clock.Now
+        CreatedAt = _clock.UtcNow
     };
 
     private async Task LogSignalAsync(TradeSignal signal, bool positionOpened, int? positionId, string? skipReason, CancellationToken ct)
@@ -380,6 +397,7 @@ public sealed class VirtualPositionTracker
         var entry = new SharedModels.SignalLogEntity
         {
             Strategy = SharedModels.StrategyType.Ema,
+            Underlying = _target.Underlying,
             Direction = signal.Direction.ToString(),
             Confidence = MapConfidence(signal.Confidence),
             SignalTime = signal.ConfirmedAtCandleTime,
@@ -390,7 +408,7 @@ public sealed class VirtualPositionTracker
             PositionOpened = positionOpened,
             PositionId = positionId,
             SkipReason = skipReason,
-            CreatedAt = _clock.Now
+            CreatedAt = _clock.UtcNow
         };
         await _signalLogRepository.LogAsync(entry, ct);
     }

@@ -9,7 +9,7 @@ public sealed class SignalLogEntity
 
     // >>> NEW (multi-instrument): which underlying (InstrumentDefinition.Key) this
     // signal belongs to. Defaults to "NIFTY50" for rows written before multi-instrument support existed.
-    public string Underlying { get; set; } = "NIFTY50";
+    public string Underlying { get; set; } = Underlyings.Nifty50;
 
     public string Direction { get; set; } = string.Empty;
     public ConfidenceLevel? Confidence { get; set; }

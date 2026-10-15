@@ -3,10 +3,7 @@ using AlgoWorker.Models;
 namespace AlgoWorker.Services;
 
 /// <summary>
-/// >>> CHANGED: this used to be a "Previous-Day High/Low Breakout" strategy
-/// (reference levels came from yesterday's actual High/Low, fetched via
-/// SetPreviousDayLevels()). Per the user's updated request, it is now an
-/// "Opening Range Breakout" (ORB) strategy: the reference High/Low are
+/// Opening Range Breakout (ORB) strategy: the reference High/Low are
 /// TODAY's own first 5-min candle (09:15-09:20 IST) -- the very first candle
 /// of each trading day defines the range, and every candle after it is
 /// checked against that range's High/Low on CLOSE.

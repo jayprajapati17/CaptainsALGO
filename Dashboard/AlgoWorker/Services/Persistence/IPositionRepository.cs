@@ -42,5 +42,13 @@ public interface IPositionRepository
     /// are orphans -- nothing is tracking them anymore. Closes them out using their last known
     /// premium so the Dashboard's Live page doesn't show phantom positions forever. Returns how many were closed.
     /// </summary>
-    Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct);
+    /// <param name="underlying">Only rows of this underlying are touched ("NIFTY50" by default, "BANKNIFTY" for the Bank Nifty pipeline).</param>
+    Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct, string underlying = Underlyings.Nifty50);
+
+    // >>> NEW (Bank Nifty risk rules) -- always scoped to Underlying == "BANKNIFTY".
+    /// <summary>Bank Nifty trades opened on the given local day and the current run of consecutive losing closed trades (most recent first).</summary>
+    Task<(int Opened, int ConsecutiveLosses)> GetDayStatsAsync(DateOnly day, CancellationToken ct);
+
+    /// <summary>Sum of the final P&amp;L (rupees) of Bank Nifty trades closed whose entry was on/after the given local date (week start).</summary>
+    Task<decimal> GetClosedPnlSinceAsync(DateOnly from, CancellationToken ct);
 }

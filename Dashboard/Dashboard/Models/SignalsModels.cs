@@ -6,6 +6,7 @@ public sealed class SignalRow
 {
     public int Id { get; set; }
     public StrategyType Strategy { get; set; }
+    public string Underlying { get; set; } = AlgoData.Models.Underlyings.Nifty50;
     public string Direction { get; set; } = string.Empty;
     public ConfidenceLevel? Confidence { get; set; }
     public DateTimeOffset SignalTime { get; set; }
@@ -24,6 +25,7 @@ public sealed class SignalsViewModel
     public string? Error { get; set; }
 
     public string StrategyFilter { get; set; } = "all";   // all | ema | breakout | macd
+    public string UnderlyingFilter { get; set; } = "all"; // all | nifty | banknifty
     public string Outcome { get; set; } = "all";          // all | opened | skipped
     public string Period { get; set; } = "all";           // today | 7d | 30d | all
     public int Page { get; set; } = 1;

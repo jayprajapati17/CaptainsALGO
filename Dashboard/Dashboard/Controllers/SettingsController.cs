@@ -13,7 +13,7 @@ namespace Dashboard.Controllers;
 /// </summary>
 public sealed class SettingsController : Controller
 {
-    private static readonly string[] SectionOrder = { "Telegram", "Strategy", "Upstox" };
+    private static readonly string[] SectionOrder = { "Telegram", "Strategy", "BankNifty", "Upstox" };
 
     // Upstox settings are view-only on the dashboard (edit them in the Worker's appsettings / database directly).
     private const string ReadOnlySection = "Upstox";
@@ -32,7 +32,7 @@ public sealed class SettingsController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(string? tab, CancellationToken ct)
     {
-        var vm = new SettingsViewModel { ActiveTab = string.IsNullOrWhiteSpace(tab) ? "Telegram" : tab };
+        var vm = new SettingsViewModel { ActiveTab = string.IsNullOrWhiteSpace(tab) ? "Strategies" : tab };
         vm.Message = TempData["SettingsMessage"] as string;
         vm.Warning = TempData["SettingsWarning"] as string;
 
@@ -74,7 +74,7 @@ public sealed class SettingsController : Controller
         {
             var vmWithErrors = new SettingsViewModel
             {
-                ActiveTab = string.IsNullOrWhiteSpace(tab) ? "Telegram" : tab,
+                ActiveTab = string.IsNullOrWhiteSpace(tab) ? "Strategies" : tab,
                 Error = $"{errors.Count} value(s) are invalid -- nothing was saved. Fix the highlighted fields and save again.",
                 Sections = await BuildSectionsAsync(submitted, errors, ct)
             };
@@ -90,7 +90,7 @@ public sealed class SettingsController : Controller
             if (string.Equals(row.Value ?? string.Empty, normalized, StringComparison.Ordinal)) continue;
 
             row.Value = normalized;
-            row.UpdatedAt = DateTimeOffset.Now;
+            row.UpdatedAt = DateTimeOffset.UtcNow;
             changedCount++;
             if (row.RequiresRestart) changedRestart.Add(row.Key);
         }
@@ -123,6 +123,28 @@ public sealed class SettingsController : Controller
         return RedirectToAction(nameof(Index), new { tab });
     }
 
+    /// <summary>Settings page "Send test message": asks the Worker to send one Telegram message to the saved chat.</summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> TestTelegram(CancellationToken ct)
+    {
+        try
+        {
+            var client = _httpClientFactory.CreateClient("WorkerApi");
+            using var response = await client.PostAsync("/api/telegram/test", content: null, ct);
+            if (response.IsSuccessStatusCode)
+                return Json(new { ok = true, message = "Test message sent." });
+
+            var body = await response.Content.ReadAsStringAsync(ct);
+            return Json(new { ok = false, message = "Telegram rejected the message: " + body });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Could not reach the Worker for the Telegram test.");
+            return Json(new { ok = false, message = "Could not reach the Worker." });
+        }
+    }
+
     // ------------------------------------------------------------------
 
     private async Task<List<SettingSection>> BuildSectionsAsync(
@@ -149,6 +171,7 @@ public sealed class SettingsController : Controller
                         Id = r.Id,
                         Section = r.Section,
                         Key = r.Key,
+                        Original = r.Value ?? string.Empty,
                         Value = overrideValues is not null && overrideValues.TryGetValue(r.Id, out var v) ? v : r.Value ?? string.Empty,
                         ValueType = r.ValueType,
                         IsSecret = r.IsSecret,
@@ -195,10 +218,10 @@ public sealed class SettingsController : Controller
         {
             var client = _httpClientFactory.CreateClient("WorkerApi");
             using var response = await client.PostAsync("/api/settings/reload", content: null, ct);
-            if (response.IsSuccessStatusCode) return true;
+            var ok = response.IsSuccessStatusCode;
+            if (!ok) _logger.LogWarning("Worker rejected settings reload: {Status}", (int)response.StatusCode);
 
-            _logger.LogWarning("Worker rejected settings reload: {Status}", (int)response.StatusCode);
-            return false;
+            return ok;
         }
         catch (Exception ex)
         {

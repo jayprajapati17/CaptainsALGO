@@ -23,24 +23,12 @@ namespace AlgoWorker.Services;
 /// </summary>
 public static class TrailingStopCalculator
 {
-    public static decimal ComputeStopLoss(decimal entryPremium, decimal peakPremium, StrategyOptions options)
+    public static decimal ComputeStopLoss(decimal entryPremium, decimal peakPremium, ITrailingSettings options)
     {
-        var gained = Math.Max(0m, peakPremium - entryPremium);
-        var step = (decimal)options.TrailingStepPoints;
-        var stepSl = (decimal)options.TrailingStepSlPoints;
-        var target = (decimal)options.TrailingTargetPoints;
-
-        if (gained >= target)
-        {
-            var stepsAfterTarget = step > 0 ? Math.Floor((gained - target) / step) : 0m;
-            return entryPremium + (decimal)options.TrailingTargetLockPoints + stepSl * stepsAfterTarget;
-        }
-
-        var stepsBeforeTarget = step > 0 ? Math.Floor(gained / step) : 0m;
-        return entryPremium - (decimal)options.TrailingInitialRiskPoints + stepSl * stepsBeforeTarget;
+        return TrailingStop.Compute(entryPremium, peakPremium, TrailingParams.From(options));
     }
 
     /// <summary>True once the stop has started moving up from its initial level (used for the "trailing" label).</summary>
-    public static bool IsTrailing(decimal entryPremium, decimal peakPremium, StrategyOptions options) =>
-        options.TrailingStepPoints > 0 && peakPremium - entryPremium >= (decimal)options.TrailingStepPoints;
+    public static bool IsTrailing(decimal entryPremium, decimal peakPremium, ITrailingSettings options) =>
+        TrailingStop.IsTrailing(entryPremium, peakPremium, TrailingParams.From(options));
 }

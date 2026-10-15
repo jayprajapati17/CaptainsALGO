@@ -17,8 +17,8 @@ namespace AlgoWorker.Services;
 /// </summary>
 public sealed class SignalEngine
 {
-    private readonly StrategyOptions _options;
-    private readonly ILogger<SignalEngine> _logger;
+    private readonly IEmaSettings _options;
+    private readonly ILogger _logger;
 
     private SignalDirection? _pendingDirection;
     private int _pendingCandleCount;
@@ -35,9 +35,11 @@ public sealed class SignalEngine
 
     public event Action<TradeSignal>? SignalConfirmed;
 
-    public SignalEngine(IOptions<StrategyOptions> options, ILogger<SignalEngine> logger)
+    public SignalEngine(IOptions<StrategyOptions> options, ILogger<SignalEngine> logger) : this(options.Value, (ILogger)logger) { }
+
+    public SignalEngine(IEmaSettings options, ILogger logger)
     {
-        _options = options.Value;
+        _options = options;
         _logger = logger;
     }
 
@@ -106,6 +108,13 @@ public sealed class SignalEngine
         if (confidence == ConfidenceLevel.Low && !_options.AlertBothSides)
         {
             _logger.LogInformation("Death Cross confirmed at {Time} but AlertBothSides=false -- suppressing alert.", current.CandleTime);
+            ClearPending();
+            return;
+        }
+
+        if (!IsSeeding && !_options.EmaStrategyEnabled)
+        {
+            _logger.LogInformation("{Direction} confirmed at {Time} but EmaStrategyEnabled=false -- no trade.", direction, current.CandleTime);
             ClearPending();
             return;
         }

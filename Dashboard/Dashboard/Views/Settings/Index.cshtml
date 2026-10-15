@@ -1,6 +1,23 @@
 @model SettingsViewModel
+@inject WorkerEndpoints WorkerEndpoints
 @{
     ViewData["Title"] = "Settings";
+
+    var activeTab = SettingsUi.NormalizeTab(Model.ActiveTab);
+    var items = Model.Sections
+        .SelectMany(sec => sec.Groups.SelectMany(g => g.Items.Select(i => (Group: g.Name, Item: i))))
+        .ToList();
+    var byKey = items.ToDictionary(x => SettingsUi.Key(x.Item), x => x.Item);
+
+    int Errors(string tab) => items.Count(x => SettingsUi.TabOf(x.Item) == tab && x.Item.Error is not null);
+
+    // Rows already shown as a card toggle, or inside the trailing-SL panel, are not repeated in the parameter lists.
+    var toggleKeys = SettingsUi.Cards.Where(c => c.ToggleKey is not null).Select(c => c.ToggleKey!).ToHashSet();
+    bool InParamList(SettingItem i) =>
+        SettingsUi.TabOf(i) == SettingsUi.TabStrategies && !SettingsUi.IsTrailing(i) && !toggleKeys.Contains(SettingsUi.Key(i));
+
+    var niftyTrail = items.Where(x => x.Item.Section == "Strategy" && SettingsUi.IsTrailing(x.Item)).Select(x => x.Item).ToList();
+    var bnTrail = items.Where(x => x.Item.Section == "BankNifty" && SettingsUi.IsTrailing(x.Item)).Select(x => x.Item).ToList();
 }
 
 <header class="ct-head">
@@ -10,7 +27,11 @@
     </div>
     @if (Model.Sections.Count > 0)
     {
-        <button type="submit" form="settingsForm" class="ct-btn ct-btn-primary border-0">Save &amp; apply</button>
+        <div class="st-head-actions">
+            <span class="st-pending" id="stPending">No pending changes</span>
+            <button type="button" class="ct-btn st-btn-lg" id="stReset">Reset</button>
+            <button type="submit" form="settingsForm" class="ct-btn ct-btn-primary border-0">Save &amp; apply</button>
+        </div>
     }
 </header>
 
@@ -29,103 +50,198 @@
 
 @if (Model.Sections.Count > 0)
 {
-    <form method="post" asp-controller="Settings" asp-action="Save" id="settingsForm" class="d-flex flex-column gap-3">
-        <input type="hidden" name="tab" id="activeTab" value="@Model.ActiveTab" />
+    <form method="post" asp-controller="Settings" asp-action="Save" id="settingsForm" class="d-flex flex-column gap-3"
+          data-test-telegram-url="@Url.Action("TestTelegram", "Settings")">
+        <input type="hidden" name="tab" id="activeTab" value="@activeTab" />
 
         <div class="ct-seg align-self-start" role="tablist">
-            @foreach (var sec in Model.Sections)
+            @foreach (var tab in SettingsUi.Tabs)
             {
-                var active = sec.Name == Model.ActiveTab;
-                <button class="nav-link @(active ? "active" : "")" type="button" role="tab"
-                        data-bs-toggle="tab" data-bs-target="#tab-@sec.Name" data-tab-name="@sec.Name">
-                    @sec.Name
-                    @if (sec.ReadOnly)
+                var err = Errors(tab);
+                <button type="button" role="tab" class="st-tab @(tab == activeTab ? "active" : "")" data-st-tab="@tab" aria-selected="@(tab == activeTab ? "true" : "false")">
+                    @SettingsUi.TabLabel(tab)
+                    @if (tab == SettingsUi.TabUpstox)
                     {
                         <span class="ct-locked">read-only</span>
                     }
-                    @if (sec.ErrorCount > 0)
+                    <i class="st-dot st-tab-dot" hidden title="Unsaved changes on this tab"></i>
+                    @if (err > 0)
                     {
-                        <span class="badge text-bg-danger ms-1">@sec.ErrorCount</span>
+                        <span class="badge text-bg-danger ms-1">@err</span>
                     }
                 </button>
             }
         </div>
 
+        @if (!items.Any(x => x.Item.Section == "BankNifty"))
+        {
+            <div class="ct-notice" style="background:var(--loss-tint);color:var(--loss-ink)">
+                No Bank Nifty settings found in the database. Restart the Worker once with the merged build (it adds them at startup), then refresh this page. If they still don't appear, check the Worker log for "could not seed the BankNifty rows".
+            </div>
+        }
+
         <div class="ct-notice">
             Items tagged <span class="ct-badge-restart" style="margin-left:0">restart required</span> are only read when the Worker starts.
         </div>
 
-        <div class="tab-content">
-            @foreach (var sec in Model.Sections)
-            {
-                var active = sec.Name == Model.ActiveTab;
-                <div class="tab-pane fade @(active ? "show active" : "")" id="tab-@sec.Name" role="tabpanel">
-                    @if (sec.ReadOnly)
+        @* ===================== STRATEGIES ===================== *@
+        <div data-st-panel="Strategies" @(activeTab == "Strategies" ? "" : "hidden") class="st-panel">
+
+            <div>
+                <div class="st-kicker">Strategies &middot; tap a card to see its stop-loss profile</div>
+                <div class="st-cards" id="stCards">
+                    @foreach (var c in SettingsUi.Cards)
                     {
-                        <div class="ct-notice mb-3">Upstox settings are read-only here. Only Telegram and Strategy settings can be changed from the dashboard.</div>
-                    }
-                    @foreach (var group in sec.Groups)
-                    {
-                        <div class="ct-card ct-set-card">
-                            <div class="ct-set-head">@group.Name</div>
-                            @foreach (var item in group.Items)
+                        var toggle = c.ToggleKey is not null ? byKey.GetValueOrDefault(c.ToggleKey) : null;
+                        <div class="st-card" data-card="@c.Id" data-profile="@c.Profile">
+                            <div class="st-card-top">
+                                <button type="button" class="st-card-pick" data-pick="@c.Profile">
+                                    <span class="st-card-name">@c.Name</span>
+                                    <span class="st-tag st-tag-@c.Profile">@c.Tag</span>
+                                </button>
+                                @if (toggle is not null)
+                                {
+                                    <partial name="_Field" model="toggle" />
+                                }
+                            </div>
+                            @if (toggle is { RequiresRestart: true })
                             {
-                                var name = $"values[{item.Id}]";
-                                <div class="ct-set-row">
-                                    <div class="ct-set-label">
-                                        <b>
-                                            <label for="s-@item.Id" class="mb-0">@item.Key</label>
-                                            @if (item.RequiresRestart)
-                                            {
-                                                <span class="ct-badge-restart" title="Only read when the Worker starts">restart required</span>
-                                            }
-                                        </b>
-                                        @if (!string.IsNullOrWhiteSpace(item.Description))
-                                        {
-                                            <small>@item.Description</small>
-                                        }
-                                    </div>
-                                    <div>
-                                        @if (item.ValueType == "bool")
-                                        {
-                                            <select class="ct-input @(item.Error is not null ? "is-invalid" : "")" id="s-@item.Id" name="@name" disabled="@item.ReadOnly">
-                                                <option value="true" selected="@(item.Value == "true")">true</option>
-                                                <option value="false" selected="@(item.Value != "true")">false</option>
-                                            </select>
-                                        }
-                                        else if (item.IsSecret)
-                                        {
-                                            <div class="d-flex gap-2">
-                                                <input type="password" class="ct-input @(item.Error is not null ? "is-invalid" : "")"
-                                                       style="min-width:300px" id="s-@item.Id" name="@name" value="@item.Value" autocomplete="off" disabled="@item.ReadOnly" />
-                                                @if (!item.ReadOnly)
-                                                {
-                                                    <button class="ct-btn" type="button" data-toggle-secret="s-@item.Id">Show</button>
-                                                }
-                                            </div>
-                                        }
-                                        else if (item.ValueType is "int" or "double")
-                                        {
-                                            <input type="number" step="@(item.ValueType == "int" ? "1" : "any")"
-                                                   class="ct-input text-end @(item.Error is not null ? "is-invalid" : "")"
-                                                   style="width:120px" id="s-@item.Id" name="@name" value="@item.Value" disabled="@item.ReadOnly" />
-                                        }
-                                        else
-                                        {
-                                            <input type="text" class="ct-input @(item.Error is not null ? "is-invalid" : "")"
-                                                   style="min-width:300px" id="s-@item.Id" name="@name" value="@item.Value" autocomplete="off" disabled="@item.ReadOnly" />
-                                        }
-                                        @if (item.Error is not null)
-                                        {
-                                            <div class="small mt-1" style="color:var(--loss-ink)">@item.Error</div>
-                                        }
-                                    </div>
-                                </div>
+                                <div><span class="ct-badge-restart" style="margin-left:0">restart required</span></div>
                             }
+                            <div class="st-card-stats">
+                                @foreach (var s in c.Stats)
+                                {
+                                    <div><span>@s.Label</span><span class="st-mono" data-stat="@s.Key" data-suffix="@s.Suffix">&ndash;</span></div>
+                                }
+                            </div>
                         </div>
                     }
                 </div>
+            </div>
+
+            <div class="st-split">
+                <div class="st-col-main">
+                    <div class="ct-card st-box">
+                        <div class="st-box-head">
+                            <h2 class="st-h2">Trailing stop-loss &middot; <span id="stProfLabel">Nifty</span></h2>
+                            <div class="ct-seg st-mini-seg" role="group" aria-label="Stop-loss profile">
+                                <button type="button" class="st-prof active" data-pick="nifty">Nifty</button>
+                                <button type="button" class="st-prof" data-pick="bn">Bank Nifty</button>
+                            </div>
+                        </div>
+                        <div class="st-chart-wrap"><svg id="stChart" viewBox="0 0 640 280" role="img" aria-label="Stop-loss level against premium gained"></svg></div>
+                        <div class="st-axes"><span>x &middot; premium gained from entry (points)</span><span>y &middot; stop-loss vs entry (points)</span></div>
+                        <div class="st-insight"><i></i><span id="stInsight"></span></div>
+                    </div>
+
+                    <div class="ct-card st-box">
+                        <div class="st-box-head">
+                            <h2 class="st-h2">What if&hellip;</h2>
+                            <div class="st-gains" id="stGains"><span>Peak gain</span></div>
+                        </div>
+                        <div class="st-calc">
+                            <div><span id="stCalcEntryLabel">Entry premium</span><b class="st-mono" id="stCalcEntry">&ndash;</b></div>
+                            <div><span>Peak premium</span><b class="st-mono st-gain" id="stCalcPeak">&ndash;</b></div>
+                            <div><span>Stop-loss now</span><b class="st-mono st-amber" id="stCalcSl">&ndash;</b></div>
+                            <div><span>If stopped out &middot; 1 lot</span><b class="st-mono" id="stCalcPnl">&ndash;</b></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="st-col-side">
+                    <div class="ct-card st-set-card">
+                        <div class="ct-set-head">Trailing stop-loss <span class="st-sub">common rule &middot; every strategy, both indices</span></div>
+                        @foreach (var p in SettingsUi.Pair(niftyTrail, bnTrail)) { <partial name="_PairRow" model="p" /> }
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="st-kicker">All strategy parameters</div>
+                <div class="st-details-list">
+                    @{
+                        var paramGroups = Model.Sections.Where(sx => sx.Name is "Strategy" or "BankNifty")
+                            .SelectMany(sx => sx.Groups.Select(g => (Section: sx.Name, Group: g)))
+                            .GroupBy(x => x.Group.Name)
+                            .ToList();
+                    }
+                    @foreach (var grp in paramGroups)
+                    {
+                        var niftyRows = grp.Where(x => x.Section == "Strategy").SelectMany(x => x.Group.Items).Where(InParamList);
+                        var bnRows = grp.Where(x => x.Section == "BankNifty").SelectMany(x => x.Group.Items).Where(InParamList);
+                        var pairs = SettingsUi.Pair(niftyRows, bnRows);
+                        if (pairs.Count == 0) continue;
+                        var hasError = pairs.Any(p => p.Nifty?.Error is not null || p.BankNifty?.Error is not null);
+                        <details class="ct-card st-details" @(hasError ? "open" : "")>
+                            <summary><span>@grp.Key</span><span class="st-sub">@pairs.Count settings</span></summary>
+                            @foreach (var p in pairs) { <partial name="_PairRow" model="p" /> }
+                        </details>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @* ===================== TELEGRAM ===================== *@
+        <div data-st-panel="Telegram" @(activeTab == "Telegram" ? "" : "hidden") class="st-panel st-split">
+            <div class="st-col-main">
+                <div class="ct-card st-set-card">
+                    <div class="ct-set-head">Telegram alerts</div>
+                    @foreach (var x in items.Where(x => SettingsUi.TabOf(x.Item) == "Telegram")) { <partial name="_Row" model="x.Item" /> }
+                </div>
+            </div>
+            <div class="st-col-side">
+                <div class="ct-card st-box">
+                    <h2 class="st-h2">Check the connection</h2>
+                    <p class="st-text">Send one test message to the <b>saved</b> chat, so you know alerts will arrive before the market opens. Save any change first; a new bot token also needs a Worker restart.</p>
+                    <div class="st-inline">
+                        <button type="button" class="ct-btn ct-btn-primary border-0" id="stTestTelegram">Send test message</button>
+                        <span class="st-flash" id="stTestResult" hidden></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* ===================== UPSTOX (read-only) ===================== *@
+        <div data-st-panel="Upstox" @(activeTab == "Upstox" ? "" : "hidden") class="st-panel">
+            <div class="ct-notice">Upstox settings are read-only here. Only Telegram, Strategy and Bank Nifty settings can be changed from the dashboard.</div>
+            <div class="st-split">
+                <div class="st-col-side st-col-first">
+                    <div class="ct-card st-box" id="stTokenCard"
+                         data-status-url="@WorkerEndpoints.TokenStatusUrl" data-authorize-url="@WorkerEndpoints.TokenAuthorizeUrl">
+                        <h2 class="st-h2">Today's access token</h2>
+                        <div class="st-token-state"><span class="st-led" id="stTokenLed"></span><span id="stTokenText">Checking&hellip;</span></div>
+                        <p class="st-text">Nifty and Bank Nifty share this one token. It expires every day, so generate a new one each morning.</p>
+                        <div><button type="button" class="ct-btn ct-btn-primary border-0" id="stTokenBtn">Generate token</button></div>
+                    </div>
+                </div>
+                <div class="st-col-main">
+                    <div class="ct-card st-set-card">
+                        <div class="ct-set-head">Connection</div>
+                        @foreach (var x in items.Where(x => SettingsUi.TabOf(x.Item) == "Upstox")) { <partial name="_Row" model="x.Item" /> }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* ===================== SESSION & TIMING ===================== *@
+        <div data-st-panel="Session" @(activeTab == "Session" ? "" : "hidden") class="st-panel st-grid2">
+            @{
+                var niftySession = items.Where(x => x.Item.Section == "Strategy" && SettingsUi.IsSession(x.Item)).Select(x => x.Item);
+                var bnSession = items.Where(x => x.Item.Section == "BankNifty" && SettingsUi.IsSession(x.Item)).Select(x => x.Item);
             }
+            <div class="ct-card st-set-card" style="grid-column:1/-1">
+                <div class="ct-set-head">Session &amp; timing</div>
+                @foreach (var p in SettingsUi.Pair(niftySession, bnSession)) { <partial name="_PairRow" model="p" /> }
+            </div>
+        </div>
+
+        @* ===================== REVIEW ===================== *@
+        <div class="ct-card st-review" id="stReview" hidden>
+            <div class="st-box-head">
+                <h2 class="st-h2">Review before applying</h2>
+                <span class="st-sub" id="stReviewCount"></span>
+            </div>
+            <div class="st-review-grid" id="stReviewGrid"></div>
         </div>
 
         <div class="settings-savebar">
@@ -136,19 +252,5 @@
 }
 
 @section Scripts {
-    <script>
-        document.querySelectorAll('[data-tab-name]').forEach(function (btn) {
-            btn.addEventListener('shown.bs.tab', function () {
-                document.getElementById('activeTab').value = btn.getAttribute('data-tab-name');
-            });
-        });
-        document.querySelectorAll('[data-toggle-secret]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var input = document.getElementById(btn.getAttribute('data-toggle-secret'));
-                var show = input.type === 'password';
-                input.type = show ? 'text' : 'password';
-                btn.textContent = show ? 'Hide' : 'Show';
-            });
-        });
-    </script>
+    <script type="module" src="~/js/settings.js" asp-append-version="true"></script>
 }

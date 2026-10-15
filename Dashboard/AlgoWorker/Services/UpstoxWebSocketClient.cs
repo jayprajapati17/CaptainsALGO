@@ -21,6 +21,7 @@ public sealed class UpstoxWebSocketClient : IAsyncDisposable
     private ClientWebSocket? _socket;
     private readonly HashSet<string> _subscribedKeys = new();
     private readonly SemaphoreSlim _sendLock = new(1, 1);
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, DateTimeOffset> _lastTickAt = new();
 
     public event Action<MarketTick>? TickReceived;
     public event Action? Connected;
@@ -37,6 +38,13 @@ public sealed class UpstoxWebSocketClient : IAsyncDisposable
     }
 
     public bool IsConnected => _socket?.State == WebSocketState.Open;
+
+    /// <summary>How many instruments are currently subscribed (indices + any open option contracts).</summary>
+    public int SubscribedCount => _subscribedKeys.Count;
+
+    /// <summary>When the most recent tick arrived for an instrument, or null if none has arrived since the Worker started (used by /health).</summary>
+    public DateTimeOffset? LastTickAt(string instrumentKey) =>
+        _lastTickAt.TryGetValue(instrumentKey, out var at) ? at : null;
 
     /// <summary>Connects (or reconnects) and subscribes to the given instrument keys. Runs until <paramref name="ct"/> is cancelled.</summary>
     public async Task RunAsync(IReadOnlyCollection<string> instrumentKeys, CancellationToken ct)
@@ -146,8 +154,12 @@ public sealed class UpstoxWebSocketClient : IAsyncDisposable
             } while (!result.EndOfMessage);
 
             var frame = ms.ToArray();
+            var receivedAt = DateTimeOffset.UtcNow;
             foreach (var tick in _decoder.Decode(frame))
+            {
+                _lastTickAt[tick.InstrumentKey] = receivedAt;
                 TickReceived?.Invoke(tick);
+            }
         }
     }
 

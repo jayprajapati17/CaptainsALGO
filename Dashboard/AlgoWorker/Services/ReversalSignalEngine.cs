@@ -276,9 +276,9 @@ public sealed class ReversalSignalEngine
         }
 
         // Time window (entry candle close time).
-        var closeTime = TimeOnly.FromDateTime((cur.OpenTime + CandleLength).DateTime);
-        if (closeTime < TimeOnly.Parse(_o.ReversalEarliestEntryTime) ||
-            TimeOnly.FromDateTime(cur.OpenTime.DateTime) > TimeOnly.Parse(_o.ReversalLastEntryTime))
+        var closeTime = TimeOfDay.Of((cur.OpenTime + CandleLength));
+        if (closeTime < TimeOfDay.Parse(_o.ReversalEarliestEntryTime) ||
+            TimeOfDay.Of(cur.OpenTime) > TimeOfDay.Parse(_o.ReversalLastEntryTime))
         {
             _logger.LogDebug("Reversal {Setup} ignored: outside the entry time window.", setup);
             return false;

@@ -19,10 +19,13 @@
     const filterBar = document.getElementById('strategyFilter');
 
     const hubUrl = root.dataset.hubUrl;
+    const bnSpotEl = document.getElementById('bankNiftySpot');
     const closeUrl = root.dataset.closeUrl;
     const openUrl = root.dataset.openUrl;
     const initialRisk = parseFloat(root.dataset.initialRisk) || 15;
-    const targetPoints = parseFloat(root.dataset.targetPoints) || 30;
+    const nifTargetPoints = parseFloat(root.dataset.targetPoints) || 30;
+    const bnInitialRisk = parseFloat(root.dataset.bnInitialRisk) || 30;
+    const bnTargetPoints = parseFloat(root.dataset.bnTargetPoints) || 50;
     const cprBc = parseFloat(root.dataset.cprBc);
     const cprTc = parseFloat(root.dataset.cprTc);
 
@@ -36,7 +39,8 @@
     // because a position whose DB save failed carries Id -1 (and two EMA legs could collide).
     const cards = new Map();
 
-    const keyOf = p => `${p.strategy}|${p.tradingSymbol}|${p.entryTime}`;
+    const keyOf = p => `${p.underlying || 'NIFTY50'}|${p.strategy}|${p.tradingSymbol}|${p.entryTime}`;
+    const instrumentLabel = p => (p.underlying === 'BANKNIFTY' ? 'BANKNIFTY' : 'NIFTY');
 
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c =>
@@ -73,7 +77,7 @@
 
         tr.innerHTML = `
             <td>
-                <div class="ct-sym">NIFTY ${esc(p.strike)} ${esc(p.optionType)}</div>
+                <div class="ct-sym">${instrumentLabel(p)} ${esc(p.strike)} ${esc(p.optionType)}</div>
                 <div class="ct-sub pos-subtitle d-flex align-items-center gap-2 mt-1">
                     <span class="st-chip ${STRATEGY_CLASS[p.strategy] ?? ''}">${esc(STRATEGY_LABELS[p.strategy] ?? p.strategy)}</span>
                     <span>Exp ${esc(fmtExpiry(p.expiry))}</span>
@@ -131,7 +135,8 @@
             slNote.className = 'sl-note pos-slnote' + (p.stopLossTrailing ? ' trailing' : '');
         } else if (sl > 0) {
             const entryPx = Number(p.entryPremium);
-            const trailing = sl > entryPx - initialRisk + 0.005;
+            const risk = p.underlying === 'BANKNIFTY' ? bnInitialRisk : initialRisk;
+            const trailing = sl > entryPx - risk + 0.005;
             slVal.textContent = `₹${inr.format(sl)}`;
             slNote.textContent = sl >= entryPx ? 'trailing · profit locked' : trailing ? 'trailing' : 'initial stop';
             slNote.className = 'sl-note pos-slnote' + (trailing ? ' trailing' : '');
@@ -146,6 +151,7 @@
         const min = Math.min(...lows) - 6;
         // Reversal exits on Nifty spot levels (not premium points), so it has no premium target marker.
         const hasPremiumTarget = p.strategy !== 'Reversal';
+        const targetPoints = p.underlying === 'BANKNIFTY' ? bnTargetPoints : nifTargetPoints;
         const max = Math.max(hasPremiumTarget ? entry + targetPoints : entry, ltp) + 6;
         const pos = v => ((v - min) / (max - min)) * 100;
         const lo = Math.min(entry, ltp), hi = Math.max(entry, ltp);
@@ -277,7 +283,7 @@
             const res = await fetch(closeUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'id=' + encodeURIComponent(p.positionId)
+                body: 'id=' + encodeURIComponent(p.positionId) + '&underlying=' + encodeURIComponent(p.underlying || 'NIFTY50')
             });
 
             if (!res.ok) {
@@ -310,10 +316,16 @@
 
     connection.on('PositionChanged', upsert);
 
+    // One hub, two indices: Bank Nifty ticks carry underlying = 'BANKNIFTY'; Nifty's don't.
     connection.on('SpotChanged', d => {
+        if (d.underlying === 'BANKNIFTY') {
+            if (bnSpotEl) bnSpotEl.textContent = inr.format(d.price);
+            return;
+        }
         spotEl.textContent = inr.format(d.price);
         updateCprSpot(d.price);
     });
+
 
     connection.onreconnecting(() => setStatus('connecting', 'Reconnecting...'));
     connection.onreconnected(() => {

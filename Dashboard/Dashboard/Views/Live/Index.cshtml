@@ -9,12 +9,14 @@
      data-open-url="@Url.Action("Open", "Live")"
      data-initial-risk="@Model.InitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
      data-target-points="@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
+     data-bn-initial-risk="@Model.BnInitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
+     data-bn-target-points="@Model.BnTargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
      data-cpr-bc="@(Model.Cpr is { } c0 ? c0.Bc.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")"
      data-cpr-tc="@(Model.Cpr is { } c1 ? c1.Tc.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")">
 
     <header class="ct-head">
         <div>
-            <div class="ct-eyebrow">@DateTime.Now.ToString("ddd, dd MMM yyyy")</div>
+            <div class="ct-eyebrow">@AlgoData.Models.MarketTime.Today.ToString("ddd, dd MMM yyyy")</div>
             <h1 class="ct-title">Live desk</h1>
         </div>
         <div class="ct-pill" id="hubPill">
@@ -30,10 +32,17 @@
 
     @* ---------- Market band ---------- *@
     <section class="ct-grid">
-        <div class="ct-card ct-stat">
-            <span class="ct-stat-label">Nifty 50</span>
-            <span class="ct-stat-value" id="niftySpot">--</span>
-            <span class="ct-stat-sub">Live spot</span>
+        <div class="ct-card ct-stat ct-stat-pair">
+            <div class="ct-spot-row">
+                <span class="ct-stat-label">Nifty 50</span>
+                <span class="ct-stat-value" id="niftySpot">--</span>
+                <span class="ct-stat-sub">Live spot</span>
+            </div>
+            <div class="ct-spot-row">
+                <span class="ct-stat-label">Bank Nifty</span>
+                <span class="ct-stat-value" id="bankNiftySpot">--</span>
+                <span class="ct-stat-sub" id="bankNiftySpotSub">Waiting for the first tick&hellip;</span>
+            </div>
         </div>
 
         <div class="ct-card ct-stat" style="gap:14px">

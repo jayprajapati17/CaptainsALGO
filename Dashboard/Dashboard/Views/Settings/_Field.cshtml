@@ -1,0 +1,54 @@
+@model SettingItem
+@{
+    var id = "s-" + Model.Id;
+    var name = $"values[{Model.Id}]";
+    var k = SettingsUi.Key(Model);
+    var label = SettingsUi.Pretty(Model.Key);
+    var scope = SettingsUi.Scope(Model.Section);
+    var invalid = Model.Error is not null ? " is-invalid" : "";
+    var isTime = Model.ValueType == "string" && !Model.IsSecret && Model.Key.EndsWith("Time", StringComparison.Ordinal);
+    var step = SettingsUi.StepFor(Model).ToString(System.Globalization.CultureInfo.InvariantCulture);
+}
+@if (Model.ValueType == "bool")
+{
+    <span class="st-switch-wrap">
+        <input type="hidden" id="@id" name="@name" value="@(Model.Value == "true" ? "true" : "false")"
+               data-k="@k" data-orig="@Model.Original" data-label="@label" data-scope="@scope" data-kind="bool" disabled="@Model.ReadOnly" />
+        <button type="button" class="st-switch @(Model.Value == "true" ? "on" : "")" role="switch" aria-checked="@(Model.Value == "true" ? "true" : "false")"
+                aria-label="@label" data-switch-for="@id" disabled="@Model.ReadOnly"><span></span></button>
+    </span>
+}
+else if (Model.IsSecret)
+{
+    <div class="st-inline">
+        <input type="password" class="ct-input st-wide@(invalid)" id="@id" name="@name" value="@Model.Value" autocomplete="off"
+               data-k="@k" data-orig="@Model.Original" data-label="@label" data-scope="@scope" data-kind="secret" aria-label="@label" disabled="@Model.ReadOnly" />
+        @if (!Model.ReadOnly)
+        {
+            <button class="ct-btn" type="button" data-toggle-secret="@id">Show</button>
+        }
+    </div>
+}
+else if (Model.ValueType is "int" or "double")
+{
+    <div class="st-stepper">
+        <button type="button" class="st-step" data-step-for="@id" data-dir="-1" aria-label="Decrease @label" disabled="@Model.ReadOnly">&minus;</button>
+        <input type="number" step="any" class="ct-input st-num@(invalid)" id="@id" name="@name" value="@Model.Value" data-step="@step"
+               data-k="@k" data-orig="@Model.Original" data-label="@label" data-scope="@scope" data-kind="number" aria-label="@label" disabled="@Model.ReadOnly" />
+        <button type="button" class="st-step" data-step-for="@id" data-dir="1" aria-label="Increase @label" disabled="@Model.ReadOnly">+</button>
+    </div>
+}
+else if (isTime)
+{
+    <div class="st-stepper">
+        <button type="button" class="st-step" data-step-for="@id" data-dir="-1" aria-label="Earlier @label" disabled="@Model.ReadOnly">&minus;</button>
+        <input type="time" class="ct-input st-num st-time@(invalid)" id="@id" name="@name" value="@Model.Value" data-step="5"
+               data-k="@k" data-orig="@Model.Original" data-label="@label" data-scope="@scope" data-kind="time" aria-label="@label" disabled="@Model.ReadOnly" />
+        <button type="button" class="st-step" data-step-for="@id" data-dir="1" aria-label="Later @label" disabled="@Model.ReadOnly">+</button>
+    </div>
+}
+else
+{
+    <input type="text" class="ct-input st-wide@(invalid)" id="@id" name="@name" value="@Model.Value" autocomplete="off"
+           data-k="@k" data-orig="@Model.Original" data-label="@label" data-scope="@scope" data-kind="text" aria-label="@label" disabled="@Model.ReadOnly" />
+}

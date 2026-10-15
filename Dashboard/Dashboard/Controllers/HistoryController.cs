@@ -26,7 +26,7 @@ public sealed class HistoryController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index(string? strategy, string? from, string? to, string? sort, int page = 1, CancellationToken ct = default)
+    public async Task<IActionResult> Index(string? strategy, string? underlying, string? from, string? to, string? sort, int page = 1, CancellationToken ct = default)
     {
         StrategyType? strategyFilter = Enum.TryParse<StrategyType>(strategy, ignoreCase: true, out var parsed) && Enum.IsDefined(parsed)
             ? parsed
@@ -39,8 +39,12 @@ public sealed class HistoryController : Controller
         var sortKey = (sort ?? "time").ToLowerInvariant();
         if (sortKey is not ("time" or "pnl_desc" or "pnl_asc")) sortKey = "time";
 
+        var underlyingKey = (underlying ?? "all").ToLowerInvariant();
+        if (underlyingKey is not ("nifty" or "banknifty")) underlyingKey = "all";
+
         var vm = new HistoryViewModel
         {
+            UnderlyingFilter = underlyingKey,
             StrategyFilter = strategyFilter?.ToString().ToLowerInvariant() ?? "all",
             From = fromDate?.ToString("yyyy-MM-dd") ?? "",
             To = toDate?.ToString("yyyy-MM-dd") ?? "",
@@ -55,14 +59,16 @@ public sealed class HistoryController : Controller
             if (strategyFilter is { } s)
                 q = q.Where(p => p.Strategy == s);
 
+            q = q.ForUnderlying(Underlyings.FromFilterKey(underlyingKey));
+
             if (fromDate is { } fd)
             {
-                var start = new DateTimeOffset(fd.ToDateTime(TimeOnly.MinValue));
+                var start = AlgoData.Models.MarketTime.StartOfDay(fd);
                 q = q.Where(p => p.ExitTime >= start);
             }
             if (toDate is { } td)
             {
-                var endExclusive = new DateTimeOffset(td.AddDays(1).ToDateTime(TimeOnly.MinValue));
+                var endExclusive = AlgoData.Models.MarketTime.StartOfDay(td.AddDays(1));
                 q = q.Where(p => p.ExitTime < endExclusive);
             }
 
@@ -88,6 +94,7 @@ public sealed class HistoryController : Controller
                 {
                     Id = p.Id,
                     Strategy = p.Strategy,
+                    Underlying = p.Underlying,
                     Direction = p.Direction,
                     Leg = p.Leg,
                     TradingSymbol = p.TradingSymbol,

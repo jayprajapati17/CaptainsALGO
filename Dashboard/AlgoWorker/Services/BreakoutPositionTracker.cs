@@ -9,7 +9,7 @@ using SharedModels = AlgoData.Models;
 namespace AlgoWorker.Services;
 
 /// <summary>
-/// Virtual position lifecycle for the Previous-Day High/Low Breakout strategy.
+/// Virtual position lifecycle for the Opening Range Breakout (ORB) strategy (Nifty).
 /// Deliberately simple compared to VirtualPositionTracker (the EMA strategy's
 /// tracker): one leg only (current-week ATM), and the ONLY exit rule is a
 /// hard intraday cutoff time (design doc addendum: "same din 3:15-3:20 PM tak
@@ -112,9 +112,9 @@ public sealed class BreakoutPositionTracker
             Instrument = instrument,
             LotSize = _options.LotSize,
             EntryPremium = entryPremium,
-            OpenedAt = DateTimeOffset.Now,
+            OpenedAt = DateTimeOffset.UtcNow,
             LastKnownPremium = entryPremium,
-            LastUpdateSentAt = DateTimeOffset.Now,
+            LastUpdateSentAt = DateTimeOffset.UtcNow,
             PeakPremium = entryPremium,
             CurrentStopLossPremium = initialStopLoss
         };
@@ -169,9 +169,9 @@ public sealed class BreakoutPositionTracker
         }
 
         // >>> NEW (Task 8): live premium/P&L push to the Dashboard, throttled to ~1/sec.
-        if (DateTimeOffset.Now - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
+        if (DateTimeOffset.UtcNow - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
         {
-            position.LastBroadcastAt = DateTimeOffset.Now;
+            position.LastBroadcastAt = DateTimeOffset.UtcNow;
             await BroadcastAsync(position, "Open", null, ct);
         }
     }
@@ -181,8 +181,8 @@ public sealed class BreakoutPositionTracker
     {
         if (_active is not { IsOpen: true } position) return;
 
-        var cutoff = TimeOnly.Parse(_options.BreakoutForceExitTime);
-        var candleTimeOfDay = TimeOnly.FromDateTime(candleTime.DateTime);
+        var cutoff = TimeOfDay.Parse(_options.BreakoutForceExitTime);
+        var candleTimeOfDay = TimeOfDay.Of(candleTime);
 
         if (candleTimeOfDay >= cutoff)
         {
@@ -190,19 +190,19 @@ public sealed class BreakoutPositionTracker
             return;
         }
 
-        if (DateTimeOffset.Now - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
+        if (DateTimeOffset.UtcNow - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
         {
             await _telegram.SendBreakoutPositionUpdateAsync(position, ct);
-            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.Now, ct);
+            await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
             await BroadcastAsync(position, "Open", null, ct);
-            position.LastUpdateSentAt = DateTimeOffset.Now;
+            position.LastUpdateSentAt = DateTimeOffset.UtcNow;
         }
     }
 
     private async Task CloseAsync(BreakoutPosition position, string reason, CancellationToken ct)
     {
         position.IsOpen = false;
-        var exitTime = DateTimeOffset.Now;
+        var exitTime = DateTimeOffset.UtcNow;
         await _telegram.SendBreakoutExitAlertAsync(position, reason, ct);
         await _webSocketClient.UnsubscribeAsync(position.Instrument.InstrumentKey, ct);
         await _positionRepository.CloseAsync(position.Id, position.LastKnownPremium, exitTime, reason, position.PnlRupees, position.PnlPercent, ct);
@@ -263,14 +263,7 @@ public sealed class BreakoutPositionTracker
     /// <summary>Broadcasts on PositionHub's "PositionChanged" event -- the Dashboard's Live page (Task 8) listens for this.</summary>
     private async Task BroadcastAsync(BreakoutPosition position, string status, string? exitReason, CancellationToken ct)
     {
-        try
-        {
-            await _hub.Clients.All.SendAsync("PositionChanged", ToDto(position, status, exitReason), ct);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to broadcast PositionChanged for PositionId {Id}.", position.Id);
-        }
+        await PositionBroadcast.PublishAsync(_hub, ToDto(position, status, exitReason), _logger, ct);
     }
 
     private SharedModels.PositionEntity ToEntity(BreakoutPosition position, decimal entryPremium) => new()
@@ -292,7 +285,7 @@ public sealed class BreakoutPositionTracker
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
         LastUpdateTime = position.OpenedAt,
-        CreatedAt = _clock.Now
+        CreatedAt = _clock.UtcNow
     };
 
     private async Task LogSignalAsync(BreakoutSignal signal, bool positionOpened, int? positionId, string? skipReason, CancellationToken ct)
@@ -308,7 +301,7 @@ public sealed class BreakoutPositionTracker
             PositionOpened = positionOpened,
             PositionId = positionId,
             SkipReason = skipReason,
-            CreatedAt = _clock.Now
+            CreatedAt = _clock.UtcNow
         };
         await _signalLogRepository.LogAsync(entry, ct);
     }

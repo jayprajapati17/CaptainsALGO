@@ -12,7 +12,7 @@ public sealed class CandleAggregatorService
     // >>> CHANGED: was a hardcoded `private static readonly TimeSpan
     // BucketSize = TimeSpan.FromMinutes(15);`. Now configurable via
     // constructor, so the same class can also aggregate 5-min candles for
-    // the new Previous-Day High/Low Breakout strategy (see
+    // the Opening Range Breakout strategy (see
     // FiveMinCandleAggregatorService). Defaults to 15 min to keep the
     // existing DI registration (`AddSingleton<CandleAggregatorService>()`)
     // working unchanged for the EMA strategy's aggregator.
@@ -76,6 +76,7 @@ public sealed class CandleAggregatorService
 
     private DateTimeOffset FloorToBucket(DateTimeOffset t)
     {
+        t = AlgoData.Models.MarketTime.ToIst(t);   // buckets are aligned to the IST session clock, same as Upstox's own candles
         var bucketMinutes = (int)_bucketSize.TotalMinutes;
         var minutesSinceMidnight = t.Hour * 60 + t.Minute;
         var flooredMinutes = (minutesSinceMidnight / bucketMinutes) * bucketMinutes;

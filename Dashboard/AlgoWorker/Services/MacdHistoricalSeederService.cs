@@ -41,7 +41,7 @@ public sealed class MacdHistoricalSeederService
 
         // Wide calendar-day buffer so we still get the last N trading days even
         // across a long weekend/holiday cluster; well under Upstox's 1-month cap either way.
-        var yesterday = DateOnly.FromDateTime(DateTime.Today).AddDays(-1);
+        var yesterday = AlgoData.Models.MarketTime.Today.AddDays(-1);
         var from = yesterday.AddDays(-10);
 
         _logger.LogInformation("Seeding MACD 3-min candles: fetching {From} to {To}, keeping the last {Days} trading day(s)...",

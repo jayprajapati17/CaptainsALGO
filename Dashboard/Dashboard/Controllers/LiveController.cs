@@ -52,6 +52,8 @@ public sealed class LiveController : Controller
         vm.Cpr = await LoadCprAsync(ct);
         vm.TargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 30, ct);
         vm.InitialRiskPoints = await LoadStrategyNumberAsync("TrailingInitialRiskPoints", 15, ct);
+        vm.BnTargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 50, ct, "BankNifty");
+        vm.BnInitialRiskPoints = await LoadStrategyNumberAsync("TrailingInitialRiskPoints", 30, ct, "BankNifty");
         return View(vm);
     }
 
@@ -95,12 +97,12 @@ public sealed class LiveController : Controller
     }
 
     /// <summary>A numeric Strategy:* value from the AppSettings table (falls back to the given default).</summary>
-    private async Task<double> LoadStrategyNumberAsync(string key, double fallback, CancellationToken ct)
+    private async Task<double> LoadStrategyNumberAsync(string key, double fallback, CancellationToken ct, string section = "Strategy")
     {
         try
         {
             var raw = await _db.AppSettings.AsNoTracking()
-                .Where(a => a.Section == "Strategy" && a.Key == key)
+                .Where(a => a.Section == section && a.Key == key)
                 .Select(a => a.Value)
                 .FirstOrDefaultAsync(ct);
             if (double.TryParse(raw, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var v) && v > 0)
@@ -116,8 +118,10 @@ public sealed class LiveController : Controller
     private async Task<List<OpenPositionDto>> FetchOpenPositionsAsync(CancellationToken ct)
     {
         var client = _httpClientFactory.CreateClient("WorkerApi");
-        var positions = await client.GetFromJsonAsync<List<OpenPositionDto>>("/api/positions/open", JsonOptions, ct);
-        return positions ?? new List<OpenPositionDto>();
+        var positions = await client.GetFromJsonAsync<List<OpenPositionDto>>("/api/positions/open", JsonOptions, ct)
+                        ?? new List<OpenPositionDto>();
+
+        return positions;
     }
 
     /// <summary>
@@ -129,7 +133,7 @@ public sealed class LiveController : Controller
     {
         try
         {
-            var today = DateOnly.FromDateTime(DateTime.Today);
+            var today = AlgoData.Models.MarketTime.Today;
 
             var todaysRows = await _db.DailyCprs.AsNoTracking()
                 .Where(c => c.ForTradingDay == today)

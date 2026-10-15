@@ -1,7 +1,7 @@
 namespace AlgoWorker.Models;
 
 /// <summary>
-/// Virtual (paper) position for the Previous-Day High/Low Breakout strategy.
+/// Virtual (paper) position for the Opening Range Breakout (ORB) strategy.
 /// Kept as its own small type rather than reusing VirtualPosition/OptionLeg,
 /// since this strategy is intentionally simpler: one leg only (current-week
 /// ATM), and a time-based intraday exit instead of the EMA strategy's

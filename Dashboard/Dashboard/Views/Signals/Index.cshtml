@@ -3,10 +3,11 @@
     ViewData["Title"] = "Signals Log";
 }
 @functions {
-    string Link(string? strategy = null, string? outcome = null, string? period = null, int page = 1) =>
+    string Link(string? strategy = null, string? outcome = null, string? period = null, int page = 1, string? underlying = null) =>
         Url.Action("Index", "Signals", new
         {
             strategy = strategy ?? Model.StrategyFilter,
+            underlying = underlying ?? Model.UnderlyingFilter,
             outcome = outcome ?? Model.Outcome,
             period = period ?? Model.Period,
             page
@@ -36,6 +37,12 @@
 }
 
 <section class="ct-card ct-filterbar">
+    <div class="chip-group">
+        <span class="chip-label">Instrument</span>
+        <a class="@Chip(Model.UnderlyingFilter == "all")" href="@Link(underlying: "all")">All</a>
+        <a class="@Chip(Model.UnderlyingFilter == "nifty")" href="@Link(underlying: "nifty")">Nifty</a>
+        <a class="@Chip(Model.UnderlyingFilter == "banknifty")" href="@Link(underlying: "banknifty")">Bank Nifty</a>
+    </div>
     <div class="chip-group">
         <span class="chip-label">Strategy</span>
         <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
@@ -82,7 +89,7 @@ else
                     <th>Strategy</th>
                     <th>Signal</th>
                     <th>Confidence</th>
-                    <th class="text-end">Nifty spot</th>
+                    <th class="text-end">Index spot</th>
                     <th>Details</th>
                     <th>Outcome</th>
                 </tr>
@@ -92,10 +99,13 @@ else
                 {
                     <tr>
                         <td class="text-nowrap">
-                            <div class="num fw-semibold" style="font-size:14px">@r.SignalTime.ToString("hh:mm tt")</div>
-                            <div class="ct-sub">@r.SignalTime.ToString("dd MMM")</div>
+                            <div class="num fw-semibold" style="font-size:14px">@AlgoData.Models.MarketTime.ToIst(r.SignalTime).ToString("hh:mm tt")</div>
+                            <div class="ct-sub">@AlgoData.Models.MarketTime.ToIst(r.SignalTime).ToString("dd MMM")</div>
                         </td>
-                        <td><span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span></td>
+                        <td>
+                            <span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span>
+                            @if (r.Underlying == AlgoData.Models.Underlyings.BankNifty) { <div class="ct-sub mt-1">Bank Nifty</div> }
+                        </td>
                         <td class="text-nowrap">
                             <span class="fw-semibold @(Display.IsBullish(r.Direction) ? "dir-up" : "dir-down")">
                                 <span class="dir-dot">@(Display.IsBullish(r.Direction) ? "▲" : "▼")</span>@Display.DirectionLabel(r.Direction)

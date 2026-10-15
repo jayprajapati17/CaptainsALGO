@@ -26,7 +26,8 @@ public sealed record OpenPositionDto(
     string? ExitReason,
     decimal StopLossPremium = 0m,
     decimal StopLossSpot = 0m,
-    bool StopLossTrailing = false);
+    bool StopLossTrailing = false,
+    string Underlying = AlgoData.Models.Underlyings.Nifty50);   // "NIFTY50" (Nifty worker -- field absent in its JSON) | "BANKNIFTY"
 
 /// <summary>Compact CPR reading for the Live page's header strip.</summary>
 public sealed class CprStrip
@@ -54,4 +55,6 @@ public sealed class LiveIndexViewModel
     /// <summary>Target (points above entry) shown as a marker on each position's gauge -- read from the AppSettings table.</summary>
     public double TargetPoints { get; set; } = 30;
     public double InitialRiskPoints { get; set; } = 15;
+    public double BnTargetPoints { get; set; } = 50;
+    public double BnInitialRiskPoints { get; set; } = 30;
 }
