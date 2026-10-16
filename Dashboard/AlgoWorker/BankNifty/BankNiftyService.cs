@@ -22,6 +22,7 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
     private readonly OrbSignalEngine _orb;
     private readonly BankNiftyPositionTracker _tracker;
     private readonly BankNiftyEmaPipeline _ema;
+    private readonly BankNiftyReversalPipeline _reversal;
     private readonly OpeningRangeSeederService _seeder;
     private readonly MarketHoursService _marketHours;
     private readonly BankNiftyAlertService _telegram;
@@ -43,10 +44,10 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
     public BankNiftyService(
         UpstoxWebSocketClient ws, BankNiftyCandleAggregator aggregator, OrbSignalEngine orb,
         BankNiftyPositionTracker tracker, OpeningRangeSeederService seeder, MarketHoursService marketHours,
-        BankNiftyEmaPipeline ema, BankNiftyAlertService telegram, IHubContext<PositionHub> hub,
+        BankNiftyEmaPipeline ema, BankNiftyReversalPipeline reversal, BankNiftyAlertService telegram, IHubContext<PositionHub> hub,
         IOptions<UpstoxOptions> upstox, IOptions<BankNiftyOptions> options, ILogger<BankNiftyService> logger)
     {
-        _ws = ws; _aggregator = aggregator; _orb = orb; _tracker = tracker; _ema = ema; _seeder = seeder;
+        _ws = ws; _aggregator = aggregator; _orb = orb; _tracker = tracker; _ema = ema; _reversal = reversal; _seeder = seeder;
         _marketHours = marketHours; _telegram = telegram; _hub = hub;
         _upstox = upstox.Value; _options = options.Value; _logger = logger;
 
@@ -104,6 +105,8 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
             {
                 _aggregator.ForceCloseCurrentCandle();
                 await _tracker.CloseForMarketCloseAsync(ct);
+                try { await _reversal.CloseForMarketCloseAsync(ct); }
+                catch (Exception ex) when (ex is not OperationCanceledException) { _logger.LogError(ex, "Bank Nifty Reversal: error closing for the day."); }
                 try { await _ema.CloseForMarketCloseAsync(ct); }
                 catch (Exception ex) when (ex is not OperationCanceledException) { _logger.LogError(ex, "Bank Nifty EMA: error closing for the day."); }
                 _seededToday = false;
@@ -117,8 +120,19 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
         if (!(_seededToday && _lastSeededDate == today) && await _marketHours.IsMarketOpenAsync(ct))
         {
             _orb.IsSeeding = true;
-            try { await _seeder.SeedAsync(ct); }
-            finally { _orb.IsSeeding = false; }
+            _reversal.IsSeeding = true;
+            try
+            {
+                // Reversal needs previous-day candles too (EMA warm-up, previous-day low); a failure must not stop the ORB seeding.
+                try { await _reversal.SeedHistoryAsync(ct); }
+                catch (Exception ex) when (ex is not OperationCanceledException and not UnauthorizedTokenException)
+                {
+                    _logger.LogError(ex, "Bank Nifty Reversal: history seeding failed -- Reversal may warm up late today (ORB unaffected).");
+                }
+                // Today's elapsed 5-min candles: replayed through the shared stream, so BOTH ORB and Reversal see them.
+                await _seeder.SeedAsync(ct);
+            }
+            finally { _orb.IsSeeding = false; _reversal.IsSeeding = false; }
 
             if (_orb.HasRange)
                 await _telegram.SendStatusAsync($"Restored today's opening range from history: High {_orb.RangeHigh:N2}, Low {_orb.RangeLow:N2}. Breakouts that already happened are not traded.", ct);
@@ -159,6 +173,7 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
                 }
                 _aggregator.OnTick(tick);
                 _ema.OnIndexTick(tick);
+                await _reversal.OnIndexTick(tick, CancellationToken.None);   // Reversal SL/T1/T2 are Bank Nifty spot levels
                 if (DateTimeOffset.UtcNow - _lastHeartbeat >= TimeSpan.FromSeconds(60))
                 {
                     _lastHeartbeat = DateTimeOffset.UtcNow;
@@ -173,6 +188,7 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
             {
                 await _tracker.OnOptionTick(tick, CancellationToken.None);   // no-op unless it's the open Bank Nifty ORB option
                 await _ema.OnOptionTick(tick, CancellationToken.None);       // no-op unless it's an open Bank Nifty EMA leg
+                await _reversal.OnOptionTick(tick, CancellationToken.None);  // no-op unless it's the open Bank Nifty Reversal option
             }
         }
         catch (Exception ex)
@@ -192,6 +208,7 @@ public sealed class BankNiftyService : BackgroundService, IMarketFeedConsumer
                 _orb.HasRange ? $"{_orb.RangeLow:N2} - {_orb.RangeHigh:N2}" : "not captured yet");
             await _tracker.OnCandleClosedAsync(candle, CancellationToken.None);
             _orb.OnCandleClosed(candle);
+            await _reversal.OnFiveMinCandleAsync(candle, CancellationToken.None);
         }
         catch (Exception ex)
         {

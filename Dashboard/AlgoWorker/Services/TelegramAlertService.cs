@@ -222,40 +222,40 @@ public sealed class TelegramAlertService
     // ------------------------------------------------------------------
     private static string ReversalName(ReversalPosition p) => "REVERSAL · " + p.Signal.SetupName;
 
-    public Task SendReversalEntryAlertAsync(ReversalSignal signal, OptionInstrument instrument, decimal entryPremium, int lotSize, CancellationToken ct)
+    public Task SendReversalEntryAlertAsync(ReversalSignal signal, OptionInstrument instrument, decimal entryPremium, int lotSize, CancellationToken ct, string indexName = "Nifty")
     {
         var rr = signal.RiskPoints > 0 ? (double)(signal.RewardToT2Points / signal.RiskPoints) : 0;
         var text =
             $"🟢 <b>REVERSAL · {signal.SetupName}</b>\n" +
-            $"Nifty: <code>{Num(signal.EntrySpot, "N2")}</code> · {Time(signal.ConfirmedAtCandleTime)}\n" +
+            $"{indexName}: <code>{Num(signal.EntrySpot, "N2")}</code> · {Time(signal.ConfirmedAtCandleTime)}\n" +
             $"<b>BUY {instrument.Strike} {OptType(instrument)}</b> | Exp {Exp(instrument)}\n" +
             $"Entry <code>{Rs(entryPremium)}</code>\n" +
-            $"Nifty SL <code>{Num(signal.StopLossSpot, "N2")}</code> | T1 <code>{Num(signal.Target1Spot, "N2")}</code> | T2 <code>{Num(signal.Target2Spot, "N2")}</code>\n" +
+            $"{indexName} SL <code>{Num(signal.StopLossSpot, "N2")}</code> | T1 <code>{Num(signal.Target1Spot, "N2")}</code> | T2 <code>{Num(signal.Target2Spot, "N2")}</code>\n" +
             $"Risk {Num(signal.RiskPoints, "N0")} pts | R:R 1:{rr.ToString("0.0", Inv)} (to T2)\n" +
             $"Intraday only | 📝 Virtual";
         return SendAsync(text, ct);
     }
 
-    public Task SendReversalTarget1Async(ReversalPosition p, CancellationToken ct) =>
+    public Task SendReversalTarget1Async(ReversalPosition p, CancellationToken ct, string indexName = "Nifty") =>
         SendAsync(
             $"🎯 <b>{ReversalName(p)}</b> · T1 hit\n" +
-            $"Nifty <code>{Num(p.LastSpot, "N2")}</code> ≥ T1 <code>{Num(p.Signal.Target1Spot, "N2")}</code>\n" +
-            $"Stop-loss moved to cost: Nifty <code>{Num(p.StopLossSpot, "N2")}</code> | T2 <code>{Num(p.Signal.Target2Spot, "N2")}</code>", ct);
+            $"{indexName} <code>{Num(p.LastSpot, "N2")}</code> ≥ T1 <code>{Num(p.Signal.Target1Spot, "N2")}</code>\n" +
+            $"Stop-loss moved to cost: {indexName} <code>{Num(p.StopLossSpot, "N2")}</code> | T2 <code>{Num(p.Signal.Target2Spot, "N2")}</code>", ct);
 
-    public Task SendReversalPositionUpdateAsync(ReversalPosition p, CancellationToken ct) =>
+    public Task SendReversalPositionUpdateAsync(ReversalPosition p, CancellationToken ct, string indexName = "Nifty") =>
         SendAsync(
             $"<b>{ReversalName(p)}</b>\n" +
-            $"📊 Nifty <b>{p.Instrument.Strike} {OptType(p.Instrument)}</b> | Exp {Exp(p.Instrument)}\n" +
+            $"📊 {indexName} <b>{p.Instrument.Strike} {OptType(p.Instrument)}</b> | Exp {Exp(p.Instrument)}\n" +
             $"Entry at <code>{Rs(p.EntryPremium)}</code> → <code>{Rs(p.LastKnownPremium)}</code>\n" +
             $"{PnlEmoji(p.PnlRupees)} Profit/Loss: <b>{Pnl(p.PnlRupees, (decimal)p.PnlPercent)}</b>\n" +
-            $"Nifty <code>{Num(p.LastSpot, "N2")}</code> | SL <code>{Num(p.StopLossSpot, "N2")}</code>{(p.Target1Hit ? " (at cost)" : "")} | T2 <code>{Num(p.Signal.Target2Spot, "N2")}</code>\n" +
+            $"{indexName} <code>{Num(p.LastSpot, "N2")}</code> | SL <code>{Num(p.StopLossSpot, "N2")}</code>{(p.Target1Hit ? " (at cost)" : "")} | T2 <code>{Num(p.Signal.Target2Spot, "N2")}</code>\n" +
             $"Since {Time(p.OpenedAt)}", ct);
 
-    public Task SendReversalExitAlertAsync(ReversalPosition p, string reason, CancellationToken ct) =>
+    public Task SendReversalExitAlertAsync(ReversalPosition p, string reason, CancellationToken ct, string indexName = "Nifty") =>
         SendAsync(BuildExit(
             ReversalName(p), p.Instrument, reason,
             p.EntryPremium, p.LastKnownPremium,
-            p.PnlRupees, (decimal)p.PnlPercent, p.OpenedAt), ct);
+            p.PnlRupees, (decimal)p.PnlPercent, p.OpenedAt, indexName), ct);
 
     // ------------------------------------------------------------------
     // 3-Minute MACD strategy

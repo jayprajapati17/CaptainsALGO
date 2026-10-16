@@ -9,7 +9,7 @@ public static class ConfigurationSetup
 {
     /// <summary>
     /// appsettings.json, environment, user-secrets, then the DB-backed layer LAST so a value saved from the Dashboard's
-    /// Settings page overrides the same key in the files. NiftyBot:ConnectionString itself (and Instruments, Serilog)
+    /// Settings page overrides the same key in the files. NiftyBot:ConnectionString itself (and Serilog)
     /// stay in appsettings.json -- the DB address can't be read from the DB. Returns the DB source (null when no
     /// connection string is configured) so the reload endpoint can refresh it.
     /// </summary>

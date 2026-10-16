@@ -4,7 +4,7 @@ namespace AlgoWorker.Configuration;
 /// All tunable knobs for the EMA21/50 crossover strategy. Backed by the
 /// backtest documented in Nifty_EMA_Alert_Bot_Design.md, Section 3.5 / 3.5.1.
 /// </summary>
-public sealed class StrategyOptions : IEmaSettings
+public sealed class StrategyOptions : IEmaSettings, IReversalSettings
 {
     // >>> NEW: EMA strategy's periods and candle timeframe, now configurable
     // instead of hardcoded in IndicatorEngine.cs. The crossover (and the hard
@@ -46,10 +46,6 @@ public sealed class StrategyOptions : IEmaSettings
     /// <summary>Number of 15-min candles a crossover must hold before it's "confirmed" (default 4 = 1 hour).</summary>
     [Setting("EMA strategy", "Candles a crossover must hold before it is confirmed.")]
     public int ConfirmationBars { get; set; } = 4;
-
-    /// <summary>Require ADX(now) > ADX(N candles ago) at confirmation time for HIGH-CONFIDENCE long signals.</summary>
-    [Setting("EMA strategy")]
-    public bool AdxRisingFilter { get; set; } = true;
 
     /// <summary>Nifty 50 options lot size.</summary>
     [Setting("General", "Nifty lot size used by the EMA and Breakout strategies.")]

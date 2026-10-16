@@ -110,7 +110,8 @@ public sealed class NiftyBotDbContext : DbContext
             }
 
             e.HasIndex(c => c.ForTradingDay);
-            e.HasIndex(c => new { c.ForTradingDay, c.Label }).IsUnique();
+            e.Property(c => c.Underlying).HasMaxLength(20).IsRequired();
+            e.HasIndex(c => new { c.ForTradingDay, c.Label, c.Underlying }).IsUnique();
         });
 
         // ---- AccessTokens ----

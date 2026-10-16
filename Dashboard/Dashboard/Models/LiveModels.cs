@@ -37,9 +37,26 @@ public sealed class CprStrip
     public decimal Pivot { get; init; }
     public decimal Tc { get; init; }
     public decimal Bc { get; init; }
+    public decimal R1 { get; init; }
+    public decimal S1 { get; init; }
+    public decimal R2 { get; init; }
+    public decimal S2 { get; init; }
     public double WidthPercent { get; init; }
     public string Reading { get; init; } = string.Empty;
     public string BiasNote { get; init; } = string.Empty;
+
+    /// <summary>Reading without the explanation: "Narrow CPR -- Trending day likely..." -> "Narrow CPR".</summary>
+    public string ShortReading => Reading.Split(" --")[0];
+}
+
+/// <summary>One index's CPR for the Live page: today's range, and the range expected tomorrow (null until the after-close job has run).</summary>
+public sealed class CprPair
+{
+    public string Name { get; init; } = string.Empty;
+    /// <summary>Element-id / data key used by live.js to place the live-spot marker ("nifty" | "banknifty").</summary>
+    public string Key { get; init; } = string.Empty;
+    public CprStrip? Today { get; init; }
+    public CprStrip? Tomorrow { get; init; }
 }
 
 public sealed class LiveIndexViewModel
@@ -50,7 +67,8 @@ public sealed class LiveIndexViewModel
     /// <summary>Set when the Worker Service couldn't be reached for the initial load.</summary>
     public string? WorkerError { get; set; }
 
-    public CprStrip? Cpr { get; set; }
+    public CprPair NiftyCpr { get; set; } = new() { Name = "Nifty 50", Key = "nifty" };
+    public CprPair BankNiftyCpr { get; set; } = new() { Name = "Bank Nifty", Key = "banknifty" };
 
     /// <summary>Target (points above entry) shown as a marker on each position's gauge -- read from the AppSettings table.</summary>
     public double TargetPoints { get; set; } = 30;

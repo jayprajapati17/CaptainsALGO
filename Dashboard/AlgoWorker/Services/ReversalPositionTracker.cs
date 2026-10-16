@@ -23,12 +23,13 @@ public sealed class ReversalPositionTracker
     private readonly UpstoxRestClient _restClient;
     private readonly UpstoxWebSocketClient _webSocketClient;
     private readonly TelegramAlertService _telegram;
-    private readonly StrategyOptions _options;
+    private readonly IReversalSettings _options;
+    private readonly EmaTarget _target;   // index name / Underlying tag / Upstox key (shared record with the EMA tracker)
     private readonly IPositionRepository _positionRepository;
     private readonly ISignalLogRepository _signalLogRepository;
     private readonly IHubContext<PositionHub> _hub;
     private readonly IClock _clock;
-    private readonly ILogger<ReversalPositionTracker> _logger;
+    private readonly ILogger _logger;
 
     private ReversalPosition? _active;
 
@@ -38,17 +39,37 @@ public sealed class ReversalPositionTracker
         UpstoxWebSocketClient webSocketClient,
         TelegramAlertService telegram,
         IOptions<StrategyOptions> options,
+        IOptions<UpstoxOptions> upstox,
         IPositionRepository positionRepository,
         ISignalLogRepository signalLogRepository,
         IHubContext<PositionHub> hub,
         IClock clock,
         ILogger<ReversalPositionTracker> logger)
+        : this(instrumentResolver, restClient, webSocketClient, telegram, options.Value,
+               new EmaTarget("Nifty", SharedModels.Underlyings.Nifty50, upstox.Value.NiftyInstrumentKey),
+               positionRepository, signalLogRepository, hub, clock, logger)
+    { }
+
+    /// <summary>Generic form: the same Reversal position logic for any index (Bank Nifty builds its own instance).</summary>
+    public ReversalPositionTracker(
+        OptionInstrumentResolver instrumentResolver,
+        UpstoxRestClient restClient,
+        UpstoxWebSocketClient webSocketClient,
+        TelegramAlertService telegram,
+        IReversalSettings options,
+        EmaTarget target,
+        IPositionRepository positionRepository,
+        ISignalLogRepository signalLogRepository,
+        IHubContext<PositionHub> hub,
+        IClock clock,
+        ILogger logger)
     {
         _instrumentResolver = instrumentResolver;
         _restClient = restClient;
         _webSocketClient = webSocketClient;
         _telegram = telegram;
-        _options = options.Value;
+        _options = options;
+        _target = target;
         _positionRepository = positionRepository;
         _signalLogRepository = signalLogRepository;
         _hub = hub;
@@ -67,7 +88,7 @@ public sealed class ReversalPositionTracker
         }
 
         var today = DateOnly.FromDateTime(signal.ConfirmedAtCandleTime.Date);
-        var (opened, consecutiveLosses) = await _positionRepository.GetReversalDayStatsAsync(today, ct);
+        var (opened, consecutiveLosses) = await _positionRepository.GetReversalDayStatsAsync(today, ct, _target.Underlying);
         if (opened >= _options.ReversalMaxTradesPerDay)
         {
             await LogSignalAsync(signal, false, null, $"Daily limit of {_options.ReversalMaxTradesPerDay} reversal trades reached", ct);
@@ -79,10 +100,10 @@ public sealed class ReversalPositionTracker
             return;
         }
 
-        var instrument = await _instrumentResolver.ResolveCurrentWeekAtmAsync(signal.EntrySpot, OptionType.Call, today, ct);
+        var instrument = await _instrumentResolver.ResolveCurrentAtmAsync(_target.UnderlyingKey, signal.EntrySpot, OptionType.Call, _options.StrikeStepPoints, today, ct);
         if (instrument is null)
         {
-            await _telegram.SendWarningAsync($"Reversal ({signal.SetupName}) confirmed but could not resolve an ATM CE instrument. No position opened.", ct);
+            await _telegram.SendWarningAsync($"{_target.Name} Reversal ({signal.SetupName}) confirmed but could not resolve an ATM CE instrument. No position opened.", ct);
             await LogSignalAsync(signal, false, null, "Could not resolve an ATM option instrument", ct);
             return;
         }
@@ -118,13 +139,13 @@ public sealed class ReversalPositionTracker
         await LogSignalAsync(signal, dbId >= 0, dbId >= 0 ? dbId : null, dbId < 0 ? "Position DB write failed (see logs)" : null, ct);
 
         await _webSocketClient.SubscribeAsync(instrument.InstrumentKey, ct);
-        await _telegram.SendReversalEntryAlertAsync(signal, instrument, entryPremium, _options.LotSize, ct);
+        await _telegram.SendReversalEntryAlertAsync(signal, instrument, entryPremium, _options.LotSize, ct, _target.Name);
         await BroadcastAsync(_active, "Open", null, ct);
 
         _logger.LogInformation("Virtual reversal ({Setup}) position opened: {Symbol} @ {Premium}", signal.Setup, instrument.TradingSymbol, entryPremium);
     }
 
-    /// <summary>Nifty SPOT tick: this is where SL / T1 / T2 are evaluated (every tick).</summary>
+    /// <summary>Index SPOT tick: this is where SL / T1 / T2 are evaluated (every tick).</summary>
     public async Task OnSpotTick(decimal spot, CancellationToken ct)
     {
         if (_active is not { IsOpen: true } position) return;
@@ -133,15 +154,15 @@ public sealed class ReversalPositionTracker
         if (spot <= position.StopLossSpot)
         {
             var reason = position.Target1Hit
-                ? $"Stop-loss at cost hit (Nifty {position.StopLossSpot:N2}) after T1"
-                : $"Stop-loss hit (Nifty {position.StopLossSpot:N2})";
+                ? $"Stop-loss at cost hit ({_target.Name} {position.StopLossSpot:N2}) after T1"
+                : $"Stop-loss hit ({_target.Name} {position.StopLossSpot:N2})";
             await CloseAsync(position, reason, ct);
             return;
         }
 
         if (spot >= position.Signal.Target2Spot)
         {
-            await CloseAsync(position, $"Target 2 hit (Nifty {position.Signal.Target2Spot:N2})", ct);
+            await CloseAsync(position, $"Target 2 hit ({_target.Name} {position.Signal.Target2Spot:N2})", ct);
             return;
         }
 
@@ -150,7 +171,7 @@ public sealed class ReversalPositionTracker
             position.Target1Hit = true;
             position.StopLossSpot = Math.Max(position.StopLossSpot, position.Signal.EntrySpot);
             await _positionRepository.UpdateStopLossAsync(position.Id, null, position.StopLossSpot, ct);   // persist SL moved to cost
-            await _telegram.SendReversalTarget1Async(position, ct);
+            await _telegram.SendReversalTarget1Async(position, ct, _target.Name);
             await BroadcastAsync(position, "Open", null, ct);
         }
     }
@@ -183,7 +204,7 @@ public sealed class ReversalPositionTracker
 
         if (DateTimeOffset.UtcNow - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
         {
-            await _telegram.SendReversalPositionUpdateAsync(position, ct);
+            await _telegram.SendReversalPositionUpdateAsync(position, ct, _target.Name);
             await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
             await BroadcastAsync(position, "Open", null, ct);
             position.LastUpdateSentAt = DateTimeOffset.UtcNow;
@@ -195,7 +216,7 @@ public sealed class ReversalPositionTracker
         if (!position.IsOpen) return;
         position.IsOpen = false;
         var exitTime = DateTimeOffset.UtcNow;
-        await _telegram.SendReversalExitAlertAsync(position, reason, ct);
+        await _telegram.SendReversalExitAlertAsync(position, reason, ct, _target.Name);
         await _webSocketClient.UnsubscribeAsync(position.Instrument.InstrumentKey, ct);
         await _positionRepository.CloseAsync(position.Id, position.LastKnownPremium, exitTime, reason, position.PnlRupees, position.PnlPercent, ct);
         await BroadcastAsync(position, "Closed", reason, ct);
@@ -225,7 +246,7 @@ public sealed class ReversalPositionTracker
         return new[] { ToDto(position, "Open", null) };
     }
 
-    private static PositionUpdateDto ToDto(ReversalPosition p, string status, string? exitReason) => new(
+    private PositionUpdateDto ToDto(ReversalPosition p, string status, string? exitReason) => new(
         PositionId: p.Id,
         Strategy: "Reversal",
         Direction: "Bullish",
@@ -243,7 +264,8 @@ public sealed class ReversalPositionTracker
         ExitReason: exitReason,
         StopLossPremium: 0m,                   // Reversal SL is a Nifty spot level, not a premium
         StopLossSpot: p.StopLossSpot,
-        StopLossTrailing: p.Target1Hit);
+        StopLossTrailing: p.Target1Hit,
+        Underlying: _target.Underlying);
 
     private async Task BroadcastAsync(ReversalPosition position, string status, string? exitReason, CancellationToken ct)
     {
@@ -253,6 +275,7 @@ public sealed class ReversalPositionTracker
     private SharedModels.PositionEntity ToEntity(ReversalPosition position, decimal entryPremium) => new()
     {
         Strategy = SharedModels.StrategyType.Reversal,
+        Underlying = _target.Underlying,
         Direction = "Bullish",
         Leg = null,
         InstrumentKey = position.Instrument.InstrumentKey,
@@ -277,6 +300,7 @@ public sealed class ReversalPositionTracker
         var entry = new SharedModels.SignalLogEntity
         {
             Strategy = SharedModels.StrategyType.Reversal,
+            Underlying = _target.Underlying,
             Direction = "Bullish",
             SignalTime = signal.ConfirmedAtCandleTime,
             SpotPrice = signal.EntrySpot,

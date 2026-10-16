@@ -134,6 +134,8 @@ public static class SettingsUi
             new[] { ("Max trades / day", "BankNifty:BreakoutMaxTradesPerDay", ""), ("Force exit", "BankNifty:BreakoutForceExitTime", ""), ("Lot size", "BankNifty:LotSize", "") }),
         new("bnema", "EMA 21/50 + ADX",       "BANK NIFTY · 15 MIN", "bn", "BankNifty:EmaStrategyEnabled",
             new[] { ("Candle", "BankNifty:EmaCandleMinutes", " min"), ("Confirmation bars", "BankNifty:ConfirmationBars", ""), ("Lot size", "BankNifty:LotSize", "") }),
+        new("bnrev", "Upside Reversal",       "BANK NIFTY · 5 MIN", "bn", "BankNifty:ReversalStrategyEnabled",
+            new[] { ("Entries from", "BankNifty:ReversalEarliestEntryTime", ""), ("Entries until", "BankNifty:ReversalLastEntryTime", ""), ("Max trades / day", "BankNifty:ReversalMaxTradesPerDay", "") }),
         new("bnw",  "Bank Nifty worker",      "BANK NIFTY · WORKER", "bn", "BankNifty:Enabled",
             new[] { ("Session start", "BankNifty:SessionStartTime", ""), ("Session end", "BankNifty:SessionEndTime", ""), ("Strike step", "BankNifty:StrikeStepPoints", "") })
     };

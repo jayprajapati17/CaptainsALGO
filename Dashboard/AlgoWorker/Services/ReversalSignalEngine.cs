@@ -21,8 +21,8 @@ public sealed class ReversalSignalEngine
     private const int MinGapBetweenBottoms = 6; // candles (30 min)
     private static readonly TimeSpan CandleLength = TimeSpan.FromMinutes(5);
 
-    private readonly StrategyOptions _o;
-    private readonly ILogger<ReversalSignalEngine> _logger;
+    private readonly IReversalSettings _o;
+    private readonly ILogger _logger;
 
     private readonly List<Candle> _c = new();
     private readonly List<double> _ema21 = new();
@@ -47,9 +47,12 @@ public sealed class ReversalSignalEngine
         public int Waited, HigherLows;
     }
 
-    public ReversalSignalEngine(IOptions<StrategyOptions> options, ILogger<ReversalSignalEngine> logger)
+    public ReversalSignalEngine(IOptions<StrategyOptions> options, ILogger<ReversalSignalEngine> logger) : this(options.Value, (ILogger)logger) { }
+
+    /// <summary>Generic form: the same engine for any index (Bank Nifty builds its own instance from its own settings).</summary>
+    public ReversalSignalEngine(IReversalSettings options, ILogger logger)
     {
-        _o = options.Value;
+        _o = options;
         _logger = logger;
         _fast = new EmaCalculator(Math.Max(2, _o.ReversalEmaFastPeriod));
         _slow = new EmaCalculator(Math.Max(2, _o.ReversalEmaSlowPeriod));

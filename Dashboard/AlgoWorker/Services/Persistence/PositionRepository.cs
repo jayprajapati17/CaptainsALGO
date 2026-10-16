@@ -53,7 +53,7 @@ public sealed class PositionRepository : IPositionRepository
         }
     }
 
-    public async Task<(int Opened, int ConsecutiveLosses)> GetReversalDayStatsAsync(DateOnly day, CancellationToken ct)
+    public async Task<(int Opened, int ConsecutiveLosses)> GetReversalDayStatsAsync(DateOnly day, CancellationToken ct, string underlying = Underlyings.Nifty50)
     {
         try
         {
@@ -61,7 +61,7 @@ public sealed class PositionRepository : IPositionRepository
             var start = AlgoData.Models.MarketTime.StartOfDay(day);
             var end = start.AddDays(1);
             var rows = await db.Positions.AsNoTracking()
-                .Where(p => p.Underlying == Underlyings.Nifty50 && p.Strategy == StrategyType.Reversal && p.EntryTime >= start && p.EntryTime < end)
+                .Where(p => p.Underlying == underlying && p.Strategy == StrategyType.Reversal && p.EntryTime >= start && p.EntryTime < end)
                 .OrderByDescending(p => p.EntryTime)
                 .Select(p => new { p.Status, p.FinalPnlRupees })
                 .ToListAsync(ct);

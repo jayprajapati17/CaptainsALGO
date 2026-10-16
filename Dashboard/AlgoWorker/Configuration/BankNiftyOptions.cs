@@ -5,7 +5,7 @@ namespace AlgoWorker.Configuration;
 /// every public get/set property of type string/int/double/bool becomes an AppSettings row).
 /// The ORB strategy follows the same rules as Nifty's (current-expiry ATM, trailing SL, force-exit time, max trades/day).
 /// </summary>
-public sealed class BankNiftyOptions : IEmaSettings
+public sealed class BankNiftyOptions : IEmaSettings, IReversalSettings
 {
     public const string SectionName = "BankNifty";
 
@@ -53,8 +53,6 @@ public sealed class BankNiftyOptions : IEmaSettings
     [Setting("EMA strategy", "Candles a crossover must hold before it is confirmed.")]
     public int ConfirmationBars { get; set; } = 4;
     [Setting("EMA strategy")]
-    public bool AdxRisingFilter { get; set; } = true;
-    [Setting("EMA strategy")]
     public bool AlertBothSides { get; set; } = true;
     [Setting("EMA strategy")]
     public double AdxFlatThresholdPoints { get; set; } = 1.0;
@@ -68,6 +66,46 @@ public sealed class BankNiftyOptions : IEmaSettings
     public int SeedLookbackTradingDays { get; set; } = 20;
     [Setting("EMA strategy", "How many strikes in-the-money the EMA current-week leg is.")]
     public int ItmStrikeDepth { get; set; } = 2;
+
+    // ---- Upside Reversal strategy (same rules and key names as Nifty's; point values scaled for Bank Nifty, ~2.4x) ----
+    [Setting("Upside Reversal strategy", "Turn the Upside Reversal strategy on/off.")]
+    public bool ReversalStrategyEnabled { get; set; } = true;
+    [Setting("Upside Reversal strategy", "Setup A: Double Bottom.")]
+    public bool ReversalSetupAEnabled { get; set; } = true;
+    [Setting("Upside Reversal strategy", "Setup C: Liquidity Sweep + confirmation window.")]
+    public bool ReversalSetupCEnabled { get; set; } = true;
+    [Setting("Upside Reversal strategy", "No reversal entries before this time (HH:mm, IST).")]
+    public string ReversalEarliestEntryTime { get; set; } = "09:30";
+    [Setting("Upside Reversal strategy", "No new reversal entries after this time (HH:mm, IST).")]
+    public string ReversalLastEntryTime { get; set; } = "14:45";
+    [Setting("Upside Reversal strategy", "Open Reversal positions are force-closed at this time (HH:mm, IST).")]
+    public string ReversalForceExitTime { get; set; } = "15:20";
+    [Setting("Upside Reversal strategy", "Fast EMA period on the 5-min chart (price must be below it for a setup).", RestartRequired = true)]
+    public int ReversalEmaFastPeriod { get; set; } = 21;
+    [Setting("Upside Reversal strategy", "Slow EMA period on the 5-min chart (used by the down-trend-day filter).", RestartRequired = true)]
+    public int ReversalEmaSlowPeriod { get; set; } = 50;
+    [Setting("Upside Reversal strategy", "Previous trading days of 5-min candles replayed at startup.", RestartRequired = true)]
+    public int ReversalSeedLookbackTradingDays { get; set; } = 2;
+    [Setting("Upside Reversal strategy", "Setup A: second low must be within +/- this many points of the first low.")]
+    public double ReversalDoubleBottomTolerancePoints { get; set; } = 24.0;
+    [Setting("Upside Reversal strategy", "Setup A: minimum bounce (points) between the two lows.")]
+    public double ReversalMinBouncePoints { get; set; } = 72.0;
+    [Setting("Upside Reversal strategy", "Setup C: maximum candles to wait for confirmation (3-4 suggested).")]
+    public int ReversalConfirmCandles { get; set; } = 4;
+    [Setting("Upside Reversal strategy", "Setup C: minimum candles in the window with a low above the sweep low.")]
+    public int ReversalMinHigherLows { get; set; } = 1;
+    [Setting("Upside Reversal strategy", "Stop-loss buffer in index points below the setup low.")]
+    public double ReversalSlBufferPoints { get; set; } = 17.0;
+    [Setting("Upside Reversal strategy", "Minimum reward:risk to T2. Setups below this are skipped.")]
+    public double ReversalMinRiskReward { get; set; } = 2.0;
+    [Setting("Upside Reversal strategy", "Setup low must be within this many index points of the previous-day low or today's low.")]
+    public double ReversalSupportTolerancePoints { get; set; } = 60.0;
+    [Setting("Upside Reversal strategy", "Skip when EMA fast < EMA slow and the index is this % below today's open (strong down-trend day). 0 = filter off.")]
+    public double ReversalTrendDownPercent { get; set; } = 0.75;
+    [Setting("Upside Reversal strategy", "Maximum Reversal trades opened per day.")]
+    public int ReversalMaxTradesPerDay { get; set; } = 3;
+    [Setting("Upside Reversal strategy", "No more Reversal trades for the day after this many consecutive losses.")]
+    public int ReversalMaxConsecutiveLosses { get; set; } = 2;
 
     // ---- Trailing stop-loss (premium points) ----
     // Before the target: SL = Entry - InitialRisk + StepSl x floor(gained / Step)

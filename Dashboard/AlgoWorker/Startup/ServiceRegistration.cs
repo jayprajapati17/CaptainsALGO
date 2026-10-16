@@ -21,11 +21,6 @@ public static class ServiceRegistration
         services.Configure<TelegramOptions>(config.GetSection(TelegramOptions.SectionName));
         services.Configure<StrategyOptions>(config.GetSection(StrategyOptions.SectionName));
         services.Configure<BankNiftyOptions>(config.GetSection(BankNiftyOptions.SectionName));
-
-        // Root-level "Instruments" array: config-only so far, not consumed by the live pipeline yet.
-        services.Configure<List<InstrumentDefinition>>(config.GetSection("Instruments"));
-        services.AddSingleton<InstrumentRegistry>();
-        services.AddSingleton<CapitalBasedStrikeSelector>();
         return services;
     }
 
@@ -88,6 +83,7 @@ public static class ServiceRegistration
         services.AddSingleton<MacdHistoricalSeederService>();
 
         services.AddSingleton<CprAnalysisService>();
+        services.AddHostedService<CprPublisherService>();   // today's + tomorrow's CPR for Nifty and Bank Nifty -> DailyCpr table
 
         services.AddHostedService<Worker>();
         return services;
@@ -101,6 +97,7 @@ public static class ServiceRegistration
         services.AddSingleton<BankNiftyAlertService>();
         services.AddSingleton<OpeningRangeSeederService>();
         services.AddSingleton<BankNiftyPositionTracker>();
+        services.AddSingleton<BankNiftyReversalPipeline>();   // Upside Reversal on Bank Nifty (same strategy classes as Nifty)
         services.AddSingleton<BankNiftyEmaPipeline>();   // EMA21/50 + ADX strategy on Bank Nifty (same strategy classes as Nifty)
 
         // One instance, seen both as the background service and as a consumer of the shared feed.

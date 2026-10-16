@@ -10,14 +10,12 @@
      data-initial-risk="@Model.InitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
      data-target-points="@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
      data-bn-initial-risk="@Model.BnInitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     data-bn-target-points="@Model.BnTargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     data-cpr-bc="@(Model.Cpr is { } c0 ? c0.Bc.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")"
-     data-cpr-tc="@(Model.Cpr is { } c1 ? c1.Tc.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")">
+     data-bn-target-points="@Model.BnTargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)">
 
     <header class="ct-head">
         <div>
-            <div class="ct-eyebrow">@AlgoData.Models.MarketTime.Today.ToString("ddd, dd MMM yyyy")</div>
-            <h1 class="ct-title">Live desk</h1>
+            <div class="ct-eyebrow">@AlgoData.Models.MarketTime.Today.ToString("ddd, dd MMM yyyy")<span class="ct-clock" id="liveClock"></span></div>
+            <h1 class="ct-title">Dashboard</h1>
         </div>
         <div class="ct-pill" id="hubPill">
             <span class="status-dot status-connecting" id="hubDot"></span>
@@ -30,67 +28,37 @@
         <div class="alert alert-warning py-2 mb-0" role="alert">@Model.WorkerError</div>
     }
 
-    @* ---------- Market band ---------- *@
-    <section class="ct-grid">
-        <div class="ct-card ct-stat ct-stat-pair">
-            <div class="ct-spot-row">
-                <span class="ct-stat-label">Nifty 50</span>
-                <span class="ct-stat-value" id="niftySpot">--</span>
-                <span class="ct-stat-sub">Live spot</span>
-            </div>
-            <div class="ct-spot-row">
-                <span class="ct-stat-label">Bank Nifty</span>
-                <span class="ct-stat-value" id="bankNiftySpot">--</span>
-                <span class="ct-stat-sub" id="bankNiftySpotSub">Waiting for the first tick&hellip;</span>
-            </div>
-        </div>
+    @* ---------- Market band: one card per index (live spot + CPR ranges) and the running P&L ---------- *@
+    <section class="live-band">
+        <partial name="_IndexCard" model="Model.NiftyCpr" />
+        <partial name="_IndexCard" model="Model.BankNiftyCpr" />
 
-        <div class="ct-card ct-stat" style="gap:14px">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="ct-stat-label">
-                    @(Model.Cpr is { IsForToday: false } ? "CPR (" + Model.Cpr.ForTradingDay.ToString("dd MMM") + ")" : "Today's CPR")
-                </span>
-                @if (Model.Cpr is { } cprBadge)
-                {
-                    <span class="cpr-badge" title="@cprBadge.BiasNote">@cprBadge.Reading &middot; @cprBadge.WidthPercent.ToString("0.00")%</span>
-                }
-            </div>
-            @if (Model.Cpr is { } cpr)
-            {
-                <div class="cpr-bar" id="cprBar">
-                    <div class="cpr-track"></div>
-                    <div class="cpr-range" id="cprRange" style="left:30%;width:40%"></div>
-                    <div class="cpr-spot d-none" id="cprSpot"></div>
-                </div>
-                <div class="cpr-levels">
-                    <span title="Bottom central">BC @cpr.Bc.ToString("N2")</span>
-                    <span title="Pivot">P @cpr.Pivot.ToString("N2")</span>
-                    <span title="Top central">TC @cpr.Tc.ToString("N2")</span>
-                </div>
-            }
-            else
-            {
-                <span class="ct-sub">Not available yet</span>
-            }
-        </div>
-
-        <div class="ct-card ct-stat ct-stat-accent">
-            <span class="ct-stat-label">Open P&amp;L</span>
-            <span class="ct-stat-value" id="totalPnl">&#8377;0.00</span>
-            <span class="ct-stat-sub"><span id="openCount">0</span> open positions &middot; 1 lot each</span>
-        </div>
     </section>
 
     @* ---------- Positions ---------- *@
     <section class="d-flex flex-column gap-3">
         <div class="ct-toolbar">
-            <h2 class="ct-section-title">Open positions</h2>
+            <div class="d-flex flex-column gap-1">
+                <h2 class="ct-section-title">Open positions</h2>
+                <div class="gauge-legend">
+                    <span><i style="background:var(--loss)"></i>Stop-loss</span>
+                    <span><i style="background:var(--ink)"></i>Entry</span>
+                    <span><i style="background:var(--amber)"></i>Target (+<span id="targetLegend">@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)</span>)</span>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-3">
+            <div class="pnl-pill pnl-up" id="pnlPill" title="Combined P&amp;L of all open positions">
+                <span class="pnl-pill-label">Open P&amp;L</span>
+                <span class="pnl-pill-value" id="totalPnl">&#8377;0.00</span>
+                <span class="pnl-pill-sub"><span id="openCount">0</span> open &middot; 1 lot each</span>
+            </div>
             <div class="chip-group" id="strategyFilter">
                 <a href="#" class="chip chip-active" data-filter="all">All</a>
                 <a href="#" class="chip" data-filter="Ema">EMA</a>
                 <a href="#" class="chip" data-filter="Breakout">Breakout</a>
                 <a href="#" class="chip" data-filter="Macd">MACD</a>
                 <a href="#" class="chip" data-filter="Reversal">Reversal</a>
+            </div>
             </div>
         </div>
 
@@ -114,11 +82,6 @@
             </table>
         </div>
 
-        <div class="gauge-legend">
-            <span><i style="background:var(--loss)"></i>Stop-loss</span>
-            <span><i style="background:var(--ink)"></i>Entry</span>
-            <span><i style="background:var(--amber)"></i>Target (+<span id="targetLegend">@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)</span>)</span>
-        </div>
     </section>
 </div>
 

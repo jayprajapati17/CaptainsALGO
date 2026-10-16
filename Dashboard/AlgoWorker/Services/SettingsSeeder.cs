@@ -36,13 +36,19 @@ BEGIN
 END";
 
     /// <summary>Bank Nifty keys that were removed or renamed when the ORB was aligned with the Nifty ORB.</summary>
-    private static readonly string[] ObsoleteKeys =
+    private static readonly string[] ObsoleteBankNiftyKeys =
     {
         "EntryStartTime", "EntryEndTime", "ForceExitTime", "MaxDaysToExpiry",
         "TargetPremium", "ExpiryDayTargetPremium", "TargetPremiumTolerance", "MaxPremium", "MinPremium", "StrikeSearchRangePoints",
         "MaxTradesPerDay", "MaxConsecutiveLosses", "WeeklyLossLimitRupees",
         "OrbStrategyEnabled", "OrbMinRangePercent", "OrbMaxRangePercent", "OrbStructureExitEnabled"
     };
+
+    /// <summary>Every "Section:Key" whose AppSettings row is deleted at startup because the setting no longer exists.</summary>
+    private static readonly string[] ObsoleteRows = ObsoleteBankNiftyKeys
+        .Select(k => BankNiftyOptions.SectionName + ":" + k)
+        .Concat(new[] { "Strategy:AdxRisingFilter", "BankNifty:AdxRisingFilter" })   // never read by any strategy code
+        .ToArray();
 
     /// <summary>The (section name, live options instance) pairs that make up the Settings page, in display order.</summary>
     public static IReadOnlyList<(string Section, object Options)> Sections(
@@ -67,18 +73,16 @@ END";
             .ToListAsync(ct);
         var known = new HashSet<string>(existing, StringComparer.OrdinalIgnoreCase);
 
-        // Rows left behind by settings that no longer exist (the Bank Nifty ORB now follows the Nifty rules): remove them
-        // so the Settings page doesn't show controls that do nothing.
-        var obsolete = ObsoleteKeys.Select(k => BankNiftyOptions.SectionName + ":" + k).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var stale = await db.AppSettings
-            .Where(a => a.Section == BankNiftyOptions.SectionName)
-            .ToListAsync(ct);
-        stale = stale.Where(a => obsolete.Contains(a.Section + ":" + a.Key)).ToList();
+        // Rows left behind by settings that no longer exist (the Bank Nifty ORB now follows the Nifty rules, AdxRisingFilter was
+        // removed): delete them so the Settings page doesn't show controls that do nothing.
+        var obsolete = ObsoleteRows.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var stale = (await db.AppSettings.ToListAsync(ct))
+            .Where(a => obsolete.Contains(a.Section + ":" + a.Key)).ToList();
         if (stale.Count > 0)
         {
             db.AppSettings.RemoveRange(stale);
             await db.SaveChangesAsync(ct);
-            logger.LogInformation("Settings: removed {Count} obsolete Bank Nifty row(s).", stale.Count);
+            logger.LogInformation("Settings: removed {Count} obsolete row(s).", stale.Count);
         }
 
         var added = 0;

@@ -36,8 +36,6 @@ public sealed class Worker : BackgroundService
     private readonly MacdSignalEngine _macdSignalEngine;
     private readonly MacdPositionTracker _macdPositionTracker;
     private readonly MacdHistoricalSeederService _macdSeeder;
-    private readonly CprAnalysisService _cprAnalysisService;
-    private readonly AlgoWorker.Services.Persistence.ICprRepository _cprRepository;
     // >>> NEW (Task 8): used to push the live Nifty spot to the Dashboard header.
     private readonly IHubContext<PositionHub> _hub;
     private DateTimeOffset _lastSpotBroadcast = DateTimeOffset.MinValue;
@@ -69,8 +67,6 @@ public sealed class Worker : BackgroundService
         MacdSignalEngine macdSignalEngine,
         MacdPositionTracker macdPositionTracker,
         MacdHistoricalSeederService macdSeeder,
-        CprAnalysisService cprAnalysisService,
-        AlgoWorker.Services.Persistence.ICprRepository cprRepository,
         IHubContext<PositionHub> hub,
         IOptions<UpstoxOptions> upstoxOptions,
         IEnumerable<IMarketFeedConsumer> feedConsumers,
@@ -97,8 +93,6 @@ public sealed class Worker : BackgroundService
         _macdSignalEngine = macdSignalEngine;
         _macdPositionTracker = macdPositionTracker;
         _macdSeeder = macdSeeder;
-        _cprAnalysisService = cprAnalysisService;
-        _cprRepository = cprRepository;
         _hub = hub;
         _upstoxOptions = upstoxOptions.Value;
         _feedConsumers = feedConsumers;
@@ -234,47 +228,7 @@ public sealed class Worker : BackgroundService
         // shape as the EMA/MACD seeders), similar to how BreakoutSignalEngine's
         // own IsSeeding/ConsumeCatchUpSignal are already built to support it.
 
-        // >>> NEW (per your request): compute + save TODAY's CPR (Central Pivot Range),
-        // derived from YESTERDAY's completed High/Low/Close. This is what the Live
-        // page's header strip reads (Task 8's CprStrip) -- previously nothing ever
-        // called CprAnalysisService, so this table stayed empty and the strip always
-        // showed "Not available yet". Non-fatal on failure -- Telegram/trading logic
-        // is unaffected either way.
-        try
-        {
-            var prevDay = await _restClient.GetPreviousTradingDayOhlcAsync(_upstoxOptions.NiftyInstrumentKey, ct);
-            if (prevDay is { } p)
-            {
-                var levels = _cprAnalysisService.Compute(p.High, p.Low, p.Close, forTradingDay: today);
-                await _cprRepository.SaveAsync(new AlgoData.Models.DailyCprEntity
-                {
-                    ForTradingDay = levels.ForTradingDay,
-                    Label = AlgoData.Models.CprLabel.TodaysCpr,
-                    SourceHigh = levels.SourceHigh,
-                    SourceLow = levels.SourceLow,
-                    SourceClose = levels.SourceClose,
-                    CPRPivot = levels.Pivot,
-                    Tc = levels.Tc,
-                    Bc = levels.Bc,
-                    R1 = levels.R1,
-                    S1 = levels.S1,
-                    R2 = levels.R2,
-                    S2 = levels.S2,
-                    WidthPercent = levels.WidthPercent,
-                    Reading = levels.Reading,
-                    BiasNote = levels.BiasNote,
-                    ComputedAt = DateTimeOffset.UtcNow
-                }, ct);
-            }
-            else
-            {
-                _logger.LogWarning("Could not fetch previous trading day's OHLC -- Today's CPR not computed.");
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to compute/save Today's CPR.");
-        }
+        // (Today's / tomorrow's CPR for Nifty and Bank Nifty is published by CprPublisherService.)
 
         _seededToday = true;
         _lastSeededDate = today;

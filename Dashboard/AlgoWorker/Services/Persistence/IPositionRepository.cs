@@ -21,7 +21,7 @@ public interface IPositionRepository
     Task<int> CountBreakoutTradesOpenedOnAsync(DateOnly day, CancellationToken ct);
 
     /// <summary>For the Reversal strategy's daily risk rules: trades opened on the given local day and the current run of consecutive losing closed trades (most recent first).</summary>
-    Task<(int Opened, int ConsecutiveLosses)> GetReversalDayStatsAsync(DateOnly day, CancellationToken ct);
+    Task<(int Opened, int ConsecutiveLosses)> GetReversalDayStatsAsync(DateOnly day, CancellationToken ct, string underlying = AlgoData.Models.Underlyings.Nifty50);
 
     /// <summary>Persists the position's current (trailing) stop-loss. Pass null for the kind that doesn't apply (premium for Reversal, spot for the others).</summary>
     Task UpdateStopLossAsync(int positionId, decimal? stopLossPremium, decimal? stopLossSpot, CancellationToken ct);

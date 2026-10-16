@@ -49,7 +49,8 @@ public sealed class LiveController : Controller
             vm.WorkerError = $"Worker Service ({_workerEndpoints.BaseUrl}) is unreachable -- open positions could not be loaded. Is the Worker running?";
         }
 
-        vm.Cpr = await LoadCprAsync(ct);
+        vm.NiftyCpr = await LoadCprAsync("Nifty 50", "nifty", AlgoData.Models.Underlyings.Nifty50, ct);
+        vm.BankNiftyCpr = await LoadCprAsync("Bank Nifty", "banknifty", AlgoData.Models.Underlyings.BankNifty, ct);
         vm.TargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 30, ct);
         vm.InitialRiskPoints = await LoadStrategyNumberAsync("TrailingInitialRiskPoints", 15, ct);
         vm.BnTargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 50, ct, "BankNifty");
@@ -125,48 +126,50 @@ public sealed class LiveController : Controller
     }
 
     /// <summary>
-    /// Today's CPR from the DailyCpr table. Prefers a row whose ForTradingDay is today
-    /// (morning "TodaysCpr", else the previous evening's "NextDayCpr"); otherwise falls back to
-    /// the most recent one, flagged as not-for-today. Null if the table is empty or the DB is unreachable.
+    /// One index's CPR from the DailyCpr table. TODAY: the row for today (morning "TodaysCpr", else the previous evening's "NextDayCpr"),
+    /// otherwise the most recent earlier one (flagged IsForToday = false). TOMORROW: the latest "NextDayCpr" for a day after today
+    /// (written after the close). Either part is null when there is nothing yet or the DB is unreachable.
     /// </summary>
-    private async Task<CprStrip?> LoadCprAsync(CancellationToken ct)
+    private async Task<CprPair> LoadCprAsync(string name, string key, string underlying, CancellationToken ct)
     {
         try
         {
             var today = AlgoData.Models.MarketTime.Today;
-
-            var todaysRows = await _db.DailyCprs.AsNoTracking()
-                .Where(c => c.ForTradingDay == today)
+            var rows = await _db.DailyCprs.AsNoTracking()
+                .Where(c => c.Underlying == underlying && c.ForTradingDay >= today.AddDays(-10))
                 .ToListAsync(ct);
 
             // Label is stored as text in the DB, so pick in memory rather than ordering by it.
-            var forToday = todaysRows.FirstOrDefault(c => c.Label == CprLabel.TodaysCpr)
-                           ?? todaysRows.FirstOrDefault();
+            var todayRows = rows.Where(c => c.ForTradingDay == today).ToList();
+            var todayRow = todayRows.FirstOrDefault(c => c.Label == CprLabel.TodaysCpr)
+                           ?? todayRows.FirstOrDefault()
+                           ?? rows.Where(c => c.ForTradingDay < today).OrderByDescending(c => c.ForTradingDay).FirstOrDefault();
 
-            var row = forToday ?? await _db.DailyCprs.AsNoTracking()
-                .Where(c => c.ForTradingDay < today)
-                .OrderByDescending(c => c.ForTradingDay)
-                .FirstOrDefaultAsync(ct);
+            var tomorrowRow = rows.Where(c => c.Label == CprLabel.NextDayCpr && c.ForTradingDay > today)
+                .OrderByDescending(c => c.ForTradingDay).FirstOrDefault();
 
-            if (row is null)
-                return null;
-
-            return new CprStrip
-            {
-                ForTradingDay = row.ForTradingDay,
-                IsForToday = row.ForTradingDay == today,
-                Pivot = row.CPRPivot,
-                Tc = row.Tc,
-                Bc = row.Bc,
-                WidthPercent = row.WidthPercent,
-                Reading = row.Reading,
-                BiasNote = row.BiasNote
-            };
+            return new CprPair { Name = name, Key = key, Today = ToStrip(todayRow, today), Tomorrow = ToStrip(tomorrowRow, today) };
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Could not load CPR for the Live page header.");
-            return null;
+            _logger.LogWarning(ex, "Could not load {Index} CPR for the Live page.", name);
+            return new CprPair { Name = name, Key = key };
         }
     }
+
+    private static CprStrip? ToStrip(DailyCprEntity? row, DateOnly today) => row is null ? null : new CprStrip
+    {
+        ForTradingDay = row.ForTradingDay,
+        IsForToday = row.ForTradingDay == today,
+        Pivot = row.CPRPivot,
+        Tc = row.Tc,
+        Bc = row.Bc,
+        R1 = row.R1,
+        S1 = row.S1,
+        R2 = row.R2,
+        S2 = row.S2,
+        WidthPercent = row.WidthPercent,
+        Reading = row.Reading,
+        BiasNote = row.BiasNote
+    };
 }

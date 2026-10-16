@@ -14,8 +14,6 @@
     const spotEl = document.getElementById('niftySpot');
     const hubDot = document.getElementById('hubDot');
     const hubStatus = document.getElementById('hubStatus');
-    const cprRange = document.getElementById('cprRange');
-    const cprSpot = document.getElementById('cprSpot');
     const filterBar = document.getElementById('strategyFilter');
 
     const hubUrl = root.dataset.hubUrl;
@@ -26,8 +24,6 @@
     const nifTargetPoints = parseFloat(root.dataset.targetPoints) || 30;
     const bnInitialRisk = parseFloat(root.dataset.bnInitialRisk) || 30;
     const bnTargetPoints = parseFloat(root.dataset.bnTargetPoints) || 50;
-    const cprBc = parseFloat(root.dataset.cprBc);
-    const cprTc = parseFloat(root.dataset.cprTc);
 
     const inr = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const STRATEGY_LABELS = { Ema: 'EMA', Breakout: 'Breakout', Macd: 'MACD', Reversal: 'Reversal' };
@@ -182,6 +178,8 @@
 
         const total = live.reduce((sum, c) => sum + (Number(c.dto.pnlRupees) || 0), 0);
         totalPnlEl.textContent = fmtMoney(total);
+        const pill = document.getElementById('pnlPill');
+        if (pill) { pill.classList.toggle('pnl-up', total >= 0); pill.classList.toggle('pnl-down', total < 0); }
 
         emptyState.classList.toggle('d-none', cards.size > 0);
         tableWrap.classList.toggle('d-none', cards.size === 0);
@@ -255,16 +253,14 @@
         applyFilter();
     });
 
-    // ---- CPR range + live spot marker ----
-    const hasCpr = Number.isFinite(cprBc) && Number.isFinite(cprTc) && cprTc > cprBc;
-
-    function updateCprSpot(price) {
-        if (!hasCpr || !cprSpot) return;
-        // BC..TC occupies the middle 40% of the bar; the spot can wander outside it.
-        const pct = 30 + ((price - cprBc) / (cprTc - cprBc)) * 40;
-        cprSpot.style.left = Math.min(98, Math.max(1, pct)) + '%';
-        cprSpot.classList.remove('d-none');
+    // ---- Live clock next to the date (IST, ticks every second) ----
+    const clockEl = document.getElementById('liveClock');
+    function tickClock() {
+        if (!clockEl) return;
+        clockEl.textContent = ' \u00b7 ' + new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).toUpperCase() + ' IST';
     }
+    tickClock();
+    setInterval(tickClock, 1000);
 
     // ---- Exit button ----
     grid.addEventListener('click', async ev => {
@@ -323,7 +319,6 @@
             return;
         }
         spotEl.textContent = inr.format(d.price);
-        updateCprSpot(d.price);
     });
 
 
@@ -346,7 +341,6 @@
     }
 
     // ---- Boot ----
-    if (cprRange && hasCpr) { cprRange.style.left = '30%'; cprRange.style.width = '40%'; }
     try {
         const initial = JSON.parse(document.getElementById('initialPositions').textContent || '[]');
         initial.forEach(upsert);

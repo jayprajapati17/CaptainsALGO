@@ -21,11 +21,11 @@ public sealed class CprRepository : ICprRepository
         {
             await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
 
-            // Upsert on (ForTradingDay, Label) -- matches the UQ_DailyCpr_Day_Label
+            // Upsert on (ForTradingDay, Label, Underlying) -- matches the UQ_DailyCpr_Day_Label
             // constraint. A day's CPR could legitimately be recomputed (e.g. if
             // the bot restarts), so overwrite rather than fail on the unique constraint.
             var existing = await db.DailyCprs.FirstOrDefaultAsync(
-                c => c.ForTradingDay == entry.ForTradingDay && c.Label == entry.Label, ct);
+                c => c.ForTradingDay == entry.ForTradingDay && c.Label == entry.Label && c.Underlying == entry.Underlying, ct);
 
             if (existing is null)
             {
@@ -53,7 +53,7 @@ public sealed class CprRepository : ICprRepository
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to persist DailyCpr entry for {Day} ({Label}).", entry.ForTradingDay, entry.Label);
+            _logger.LogError(ex, "Failed to persist DailyCpr entry for {Underlying} {Day} ({Label}).", entry.Underlying, entry.ForTradingDay, entry.Label);
         }
     }
 }

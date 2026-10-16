@@ -1,0 +1,67 @@
+@model CprPair
+@* One index: live spot on top, then today's and tomorrow's CPR as plain labelled ranges. *@
+@{
+    var isNifty = Model.Key == "nifty";
+    var spotId = isNifty ? "niftySpot" : "bankNiftySpot";
+    var subId = isNifty ? "niftySpotSub" : "bankNiftySpotSub";
+}
+<div class="ct-card ix-card">
+    <div class="ix-top">
+        <span class="ct-stat-label">@Model.Name</span>
+        <span class="ct-stat-value" id="@spotId">--</span>
+        <span class="ct-stat-sub" id="@subId">Live spot</span>
+    </div>
+
+    <table class="cpr-table">
+        <thead>
+            <tr>
+                <th>CPR</th>
+                <th>Central range <span>BC &ndash; TC</span></th>
+                <th>Day range <span>S1 &ndash; R1</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var today = Model.Today; var next = Model.Tomorrow; }
+            <tr>
+                <td>
+                  <div class="cpr-lbl">
+                    <span class="cpr-when">@(today is { IsForToday: false } ? "Last (" + today.ForTradingDay.ToString("dd MMM") + ")" : "Today")</span>
+                    @if (today is not null)
+                    {
+                        <span class="cpr-badge" title="@today.BiasNote">@today.ShortReading &middot; @today.WidthPercent.ToString("0.00")%</span>
+                    }
+                  </div>
+                </td>
+                @if (today is not null)
+                {
+                    <td>@today.Bc.ToString("N2") &ndash; @today.Tc.ToString("N2")</td>
+                    <td>@today.S1.ToString("N2") &ndash; @today.R1.ToString("N2")</td>
+                }
+                else
+                {
+                    <td colspan="2" class="cpr-na">Not available yet (computed each morning)</td>
+                }
+            </tr>
+            <tr>
+                <td>
+                  <div class="cpr-lbl">
+                    <span class="cpr-when">Tomorrow@(next is not null ? " · " + next.ForTradingDay.ToString("ddd dd MMM") : "")</span>
+                    @if (next is not null)
+                    {
+                        <span class="cpr-badge" title="@next.BiasNote">@next.ShortReading &middot; @next.WidthPercent.ToString("0.00")%</span>
+                    }
+                  </div>
+                </td>
+                @if (next is not null)
+                {
+                    <td>@next.Bc.ToString("N2") &ndash; @next.Tc.ToString("N2")</td>
+                    <td>@next.S1.ToString("N2") &ndash; @next.R1.ToString("N2")</td>
+                }
+                else
+                {
+                    <td colspan="2" class="cpr-na">Appears after the market closes (about 3:35 PM)</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

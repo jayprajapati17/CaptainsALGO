@@ -25,6 +25,14 @@ public sealed class CprAnalysisService
         _logger = logger;
     }
 
+    /// <summary>The next Monday-Friday after <paramref name="day"/> (exchange holidays are not known here -- on a holiday the morning job simply recomputes from the last real session).</summary>
+    public static DateOnly NextWeekday(DateOnly day)
+    {
+        var next = day.AddDays(1);
+        while (next.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday) next = next.AddDays(1);
+        return next;
+    }
+
     public CprLevels Compute(decimal todayHigh, decimal todayLow, decimal todayClose, DateOnly forTradingDay)
     {
         var pivot = (todayHigh + todayLow + todayClose) / 3m;

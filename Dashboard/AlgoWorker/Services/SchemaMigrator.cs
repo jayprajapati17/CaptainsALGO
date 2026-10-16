@@ -26,6 +26,19 @@ BEGIN
     END
 END";
 
+    private const string DailyCprUnderlyingSql = @"
+IF OBJECT_ID('DailyCpr') IS NOT NULL
+BEGIN
+    IF COL_LENGTH('DailyCpr', 'Underlying') IS NULL
+        EXEC('ALTER TABLE DailyCpr ADD Underlying NVARCHAR(20) NOT NULL CONSTRAINT DF_DailyCpr_Underlying DEFAULT ''NIFTY50''');
+
+    IF EXISTS (SELECT 1 FROM sys.key_constraints WHERE name = 'UQ_DailyCpr_Day_Label' AND parent_object_id = OBJECT_ID('DailyCpr'))
+        EXEC('ALTER TABLE DailyCpr DROP CONSTRAINT UQ_DailyCpr_Day_Label');
+
+    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UQ_DailyCpr_Day_Label_Underlying' AND object_id = OBJECT_ID('DailyCpr'))
+        EXEC('CREATE UNIQUE INDEX UQ_DailyCpr_Day_Label_Underlying ON DailyCpr (ForTradingDay, Label, Underlying)');
+END";
+
     public static async Task ApplyAsync(IDbContextFactory<NiftyBotDbContext> factory, ILogger logger, CancellationToken ct)
     {
         try
@@ -39,6 +52,9 @@ END";
                 "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossPremium') IS NULL ALTER TABLE Positions ADD StopLossPremium DECIMAL(18,2) NULL", ct);
             await db.Database.ExecuteSqlRawAsync(
                 "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossSpot') IS NULL ALTER TABLE Positions ADD StopLossSpot DECIMAL(18,2) NULL", ct);
+
+            // DailyCpr: one row per index per day (Nifty + Bank Nifty). Existing rows become NIFTY50; the old (Day, Label) unique key is replaced.
+            await db.Database.ExecuteSqlRawAsync(DailyCprUnderlyingSql, ct);
         }
         catch (Exception ex)
         {

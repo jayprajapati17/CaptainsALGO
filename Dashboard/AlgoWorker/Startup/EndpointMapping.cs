@@ -34,7 +34,7 @@ public static class EndpointMapping
     {
         app.MapPost("/api/positions/{id:int}/close", async (
             int id, VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt,
-            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, CancellationToken ct) =>
+            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr, CancellationToken ct) =>
         {
             if (await vpt.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "Ema" });
@@ -54,18 +54,22 @@ public static class EndpointMapping
             if (await bne.Tracker.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "Ema", underlying = Underlyings.BankNifty });
 
+            if (await bnr.Tracker.ForceCloseAsync(id, ct))
+                return Results.Ok(new { closed = true, strategy = "Reversal", underlying = Underlyings.BankNifty });
+
             return Results.NotFound(new { closed = false, message = $"No OPEN position found with Id {id}." });
         });
 
         app.MapGet("/api/positions/open", (VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt,
-            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne) =>
+            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr) =>
         {
             var all = vpt.GetOpenPositionsSnapshot()
                 .Concat(bpt.GetOpenPositionsSnapshot())
                 .Concat(mpt.GetOpenPositionsSnapshot())
                 .Concat(rpt.GetOpenPositionsSnapshot())
                 .Concat(bnt.GetOpenPositionsSnapshot())
-                .Concat(bne.Tracker.GetOpenPositionsSnapshot());
+                .Concat(bne.Tracker.GetOpenPositionsSnapshot())
+                .Concat(bnr.Tracker.GetOpenPositionsSnapshot());
             return Results.Ok(all);
         });
     }

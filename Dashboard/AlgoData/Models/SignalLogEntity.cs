@@ -7,7 +7,7 @@ public sealed class SignalLogEntity
 
     public StrategyType Strategy { get; set; }
 
-    // >>> NEW (multi-instrument): which underlying (InstrumentDefinition.Key) this
+    // >>> NEW (multi-instrument): which underlying (see Underlyings) this
     // signal belongs to. Defaults to "NIFTY50" for rows written before multi-instrument support existed.
     public string Underlying { get; set; } = Underlyings.Nifty50;
 
