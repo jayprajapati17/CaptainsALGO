@@ -23,6 +23,5 @@ public sealed class SignalLogEntity
     public bool PositionOpened { get; set; }
     public int? PositionId { get; set; }
     public string? SkipReason { get; set; }
-
     public DateTimeOffset CreatedAt { get; set; }
 }
