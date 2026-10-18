@@ -21,6 +21,8 @@
     const hubUrl = widget.dataset.hubUrl;
 
     function render(state, extra) {
+        window.ctToken = { state: state, at: extra || null };
+        window.dispatchEvent(new CustomEvent('ct:token', { detail: window.ctToken }));
         if (state === 'checking') {
             widget.innerHTML = '<span class="ct-sub">Checking token...</span>';
         } else if (state === 'generated') {

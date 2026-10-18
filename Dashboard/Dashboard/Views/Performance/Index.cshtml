@@ -1,0 +1,269 @@
+@model PerformanceViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Performance";
+    var o = Model.Overall;
+}
+@functions {
+    string Link(string? underlying = null, string? strategy = null, string? period = null) =>
+        Url.Action("Index", "Performance", new
+        {
+            underlying = underlying ?? Model.UnderlyingFilter,
+            strategy = strategy ?? Model.StrategyFilter,
+            period = period ?? Model.Period
+        })!;
+
+    string Chip(bool active) => active ? "chip chip-active" : "chip";
+
+    static string N(double v) => v.ToString("0.##", CultureInfo.InvariantCulture);
+
+    // Equity line: x spread over the trading days, y scaled so 0 is always inside the chart.
+    static (string line, string area, double zeroY) EquityPath(List<decimal> eq, double w, double h)
+    {
+        var vals = eq.Select(x => (double)x).ToList();
+        var min = Math.Min(0, vals.Min());
+        var max = Math.Max(0, vals.Max());
+        if (max - min < 1) max = min + 1;
+        double pad = 8;
+        double Y(double v) => pad + (max - v) / (max - min) * (h - 2 * pad);
+        double X(int i) => vals.Count == 1 ? w / 2 : i * (w / (vals.Count - 1));
+        var pts = vals.Select((v, i) => N(X(i)) + "," + N(Y(v))).ToList();
+        var line = string.Join(" ", pts);
+        var area = N(X(0)) + "," + N(Y(0)) + " " + line + " " + N(X(vals.Count - 1)) + "," + N(Y(0));
+        return (line, area, Y(0));
+    }
+
+    string Mins(TimeSpan? t) => Dashboard.Models.Display.Duration(t);
+    string PF(decimal? pf) => pf is null ? "—" : pf.Value.ToString("0.00", CultureInfo.InvariantCulture);
+}
+
+<header class="ct-head">
+    <div>
+        <div class="ct-eyebrow">Closed trades, from the Positions table</div>
+        <h1 class="ct-title">Performance</h1>
+    </div>
+    <div class="chip-group">
+        <span class="chip-label">Period</span>
+        <a class="@Chip(Model.Period == "30")" href="@Link(period: "30")">30 days</a>
+        <a class="@Chip(Model.Period == "90")" href="@Link(period: "90")">90 days</a>
+        <a class="@Chip(Model.Period == "all")" href="@Link(period: "all")">All time</a>
+    </div>
+</header>
+
+@if (Model.Error is not null)
+{
+    <div class="alert alert-warning py-2 mb-0" role="alert">@Model.Error</div>
+}
+
+<div class="ct-toolbar">
+    <div class="chip-group">
+        <span class="chip-label">Instrument</span>
+        <a class="@Chip(Model.UnderlyingFilter == "all")" href="@Link(underlying: "all")">All</a>
+        <a class="@Chip(Model.UnderlyingFilter == "nifty")" href="@Link(underlying: "nifty")">Nifty</a>
+        <a class="@Chip(Model.UnderlyingFilter == "banknifty")" href="@Link(underlying: "banknifty")">Bank Nifty</a>
+    </div>
+    <div class="chip-group">
+        <span class="chip-label">Strategy</span>
+        <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
+        <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
+        <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
+        <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
+        <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
+    </div>
+</div>
+
+@if (o.Trades == 0)
+{
+    <section class="ct-card ct-card-pad"><span class="ct-sub">No closed trades for this selection yet.</span></section>
+}
+else
+{
+    <section class="perf-kpis">
+        <div class="ct-card ct-stat">
+            <span class="ct-stat-label">Net P&amp;L</span>
+            <span class="ct-stat-value @Display.PnlClass(o.NetPnl)">@Display.Money(o.NetPnl)</span>
+            <span class="ct-stat-sub">@o.Trades trades &middot; @Model.Days.Count trading days</span>
+        </div>
+        <div class="ct-card ct-stat">
+            <span class="ct-stat-label">Win rate</span>
+            <span class="ct-stat-value">@o.WinRate.ToString("0.0", CultureInfo.InvariantCulture)%</span>
+            <span class="ct-stat-sub">@o.Wins won &middot; @o.Losses lost</span>
+        </div>
+        <div class="ct-card ct-stat">
+            <span class="ct-stat-label">Profit factor</span>
+            <span class="ct-stat-value">@PF(o.ProfitFactor)</span>
+            <span class="ct-stat-sub">gross win &divide; gross loss</span>
+        </div>
+        <div class="ct-card ct-stat">
+            <span class="ct-stat-label">Max drawdown</span>
+            <span class="ct-stat-value pnl-negative">@(Model.MaxDrawdown == 0 ? "—" : Display.Money(-Model.MaxDrawdown))</span>
+            <span class="ct-stat-sub">
+                @if (Model.DrawdownFrom is { } df && Model.DrawdownTo is { } dt)
+                {
+                    @:@df.ToString("d MMM", CultureInfo.InvariantCulture) &ndash; @dt.ToString("d MMM", CultureInfo.InvariantCulture)
+                }
+                else
+                {
+                    @:peak to trough, by day
+                }
+            </span>
+        </div>
+    </section>
+
+    <section class="perf-two">
+        <div class="ct-card ct-card-pad">
+            <h2 class="ct-section-title">Cumulative P&amp;L</h2>
+            @{
+                var (line, area, zeroY) = EquityPath(Model.Equity, 600, 200);
+                var up = Model.Equity[^1] >= 0;
+            }
+            <svg class="perf-svg" viewBox="0 0 600 200" preserveAspectRatio="none" role="img" aria-label="Cumulative profit and loss by trading day">
+                <line x1="0" x2="600" y1="@N(zeroY)" y2="@N(zeroY)" class="perf-zero" vector-effect="non-scaling-stroke" />
+                <polygon points="@area" class="@(up ? "perf-area-up" : "perf-area-down")" />
+                <polyline points="@line" class="@(up ? "perf-line-up" : "perf-line-down")" vector-effect="non-scaling-stroke" />
+            </svg>
+            <div class="perf-axis"><span>@Model.Days[0].Day.ToString("d MMM yyyy", CultureInfo.InvariantCulture)</span><span>@Model.Days[^1].Day.ToString("d MMM yyyy", CultureInfo.InvariantCulture)</span></div>
+        </div>
+
+        <div class="ct-card ct-card-pad">
+            <h2 class="ct-section-title">Trade quality</h2>
+            <dl class="perf-dl">
+                <dt>Average win</dt>
+                <dd class="pnl-positive">@Display.Money(o.AvgWin)</dd>
+                <dt>Average loss</dt>
+                <dd class="pnl-negative">@Display.Money(-o.AvgLoss)</dd>
+                <dt>Expectancy / trade</dt>
+                <dd class="@Display.PnlClass(o.Expectancy)">@Display.Money(o.Expectancy)</dd>
+                <dt>Avg holding time</dt>
+                <dd>@Mins(Model.AvgHold)</dd>
+                <dt>Winning / losing days</dt>
+                <dd>@Model.WinningDays / @Model.LosingDays</dd>
+                <dt>Longest win streak</dt>
+                <dd>@Model.LongestWinStreak</dd>
+                <dt>Longest loss streak</dt>
+                <dd>@Model.LongestLossStreak</dd>
+                @if (Model.BestDay is { } bd)
+                {
+                    <dt>Best day</dt>
+                    <dd class="pnl-positive">@Display.Money(bd.Pnl) <span class="ct-sub">@bd.Day.ToString("d MMM", CultureInfo.InvariantCulture)</span></dd>
+                }
+                @if (Model.WorstDay is { } wd)
+                {
+                    <dt>Worst day</dt>
+                    <dd class="pnl-negative">@Display.Money(wd.Pnl) <span class="ct-sub">@wd.Day.ToString("d MMM", CultureInfo.InvariantCulture)</span></dd>
+                }
+            </dl>
+        </div>
+    </section>
+
+    @* ---------- Daily P&L ---------- *@
+    <section class="ct-card ct-card-pad">
+        <h2 class="ct-section-title">Daily P&amp;L</h2>
+        @{
+            var maxAbs = Math.Max(1d, Model.Days.Max(d => Math.Abs((double)d.Pnl)));
+        }
+        <div class="perf-bars" style="--n:@Model.Days.Count">
+            @foreach (var d in Model.Days)
+            {
+                var pct = Math.Max(2d, Math.Abs((double)d.Pnl) / maxAbs * 100);
+                <div class="perf-col" title="@d.Day.ToString("ddd d MMM", CultureInfo.InvariantCulture): @Display.Money(d.Pnl) (@d.Trades trades)">
+                    <div class="perf-half perf-top">@if (d.Pnl > 0) {
+                        <span class="perf-bar perf-gain" style="height:@N(pct)%"></span>
+                    }
+                </div>
+                <div class="perf-half perf-bot">@if (d.Pnl < 0) {
+                    <span class="perf-bar perf-loss" style="height:@N(pct)%"></span>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="perf-axis"><span>@Model.Days[0].Day.ToString("d MMM", CultureInfo.InvariantCulture)</span><span>@Model.Days[^1].Day.ToString("d MMM", CultureInfo.InvariantCulture)</span></div>
+</section>
+
+@* ---------- Calendar heatmap: last 12 weeks, Mon-Fri ---------- *@
+<section class="ct-card ct-card-pad">
+    <h2 class="ct-section-title">Calendar</h2>
+    @{
+        var byDay = Model.Days.ToDictionary(d => d.Day);
+        var lastDay = Model.Days[^1].Day;
+        var lastMon = lastDay.AddDays(-(((int)lastDay.DayOfWeek + 6) % 7));
+        var firstMon = Model.Days[0].Day.AddDays(-(((int)Model.Days[0].Day.DayOfWeek + 6) % 7));
+        var startMon = lastMon.AddDays(-7 * 11) > firstMon ? lastMon.AddDays(-7 * 11) : firstMon;
+        var weeks = (lastMon.DayNumber - startMon.DayNumber) / 7 + 1;
+        var shown = Model.Days.Where(d => d.Day >= startMon).ToList();
+        var heatMax = Math.Max(1d, shown.Count == 0 ? 1d : shown.Max(d => Math.Abs((double)d.Pnl)));
+    }
+    <p class="ct-sub mb-0">Darker means a bigger day. Hover or tap a day for the amount. Dashed days had no trades.</p>
+    <div class="heat-scroll">
+        <div class="heat">
+            <span></span>
+            @foreach (var dn in new[] { "Mon", "Tue", "Wed", "Thu", "Fri" })
+            {
+                <span class="heat-dow">@dn</span>
+            }
+            @for (var w = 0; w < weeks; w++)
+            {
+                var wk = startMon.AddDays(7 * w);
+                <span class="heat-wk">@wk.ToString("d MMM", CultureInfo.InvariantCulture)</span>
+                for (var di = 0; di < 5; di++)
+                {
+                    var day = wk.AddDays(di);
+                    var lbl = day.ToString("ddd d MMM", CultureInfo.InvariantCulture);
+                    if (day > lastDay || !byDay.TryGetValue(day, out var pd))
+                    {
+                        <span class="heat-cell none" tabindex="0" aria-label="@lbl: no trades"><span class="tip">@lbl &middot; no trades</span></span>
+                    }
+                    else
+                    {
+                        var a = Math.Min(85d, 18d + Math.Abs((double)pd.Pnl) / heatMax * 67d);
+                        <span class="heat-cell @(pd.Pnl >= 0 ? "g" : "l")" style="--a:@N(Math.Round(a))" tabindex="0" aria-label="@lbl: @Display.Money(pd.Pnl)"><span class="tip">@lbl &middot; @Display.Money(pd.Pnl) &middot; @pd.Trades @(pd.Trades == 1 ? "trade" : "trades")</span>@(Math.Abs(pd.Pnl) >= 1000 ? (pd.Pnl / 1000).ToString("0.0", CultureInfo.InvariantCulture) + "k" : "")</span>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="heat-legend">
+        <i style="background:color-mix(in srgb, var(--loss) 80%, var(--surface))"></i>Big loss
+        <i style="background:color-mix(in srgb, var(--loss) 30%, var(--surface))"></i>Small loss
+        <i style="background:color-mix(in srgb, var(--gain) 30%, var(--surface))"></i>Small win
+        <i style="background:color-mix(in srgb, var(--gain) 80%, var(--surface))"></i>Big win
+    </div>
+</section>
+
+@* ---------- Breakdowns ---------- *@
+void Table(string title, List<PerfSlice> slices)
+{
+    <div class="ct-card ct-card-pad perf-table-card">
+        <h2 class="ct-section-title">@title</h2>
+        <div class="table-responsive">
+            <table class="perf-table">
+                <thead><tr><th></th><th>Trades</th><th>Win %</th><th>Avg win</th><th>Avg loss</th><th>PF</th><th>Net P&amp;L</th></tr></thead>
+                <tbody>
+                    @foreach (var s in slices)
+                    {
+                        <tr>
+                            <td>@s.Label</td>
+                            <td>@s.Trades</td>
+                            <td>@s.WinRate.ToString("0", CultureInfo.InvariantCulture)%</td>
+                            <td>@Display.Money(s.AvgWin)</td>
+                            <td>@Display.Money(-s.AvgLoss)</td>
+                            <td>@PF(s.ProfitFactor)</td>
+                            <td class="@Display.PnlClass(s.NetPnl)">@Display.Money(s.NetPnl)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+<section class="perf-two">
+    @{
+        Table("By strategy", Model.ByStrategy);
+    }
+    @{
+        Table("By instrument", Model.ByIndex);
+    }
+</section>
+Table("By exit reason", Model.ByExit);
+}

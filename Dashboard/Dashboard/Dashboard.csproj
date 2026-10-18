@@ -12,4 +12,8 @@
 		<ProjectReference Include="..\AlgoData\AlgoData.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Views\Performance\" />
+	</ItemGroup>
+
 </Project>

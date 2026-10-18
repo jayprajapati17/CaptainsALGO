@@ -15,6 +15,7 @@
     const hubDot = document.getElementById('hubDot');
     const hubStatus = document.getElementById('hubStatus');
     const filterBar = document.getElementById('strategyFilter');
+    const baseTitle = document.title;
 
     const hubUrl = root.dataset.hubUrl;
     const bnSpotEl = document.getElementById('bankNiftySpot');
@@ -72,15 +73,15 @@
         const canClose = p.positionId > 0;
 
         tr.innerHTML = `
-            <td>
+            <td data-label="Instrument">
                 <div class="ct-sym">${instrumentLabel(p)} ${esc(p.strike)} ${esc(p.optionType)}</div>
                 <div class="ct-sub pos-subtitle d-flex align-items-center gap-2 mt-1">
                     <span class="st-chip ${STRATEGY_CLASS[p.strategy] ?? ''}">${esc(STRATEGY_LABELS[p.strategy] ?? p.strategy)}</span>
                     <span>Exp ${esc(fmtExpiry(p.expiry))}</span>
                 </div>
             </td>
-            <td class="num text-nowrap">${esc(fmtEntryTime(p.entryTime))}</td>
-            <td>
+            <td data-label="Entry time" class="num text-nowrap">${esc(fmtEntryTime(p.entryTime))}</td>
+            <td data-label="Entry \u2192 LTP" class="pos-pxcell">
                 <div class="pos-px">
                     <span class="e">${inr.format(p.entryPremium)}</span><span class="arrow">&rarr;</span><span class="l pos-current"></span>
                 </div>
@@ -92,15 +93,15 @@
                     <div class="gauge-mark target"></div>
                 </div>
             </td>
-            <td class="pos-slcell">
+            <td data-label="Stop-loss" class="pos-slcell">
                 <div class="sl-val pos-slval"></div>
                 <div class="sl-note pos-slnote"></div>
             </td>
-            <td class="text-end">
+            <td data-label="P&amp;L" class="text-end">
                 <span class="pos-pnl num"></span>
                 <span class="pos-pnl-pct"></span>
             </td>
-            <td class="text-end">
+            <td data-label="" class="text-end pos-exitcell">
                 <button type="button" class="btn-exit pos-exit"
                         title="${canClose ? 'Exit this position' : 'Not saved to DB -- cannot be closed from the Dashboard'}"
                         ${canClose ? '' : 'disabled'}>Exit</button>
@@ -108,16 +109,30 @@
         return tr;
     }
 
+    // Brief green/red wash on a value that just changed. Restarting the CSS animation needs a reflow in between.
+    function flash(el, dir) {
+        el.classList.remove('flash-up', 'flash-down');
+        void el.offsetWidth;
+        el.classList.add(dir > 0 ? 'flash-up' : 'flash-down');
+    }
+
     function updateRow(tr, p) {
         const cls = pnlClass(p.pnlRupees);
         const pnl = tr.querySelector('.pos-pnl');
         const pct = tr.querySelector('.pos-pnl-pct');
+        const prevPnl = tr.dataset.pnl === undefined ? null : Number(tr.dataset.pnl);
+        tr.dataset.pnl = p.pnlRupees;
         pnl.textContent = fmtMoney(p.pnlRupees);
         pct.textContent = fmtPct(p.pnlPercent);
         pnl.className = `pos-pnl num ${cls}`;
         pct.className = `pos-pnl-pct ${cls}`;
 
-        tr.querySelector('.pos-current').textContent = inr.format(p.currentPremium);
+        const curEl = tr.querySelector('.pos-current');
+        const prevLtp = tr.dataset.ltp === undefined ? null : Number(tr.dataset.ltp);
+        tr.dataset.ltp = p.currentPremium;
+        curEl.textContent = inr.format(p.currentPremium);
+        if (prevLtp !== null && Number(p.currentPremium) !== prevLtp) flash(curEl, p.currentPremium - prevLtp);
+        if (prevPnl !== null && Number(p.pnlRupees) !== prevPnl) flash(pnl, p.pnlRupees - prevPnl);
 
         const sl = Number(p.stopLossPremium) || 0;
         const slSpot = Number(p.stopLossSpot) || 0;
@@ -178,6 +193,8 @@
 
         const total = live.reduce((sum, c) => sum + (Number(c.dto.pnlRupees) || 0), 0);
         totalPnlEl.textContent = fmtMoney(total);
+        // Live P&L in the browser tab, so it can be read without opening the page.
+        document.title = live.length ? `${fmtMoney(total)} \u00b7 ${baseTitle}` : baseTitle;
         const pill = document.getElementById('pnlPill');
         if (pill) { pill.classList.toggle('pnl-up', total >= 0); pill.classList.toggle('pnl-down', total < 0); }
 
@@ -262,6 +279,62 @@
     tickClock();
     setInterval(tickClock, 1000);
 
+    // ---- Status strip: market hours, token, last tick ----
+    const marketEl = document.getElementById('stripMarket');
+    const tickEl = document.getElementById('stripTick');
+    const tickWrap = document.getElementById('stripTickWrap');
+    const tokenEl = document.getElementById('stripToken');
+    let lastTick = 0;
+    const markTick = () => { lastTick = Date.now(); };
+
+    function istNow() {
+        const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+        const get = t => parts.find(x => x.type === t).value;
+        return { wd: get('weekday'), mins: parseInt(get('hour'), 10) * 60 + parseInt(get('minute'), 10) };
+    }
+    // Weekday 09:15-15:30 IST. Exchange holidays aren't known here, so a holiday still reads "open".
+    function marketState() {
+        const { wd, mins } = istNow();
+        if (wd === 'Sat' || wd === 'Sun') return { open: false, text: 'closed (weekend)' };
+        if (mins < 9 * 60 + 15) return { open: false, text: 'opens 9:15 AM' };
+        if (mins >= 15 * 60 + 30) return { open: false, text: 'closed' };
+        return { open: true, text: 'open \u00b7 closes 3:30 PM' };
+    }
+
+    function renderToken(t) {
+        if (!tokenEl || !t) return;
+        tokenEl.className = 'strip-val';
+        if (t.state === 'generated') {
+            const time = t.at ? new Date(t.at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : '';
+            tokenEl.textContent = 'OK' + (time ? ' \u00b7 ' + time : '');
+        } else if (t.state === 'missing') {
+            tokenEl.textContent = 'missing today'; tokenEl.classList.add('strip-warn');
+        } else if (t.state === 'error') {
+            tokenEl.textContent = 'unknown'; tokenEl.classList.add('strip-warn');
+        } else {
+            tokenEl.textContent = 'checking\u2026';
+        }
+    }
+    window.addEventListener('ct:token', e => renderToken(e.detail));
+    renderToken(window.ctToken);
+
+    function tickStrip() {
+        const m = marketState();
+        if (marketEl) { marketEl.textContent = m.text; marketEl.classList.toggle('strip-ok', m.open); }
+        if (!tickEl) return;
+        if (!lastTick) {
+            tickEl.textContent = m.open ? 'waiting\u2026' : '\u2014';
+            tickWrap.classList.remove('strip-stale');
+            return;
+        }
+        const age = Math.round((Date.now() - lastTick) / 1000);
+        tickEl.textContent = age < 60 ? `${age}s ago` : `${Math.floor(age / 60)}m ago`;
+        // Ticks arrive about once a second, so 10s of silence while the market is open means the feed is stuck.
+        tickWrap.classList.toggle('strip-stale', m.open && age >= 10);
+    }
+    tickStrip();
+    setInterval(tickStrip, 1000);
+
     // ---- Exit button ----
     grid.addEventListener('click', async ev => {
         const btn = ev.target.closest('.pos-exit');
@@ -310,10 +383,11 @@
         .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
         .build();
 
-    connection.on('PositionChanged', upsert);
+    connection.on('PositionChanged', p => { markTick(); upsert(p); });
 
     // One hub, two indices: Bank Nifty ticks carry underlying = 'BANKNIFTY'; Nifty's don't.
     connection.on('SpotChanged', d => {
+        markTick();
         if (d.underlying === 'BANKNIFTY') {
             if (bnSpotEl) bnSpotEl.textContent = inr.format(d.price);
             return;

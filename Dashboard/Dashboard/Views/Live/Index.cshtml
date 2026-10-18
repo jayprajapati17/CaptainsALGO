@@ -15,13 +15,17 @@
     <header class="ct-head">
         <div>
             <div class="ct-eyebrow">@AlgoData.Models.MarketTime.Today.ToString("ddd, dd MMM yyyy")<span class="ct-clock" id="liveClock"></span></div>
-            <h1 class="ct-title">Dashboard</h1>
-        </div>
-        <div class="ct-pill" id="hubPill">
-            <span class="status-dot status-connecting" id="hubDot"></span>
-            <span id="hubStatus">Connecting...</span>
+            <h1 class="ct-title">Market watch</h1>
         </div>
     </header>
+
+    @* ---------- Status strip: is everything feeding? (hubDot/hubStatus are driven by live.js) ---------- *@
+    <div class="strip" role="status" aria-live="polite">
+        <span class="strip-item"><i class="status-dot status-connecting" id="hubDot"></i><b id="hubStatus">Connecting...</b></span>
+        <span class="strip-item">Market <b class="strip-val" id="stripMarket">&hellip;</b></span>
+        <span class="strip-item">Upstox token <b class="strip-val" id="stripToken">checking&hellip;</b></span>
+        <span class="strip-item" id="stripTickWrap">Last tick <b class="strip-val num" id="stripTick">&mdash;</b></span>
+    </div>
 
     @if (Model.WorkerError is not null)
     {
@@ -47,18 +51,18 @@
                 </div>
             </div>
             <div class="d-flex flex-wrap align-items-center gap-3">
-            <div class="pnl-pill pnl-up" id="pnlPill" title="Combined P&amp;L of all open positions">
-                <span class="pnl-pill-label">Open P&amp;L</span>
-                <span class="pnl-pill-value" id="totalPnl">&#8377;0.00</span>
-                <span class="pnl-pill-sub"><span id="openCount">0</span> open &middot; 1 lot each</span>
-            </div>
-            <div class="chip-group" id="strategyFilter">
-                <a href="#" class="chip chip-active" data-filter="all">All</a>
-                <a href="#" class="chip" data-filter="Ema">EMA</a>
-                <a href="#" class="chip" data-filter="Breakout">Breakout</a>
-                <a href="#" class="chip" data-filter="Macd">MACD</a>
-                <a href="#" class="chip" data-filter="Reversal">Reversal</a>
-            </div>
+                <div class="pnl-pill pnl-up" id="pnlPill" title="Combined P&amp;L of all open positions">
+                    <span class="pnl-pill-label">Open P&amp;L</span>
+                    <span class="pnl-pill-value" id="totalPnl">&#8377;0.00</span>
+                    <span class="pnl-pill-sub"><span id="openCount">0</span> open &middot; 1 lot each</span>
+                </div>
+                <div class="chip-group" id="strategyFilter">
+                    <a href="#" class="chip chip-active" data-filter="all">All</a>
+                    <a href="#" class="chip" data-filter="Ema">EMA</a>
+                    <a href="#" class="chip" data-filter="Breakout">Breakout</a>
+                    <a href="#" class="chip" data-filter="Macd">MACD</a>
+                    <a href="#" class="chip" data-filter="Reversal">Reversal</a>
+                </div>
             </div>
         </div>
 
@@ -67,7 +71,7 @@
         </div>
 
         <div class="ct-card ct-table-wrap" id="positionTableWrap">
-            <table class="ct-table live-table">
+            <table class="ct-table live-table ct-cards-m">
                 <thead>
                     <tr>
                         <th>Instrument</th>

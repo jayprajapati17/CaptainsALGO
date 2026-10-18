@@ -94,7 +94,7 @@
         var pnlNextSort = Model.Sort == "pnl_desc" ? "pnl_asc" : "pnl_desc";
 
         <div class="ct-card ct-table-wrap">
-            <table class="ct-table ct-compact">
+            <table class="ct-table ct-compact ct-cards-m">
                 <thead>
                     <tr>
                         <th><a class="sort-link" href="@Link(sort: "time")">Closed @(Model.Sort == "time" ? "▼" : "")</a></th>
@@ -109,11 +109,11 @@
                     @foreach (var r in Model.Rows)
                     {
                         <tr>
-                            <td class="text-nowrap">
+                            <td data-label="Closed" class="text-nowrap">
                                 <div class="num" style="font-size:14px">@(AlgoData.Models.MarketTime.ToIst(r.ExitTime)?.ToString("dd MMM, hh:mm tt") ?? "—")</div>
                                 <div class="ct-sub">#@r.Id</div>
                             </td>
-                            <td>
+                            <td data-label="Strategy">
                                 <span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span>
                                 @if (r.Underlying == AlgoData.Models.Underlyings.BankNifty)
                                 {
@@ -124,11 +124,11 @@
                                     <div class="ct-sub mt-1">@Display.Leg(r.Leg)</div>
                                 }
                             </td>
-                            <td class="text-nowrap">
+                            <td data-label="Instrument" class="text-nowrap">
                                 <div class="ct-sym">@r.TradingSymbol</div>
                                 <div class="ct-sub @(Display.IsBullish(r.Direction) ? "dir-up" : "dir-down")" title="@r.ExitReason">@Display.DirectionLabel(r.Direction)</div>
                             </td>
-                            <td class="text-nowrap num" style="font-size:14px">
+                            <td data-label="Entry → Exit" class="text-nowrap num" style="font-size:14px">
                                 &#8377;@Display.Number(r.EntryPremium) &rarr; @(r.ExitPremium is { } ex ? "₹" + Display.Number(ex) : "—")
                                 @if (r.StopLossPremium is { } slp)
                                 {
@@ -139,8 +139,8 @@
                                     <div class="ct-sub">Final SL Nifty @Display.Number(sls)</div>
                                 }
                             </td>
-                            <td class="text-nowrap num ct-sub">@Display.Duration(r.Held)</td>
-                            <td class="text-end text-nowrap num">
+                            <td data-label="Held" class="text-nowrap num ct-sub">@Display.Duration(r.Held)</td>
+                            <td data-label="P&amp;L" class="text-end text-nowrap num">
                                 <span class="fw-semibold @Display.PnlClass(r.FinalPnlRupees)" style="font-size:15px">@Display.Money(r.FinalPnlRupees)</span>
                                 <div class="ct-sub @Display.PnlClass(r.FinalPnlRupees)">@Display.Pct(r.FinalPnlPercent)</div>
                             </td>

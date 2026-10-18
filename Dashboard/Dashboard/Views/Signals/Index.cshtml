@@ -49,7 +49,7 @@
         <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
         <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
         <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
-            <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
+        <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
     </div>
     <div class="chip-group">
         <span class="chip-label">Outcome</span>
@@ -82,7 +82,7 @@
 else
 {
     <div class="ct-card ct-table-wrap">
-        <table class="ct-table ct-compact">
+        <table class="ct-table ct-compact ct-cards-m">
             <thead>
                 <tr>
                     <th>Time</th>
@@ -98,15 +98,18 @@ else
                 @foreach (var r in Model.Rows)
                 {
                     <tr>
-                        <td class="text-nowrap">
+                        <td data-label="Time" class="text-nowrap">
                             <div class="num fw-semibold" style="font-size:14px">@AlgoData.Models.MarketTime.ToIst(r.SignalTime).ToString("hh:mm tt")</div>
                             <div class="ct-sub">@AlgoData.Models.MarketTime.ToIst(r.SignalTime).ToString("dd MMM")</div>
                         </td>
-                        <td>
+                        <td data-label="Strategy">
                             <span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span>
-                            @if (r.Underlying == AlgoData.Models.Underlyings.BankNifty) { <div class="ct-sub mt-1">Bank Nifty</div> }
+                            @if (r.Underlying == AlgoData.Models.Underlyings.BankNifty)
+                            {
+                                <div class="ct-sub mt-1">Bank Nifty</div>
+                            }
                         </td>
-                        <td class="text-nowrap">
+                        <td data-label="Signal" class="text-nowrap">
                             <span class="fw-semibold @(Display.IsBullish(r.Direction) ? "dir-up" : "dir-down")">
                                 <span class="dir-dot">@(Display.IsBullish(r.Direction) ? "▲" : "▼")</span>@Display.DirectionLabel(r.Direction)
                             </span>
@@ -115,7 +118,7 @@ else
                                 <span class="out-pill out-skip ms-1" title="An older crossover that was still active when the bot started -- not a fresh live signal.">Catch-up</span>
                             }
                         </td>
-                        <td>
+                        <td data-label="Confidence">
                             @if (r.Confidence is not null)
                             {
                                 <span style="font-size:13px;font-weight:500">@r.Confidence</span>
@@ -125,8 +128,8 @@ else
                                 <span class="ct-sub">&mdash;</span>
                             }
                         </td>
-                        <td class="text-end text-nowrap num" style="font-size:14px">@Display.Number(r.SpotPrice)</td>
-                        <td class="ct-sub text-nowrap" style="font-size:13px">
+                        <td data-label="Index spot" class="text-end text-nowrap num" style="font-size:14px">@Display.Number(r.SpotPrice)</td>
+                        <td data-label="Details" class="ct-sub text-nowrap" style="font-size:13px">
                             @if (r.AdxAtSignal is not null)
                             {
                                 <span>ADX @r.AdxAtSignal.Value.ToString("0.0")</span>
@@ -144,7 +147,7 @@ else
                                 <span>&mdash;</span>
                             }
                         </td>
-                        <td>
+                        <td data-label="Outcome">
                             @if (r.PositionOpened)
                             {
                                 <span class="out-pill">Opened</span>
