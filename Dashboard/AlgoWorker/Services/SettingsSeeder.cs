@@ -52,13 +52,14 @@ END";
 
     /// <summary>The (section name, live options instance) pairs that make up the Settings page, in display order.</summary>
     public static IReadOnlyList<(string Section, object Options)> Sections(
-        UpstoxOptions upstox, TelegramOptions telegram, StrategyOptions strategy, BankNiftyOptions bankNifty, PcrOptions pcr) => new (string, object)[]
+        UpstoxOptions upstox, TelegramOptions telegram, StrategyOptions strategy, BankNiftyOptions bankNifty, PcrOptions pcr, EmaCrossOptions emaCross) => new (string, object)[]
     {
         (UpstoxOptions.SectionName, upstox),
         (TelegramOptions.SectionName, telegram),
         (StrategyOptions.SectionName, strategy),
         (BankNiftyOptions.SectionName, bankNifty),
-        (PcrOptions.SectionName, pcr)
+        (PcrOptions.SectionName, pcr),
+        (EmaCrossOptions.SectionName, emaCross)
     };
 
     public static async Task SeedAsync(

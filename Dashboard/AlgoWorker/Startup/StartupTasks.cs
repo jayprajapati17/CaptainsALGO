@@ -30,7 +30,8 @@ public static class StartupTasks
                 sp.GetRequiredService<IOptions<TelegramOptions>>().Value,
                 sp.GetRequiredService<IOptions<StrategyOptions>>().Value,
                 sp.GetRequiredService<IOptions<BankNiftyOptions>>().Value,
-                sp.GetRequiredService<IOptions<PcrOptions>>().Value);
+                sp.GetRequiredService<IOptions<PcrOptions>>().Value,
+                sp.GetRequiredService<IOptions<EmaCrossOptions>>().Value);
 
             var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger("AlgoWorker.Startup.Settings");
             var factory = sp.GetRequiredService<IDbContextFactory<AlgoData.Data.NiftyBotDbContext>>();
@@ -73,5 +74,6 @@ public static class StartupTasks
         config.GetSection(StrategyOptions.SectionName).Bind(sp.GetRequiredService<IOptions<StrategyOptions>>().Value);
         config.GetSection(BankNiftyOptions.SectionName).Bind(sp.GetRequiredService<IOptions<BankNiftyOptions>>().Value);
         config.GetSection(PcrOptions.SectionName).Bind(sp.GetRequiredService<IOptions<PcrOptions>>().Value);
+        config.GetSection(EmaCrossOptions.SectionName).Bind(sp.GetRequiredService<IOptions<EmaCrossOptions>>().Value);
     }
 }

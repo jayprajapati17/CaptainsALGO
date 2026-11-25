@@ -165,6 +165,13 @@
                             .GroupBy(x => x.Group.Name)
                             .ToList();
                     }
+                    @foreach (var grp in Model.Sections.Where(sx => sx.Name == "EmaCross").SelectMany(sx => sx.Groups).GroupBy(g => "EMA 9/21 (A &amp; B) &middot; " + g.Name))
+                    {
+                        <details class="ct-card st-details">
+                            <summary><span>@Html.Raw(grp.Key)</span><span class="st-sub">@grp.Sum(g => g.Items.Count) settings</span></summary>
+                            @foreach (var item in grp.SelectMany(g => g.Items)) { <partial name="_Row" model="item" /> }
+                        </details>
+                    }
                     @foreach (var grp in paramGroups)
                     {
                         var niftyRows = grp.Where(x => x.Section == "Strategy").SelectMany(x => x.Group.Items).Where(InParamList);

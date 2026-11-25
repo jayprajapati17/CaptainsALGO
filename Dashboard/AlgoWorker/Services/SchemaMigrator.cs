@@ -5,7 +5,7 @@ namespace AlgoWorker.Services;
 
 /// <summary>
 /// Idempotent schema upgrades the Worker applies itself at startup, so nobody has to run SQL by hand.
-/// Currently: add the StopLossPremium / StopLossSpot columns, and allow 'Reversal' in the Strategy CHECK constraints of Positions and SignalLog.
+/// Currently: add the StopLossPremium / StopLossSpot columns, and allow 'Reversal', 'EmaCrossA' and 'EmaCrossB' in the Strategy CHECK constraints of Positions and SignalLog.
 /// </summary>
 public static class SchemaMigrator
 {
@@ -17,12 +17,12 @@ BEGIN
     FROM sys.check_constraints cc
     JOIN sys.columns col ON col.object_id = cc.parent_object_id AND col.column_id = cc.parent_column_id
     WHERE cc.parent_object_id = OBJECT_ID('{TABLE}') AND col.name = 'Strategy'
-      AND cc.definition NOT LIKE '%Reversal%';
+      AND cc.definition NOT LIKE '%EmaCrossB%';
 
     IF @ck IS NOT NULL
     BEGIN
         EXEC('ALTER TABLE {TABLE} DROP CONSTRAINT [' + @ck + ']');
-        ALTER TABLE {TABLE} ADD CHECK (Strategy IN ('Ema', 'Breakout', 'Macd', 'Reversal'));
+        ALTER TABLE {TABLE} ADD CHECK (Strategy IN ('Ema', 'Breakout', 'Macd', 'Reversal', 'EmaCrossA', 'EmaCrossB'));
     END
 END";
 

@@ -13,6 +13,7 @@ builder.Services
     .AddSharedInfrastructure(builder.Configuration)
     .AddNiftyStrategies()
     .AddBankNifty()
+    .AddEmaCross()
     .AddDashboardChannel(builder.Configuration);
 
 var app = builder.Build();

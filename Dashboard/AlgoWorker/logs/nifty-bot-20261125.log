@@ -1,0 +1,21 @@
+2026-11-25 18:09:30.123 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: seeded 25 new row(s) into AppSettings from appsettings.json / defaults.
+2026-11-25 18:09:30.855 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-11-25 18:09:30.931 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-11-25 18:09:31.125 +05:30 [INF] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21 pipeline starting (2 strategy(ies)); paper trading only.
+2026-11-25 18:09:31.123 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-11-25 18:09:31.577 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-11-23", High=25992.6, Low=25343.85, Close=25349.65
+2026-11-25 18:09:31.582 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-25": Pivot=25562.033333333333333333333333, TC=25455.841666666666666666666666, BC=25668.225, Width%=0.838, Reading=Wide CPR -- Sideways/Range-bound day likely, mean-reversion between S1-R1 more probable
+2026-11-25 18:09:31.703 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-11-23"'s OHLC).
+2026-11-25 18:09:31.715 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-11-25 18:09:31.746 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty Bank: "2026-11-23", High=65193.4, Low=62546.2, Close=62585.35
+2026-11-25 18:09:31.747 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-25": Pivot=63441.65, TC=63013.50, BC=63869.8, Width%=1.368, Reading=Wide CPR -- Sideways/Range-bound day likely, mean-reversion between S1-R1 more probable
+2026-11-25 18:09:31.792 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: today's CPR saved (from "2026-11-23"'s OHLC).
+2026-11-25 18:09:31.801 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-11-25 18:09:31.838 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-11-25 18:09:31.841 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-26": Pivot=25796.633333333333333333333333, TC=25807.941666666666666666666666, BC=25785.325, Width%=0.088, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-11-25 18:09:31.848 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: tomorrow's ("2026-11-26") CPR saved.
+2026-11-25 18:09:31.852 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-11-25 18:09:31.890 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-11-25 18:09:31.890 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-26": Pivot=63694.983333333333333333333333, TC=63699.11666666666666666666667, BC=63690.85, Width%=0.013, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-11-25 18:09:31.896 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: tomorrow's ("2026-11-26") CPR saved.
+2026-11-25 18:16:30.364 +05:30 [INF] Program: Settings reloaded from the AppSettings table (triggered by the Dashboard).

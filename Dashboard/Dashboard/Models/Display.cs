@@ -14,6 +14,8 @@ public static class Display
         StrategyType.Breakout => "Breakout",
         StrategyType.Macd => "MACD",
         StrategyType.Reversal => "Reversal",
+        StrategyType.EmaCrossA => "EMA 9/21 · 15m",
+        StrategyType.EmaCrossB => "EMA 9/21 · 1h",
         _ => s.ToString()
     };
 

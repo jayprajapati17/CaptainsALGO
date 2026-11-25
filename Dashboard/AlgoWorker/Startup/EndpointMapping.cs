@@ -1,3 +1,4 @@
+using AlgoWorker.EmaCross;
 using AlgoData.Models;
 using AlgoWorker.BankNifty;
 using AlgoWorker.Configuration;
@@ -34,7 +35,7 @@ public static class EndpointMapping
     {
         app.MapPost("/api/positions/{id:int}/close", async (
             int id, VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt,
-            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr, CancellationToken ct) =>
+            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr, EmaCrossService emaCross, CancellationToken ct) =>
         {
             if (await vpt.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "Ema" });
@@ -57,11 +58,14 @@ public static class EndpointMapping
             if (await bnr.Tracker.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "Reversal", underlying = Underlyings.BankNifty });
 
+            if (await emaCross.ForceCloseAsync(id, ct))
+                return Results.Ok(new { closed = true, strategy = "EmaCross" });
+
             return Results.NotFound(new { closed = false, message = $"No OPEN position found with Id {id}." });
         });
 
         app.MapGet("/api/positions/open", (VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt,
-            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr) =>
+            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr, EmaCrossService emaCross) =>
         {
             var all = vpt.GetOpenPositionsSnapshot()
                 .Concat(bpt.GetOpenPositionsSnapshot())
@@ -69,7 +73,8 @@ public static class EndpointMapping
                 .Concat(rpt.GetOpenPositionsSnapshot())
                 .Concat(bnt.GetOpenPositionsSnapshot())
                 .Concat(bne.Tracker.GetOpenPositionsSnapshot())
-                .Concat(bnr.Tracker.GetOpenPositionsSnapshot());
+                .Concat(bnr.Tracker.GetOpenPositionsSnapshot())
+                .Concat(emaCross.GetOpenPositionsSnapshot());
             return Results.Ok(all);
         });
     }

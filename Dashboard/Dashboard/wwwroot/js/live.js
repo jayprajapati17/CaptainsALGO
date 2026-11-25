@@ -29,8 +29,8 @@
     const bnTargetPoints = parseFloat(root.dataset.bnTargetPoints) || 50;
 
     const inr = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const STRATEGY_LABELS = { Ema: 'EMA', Breakout: 'Breakout', Macd: 'MACD', Reversal: 'Reversal' };
-    const STRATEGY_CLASS = { Ema: 'st-ema', Breakout: 'st-breakout', Macd: 'st-macd', Reversal: 'st-reversal' };
+    const STRATEGY_LABELS = { Ema: 'EMA', Breakout: 'Breakout', Macd: 'MACD', Reversal: 'Reversal', EmaCrossA: 'EMA 9/21 · 15m', EmaCrossB: 'EMA 9/21 · 1h' };
+    const STRATEGY_CLASS = { Ema: 'st-ema', Breakout: 'st-breakout', Macd: 'st-macd', Reversal: 'st-reversal', EmaCrossA: 'st-ema', EmaCrossB: 'st-ema' };
 
     let activeFilter = 'all';
 
@@ -165,7 +165,7 @@
         const lows = [entry, ltp].concat(sl > 0 ? [sl] : []);
         const min = Math.min(...lows) - 6;
         // Reversal exits on Nifty spot levels (not premium points), so it has no premium target marker.
-        const hasPremiumTarget = p.strategy !== 'Reversal';
+        const hasPremiumTarget = p.strategy !== 'Reversal' && !String(p.strategy).startsWith('EmaCross');   // spot-level / open-ended exits have no premium target
         const targetPoints = p.underlying === 'BANKNIFTY' ? bnTargetPoints : nifTargetPoints;
         const max = Math.max(hasPremiumTarget ? entry + targetPoints : entry, ltp) + 6;
         const pos = v => ((v - min) / (max - min)) * 100;

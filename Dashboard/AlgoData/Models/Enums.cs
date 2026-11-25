@@ -5,7 +5,9 @@ public enum StrategyType
     Ema,
     Breakout,
     Macd,
-    Reversal
+    Reversal,
+    EmaCrossA,   // EMA 9/21 options strategy, 15-minute candles (Strategy A)
+    EmaCrossB    // EMA 9/21 options strategy, 1-hour candles (Strategy B)
 }
 
 public enum ConfidenceLevel

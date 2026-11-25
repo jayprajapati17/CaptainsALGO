@@ -22,6 +22,7 @@
         AlgoData.Models.StrategyType.Breakout => "st-chip st-breakout",
         AlgoData.Models.StrategyType.Macd => "st-chip st-macd",
         AlgoData.Models.StrategyType.Reversal => "st-chip st-reversal",
+        AlgoData.Models.StrategyType.EmaCrossA or AlgoData.Models.StrategyType.EmaCrossB => "st-chip st-ema",
         _ => "st-chip st-ema"
     };
 }
@@ -73,6 +74,8 @@
             <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
             <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
             <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
+            <a class="@Chip(Model.StrategyFilter == "emacrossa")" href="@Link(strategy: "emacrossa")">EMA 9/21 15m</a>
+            <a class="@Chip(Model.StrategyFilter == "emacrossb")" href="@Link(strategy: "emacrossb")">EMA 9/21 1h</a>
         </div>
     </div>
 

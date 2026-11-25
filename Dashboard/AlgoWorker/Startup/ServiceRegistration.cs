@@ -1,6 +1,7 @@
 using AlgoData.Data;
 using AlgoWorker.BankNifty;
 using AlgoWorker.Configuration;
+using AlgoWorker.EmaCross;
 using AlgoWorker.Services;
 using AlgoWorker.Services.Decoding;
 using AlgoWorker.Services.Indicators;
@@ -22,6 +23,7 @@ public static class ServiceRegistration
         services.Configure<StrategyOptions>(config.GetSection(StrategyOptions.SectionName));
         services.Configure<BankNiftyOptions>(config.GetSection(BankNiftyOptions.SectionName));
         services.Configure<PcrOptions>(config.GetSection(PcrOptions.SectionName));
+        services.Configure<EmaCrossOptions>(config.GetSection(EmaCrossOptions.SectionName));
         return services;
     }
 
@@ -89,6 +91,16 @@ public static class ServiceRegistration
         services.AddHostedService<PcrPublisherService>();   // put/call ratio of Nifty and Bank Nifty every ~90 s in market hours -> PcrSnapshot table + Live page
 
         services.AddHostedService<Worker>();
+        return services;
+    }
+
+    /// <summary>The EMA 9/21 options strategies A (15-min) and B (1-hour), code in /EmaCross; engine in /EmaCross/Core.</summary>
+    public static IServiceCollection AddEmaCross(this IServiceCollection services)
+    {
+        services.AddSingleton<EmaCrossOptionSelector>();
+        services.AddSingleton<EmaCrossService>();
+        services.AddHostedService(sp => sp.GetRequiredService<EmaCrossService>());
+        services.AddSingleton<IMarketFeedConsumer>(sp => sp.GetRequiredService<EmaCrossService>());
         return services;
     }
 
