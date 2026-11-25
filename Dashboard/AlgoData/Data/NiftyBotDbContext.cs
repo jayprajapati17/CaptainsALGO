@@ -8,6 +8,7 @@ public sealed class NiftyBotDbContext : DbContext
     public DbSet<PositionEntity> Positions => Set<PositionEntity>();
     public DbSet<SignalLogEntity> SignalLogs => Set<SignalLogEntity>();
     public DbSet<DailyCprEntity> DailyCprs => Set<DailyCprEntity>();
+    public DbSet<PcrSnapshotEntity> PcrSnapshots => Set<PcrSnapshotEntity>();
     public DbSet<AccessTokenEntity> AccessTokens => Set<AccessTokenEntity>();
     public DbSet<AppSettingEntity> AppSettings => Set<AppSettingEntity>();
 
@@ -112,6 +113,20 @@ public sealed class NiftyBotDbContext : DbContext
             e.HasIndex(c => c.ForTradingDay);
             e.Property(c => c.Underlying).HasMaxLength(20).IsRequired();
             e.HasIndex(c => new { c.ForTradingDay, c.Label, c.Underlying }).IsUnique();
+        });
+
+        // ---- PcrSnapshot ----
+        modelBuilder.Entity<PcrSnapshotEntity>(e =>
+        {
+            e.ToTable("PcrSnapshot");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Underlying).HasMaxLength(20).IsRequired();
+            e.Property(x => x.Label).HasMaxLength(20).IsRequired();
+            foreach (var prop in new[] { nameof(PcrSnapshotEntity.Spot), nameof(PcrSnapshotEntity.SupportStrike), nameof(PcrSnapshotEntity.ResistanceStrike) })
+                e.Property(prop).HasColumnType("decimal(18,2)");
+            e.Property(x => x.TotalCallOi).HasColumnType("decimal(18,0)");
+            e.Property(x => x.TotalPutOi).HasColumnType("decimal(18,0)");
+            e.HasIndex(x => new { x.Underlying, x.Time });
         });
 
         // ---- AccessTokens ----

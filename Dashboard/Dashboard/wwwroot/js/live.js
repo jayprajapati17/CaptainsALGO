@@ -19,6 +19,8 @@
 
     const hubUrl = root.dataset.hubUrl;
     const bnSpotEl = document.getElementById('bankNiftySpot');
+    const niftyChgEl = document.getElementById('niftyChg');
+    const bnChgEl = document.getElementById('bankNiftyChg');
     const closeUrl = root.dataset.closeUrl;
     const openUrl = root.dataset.openUrl;
     const initialRisk = parseFloat(root.dataset.initialRisk) || 15;
@@ -65,47 +67,48 @@
 
     function pnlClass(v) { return v > 0 ? 'pnl-positive' : v < 0 ? 'pnl-negative' : 'pnl-flat'; }
 
-    // Row: Instrument | Entry time | Entry -> LTP + stop-loss gauge | P&L | Exit
+    const LEG_LABELS = { CurrentWeekItm: 'Curr-wk ITM', NextWeekAtm: 'Next-wk ATM' };
+
+    // Card: instrument + strategy | big P&L, then entry / LTP / SL, the gauge, and entry time + Exit.
     function createRow(p) {
-        const tr = document.createElement('tr');
-        tr.className = 'live-pos-row';
+        const tr = document.createElement('article');
+        tr.className = 'ct-card pc live-pos-row';
         tr.dataset.strategy = p.strategy;
         const canClose = p.positionId > 0;
+        const leg = LEG_LABELS[p.leg] ? `${LEG_LABELS[p.leg]} \u00b7 ` : '';
 
         tr.innerHTML = `
-            <td data-label="Instrument">
-                <div class="ct-sym">${instrumentLabel(p)} ${esc(p.strike)} ${esc(p.optionType)}</div>
-                <div class="ct-sub pos-subtitle d-flex align-items-center gap-2 mt-1">
-                    <span class="st-chip ${STRATEGY_CLASS[p.strategy] ?? ''}">${esc(STRATEGY_LABELS[p.strategy] ?? p.strategy)}</span>
-                    <span>Exp ${esc(fmtExpiry(p.expiry))}</span>
+            <div class="pc-top">
+                <div>
+                    <div class="ct-sym">${instrumentLabel(p)} ${esc(p.strike)} ${esc(p.optionType)}</div>
+                    <div class="ct-sub pos-subtitle d-flex align-items-center gap-2 mt-1">
+                        <span class="st-chip ${STRATEGY_CLASS[p.strategy] ?? ''}">${esc(STRATEGY_LABELS[p.strategy] ?? p.strategy)}</span>
+                        <span>${esc(leg)}Exp ${esc(fmtExpiry(p.expiry))}</span>
+                    </div>
                 </div>
-            </td>
-            <td data-label="Entry time" class="num text-nowrap">${esc(fmtEntryTime(p.entryTime))}</td>
-            <td data-label="Entry \u2192 LTP" class="pos-pxcell">
-                <div class="pos-px">
-                    <span class="e">${inr.format(p.entryPremium)}</span><span class="arrow">&rarr;</span><span class="l pos-current"></span>
+                <div class="pc-pnl">
+                    <span class="pos-pnl num"></span>
+                    <span class="pos-pnl-pct"></span>
                 </div>
-                <div class="gauge">
-                    <div class="gauge-track"></div>
-                    <div class="gauge-fill"></div>
-                    <div class="gauge-mark sl"></div>
-                    <div class="gauge-mark entry"></div>
-                    <div class="gauge-mark target"></div>
-                </div>
-            </td>
-            <td data-label="Stop-loss" class="pos-slcell">
-                <div class="sl-val pos-slval"></div>
-                <div class="sl-note pos-slnote"></div>
-            </td>
-            <td data-label="P&amp;L" class="text-end">
-                <span class="pos-pnl num"></span>
-                <span class="pos-pnl-pct"></span>
-            </td>
-            <td data-label="" class="text-end pos-exitcell">
+            </div>
+            <div class="pc-px">
+                <span>Entry <b>${inr.format(p.entryPremium)}</b></span>
+                <span>LTP <b class="pos-current"></b></span>
+                <span>SL <b class="pos-slval"></b></span>
+            </div>
+            <div class="gauge">
+                <div class="gauge-track"></div>
+                <div class="gauge-fill"></div>
+                <div class="gauge-mark sl"></div>
+                <div class="gauge-mark entry"></div>
+                <div class="gauge-mark target"></div>
+            </div>
+            <div class="pc-foot">
+                <span>In at ${esc(fmtEntryTime(p.entryTime))} <span class="sl-note pos-slnote"></span></span>
                 <button type="button" class="btn-exit pos-exit"
                         title="${canClose ? 'Exit this position' : 'Not saved to DB -- cannot be closed from the Dashboard'}"
                         ${canClose ? '' : 'disabled'}>Exit</button>
-            </td>`;
+            </div>`;
         return tr;
     }
 
@@ -125,6 +128,7 @@
         pnl.textContent = fmtMoney(p.pnlRupees);
         pct.textContent = fmtPct(p.pnlPercent);
         pnl.className = `pos-pnl num ${cls}`;
+        tr.classList.toggle('pc-neg', p.pnlRupees < 0);
         pct.className = `pos-pnl-pct ${cls}`;
 
         const curEl = tr.querySelector('.pos-current');
@@ -231,6 +235,7 @@
         entry.el.classList.add('live-pos-row-closed');
         entry.el.querySelector('.pos-exit').disabled = true;
         entry.el.querySelector('.pos-subtitle').textContent = `Closed: ${p.exitReason ?? 'exited'}`;
+        entry.el.classList.add('pc-closed');
         refreshChrome();
 
         setTimeout(() => {
@@ -278,6 +283,22 @@
     }
     tickClock();
     setInterval(tickClock, 1000);
+
+    // ---- PCR (put/call ratio) on the index cards: the Worker pushes "PcrChanged" about every 90 s in market hours ----
+    const PCR_CLASS = { 'Bullish-ish': 'pcr-bull', 'Bearish-ish': 'pcr-bear', 'Stretched high': 'pcr-stretch', 'Stretched low': 'pcr-stretch' };
+    const fmtPcr = v => (v === null || v === undefined) ? '\u2014' : Number(v).toFixed(2);
+    const fmtLevel = v => (v === null || v === undefined) ? '\u2014' : Number(v).toLocaleString('en-IN');
+
+    function renderPcr(d) {
+        const el = document.getElementById(d.underlying === 'BANKNIFTY' ? 'pcr-banknifty' : 'pcr-nifty');
+        if (!el) return;
+        el.querySelector('[data-pcr="value"]').textContent = fmtPcr(d.windowPcr);
+        el.querySelector('[data-pcr="label"]').textContent = d.label;
+        el.className = 'pcr-chip ' + (PCR_CLASS[d.label] ?? 'pcr-neutral');
+        const chg = (d.change === null || d.change === undefined) ? ''
+            : ` \u00b7 ${d.change > 0 ? '+' : d.change < 0 ? '\u2212' : ''}${Math.abs(d.change).toFixed(2)} today`;
+        el.title = `Put/Call ratio near the money. Full chain ${fmtPcr(d.fullPcr)} \u00b7 Support ${fmtLevel(d.supportStrike)} \u00b7 Resistance ${fmtLevel(d.resistanceStrike)}${chg}`;
+    }
 
     // ---- Status strip: market hours, token, last tick ----
     const marketEl = document.getElementById('stripMarket');
@@ -340,7 +361,7 @@
         const btn = ev.target.closest('.pos-exit');
         if (!btn || btn.disabled) return;
 
-        const rowEl = btn.closest('tr');
+        const rowEl = btn.closest('.pc');
         const entry = [...cards.values()].find(c => c.el === rowEl);
         if (!entry) return;
 
@@ -384,15 +405,24 @@
         .build();
 
     connection.on('PositionChanged', p => { markTick(); upsert(p); });
+    connection.on('PcrChanged', renderPcr);
 
     // One hub, two indices: Bank Nifty ticks carry underlying = 'BANKNIFTY'; Nifty's don't.
+    // Spot plus its change against the previous close (the close today's CPR was computed from; no change shown without it).
+    function setSpot(el, chgEl, price) {
+        if (!el) return;
+        el.textContent = inr.format(price);
+        const prev = parseFloat(el.dataset.prevClose);
+        if (!chgEl || !(prev > 0)) return;
+        const pct = (price / prev - 1) * 100;
+        chgEl.textContent = `${pct > 0 ? '+' : pct < 0 ? '\u2212' : ''}${Math.abs(pct).toFixed(2)}%`;
+        chgEl.className = 'ix-chg num ' + (pct > 0 ? 'pnl-positive' : pct < 0 ? 'pnl-negative' : 'pnl-flat');
+    }
+
     connection.on('SpotChanged', d => {
         markTick();
-        if (d.underlying === 'BANKNIFTY') {
-            if (bnSpotEl) bnSpotEl.textContent = inr.format(d.price);
-            return;
-        }
-        spotEl.textContent = inr.format(d.price);
+        if (d.underlying === 'BANKNIFTY') setSpot(bnSpotEl, bnChgEl, d.price);
+        else setSpot(spotEl, niftyChgEl, d.price);
     });
 
 

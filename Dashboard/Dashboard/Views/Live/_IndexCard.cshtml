@@ -1,67 +1,59 @@
 @model CprPair
-@* One index: live spot on top, then today's and tomorrow's CPR as plain labelled ranges. *@
+@* One index as a slim card: live spot with the day's change, the PCR chip, and today's / tomorrow's CPR as plain ranges. *@
 @{
     var isNifty = Model.Key == "nifty";
     var spotId = isNifty ? "niftySpot" : "bankNiftySpot";
-    var subId = isNifty ? "niftySpotSub" : "bankNiftySpotSub";
-}
-<div class="ct-card ix-card">
-    <div class="ix-top">
-        <span class="ct-stat-label">@Model.Name</span>
-        <span class="ct-stat-value" id="@spotId">--</span>
-        <span class="ct-stat-sub" id="@subId">Live spot</span>
-    </div>
+    var chgId = isNifty ? "niftyChg" : "bankNiftyChg";
+    var inv = System.Globalization.CultureInfo.InvariantCulture;
+    var today = Model.Today;
+    var next = Model.Tomorrow;
+    var prevClose = today is { IsForToday: true } ? today.SourceClose : 0m;
 
-    <table class="cpr-table">
-        <thead>
-            <tr>
-                <th>CPR</th>
-                <th>Central range <span>BC &ndash; TC</span></th>
-                <th>Day range <span>S1 &ndash; R1</span></th>
-            </tr>
-        </thead>
-        <tbody>
-            @{ var today = Model.Today; var next = Model.Tomorrow; }
-            <tr>
-                <td>
-                  <div class="cpr-lbl">
-                    <span class="cpr-when">@(today is { IsForToday: false } ? "Last (" + today.ForTradingDay.ToString("dd MMM") + ")" : "Today")</span>
-                    @if (today is not null)
-                    {
-                        <span class="cpr-badge" title="@today.BiasNote">@today.ShortReading &middot; @today.WidthPercent.ToString("0.00")%</span>
-                    }
-                  </div>
-                </td>
-                @if (today is not null)
-                {
-                    <td>@today.Bc.ToString("N2") &ndash; @today.Tc.ToString("N2")</td>
-                    <td>@today.S1.ToString("N2") &ndash; @today.R1.ToString("N2")</td>
-                }
-                else
-                {
-                    <td colspan="2" class="cpr-na">Not available yet (computed each morning)</td>
-                }
-            </tr>
-            <tr>
-                <td>
-                  <div class="cpr-lbl">
-                    <span class="cpr-when">Tomorrow@(next is not null ? " · " + next.ForTradingDay.ToString("ddd dd MMM") : "")</span>
-                    @if (next is not null)
-                    {
-                        <span class="cpr-badge" title="@next.BiasNote">@next.ShortReading &middot; @next.WidthPercent.ToString("0.00")%</span>
-                    }
-                  </div>
-                </td>
-                @if (next is not null)
-                {
-                    <td>@next.Bc.ToString("N2") &ndash; @next.Tc.ToString("N2")</td>
-                    <td>@next.S1.ToString("N2") &ndash; @next.R1.ToString("N2")</td>
-                }
-                else
-                {
-                    <td colspan="2" class="cpr-na">Appears after the market closes (about 3:35 PM)</td>
-                }
-            </tr>
-        </tbody>
-    </table>
+    var pcr = Model.Pcr;
+    string P(double? v) => v is { } x ? x.ToString("0.00", inv) : "\u2014";
+    string Lvl(decimal? v) => v is { } x ? x.ToString("N0") : "\u2014";
+    var pcrTip = pcr is null
+        ? "Put/Call ratio from open interest, near the money. Updates about every 90 s during market hours."
+        : "Put/Call ratio near the money. Full chain " + P(pcr.FullPcr) + " \u00b7 Support " + Lvl(pcr.Support) + " \u00b7 Resistance " + Lvl(pcr.Resistance)
+          + (pcr.Change is { } c ? " \u00b7 " + (c >= 0 ? "+" : "\u2212") + Math.Abs(c).ToString("0.00", inv) + " today" : "")
+          + (pcr.IsToday ? "" : " \u00b7 as of " + AlgoData.Models.MarketTime.ToIst(pcr.Time).ToString("ddd dd MMM", inv));
+}
+<div class="ct-card ix-slim">
+    <div class="ix-row">
+        <span class="ix-name">@Model.Name</span>
+        <span class="ix-px num" id="@spotId" data-prev-close="@prevClose.ToString(inv)">--</span>
+        <span class="ix-chg num" id="@chgId"></span>
+        <span class="pcr-chip @(pcr?.LabelClass ?? "pcr-neutral")" id="pcr-@Model.Key" title="@pcrTip">PCR <b class="num" data-pcr="value">@P(pcr?.WindowPcr)</b> &middot; <span data-pcr="label">@(pcr is null ? "no data yet" : pcr.Label)</span></span>
+    </div>
+    <div class="ix-cpr">
+        <span class="ix-cpr-k">CPR today</span>
+        @if (today is not null)
+        {
+            <span class="num"><b>@today.Bc.ToString("N2") &ndash; @today.Tc.ToString("N2")</b></span>
+            <span class="ix-cpr-k">S1&ndash;R1</span>
+            <span class="num"><b>@today.S1.ToString("N2") &ndash; @today.R1.ToString("N2")</b></span>
+            <span class="cpr-badge" title="@today.BiasNote">@today.ShortReading &middot; @today.WidthPercent.ToString("0.00")%</span>
+            @if (!today.IsForToday)
+            {
+                <span class="ix-cpr-k">(last, @today.ForTradingDay.ToString("dd MMM"))</span>
+            }
+        }
+        else
+        {
+            <span class="ix-cpr-k">not available yet (computed each morning)</span>
+        }
+    </div>
+    <div class="ix-cpr ix-cpr-next">
+        <span class="ix-cpr-k">Tomorrow@(next is not null ? " (" + next.ForTradingDay.ToString("ddd dd MMM") + ")" : "")</span>
+        @if (next is not null)
+        {
+            <span class="num">@next.Bc.ToString("N2") &ndash; @next.Tc.ToString("N2")</span>
+            <span class="ix-cpr-k">S1&ndash;R1</span>
+            <span class="num">@next.S1.ToString("N2") &ndash; @next.R1.ToString("N2")</span>
+        }
+        else
+        {
+            <span class="ix-cpr-k">appears after the market closes (about 3:35 PM)</span>
+        }
+    </div>
 </div>

@@ -1,0 +1,237 @@
+2026-10-28 08:58:25.819 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-28 08:58:25.858 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-10-28 08:58:26.070 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-28 08:58:26.240 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-27", High=22829.75, Low=22636.85, Close=22749.75
+2026-10-28 08:58:26.249 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-28": Pivot=22738.783333333333333333333333, TC=22744.266666666666666666666666, BC=22733.30, Width%=0.048, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-28 08:58:26.622 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-10-27"'s OHLC).
+2026-10-28 08:58:26.629 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-10-28 08:58:26.665 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty Bank: "2026-10-27", High=54654.05, Low=53951.2, Close=53974.9
+2026-10-28 08:58:26.666 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-28": Pivot=54193.383333333333333333333333, TC=54084.14166666666666666666667, BC=54302.625, Width%=0.405, Reading=Wide CPR -- Sideways/Range-bound day likely, mean-reversion between S1-R1 more probable
+2026-10-28 08:58:26.674 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: today's CPR saved (from "2026-10-27"'s OHLC).
+2026-10-28 08:59:18.266 +05:30 [INF] AlgoWorker.Services.Persistence.TokenRepository: Access token saved for "2026-10-28".
+2026-10-28 08:59:18.268 +05:30 [INF] Program: Upstox access token generated and saved via the dashboard OAuth flow.
+2026-10-28 09:15:28.031 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-28 09:15:28.072 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-28 09:15:28.082 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-28 09:15:28.083 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-30" to "2026-10-27"...
+2026-10-28 09:15:28.121 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-28 09:15:28.139 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-27T13:20:00.0000000+05:30": low 54067.7 swept red low 54118.25; waiting up to 4 candles.
+2026-10-28 09:15:28.143 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Sweep setup cancelled: close 54056.35 below signal low 54067.7.
+2026-10-28 09:15:28.144 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-27T13:30:00.0000000+05:30": low 54030.75 swept red low 54052.15; waiting up to 4 candles.
+2026-10-28 09:15:28.146 +05:30 [INF] AlgoWorker.BankNifty.ReversalEngine: Reversal "LiquiditySweep" skipped: R:R 0.29 below minimum 2.0.
+2026-10-28 09:15:28.148 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-27T14:05:00.0000000+05:30": low 54012.95 swept red low 54019.35; waiting up to 4 candles.
+2026-10-28 09:15:28.149 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Sweep setup cancelled: close 53996.85 below signal low 54012.95.
+2026-10-28 09:15:28.150 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-27T14:15:00.0000000+05:30": low 53957.25 swept red low 53979.55; waiting up to 4 candles.
+2026-10-28 09:15:28.152 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyReversalPipeline: Bank Nifty Reversal: replayed 150 5-min candles from 2 previous day(s).
+2026-10-28 09:15:28.160 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-30" to "2026-10-27")
+2026-10-28 09:15:28.209 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 5-min intraday candles.
+2026-10-28 09:15:28.210 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 0 of today's 5-min candles.
+2026-10-28 09:15:28.213 +05:30 [WRN] AlgoWorker.BankNifty.EmaSeeder: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-28 09:15:28.214 +05:30 [INF] AlgoWorker.BankNifty.EmaSeeder: Seeding historical candles from "2026-09-30" to "2026-10-27"...
+2026-10-28 09:15:28.251 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-28 09:15:28.258 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-30T10:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.258 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-30T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.258 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-30T10:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.259 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-30T11:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.259 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-30T12:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.262 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-30T13:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.262 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-30T14:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.262 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-30T15:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.263 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.263 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.263 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.263 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-07T15:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.263 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-09T13:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.263 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T14:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.263 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.263 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.263 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.263 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-13T11:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.264 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-19T13:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.264 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-19T14:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.264 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-26T14:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.264 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-26T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.264 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 450 candles replayed through the indicator pipeline (450 historical + 0 today).
+2026-10-28 09:15:28.265 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "GoldenCross" originally crossed at "2026-10-26T14:00:00.0000000+05:30" (31 candles ago), still active as of "2026-10-27T15:15:00.0000000+05:30".
+2026-10-28 09:15:28.324 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 historical 15-min candles for NSE_INDEX|Nifty Bank ("2026-09-30" to "2026-10-27")
+2026-10-28 09:15:28.364 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty Bank
+2026-10-28 09:15:28.365 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "GoldenCross" crossover detected at "2026-09-30T09:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.367 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-30T10:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.369 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-01T13:15:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.370 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "DeathCross" confirmed at "2026-10-01T13:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.371 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "GoldenCross" crossover detected at "2026-10-05T10:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.373 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-05T11:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.375 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "DeathCross" confirmed at "2026-10-05T11:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.376 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "GoldenCross" crossover detected at "2026-10-05T14:15:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.377 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-05T14:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.378 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-08T10:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.379 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "DeathCross" confirmed at "2026-10-08T11:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.380 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "GoldenCross" crossover detected at "2026-10-09T10:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.381 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-09T11:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.382 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-12T11:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.383 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "DeathCross" confirmed at "2026-10-12T12:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.384 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "GoldenCross" crossover detected at "2026-10-13T10:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.386 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-13T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.387 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-19T10:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.388 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "DeathCross" confirmed at "2026-10-19T11:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.390 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "GoldenCross" crossover detected at "2026-10-27T10:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.391 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-27T11:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.392 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-27T13:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-28 09:15:28.394 +05:30 [DBG] AlgoWorker.BankNifty.EmaSignalEngine: (seeding) "DeathCross" confirmed at "2026-10-27T13:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:28.395 +05:30 [INF] AlgoWorker.BankNifty.EmaSeeder: Seeding complete -- 450 candles replayed through the indicator pipeline (450 historical + 0 today).
+2026-10-28 09:15:28.396 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: Catch-up signal: "DeathCross" originally crossed at "2026-10-27T13:00:00.0000000+05:30" (10 candles ago), still active as of "2026-10-27T15:15:00.0000000+05:30".
+2026-10-28 09:15:29.521 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-10-17" to "2026-10-27", keeping the last 2 trading day(s)...
+2026-10-28 09:15:29.620 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 750 historical 5-min candles for NSE_INDEX|Nifty 50 ("2026-10-17" to "2026-10-27")
+2026-10-28 09:15:29.661 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 5-min candles for NSE_INDEX|Nifty 50
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T09:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -3.85, Signal -5.34, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T10:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 50.10, Signal 51.17, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T11:57:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -7.56, Signal -7.96, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T12:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 4.06, Signal 5.14, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-26T13:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T13:57:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 13.79, Signal 14.59, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-26T14:06:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T14:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.47, Signal 16.72, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-26T14:51:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-26T15:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 14.52, Signal 15.33, likely choppy/hugging zero).
+2026-10-28 09:15:29.665 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-26T15:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T09:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 11.85, Signal 13.60, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-27T09:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T10:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 11.63, Signal 16.00, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-27T10:45:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T11:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.28, Signal 8.23, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-27T11:39:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T12:09:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 4.31, Signal 4.36, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-10-27T12:33:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T13:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 5.92, Signal 7.63, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T13:51:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -15.20, Signal -15.46, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bearish" confirmed at "2026-10-27T14:03:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-28 09:15:29.666 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-27T14:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -17.95, Signal -18.43, likely choppy/hugging zero).
+2026-10-28 09:15:29.666 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 250 3-min candles replayed (2 trading day(s) + 0 today).
+2026-10-28 09:15:29.726 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 5-min historical candles.
+2026-10-28 09:15:29.766 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 5-min intraday candles.
+2026-10-28 09:15:29.768 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-26" from first 5-min candle ("2026-10-26T09:15:00.0000000+05:30"): High=22524.4, Low=22435.6
+2026-10-28 09:15:29.791 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-26T09:20:00.0000000+05:30": close vs level 22435.6 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.791 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-10-26T09:35:00.0000000+05:30": close vs level 22435.6 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.791 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-26T09:50:00.0000000+05:30": close vs level 22524.4 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.792 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-27" from first 5-min candle ("2026-10-27T09:15:00.0000000+05:30"): High=22724.35, Low=22653.2
+2026-10-28 09:15:29.792 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-27T09:25:00.0000000+05:30": close vs level 22724.35 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.792 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-27T09:35:00.0000000+05:30": close vs level 22724.35 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.792 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-27T10:30:00.0000000+05:30": close vs level 22724.35 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.793 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-27T13:30:00.0000000+05:30": low 22677.95 swept red low 22683.25; waiting up to 4 candles.
+2026-10-28 09:15:29.793 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.24 below minimum 2.0.
+2026-10-28 09:15:29.793 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-27T14:05:00.0000000+05:30": low 22657.1 swept red low 22663.4; waiting up to 4 candles.
+2026-10-28 09:15:29.793 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup expired without confirmation after 4 candles.
+2026-10-28 09:15:29.793 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-27T14:35:00.0000000+05:30": close vs level 22724.35 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.793 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-10-27T14:50:00.0000000+05:30": close vs level 22724.35 -- not alerting yet, historical replay only.
+2026-10-28 09:15:29.794 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 150 candles replayed (2 previous day(s) + 0 today).
+2026-10-28 09:15:29.794 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-10-28 09:15:30.470 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-10-28 09:15:30.470 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-10-28 09:15:30.475 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_INDEX|Nifty Bank
+2026-10-28 09:15:30.513 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-10-28 09:15:30.533 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty: first index tick received from the shared feed (53,649.45).
+2026-10-28 09:15:30.537 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,649.45 | opening range not captured yet | open position: none
+2026-10-28 09:16:26.139 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1682 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-10-28 09:16:26.145 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty 50: 03-Nov-2026 (Tue), 09-Nov-2026 (Mon), 17-Nov-2026 (Tue), 23-Nov-2026 (Mon), 01-Dec-2026 (Tue), 29-Dec-2026 (Tue)
+2026-10-28 09:16:26.216 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Option chain sample (NSE_INDEX|Nifty 50, "2026-11-03"): {"status":"success","data":[{"expiry":"2026-11-03","strike_price":20050.0,"underlying_key":"NSE_INDEX|Nifty 50","underlying_spot_price":22581.5,"call_options":{"instrument_key":"NSE_FO|53300","market_data":{"ltp":0.0,"volume":0,"oi":0.0,"close_price":3416.1,"bid_price":2218.05,"bid_qty":65,"ask_price":2799.75,"ask_qty":65,"prev_oi":0.0},"option_greeks":{"vega":0.0,"theta":0.0,"gamma":0.0,"delta":1.0,"iv":0.0,"pop":99.0}},"put_options":{"instrument_key":"NSE_FO|53309","market_data":{"ltp":1.8,"volume":318175,"oi":5685095.0,"close_price":1.85,"bid_price":1.75,"bid_qty":286715,"ask_price":1.8,"ask_qty":322660,"prev_oi":5610865.0},"option_greeks":{"vega":0.4406,"theta":-1.2718,"gamma":0.0,"delta...
+2026-10-28 09:16:26.340 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 1.03, full 0.97 (Neutral), expiry "2026-11-03".
+2026-10-28 09:16:26.493 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 905 option contracts for NSE_INDEX|Nifty Bank (6 expiries).
+2026-10-28 09:16:26.493 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty Bank: 23-Nov-2026 (Mon), 29-Dec-2026 (Tue), 25-Jan-2027 (Mon), 30-Mar-2027 (Tue), 29-Jun-2027 (Tue), 28-Sept-2027 (Tue)
+2026-10-28 09:16:26.577 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.45, full 0.89 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:16:30.789 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,798.25 | opening range not captured yet | open position: none
+2026-10-28 09:17:30.853 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,794.45 | opening range not captured yet | open position: none
+2026-10-28 09:17:56.857 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.97, full 0.94 (Neutral), expiry "2026-11-03".
+2026-10-28 09:17:56.938 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.40, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:18:31.088 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,830.00 | opening range not captured yet | open position: none
+2026-10-28 09:19:27.185 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.90, full 0.91 (Neutral), expiry "2026-11-03".
+2026-10-28 09:19:27.256 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.39, full 0.89 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:19:31.172 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,891.10 | opening range not captured yet | open position: none
+2026-10-28 09:20:00.188 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-10-28" from first 5-min candle ("2026-10-28T09:15:00.0000000+05:30"): High=22610.85, Low=22556.9
+2026-10-28 09:20:00.188 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-28T09:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -0.76, Signal 11.13, likely choppy/hugging zero).
+2026-10-28 09:20:00.339 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:15 closed: O 53,649.45 H 53,917.75 L 53,648.70 C 53,871.10 | range not captured yet
+2026-10-28 09:20:00.343 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: Opening range "2026-10-28": High=53917.75 Low=53648.7 width=0.50%
+2026-10-28 09:20:31.539 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,860.25 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:20:57.494 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.89 (Neutral), expiry "2026-11-03".
+2026-10-28 09:20:57.567 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.39, full 0.89 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:21:31.837 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,871.20 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:22:27.791 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.87 (Neutral), expiry "2026-11-03".
+2026-10-28 09:22:27.877 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.43, full 0.89 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:22:32.137 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,823.75 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:23:32.286 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,800.15 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:23:58.096 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.91, full 0.86 (Neutral), expiry "2026-11-03".
+2026-10-28 09:23:58.193 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.41, full 0.89 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:24:32.331 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,845.25 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:25:00.336 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:20 closed: O 53,868.05 H 53,902.70 L 53,798.50 C 53,857.40 | range 53,648.70 - 53,917.75
+2026-10-28 09:25:28.442 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.85 (Neutral), expiry "2026-11-03".
+2026-10-28 09:25:28.524 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.40, full 0.89 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:25:32.439 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,823.85 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:26:32.586 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,812.90 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:26:58.833 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.88, full 0.85 (Neutral), expiry "2026-11-03".
+2026-10-28 09:26:58.914 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.39, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:27:32.657 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,738.80 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:28:29.132 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.83 (Neutral), expiry "2026-11-03".
+2026-10-28 09:28:29.224 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.36, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:28:32.665 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,762.25 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:29:32.978 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,716.75 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:29:59.459 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.83 (Neutral), expiry "2026-11-03".
+2026-10-28 09:29:59.539 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.39, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:30:00.185 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:25 closed: O 53,856.10 H 53,871.80 L 53,706.95 C 53,725.45 | range 53,648.70 - 53,917.75
+2026-10-28 09:30:00.188 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT DOWN confirmed at "2026-10-28T09:25:00.0000000+05:30": close 22552.45 vs level 22556.9
+2026-10-28 09:30:00.260 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Put" option for breakout on NSE_INDEX|Nifty 50: strike 22550, expiry "2026-11-03".
+2026-10-28 09:30:00.531 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|53719
+2026-10-28 09:30:01.450 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Down" position opened: NIFTY 22550 PE 03 NOV 26 @ 214.85
+2026-10-28 09:30:33.291 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,679.05 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:31:29.825 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.84, full 0.83 (Neutral), expiry "2026-11-03".
+2026-10-28 09:31:29.927 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.37, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:31:33.334 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,692.15 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:32:33.633 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,734.60 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:33:00.178 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.82 (Neutral), expiry "2026-11-03".
+2026-10-28 09:33:00.317 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.36, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:33:33.633 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,753.55 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:33:49.219 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|53719
+2026-10-28 09:33:49.253 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹202.85 (peak ₹220.80). P&L: -945.75 (-6.8%)
+2026-10-28 09:34:30.542 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.81 (Neutral), expiry "2026-11-03".
+2026-10-28 09:34:30.611 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.31, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:34:33.934 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,777.95 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:35:00.252 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:30 closed: O 53,726.55 H 53,803.90 L 53,660.60 C 53,803.90 | range 53,648.70 - 53,917.75
+2026-10-28 09:35:00.255 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-28T09:30:00.0000000+05:30": low 53660.6 swept red low 53706.95; waiting up to 4 candles.
+2026-10-28 09:35:00.258 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-28T09:30:00.0000000+05:30": low 22540.75 swept red low 22551.9; waiting up to 4 candles.
+2026-10-28 09:35:34.233 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,799.00 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:36:00.829 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.81 (Neutral), expiry "2026-11-03".
+2026-10-28 09:36:00.911 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.29, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:36:34.234 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,776.75 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:37:31.165 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.81 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:37:31.244 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.28, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:37:34.382 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,771.60 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:38:34.382 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,734.55 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:39:01.480 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.81 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:39:01.548 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.31, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:39:34.531 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,711.80 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:40:00.181 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:35 closed: O 53,804.30 H 53,824.45 L 53,706.40 C 53,720.35 | range 53,648.70 - 53,917.75
+2026-10-28 09:40:00.185 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Reversal "LiquiditySweep" skipped: R:R 0.03 below minimum 2.0.
+2026-10-28 09:40:31.792 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.81 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:40:31.888 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.31, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:40:34.532 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,746.70 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:41:34.681 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,808.25 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:42:02.116 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.80 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:42:02.195 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.27, full 0.88 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:42:34.683 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,823.60 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:43:32.433 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.80 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:43:32.505 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.26, full 0.87 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:43:34.981 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,849.75 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:44:35.280 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,871.60 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:45:00.181 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 09:40 closed: O 53,720.65 H 53,878.70 L 53,720.00 C 53,856.15 | range 53,648.70 - 53,917.75
+2026-10-28 09:45:00.184 +05:30 [INF] AlgoWorker.BankNifty.ReversalEngine: Reversal "LiquiditySweep" skipped: R:R 0.07 below minimum 2.0.
+2026-10-28 09:45:02.756 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.80 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:45:02.871 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.26, full 0.87 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:45:35.303 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,873.50 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:46:33.159 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.67, full 0.80 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:46:33.237 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.26, full 0.87 (Bullish-ish), expiry "2026-11-23".
+2026-10-28 09:46:35.580 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,918.15 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:47:35.729 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,967.35 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:48:03.461 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.70, full 0.81 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:48:03.564 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.09, full 0.87 (Neutral), expiry "2026-11-23".
+2026-10-28 09:48:35.730 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,949.40 | opening range 53,648.70 - 53,917.75 | open position: none
+2026-10-28 09:49:33.863 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.82 (Bearish-ish), expiry "2026-11-03".
+2026-10-28 09:49:33.935 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Bank Nifty: PCR near-ATM 1.09, full 0.88 (Neutral), expiry "2026-11-23".
+2026-10-28 09:49:35.910 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 53,964.20 | opening range 53,648.70 - 53,917.75 | open position: none

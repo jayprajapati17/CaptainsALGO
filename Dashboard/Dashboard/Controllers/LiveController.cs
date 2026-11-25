@@ -148,7 +148,7 @@ public sealed class LiveController : Controller
             var tomorrowRow = rows.Where(c => c.Label == CprLabel.NextDayCpr && c.ForTradingDay > today)
                 .OrderByDescending(c => c.ForTradingDay).FirstOrDefault();
 
-            return new CprPair { Name = name, Key = key, Today = ToStrip(todayRow, today), Tomorrow = ToStrip(tomorrowRow, today) };
+            return new CprPair { Name = name, Key = key, Today = ToStrip(todayRow, today), Tomorrow = ToStrip(tomorrowRow, today), Pcr = await LoadPcrAsync(underlying, today, ct) };
         }
         catch (Exception ex)
         {
@@ -157,10 +157,54 @@ public sealed class LiveController : Controller
         }
     }
 
+    /// <summary>
+    /// The latest PCR snapshot of the index within the last few days (so the card isn't empty before the open) and the first
+    /// snapshot of that same day, which the "change since open" is measured from. Null when nothing is stored or the DB is unreachable.
+    /// </summary>
+    private async Task<PcrStrip?> LoadPcrAsync(string underlying, DateOnly today, CancellationToken ct)
+    {
+        try
+        {
+            var since = AlgoData.Models.MarketTime.StartOfDay(today.AddDays(-5));
+            var latest = await _db.PcrSnapshots.AsNoTracking()
+                .Where(p => p.Underlying == underlying && p.Time >= since)
+                .OrderByDescending(p => p.Time)
+                .FirstOrDefaultAsync(ct);
+            if (latest is null) return null;
+
+            var day = DateOnly.FromDateTime(latest.Time.ToIst().DateTime);
+            var dayStart = AlgoData.Models.MarketTime.StartOfDay(day);
+            var first = await _db.PcrSnapshots.AsNoTracking()
+                .Where(p => p.Underlying == underlying && p.Time >= dayStart && p.Time < dayStart.AddDays(1))
+                .OrderBy(p => p.Time)
+                .FirstOrDefaultAsync(ct);
+
+            double? change = first is not null && first.Id != latest.Id && first.WindowPcr is { } f && latest.WindowPcr is { } l ? l - f : null;
+            return new PcrStrip
+            {
+                Time = latest.Time,
+                IsToday = day == today,
+                Expiry = latest.Expiry,
+                WindowPcr = latest.WindowPcr,
+                FullPcr = latest.FullPcr,
+                Change = change,
+                Label = latest.Label,
+                Support = latest.SupportStrike,
+                Resistance = latest.ResistanceStrike
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Could not load the {Underlying} PCR for the Live page.", underlying);
+            return null;
+        }
+    }
+
     private static CprStrip? ToStrip(DailyCprEntity? row, DateOnly today) => row is null ? null : new CprStrip
     {
         ForTradingDay = row.ForTradingDay,
         IsForToday = row.ForTradingDay == today,
+        SourceClose = row.SourceClose,
         Pivot = row.CPRPivot,
         Tc = row.Tc,
         Bc = row.Bc,

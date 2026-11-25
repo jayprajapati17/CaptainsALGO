@@ -32,11 +32,10 @@
         <div class="alert alert-warning py-2 mb-0" role="alert">@Model.WorkerError</div>
     }
 
-    @* ---------- Market band: one card per index (live spot + CPR ranges) and the running P&L ---------- *@
-    <section class="live-band">
+    @* ---------- Market band: one slim card per index (live spot, PCR, CPR ranges) ---------- *@
+    <section class="ix-band">
         <partial name="_IndexCard" model="Model.NiftyCpr" />
         <partial name="_IndexCard" model="Model.BankNiftyCpr" />
-
     </section>
 
     @* ---------- Positions ---------- *@
@@ -51,18 +50,18 @@
                 </div>
             </div>
             <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="pnl-pill pnl-up" id="pnlPill" title="Combined P&amp;L of all open positions">
-                    <span class="pnl-pill-label">Open P&amp;L</span>
-                    <span class="pnl-pill-value" id="totalPnl">&#8377;0.00</span>
-                    <span class="pnl-pill-sub"><span id="openCount">0</span> open &middot; 1 lot each</span>
-                </div>
-                <div class="chip-group" id="strategyFilter">
-                    <a href="#" class="chip chip-active" data-filter="all">All</a>
-                    <a href="#" class="chip" data-filter="Ema">EMA</a>
-                    <a href="#" class="chip" data-filter="Breakout">Breakout</a>
-                    <a href="#" class="chip" data-filter="Macd">MACD</a>
-                    <a href="#" class="chip" data-filter="Reversal">Reversal</a>
-                </div>
+            <div class="pnl-pill pnl-up" id="pnlPill" title="Combined P&amp;L of all open positions">
+                <span class="pnl-pill-label">Open P&amp;L</span>
+                <span class="pnl-pill-value" id="totalPnl">&#8377;0.00</span>
+                <span class="pnl-pill-sub"><span id="openCount">0</span> open &middot; 1 lot each</span>
+            </div>
+            <div class="chip-group" id="strategyFilter">
+                <a href="#" class="chip chip-active" data-filter="all">All</a>
+                <a href="#" class="chip" data-filter="Ema">EMA</a>
+                <a href="#" class="chip" data-filter="Breakout">Breakout</a>
+                <a href="#" class="chip" data-filter="Macd">MACD</a>
+                <a href="#" class="chip" data-filter="Reversal">Reversal</a>
+            </div>
             </div>
         </div>
 
@@ -70,20 +69,9 @@
             No open positions right now. A new row will appear here automatically when a signal fires.
         </div>
 
-        <div class="ct-card ct-table-wrap" id="positionTableWrap">
-            <table class="ct-table live-table ct-cards-m">
-                <thead>
-                    <tr>
-                        <th>Instrument</th>
-                        <th>Entry time</th>
-                        <th style="width:34%">Entry &rarr; LTP</th>
-                        <th>Stop-loss</th>
-                        <th class="text-end">P&amp;L</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="positionGrid"></tbody>
-            </table>
+        @* One card per open position; live.js adds, updates and removes them. *@
+        <div id="positionTableWrap">
+            <div class="pcards" id="positionGrid"></div>
         </div>
 
     </section>

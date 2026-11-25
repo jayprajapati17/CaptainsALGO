@@ -40,4 +40,17 @@ public static class PositionBroadcast
             logger.LogDebug(ex, "Failed to broadcast SpotChanged ({Underlying}).", underlying ?? "NIFTY50");
         }
     }
+
+    /// <summary>"PcrChanged": the latest put/call ratio of one index (the payload is a <see cref="PcrUpdateDto"/>).</summary>
+    public static async Task PublishPcrAsync(IHubContext<PositionHub> hub, PcrUpdateDto dto, ILogger logger)
+    {
+        try
+        {
+            await hub.Clients.All.SendAsync("PcrChanged", dto);
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug(ex, "Failed to broadcast PcrChanged ({Underlying}).", dto.Underlying);
+        }
+    }
 }

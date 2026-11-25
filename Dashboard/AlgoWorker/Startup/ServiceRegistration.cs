@@ -21,6 +21,7 @@ public static class ServiceRegistration
         services.Configure<TelegramOptions>(config.GetSection(TelegramOptions.SectionName));
         services.Configure<StrategyOptions>(config.GetSection(StrategyOptions.SectionName));
         services.Configure<BankNiftyOptions>(config.GetSection(BankNiftyOptions.SectionName));
+        services.Configure<PcrOptions>(config.GetSection(PcrOptions.SectionName));
         return services;
     }
 
@@ -48,6 +49,7 @@ public static class ServiceRegistration
         services.AddSingleton<IPositionRepository, PositionRepository>();
         services.AddSingleton<ISignalLogRepository, SignalLogRepository>();
         services.AddSingleton<ICprRepository, CprRepository>();
+        services.AddSingleton<IPcrRepository, PcrRepository>();
         services.AddSingleton<ITokenRepository, TokenRepository>();
         services.AddHttpClient();   // plain HttpClientFactory for the OAuth token exchange
         return services;
@@ -84,6 +86,7 @@ public static class ServiceRegistration
 
         services.AddSingleton<CprAnalysisService>();
         services.AddHostedService<CprPublisherService>();   // today's + tomorrow's CPR for Nifty and Bank Nifty -> DailyCpr table
+        services.AddHostedService<PcrPublisherService>();   // put/call ratio of Nifty and Bank Nifty every ~90 s in market hours -> PcrSnapshot table + Live page
 
         services.AddHostedService<Worker>();
         return services;

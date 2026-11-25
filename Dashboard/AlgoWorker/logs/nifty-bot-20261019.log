@@ -1,0 +1,506 @@
+2026-10-19 08:48:24.855 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-19 08:48:24.891 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-10-19 08:48:25.109 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-19 08:48:26.613 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-16", High=23149.85, Low=22913.8, Close=23146.15
+2026-10-19 08:48:26.624 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-19": Pivot=23069.933333333333333333333333, TC=23108.041666666666666666666666, BC=23031.825, Width%=0.329, Reading=Normal CPR -- Moderate movement expected
+2026-10-19 08:48:26.896 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-10-16"'s OHLC).
+2026-10-19 08:48:26.899 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-10-19 08:48:27.282 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty Bank: "2026-10-16", High=55989.55, Low=55526.3, Close=55844.0
+2026-10-19 08:48:27.282 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-19": Pivot=55786.616666666666666666666667, TC=55815.30833333333333333333333, BC=55757.925, Width%=0.103, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-19 08:48:27.296 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: today's CPR saved (from "2026-10-16"'s OHLC).
+2026-10-19 08:48:56.136 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-19 08:48:56.171 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-10-19 08:48:56.319 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-19 08:48:58.179 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-16", High=23149.85, Low=22913.8, Close=23146.15
+2026-10-19 08:48:58.187 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-19": Pivot=23069.933333333333333333333333, TC=23108.041666666666666666666666, BC=23031.825, Width%=0.329, Reading=Normal CPR -- Moderate movement expected
+2026-10-19 08:48:58.386 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-10-16"'s OHLC).
+2026-10-19 08:48:58.390 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-10-19 08:48:58.872 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty Bank: "2026-10-16", High=55989.55, Low=55526.3, Close=55844.0
+2026-10-19 08:48:58.873 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-19": Pivot=55786.616666666666666666666667, TC=55815.30833333333333333333333, BC=55757.925, Width%=0.103, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-19 08:48:58.882 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: today's CPR saved (from "2026-10-16"'s OHLC).
+2026-10-19 08:49:52.176 +05:30 [INF] AlgoWorker.Services.Persistence.TokenRepository: Access token saved for "2026-10-19".
+2026-10-19 08:49:52.178 +05:30 [INF] Program: Upstox access token generated and saved via the dashboard OAuth flow.
+2026-10-19 09:15:59.247 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-19 09:15:59.266 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-10-19 09:15:59.289 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-19 09:15:59.290 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-09-21" to "2026-10-18"...
+2026-10-19 09:15:59.311 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 525 5-min historical candles.
+2026-10-19 09:15:59.327 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-16T09:35:00.0000000+05:30": low 55526.3 swept red low 55536.85; waiting up to 4 candles.
+2026-10-19 09:15:59.332 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Sweep setup expired without confirmation after 4 candles.
+2026-10-19 09:15:59.333 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyReversalPipeline: Bank Nifty Reversal: replayed 150 5-min candles from 2 previous day(s).
+2026-10-19 09:15:59.348 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-21" to "2026-10-18")
+2026-10-19 09:15:59.379 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 5-min intraday candles.
+2026-10-19 09:15:59.380 +05:30 [INF] AlgoWorker.BankNifty.OpeningRangeSeederService: Seeded 0 of today's 5-min candles.
+2026-10-19 09:15:59.383 +05:30 [WRN] AlgoWorker.BankNifty.EmaSeeder: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-10-19 09:15:59.385 +05:30 [INF] AlgoWorker.BankNifty.EmaSeeder: Seeding historical candles from "2026-09-21" to "2026-10-18"...
+2026-10-19 09:15:59.396 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-10-19 09:15:59.414 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-21T12:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 09:15:59.420 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-21T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-19 09:15:59.427 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-22T11:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 09:15:59.427 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-22T12:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-19 09:15:59.428 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-09-23T11:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 09:15:59.428 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-09-23T12:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-19 09:15:59.429 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-09-24T09:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 09:15:59.429 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-09-24T10:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-19 09:15:59.431 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-06T09:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 09:15:59.431 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-06T10:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-10-19 09:15:59.434 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-07T14:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 09:15:59.435 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-07T15:15:00.0000000+05:30" -- not al2026-10-19 10:29:26.138 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,644.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:30:00.192 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:25 closed: O 55,667.20 H 55,672.00 L 55,631.80 C 55,660.60 | range 55,531.45 - 55,783.20
+2026-10-19 10:30:26.439 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,703.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:31:26.441 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,665.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:32:26.737 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,610.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:33:26.739 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,568.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:34:27.036 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,566.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:35:00.038 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:30 closed: O 55,665.80 H 55,709.25 L 55,551.15 C 55,572.85 | range 55,531.45 - 55,783.20
+2026-10-19 10:35:00.040 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT DOWN confirmed at "2026-10-19T10:30:00.0000000+05:30": close 23080.05 vs level 23083.1
+2026-10-19 10:35:00.041 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Put" option for breakout on NSE_INDEX|Nifty 50: strike 23100, expiry "2026-10-19".
+2026-10-19 10:35:00.326 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47168
+2026-10-19 10:35:01.170 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Down" position opened: NIFTY 23100 PE 19 OCT 26 @ 73.75
+2026-10-19 10:35:27.188 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,551.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:36:27.191 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,495.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:37:27.336 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,501.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:38:27.488 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,510.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:39:27.785 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,511.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:40:00.037 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:35 closed: O 55,571.75 H 55,574.05 L 55,485.50 C 55,505.05 | range 55,531.45 - 55,783.20
+2026-10-19 10:40:00.039 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: ORB breakout "Down" confirmed: close 55505.05 vs level 55531.45
+2026-10-19 10:40:00.041 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Put" option for breakout on NSE_INDEX|Nifty Bank: strike 55500, expiry "2026-10-27".
+2026-10-19 10:40:01.107 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|49458
+2026-10-19 10:40:01.763 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty ORB "Down" opened: BANKNIFTY 55500 PE 27 OCT 26 @ 420.8, SL 390.8
+2026-10-19 10:40:01.766 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 420.80 | entry 420.80 | peak 420.80 | SL 390.80 | P&L 0 (0.0%)
+2026-10-19 10:40:28.085 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,500.25 | opening range 55,531.45 - 55,783.20 | open position: yes
+2026-10-19 10:40:32.293 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 423.85 | entry 420.80 | peak 427.60 | SL 390.80 | P&L 92 (0.7%)
+2026-10-19 10:41:02.890 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 427.05 | entry 420.80 | peak 429.65 | SL 390.80 | P&L 188 (1.5%)
+2026-10-19 10:41:05.436 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Stop-loss moved 390.80 -> 395.80 (peak 431.10, LTP 431.10) on BANKNIFTY 55500 PE 27 OCT 26
+2026-10-19 10:41:28.086 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,507.40 | opening range 55,531.45 - 55,783.20 | open position: yes
+2026-10-19 10:41:33.553 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 425.35 | entry 420.80 | peak 431.10 | SL 395.80 | P&L 137 (1.1%)
+2026-10-19 10:42:04.086 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 421.80 | entry 420.80 | peak 437.70 | SL 395.80 | P&L 30 (0.2%)
+2026-10-19 10:42:24.351 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47168
+2026-10-19 10:42:24.357 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹102.75 (peak ₹122.85). P&L: 1,826.50 (38.1%)
+2026-10-19 10:42:28.393 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,537.95 | opening range 55,531.45 - 55,783.20 | open position: yes
+2026-10-19 10:42:34.234 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 406.45 | entry 420.80 | peak 437.70 | SL 395.80 | P&L -431 (-3.4%)
+2026-10-19 10:43:04.235 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 414.25 | entry 420.80 | peak 437.70 | SL 395.80 | P&L -197 (-1.6%)
+2026-10-19 10:43:28.402 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,557.05 | opening range 55,531.45 - 55,783.20 | open position: yes
+2026-10-19 10:43:34.391 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 408.25 | entry 420.80 | peak 437.70 | SL 395.80 | P&L -377 (-3.0%)
+2026-10-19 10:44:04.391 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Position BANKNIFTY 55500 PE 27 OCT 26: LTP 398.50 | entry 420.80 | peak 437.70 | SL 395.80 | P&L -669 (-5.3%)
+2026-10-19 10:44:11.370 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|49458
+2026-10-19 10:44:11.377 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty position closed. Stop-loss hit at ₹395.80 (peak ₹437.70). P&L -819.00
+2026-10-19 10:44:28.535 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,587.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:45:00.034 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:40 closed: O 55,508.45 H 55,601.80 L 55,486.10 C 55,587.45 | range 55,531.45 - 55,783.20
+2026-10-19 10:45:28.687 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,582.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:46:28.840 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,566.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:47:29.135 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,578.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:48:29.440 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,566.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:49:29.587 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,564.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:50:00.191 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:45 closed: O 55,585.40 H 55,592.20 L 55,542.85 C 55,581.15 | range 55,531.45 - 55,783.20
+2026-10-19 10:50:29.593 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,574.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:51:29.758 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,593.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:52:29.885 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,634.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:53:30.186 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,625.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:54:30.486 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,624.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:55:00.033 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:50 closed: O 55,576.95 H 55,643.55 L 55,564.20 C 55,608.70 | range 55,531.45 - 55,783.20
+2026-10-19 10:55:30.645 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,619.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:56:30.783 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,638.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:57:30.785 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,638.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:58:30.934 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,631.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 10:59:31.235 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,628.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:00:00.032 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 10:55 closed: O 55,608.70 H 55,661.70 L 55,608.70 C 55,631.05 | range 55,531.45 - 55,783.20
+2026-10-19 11:00:00.035 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: New "DeathCross" crossover detected at "2026-10-19T10:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 11:00:31.532 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,639.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:01:31.830 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,612.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:02:31.839 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,624.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:03:31.989 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,645.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:04:32.281 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,668.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:05:00.031 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:00 closed: O 55,628.70 H 55,671.75 L 55,607.25 C 55,670.85 | range 55,531.45 - 55,783.20
+2026-10-19 11:05:32.312 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,657.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:06:32.456 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,665.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:07:32.532 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,679.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:08:32.919 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,682.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:09:33.032 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,687.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:10:00.186 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:05 closed: O 55,667.60 H 55,707.00 L 55,649.00 C 55,702.00 | range 55,531.45 - 55,783.20
+2026-10-19 11:10:33.181 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,702.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:11:33.329 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,700.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:12:33.329 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,652.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:13:33.629 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,655.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:14:33.934 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,657.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:15:00.183 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:10 closed: O 55,701.75 H 55,725.20 L 55,639.60 C 55,663.30 | range 55,531.45 - 55,783.20
+2026-10-19 11:15:34.237 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,656.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:16:34.390 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,679.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:17:34.685 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,661.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:18:34.986 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,663.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:19:35.279 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,657.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:20:00.034 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:15 closed: O 55,667.05 H 55,692.00 L 55,641.75 C 55,653.50 | range 55,531.45 - 55,783.20
+2026-10-19 11:20:00.037 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-19T11:15:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -10.13, Signal -10.38, likely choppy/hugging zero).
+2026-10-19 11:20:35.430 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,653.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:21:35.725 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,643.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:22:35.727 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,641.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:23:35.729 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,652.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:24:36.027 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,621.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:25:00.028 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:20 closed: O 55,650.90 H 55,665.05 L 55,608.35 C 55,615.30 | range 55,531.45 - 55,783.20
+2026-10-19 11:25:36.027 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,600.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:26:36.330 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,592.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:27:36.338 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,607.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:28:36.626 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,616.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:29:36.776 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,612.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:30:00.027 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:25 closed: O 55,616.10 H 55,627.50 L 55,579.45 C 55,614.85 | range 55,531.45 - 55,783.20
+2026-10-19 11:30:00.030 +05:30 [INF] AlgoWorker.BankNifty.EmaSignalEngine: CONFIRMED "DeathCross" signal ("Low" confidence) at "2026-10-19T11:15:00.0000000+05:30", spot=55614.85, ADX 18.954921347698917->18.5216878993765.
+2026-10-19 11:30:00.038 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ITM "Put" option on NSE_INDEX|Nifty Bank: strike 55600 (0 strikes ITM), expiry "2026-10-27".
+2026-10-19 11:30:00.041 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bearish" crossover confirmed at "2026-10-19T11:25:00.0000000+05:30": MACD -10.67, Signal -10.40
+2026-10-19 11:30:01.034 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving NEXT-EXPIRY ATM "Put" option on NSE_INDEX|Nifty Bank: strike 55600, expiry "2026-11-23".
+2026-10-19 11:30:01.198 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|49460
+2026-10-19 11:30:02.649 +05:30 [INF] AlgoWorker.BankNifty.EmaTracker: Virtual "DeathCross" position opened ["CurrentWeekItm"]: BANKNIFTY 55600 PE 27 OCT 26 @ 403.75
+2026-10-19 11:30:02.705 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|62173
+2026-10-19 11:30:03.063 +05:30 [INF] AlgoWorker.BankNifty.EmaTracker: Virtual "DeathCross" position opened ["NextWeekAtm"]: BANKNIFTY 55600 PE 23 NOV 26 @ 725.0
+2026-10-19 11:30:36.776 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,601.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:31:36.932 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,590.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:32:37.076 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,591.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:33:37.379 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,583.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:34:37.677 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,572.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:35:00.175 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:30 closed: O 55,613.75 H 55,636.50 L 55,561.40 C 55,569.90 | range 55,531.45 - 55,783.20
+2026-10-19 11:35:37.681 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,561.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:36:37.823 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,578.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:37:37.975 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,571.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:38:38.125 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,560.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:39:38.138 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,546.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:40:00.182 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:35 closed: O 55,570.10 H 55,593.35 L 55,527.70 C 55,563.75 | range 55,531.45 - 55,783.20
+2026-10-19 11:40:38.429 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,545.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:41:11.838 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|49460
+2026-10-19 11:41:11.847 +05:30 [INF] AlgoWorker.BankNifty.EmaTracker: Virtual "DeathCross" position closed ["CurrentWeekItm"]. Reason: Stop-loss hit at ₹428.75 (peak ₹454.75). P&L: 654.00 (5.4%)
+2026-10-19 11:41:38.725 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,605.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:42:39.025 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,585.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:43:39.174 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,590.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:44:39.473 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,593.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:45:00.025 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:40 closed: O 55,562.20 H 55,615.40 L 55,535.45 C 55,593.80 | range 55,531.45 - 55,783.20
+2026-10-19 11:45:00.038 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-19T11:40:00.0000000+05:30": low 22979.35 swept red low 22979.4; waiting up to 4 candles.
+2026-10-19 11:45:01.645 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|62173
+2026-10-19 11:45:01.652 +05:30 [INF] AlgoWorker.BankNifty.EmaTracker: Virtual "DeathCross" position closed ["NextWeekAtm"]. Reason: ADX flattened (19.0 -> 18.8 over 3 candles). P&L: -16.50 (-0.1%)
+2026-10-19 11:45:39.474 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,584.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:46:39.474 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,546.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:47:39.773 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,569.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:48:40.073 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,590.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:49:40.073 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,588.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:50:00.022 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:45 closed: O 55,592.25 H 55,599.85 L 55,542.90 C 55,574.30 | range 55,531.45 - 55,783.20
+2026-10-19 11:50:40.224 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,566.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:51:40.373 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,564.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:52:40.374 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,522.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:53:40.397 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,552.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:54:40.430 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,555.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:55:00.020 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:50 closed: O 55,572.80 H 55,578.80 L 55,521.75 C 55,548.60 | range 55,531.45 - 55,783.20
+2026-10-19 11:55:40.672 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,537.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:56:40.826 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,505.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:57:40.828 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,532.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:58:41.120 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,507.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 11:59:41.419 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,531.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:00:00.172 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 11:55 closed: O 55,549.20 H 55,554.15 L 55,497.20 C 55,525.75 | range 55,531.45 - 55,783.20
+2026-10-19 12:00:00.176 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: ORB breakout "Down" confirmed: close 55525.75 vs level 55531.45
+2026-10-19 12:00:00.179 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty "Down" signal skipped: Daily limit of 3 ORB trades reached
+2026-10-19 12:00:41.420 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,536.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:01:41.421 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,538.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:02:41.423 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,567.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:03:41.424 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,564.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:04:41.718 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,513.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:05:00.026 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 22954.55 below signal low 22979.35.
+2026-10-19 12:05:00.170 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:00 closed: O 55,525.35 H 55,574.40 L 55,501.40 C 55,552.25 | range 55,531.45 - 55,783.20
+2026-10-19 12:05:41.718 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,548.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:06:41.723 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,528.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:07:42.028 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,542.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:08:42.318 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,545.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:09:42.468 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,506.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:10:00.025 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:05 closed: O 55,551.90 H 55,566.20 L 55,501.80 C 55,511.95 | range 55,531.45 - 55,783.20
+2026-10-19 12:10:00.038 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: ORB breakout "Down" confirmed: close 55511.95 vs level 55531.45
+2026-10-19 12:10:00.042 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty "Down" signal skipped: Daily limit of 3 ORB trades reached
+2026-10-19 12:10:00.049 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity-sweep signal candle at "2026-10-19T12:05:00.0000000+05:30": low 22939.6 swept red low 22948.75; waiting up to 4 candles.
+2026-10-19 12:10:42.481 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,492.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:11:42.768 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,500.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:12:43.070 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,511.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:13:43.366 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,514.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:14:43.367 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,517.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:15:00.018 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:10 closed: O 55,512.25 H 55,537.45 L 55,484.75 C 55,515.60 | range 55,531.45 - 55,783.20
+2026-10-19 12:15:00.022 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-19T12:10:00.0000000+05:30": low 55484.75 swept red low 55501.8; waiting up to 4 candles.
+2026-10-19 12:15:43.372 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,507.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:16:43.517 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,490.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:17:43.817 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,509.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:18:43.818 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,504.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:19:44.116 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,499.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:20:00.166 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:15 closed: O 55,518.40 H 55,520.25 L 55,469.60 C 55,505.10 | range 55,531.45 - 55,783.20
+2026-10-19 12:20:44.122 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,484.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:21:44.431 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,484.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:22:44.714 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,497.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:23:44.863 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,493.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:24:44.867 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,503.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:25:00.014 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 22937 below signal low 22939.6.
+2026-10-19 12:25:00.166 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:20 closed: O 55,503.05 H 55,515.95 L 55,467.15 C 55,513.95 | range 55,531.45 - 55,783.20
+2026-10-19 12:25:45.165 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,534.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:26:45.470 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,554.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:27:45.470 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,573.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:28:45.766 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,574.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:29:45.766 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,569.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:30:00.013 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:25 closed: O 55,516.70 H 55,592.90 L 55,514.70 C 55,577.25 | range 55,531.45 - 55,783.20
+2026-10-19 12:30:45.913 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,601.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:31:45.914 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,607.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:32:46.225 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,589.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:33:46.515 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,604.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:34:46.521 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,616.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:35:00.014 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:30 closed: O 55,577.35 H 55,632.85 L 55,569.50 C 55,616.50 | range 55,531.45 - 55,783.20
+2026-10-19 12:35:46.811 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,592.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:36:46.817 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,606.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:37:46.963 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,622.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:38:47.111 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,610.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:39:47.263 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,606.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:40:00.009 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:35 closed: O 55,616.95 H 55,627.60 L 55,579.35 C 55,598.60 | range 55,531.45 - 55,783.20
+2026-10-19 12:40:47.561 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,582.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:41:47.861 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,548.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:42:47.863 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,566.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:43:47.867 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,573.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:44:47.867 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,550.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:45:00.162 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:40 closed: O 55,599.35 H 55,602.10 L 55,543.40 C 55,543.40 | range 55,531.45 - 55,783.20
+2026-10-19 12:45:48.161 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,547.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:46:48.169 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,543.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:47:48.174 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,536.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:48:48.466 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,549.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:49:48.608 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,548.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:50:00.160 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:45 closed: O 55,543.80 H 55,563.20 L 55,521.40 C 55,546.70 | range 55,531.45 - 55,783.20
+2026-10-19 12:50:00.163 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-19T12:45:00.0000000+05:30": low 55521.4 swept red low 55543.4; waiting up to 4 candles.
+2026-10-19 12:50:48.608 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,545.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:51:48.758 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,549.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:52:48.759 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,572.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:53:48.909 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,569.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:54:49.211 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,547.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:55:00.014 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:50 closed: O 55,546.15 H 55,583.05 L 55,530.05 C 55,544.90 | range 55,531.45 - 55,783.20
+2026-10-19 12:55:49.509 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,533.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:56:49.658 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,538.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:57:49.808 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,545.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:58:49.958 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,559.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 12:59:50.263 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,560.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:00:00.008 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 12:55 closed: O 55,546.75 H 55,570.45 L 55,522.90 C 55,565.85 | range 55,531.45 - 55,783.20
+2026-10-19 13:00:00.012 +05:30 [INF] AlgoWorker.BankNifty.ReversalEngine: Reversal "LiquiditySweep" skipped: R:R 0.59 below minimum 2.0.
+2026-10-19 13:00:00.015 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-19T12:55:00.0000000+05:30": low 55522.9 swept red low 55530.05; waiting up to 4 candles.
+2026-10-19 13:00:50.556 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,564.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:01:50.557 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,570.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:02:50.557 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,584.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:03:50.856 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,633.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:04:50.857 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,619.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:05:00.007 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:00 closed: O 55,563.35 H 55,666.70 L 55,558.85 C 55,614.90 | range 55,531.45 - 55,783.20
+2026-10-19 13:05:00.011 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-19T13:00:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -33.43, Signal -34.15, likely choppy/hugging zero).
+2026-10-19 13:05:51.155 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,592.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:06:51.156 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,602.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:07:51.156 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,581.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:08:51.158 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,579.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:09:51.304 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,570.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:10:00.161 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:05 closed: O 55,618.90 H 55,625.75 L 55,560.15 C 55,566.40 | range 55,531.45 - 55,783.20
+2026-10-19 13:10:51.306 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,563.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:11:51.466 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,553.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:12:51.606 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,550.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:13:51.904 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,549.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:14:51.904 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,555.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:15:00.156 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:10 closed: O 55,569.30 H 55,574.80 L 55,537.40 C 55,553.65 | range 55,531.45 - 55,783.20
+2026-10-19 13:15:52.202 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,547.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:16:52.205 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,531.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:17:52.516 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,524.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:18:52.655 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,499.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:19:52.656 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,507.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:20:00.035 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:15 closed: O 55,554.60 H 55,556.55 L 55,481.45 C 55,495.10 | range 55,531.45 - 55,783.20
+2026-10-19 13:20:00.070 +05:30 [INF] AlgoWorker.BankNifty.OrbSignalEngine: ORB breakout "Down" confirmed: close 55495.1 vs level 55531.45
+2026-10-19 13:20:00.074 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyPositionTracker: Bank Nifty "Down" signal skipped: Daily limit of 3 ORB trades reached
+2026-10-19 13:20:52.804 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,500.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:21:52.952 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,512.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:22:53.253 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,474.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:23:53.253 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,455.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:24:53.553 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,443.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:25:00.001 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:20 closed: O 55,493.70 H 55,519.70 L 55,429.10 C 55,433.35 | range 55,531.45 - 55,783.20
+2026-10-19 13:25:00.004 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bearish" crossover confirmed at "2026-10-19T13:20:00.0000000+05:30": MACD -35.61, Signal -33.79
+2026-10-19 13:25:53.852 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,449.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:26:53.853 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,460.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:27:54.001 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,434.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:28:54.152 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,433.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:29:54.152 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,421.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:30:00.152 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:25 closed: O 55,433.65 H 55,468.15 L 55,415.15 C 55,415.15 | range 55,531.45 - 55,783.20
+2026-10-19 13:30:54.154 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,435.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:31:54.300 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,433.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:32:54.301 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,410.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:33:54.451 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,413.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:34:54.452 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,419.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:35:00.149 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:30 closed: O 55,412.25 H 55,465.45 L 55,403.10 C 55,416.90 | range 55,531.45 - 55,783.20
+2026-10-19 13:35:54.602 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,435.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:36:54.751 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,456.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:37:54.905 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,464.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:38:54.906 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,462.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:39:55.200 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,454.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:40:00.007 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:35 closed: O 55,419.60 H 55,472.35 L 55,416.05 C 55,455.50 | range 55,531.45 - 55,783.20
+2026-10-19 13:40:55.499 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,478.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:41:55.501 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:42:55.798 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,480.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:43:55.948 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,468.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:44:55.949 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,396.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:45:00.000 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:40 closed: O 55,461.30 H 55,505.45 L 55,392.20 C 55,404.50 | range 55,531.45 - 55,783.20
+2026-10-19 13:45:00.003 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-19T13:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-10-19 13:45:56.104 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,386.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:46:56.250 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,385.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:47:56.556 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,390.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:48:56.849 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,414.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:49:56.996 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,441.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:50:00.151 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:45 closed: O 55,401.45 H 55,446.65 L 55,351.50 C 55,440.80 | range 55,531.45 - 55,783.20
+2026-10-19 13:50:00.155 +05:30 [DBG] AlgoWorker.BankNifty.ReversalEngine: Liquidity-sweep signal candle at "2026-10-19T13:45:00.0000000+05:30": low 55351.5 swept red low 55392.2; waiting up to 4 candles.
+2026-10-19 13:50:57.157 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,423.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:51:57.295 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,442.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:52:57.297 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,459.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:53:57.303 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,458.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:54:57.446 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,459.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:54:59.996 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-10-19T13:50:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -34.96, Signal -35.77, likely choppy/hugging zero).
+2026-10-19 13:55:00.148 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:50 closed: O 55,439.90 H 55,467.15 L 55,412.80 C 55,459.80 | range 55,531.45 - 55,783.20
+2026-10-19 13:55:00.151 +05:30 [INF] AlgoWorker.BankNifty.ReversalEngine: Reversal "LiquiditySweep" skipped: R:R 0.36 below minimum 2.0.
+2026-10-19 13:55:00.153 +05:30 [INF] AlgoWorker.BankNifty.ReversalEngine: Reversal "DoubleBottom" skipped: R:R 1.88 below minimum 2.0.
+2026-10-19 13:55:57.448 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,462.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:56:57.596 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,456.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:57:57.745 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,457.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:58:57.894 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,460.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:59:58.194 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,457.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 13:59:59.994 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 13:55 closed: O 55,457.35 H 55,472.35 L 55,451.00 C 55,454.05 | range 55,531.45 - 55,783.20
+2026-10-19 14:00:58.195 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,450.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:01:58.502 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,457.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:02:58.516 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,499.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:03:58.795 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,492.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:04:58.943 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,495.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:04:59.993 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:00 closed: O 55,454.05 H 55,511.05 L 55,443.45 C 55,491.50 | range 55,531.45 - 55,783.20
+2026-10-19 14:05:59.094 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,524.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:06:59.242 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,508.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:07:59.242 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,511.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:08:59.555 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,492.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:09:59.841 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,463.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:09:59.994 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:05 closed: O 55,492.05 H 55,534.80 L 55,463.05 C 55,463.05 | range 55,531.45 - 55,783.20
+2026-10-19 14:10:59.844 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,487.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:12:00.141 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,482.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:13:00.299 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,476.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:14:00.597 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,474.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:14:59.991 +05:30 [INF] AlgoWorker.Services.SignalEngine: CONFIRMED "DeathCross" signal ("Low" confidence) at "2026-10-19T14:00:00.0000000+05:30", spot=22871.75, ADX 40.67728319043807->42.65799305489136.
+2026-10-19 14:14:59.993 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ITM "Put" option on NSE_INDEX|Nifty 50: strike 22950 (2 strikes ITM), expiry "2026-10-19".
+2026-10-19 14:15:00.143 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:10 closed: O 55,467.05 H 55,506.85 L 55,455.35 C 55,464.95 | range 55,531.45 - 55,783.20
+2026-10-19 14:15:00.437 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving NEXT-EXPIRY ATM "Put" option on NSE_INDEX|Nifty 50: strike 22850, expiry "2026-10-27".
+2026-10-19 14:15:00.608 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47160
+2026-10-19 14:15:00.892 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,458.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:15:02.887 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position opened ["CurrentWeekItm"]: NIFTY 22950 PE 19 OCT 26 @ 100.0
+2026-10-19 14:15:02.973 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|51347
+2026-10-19 14:15:03.452 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position opened ["NextWeekAtm"]: NIFTY 22850 PE 27 OCT 26 @ 155.7
+2026-10-19 14:16:00.893 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,453.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:16:14.151 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47160
+2026-10-19 14:16:14.161 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position closed ["CurrentWeekItm"]. Reason: Stop-loss hit at ₹93.00 (peak ₹105.90). P&L: -481.00 (-7.4%)
+2026-10-19 14:17:01.190 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,472.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:18:01.191 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,461.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:19:01.199 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,456.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:20:00.140 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:15 closed: O 55,461.30 H 55,478.55 L 55,442.15 C 55,465.00 | range 55,531.45 - 55,783.20
+2026-10-19 14:20:03.041 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,468.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:21:03.141 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,487.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:22:03.439 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,476.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:23:03.441 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,505.50 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:24:03.443 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,480.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:24:59.988 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:20 closed: O 55,461.00 H 55,523.15 L 55,445.45 C 55,449.45 | range 55,531.45 - 55,783.20
+2026-10-19 14:25:03.492 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,452.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:26:03.736 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,432.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:27:03.737 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,459.80 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:28:03.791 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,451.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:29:04.076 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,443.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:30:05.136 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,458.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:30:05.144 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:25 closed: O 55,450.90 H 55,464.20 L 55,419.90 C 55,458.90 | range 55,531.45 - 55,783.20
+2026-10-19 14:31:05.187 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,444.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:32:05.250 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,473.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:33:05.388 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,486.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:34:05.478 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,483.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:34:59.988 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:30 closed: O 55,459.70 H 55,492.60 L 55,433.80 C 55,475.15 | range 55,531.45 - 55,783.20
+2026-10-19 14:35:05.541 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,475.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:36:05.542 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.65 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:37:06.067 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,465.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:38:06.353 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,454.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:39:06.438 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,470.45 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:40:00.138 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:35 closed: O 55,476.30 H 55,481.65 L 55,435.35 C 55,441.10 | range 55,531.45 - 55,783.20
+2026-10-19 14:40:06.587 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,441.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:41:06.885 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,457.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:42:09.773 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,474.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:43:10.356 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,492.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:43:39.086 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|51347
+2026-10-19 14:43:39.094 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position closed ["NextWeekAtm"]. Reason: Stop-loss hit at ₹151.70 (peak ₹167.60). P&L: -276.25 (-2.7%)
+2026-10-19 14:44:11.511 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,495.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:45:00.015 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:40 closed: O 55,443.05 H 55,543.30 L 55,435.90 C 55,524.50 | range 55,531.45 - 55,783.20
+2026-10-19 14:45:11.689 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,519.60 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:46:11.992 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,506.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:47:12.284 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,508.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:48:12.450 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:49:12.734 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,496.75 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:49:59.983 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:45 closed: O 55,519.50 H 55,531.75 L 55,478.65 C 55,480.65 | range 55,531.45 - 55,783.20
+2026-10-19 14:50:13.033 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,480.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:51:13.041 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,499.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:52:13.455 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,496.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:53:13.482 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:54:13.714 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,490.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:55:00.024 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:50 closed: O 55,480.70 H 55,522.80 L 55,468.65 C 55,482.95 | range 55,531.45 - 55,783.20
+2026-10-19 14:55:13.787 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,492.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:56:13.797 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,477.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:57:14.750 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,532.25 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:58:14.970 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,512.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 14:59:15.009 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,514.95 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:00:02.597 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 14:55 closed: O 55,485.65 H 55,543.15 L 55,461.25 C 55,521.85 | range 55,531.45 - 55,783.20
+2026-10-19 15:00:15.394 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,530.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:01:16.987 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,503.35 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:02:17.080 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.70 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:03:17.160 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,482.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:04:17.380 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,485.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:05:00.129 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:00 closed: O 55,518.30 H 55,532.45 L 55,471.45 C 55,486.90 | range 55,531.45 - 55,783.20
+2026-10-19 15:05:17.393 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,485.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:06:17.640 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,482.05 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:07:17.679 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,456.15 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:08:18.772 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,429.30 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:09:18.882 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,432.40 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:10:00.012 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:05 closed: O 55,488.10 H 55,501.85 L 55,418.30 C 55,431.40 | range 55,531.45 - 55,783.20
+2026-10-19 15:10:19.506 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,427.90 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:11:19.627 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,431.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:12:19.756 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,458.00 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:13:20.736 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,439.20 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:14:20.996 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,455.55 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:15:01.926 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:10 closed: O 55,429.20 H 55,481.55 L 55,412.35 C 55,479.60 | range 55,531.45 - 55,783.20
+2026-10-19 15:15:02.623 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:15 closed: O 55,481.85 H 55,481.85 L 55,481.85 C 55,481.85 | range 55,531.45 - 55,783.20
+2026-10-19 15:15:21.277 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:16:22.166 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:17:22.177 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:18:22.183 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:19:22.328 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:19:59.975 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:15 closed: O 55,481.85 H 55,481.85 L 55,481.85 C 55,481.85 | range 55,531.45 - 55,783.20
+2026-10-19 15:20:22.476 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:21:22.477 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:22:22.626 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:23:22.782 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:24:22.925 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:25:00.126 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:20 closed: O 55,481.85 H 55,481.85 L 55,481.85 C 55,481.85 | range 55,531.45 - 55,783.20
+2026-10-19 15:25:23.075 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:26:23.382 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:27:23.525 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:28:23.530 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:29:23.676 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,481.85 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:30:00.020 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:25 closed: O 55,481.85 H 55,488.10 L 55,481.85 C 55,488.10 | range 55,531.45 - 55,783.20
+2026-10-19 15:30:23.819 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:31:23.819 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:32:23.969 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:33:23.970 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:34:24.117 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:34:59.969 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: 5-min candle 15:30 closed: O 55,488.10 H 55,488.10 L 55,488.10 C 55,488.10 | range 55,531.45 - 55,783.20
+2026-10-19 15:35:03.145 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-10-19 15:35:03.151 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-20": Pivot=22969.733333333333333333333333, TC=22929.341666666666666666666666, BC=23010.125, Width%=0.353, Reading=Normal CPR -- Moderate movement expected
+2026-10-19 15:35:03.191 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: tomorrow's ("2026-10-20") CPR saved.
+2026-10-19 15:35:03.247 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-10-19 15:35:03.248 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-20": Pivot=55567.633333333333333333333333, TC=55527.86666666666666666666667, BC=55607.4, Width%=0.143, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-19 15:35:03.263 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: tomorrow's ("2026-10-20") CPR saved.
+2026-10-19 15:35:24.268 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 15:36:24.422 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Spot 55,488.10 | opening range 55,531.45 - 55,783.20 | open position: none
+2026-10-19 19:38:31.910 +05:30 [INF] AlgoWorker.Startup.Settings: Settings: seeded 7 new row(s) into AppSettings from appsettings.json / defaults.
+2026-10-19 19:38:32.801 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-10-19 19:38:33.197 +05:30 [INF] AlgoWorker.BankNifty.BankNiftyService: Bank Nifty pipeline starting (shared WebSocket feed, own ORB strategy).
+2026-10-19 19:38:33.439 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-10-16", High=23149.85, Low=22913.8, Close=23146.15
+2026-10-19 19:38:33.448 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-19": Pivot=23069.933333333333333333333333, TC=23108.041666666666666666666666, BC=23031.825, Width%=0.329, Reading=Normal CPR -- Moderate movement expected
+2026-10-19 19:38:33.635 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-10-16"'s OHLC).
+2026-10-19 19:38:33.673 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty Bank: "2026-10-16", High=55989.55, Low=55526.3, Close=55844.0
+2026-10-19 19:38:33.673 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-19": Pivot=55786.616666666666666666666667, TC=55815.30833333333333333333333, BC=55757.925, Width%=0.103, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-19 19:38:33.681 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: today's CPR saved (from "2026-10-16"'s OHLC).
+2026-10-19 19:38:33.740 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-10-19 19:38:33.747 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-20": Pivot=22969.733333333333333333333333, TC=22929.341666666666666666666666, BC=23010.125, Width%=0.353, Reading=Normal CPR -- Moderate movement expected
+2026-10-19 19:38:33.753 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: tomorrow's ("2026-10-20") CPR saved.
+2026-10-19 19:38:33.800 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-10-19 19:38:33.812 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-10-20": Pivot=55567.633333333333333333333333, TC=55527.86666666666666666666667, BC=55607.4, Width%=0.143, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-10-19 19:38:33.824 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Bank Nifty: tomorrow's ("2026-10-20") CPR saved.

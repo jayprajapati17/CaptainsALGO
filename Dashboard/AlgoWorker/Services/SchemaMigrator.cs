@@ -39,6 +39,27 @@ BEGIN
         EXEC('CREATE UNIQUE INDEX UQ_DailyCpr_Day_Label_Underlying ON DailyCpr (ForTradingDay, Label, Underlying)');
 END";
 
+    private const string PcrSnapshotSql = @"
+IF OBJECT_ID('PcrSnapshot') IS NULL
+BEGIN
+    CREATE TABLE PcrSnapshot (
+        Id                  BIGINT IDENTITY(1,1) PRIMARY KEY,
+        Underlying          NVARCHAR(20)    NOT NULL,
+        [Time]              DATETIMEOFFSET  NOT NULL,
+        Expiry              DATE            NOT NULL,
+        Spot                DECIMAL(18,2)   NOT NULL,
+        FullPcr             FLOAT           NULL,
+        WindowPcr           FLOAT           NULL,
+        TotalCallOi         DECIMAL(18,0)   NOT NULL,
+        TotalPutOi          DECIMAL(18,0)   NOT NULL,
+        SupportStrike       DECIMAL(18,2)   NULL,
+        ResistanceStrike    DECIMAL(18,2)   NULL,
+        Label               NVARCHAR(20)    NOT NULL
+    );
+END
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PcrSnapshot_Underlying_Time' AND object_id = OBJECT_ID('PcrSnapshot'))
+    EXEC('CREATE INDEX IX_PcrSnapshot_Underlying_Time ON PcrSnapshot (Underlying, [Time])');";
+
     public static async Task ApplyAsync(IDbContextFactory<NiftyBotDbContext> factory, ILogger logger, CancellationToken ct)
     {
         try
@@ -55,6 +76,9 @@ END";
 
             // DailyCpr: one row per index per day (Nifty + Bank Nifty). Existing rows become NIFTY50; the old (Day, Label) unique key is replaced.
             await db.Database.ExecuteSqlRawAsync(DailyCprUnderlyingSql, ct);
+
+            // PcrSnapshot: put/call ratio history (created on first start after the PCR update).
+            await db.Database.ExecuteSqlRawAsync(PcrSnapshotSql, ct);
         }
         catch (Exception ex)
         {

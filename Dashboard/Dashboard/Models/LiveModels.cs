@@ -34,6 +34,8 @@ public sealed class CprStrip
 {
     public DateOnly ForTradingDay { get; init; }
     public bool IsForToday { get; init; }
+    /// <summary>The close the CPR was computed from. For today's row that is the previous session's close, which the Live page measures the day's change against.</summary>
+    public decimal SourceClose { get; init; }
     public decimal Pivot { get; init; }
     public decimal Tc { get; init; }
     public decimal Bc { get; init; }
@@ -49,6 +51,30 @@ public sealed class CprStrip
     public string ShortReading => Reading.Split(" --")[0];
 }
 
+/// <summary>Latest put/call ratio of one index (from the PcrSnapshot table), shown on the index card and updated live over SignalR.</summary>
+public sealed class PcrStrip
+{
+    public DateTimeOffset Time { get; init; }
+    public bool IsToday { get; init; }
+    public DateOnly Expiry { get; init; }
+    public double? WindowPcr { get; init; }
+    public double? FullPcr { get; init; }
+    /// <summary>Near-ATM PCR minus the first near-ATM PCR of that day; null when there is only one reading.</summary>
+    public double? Change { get; init; }
+    public string Label { get; init; } = string.Empty;
+    public decimal? Support { get; init; }
+    public decimal? Resistance { get; init; }
+
+    /// <summary>CSS modifier for the label chip (same mapping as live.js).</summary>
+    public string LabelClass => Label switch
+    {
+        "Bullish-ish" => "pcr-bull",
+        "Bearish-ish" => "pcr-bear",
+        "Stretched high" or "Stretched low" => "pcr-stretch",
+        _ => "pcr-neutral"
+    };
+}
+
 /// <summary>One index's CPR for the Live page: today's range, and the range expected tomorrow (null until the after-close job has run).</summary>
 public sealed class CprPair
 {
@@ -57,6 +83,8 @@ public sealed class CprPair
     public string Key { get; init; } = string.Empty;
     public CprStrip? Today { get; init; }
     public CprStrip? Tomorrow { get; init; }
+    /// <summary>Latest put/call ratio of this index; null until the Worker has stored one.</summary>
+    public PcrStrip? Pcr { get; init; }
 }
 
 public sealed class LiveIndexViewModel
