@@ -43,6 +43,7 @@ public sealed class EmaCrossRunner
 
     private EmaCrossLeg? _leg;
     private bool _deferredToOpen;
+    private Position? _restoredEnginePosition;   // applied by FinishSeeding, once the EMAs are warm
 
     public EmaCrossRunner(EmaCrossVariant variant, EmaCrossOptions options, UpstoxOptions upstox, EmaCrossOptionSelector selector,
         UpstoxRestClient rest, UpstoxWebSocketClient ws, TelegramAlertService telegram, IPositionRepository positions,
@@ -55,6 +56,7 @@ public sealed class EmaCrossRunner
     }
 
     public string Name => _v.Name;
+    public StrategyType Strategy => _v.Strategy;
     public int CandleMinutes => _v.CandleMinutes;
     public bool HasOpenLeg => _leg != null;
 
@@ -98,7 +100,16 @@ public sealed class EmaCrossRunner
     }
 
     /// <summary>Live restart: forget simulated trades of the replayed history; keep the warmed EMA / ADX / CPR state.</summary>
-    public void FinishSeeding() => _engine.ResetPositionState();
+    public void FinishSeeding()
+    {
+        _engine.ResetPositionState();
+        // A carried-forward trade restored at startup: give the engine its position back (entry, stop, best price).
+        if (_restoredEnginePosition is { } restored && _leg != null)
+        {
+            _engine.RestorePosition(restored);
+            _restoredEnginePosition = null;
+        }
+    }
 
     /// <summary>First thing each trading day once the market is confirmed open: carry out a deferred signal, then check the expiry roll.</summary>
     public async Task OnSessionOpenAsync(DateOnly today, CancellationToken ct)
@@ -150,6 +161,9 @@ public sealed class EmaCrossRunner
         if (_leg is { Id: >= 0 } leg)
         {
             await _positions.UpdateLivePremiumAsync(leg.Id, leg.LastPremium, DateTimeOffset.UtcNow, ct);
+            // Best Nifty level since entry: the anchor of the breakeven / trailing stop, saved so a restart can restore it.
+            if (_engine.OpenPosition is { } ep)
+                await _positions.UpdatePeaksAsync(leg.Id, null, (decimal)ep.Best, ct);
             await BroadcastAsync(leg, "Open", null, ct);
         }
     }
@@ -270,6 +284,74 @@ public sealed class EmaCrossRunner
             $"{_v.Label}: PAPER SELL {leg.Instrument.TradingSymbol} @ ₹{leg.LastPremium:N2}. {reason}. " +
             $"P&L ₹{leg.PnlRupees:N0} ({leg.PnlPercent:+0.0;-0.0}%).", ct);
         _logger.LogInformation("EMA 9/21 {Name}: closed {Symbol} -- {Reason} -- P&L {Pnl:N2}.", _v.Name, leg.Instrument.TradingSymbol, reason, leg.PnlRupees);
+    }
+
+    // ------------------------------------------------------------------ restart (carry-forward)
+
+    /// <summary>
+    /// Startup: take over a trade that was still open when the Worker stopped (these strategies are held overnight). The paper
+    /// leg is rebuilt from the saved row; the engine's own position is restored right after the warm-up (FinishSeeding).
+    /// A contract that expired in the meantime is closed at its last known premium.
+    /// </summary>
+    public async Task RestoreAsync(SharedModels.PositionEntity row, CancellationToken ct)
+    {
+        await _gate.WaitAsync(ct);
+        try
+        {
+            if (_leg != null) return;   // one trade at a time
+
+            var pnl = (row.LastKnownPremium - row.EntryPremium) * row.LotSize;
+            if (row.Expiry < _clock.Today)
+            {
+                var pct = row.EntryPremium == 0 ? 0 : (double)((row.LastKnownPremium - row.EntryPremium) / row.EntryPremium) * 100.0;
+                await _positions.CloseAsync(row.Id, row.LastKnownPremium, DateTimeOffset.UtcNow,
+                    $"Option expired ({row.Expiry:dd-MMM}) while the Worker was not running", pnl, pct, ct);
+                _logger.LogWarning("EMA 9/21 {Name}: {Symbol} expired while the Worker was off -- closed at its last known premium.", _v.Name, row.TradingSymbol);
+                return;
+            }
+
+            var side = string.Equals(row.Direction, "Down", StringComparison.OrdinalIgnoreCase) ? Side.Short : Side.Long;
+            int d = (int)side;
+            var instrument = new OptionInstrument(row.InstrumentKey, row.TradingSymbol, row.Strike,
+                row.OptionType == SharedModels.OptionType.CE ? AlgoWorker.Models.OptionType.Call : AlgoWorker.Models.OptionType.Put, row.Expiry);
+
+            var entry = (double)row.SpotAtEntry;
+            var initialStop = entry - d * _v.Engine.StopPoints;
+            var stop = row.StopLossSpot is { } s ? (double)s : initialStop;
+            var best = row.PeakSpot is { } b ? (double)b : entry;
+
+            _restoredEnginePosition = new Position
+            {
+                Side = side,
+                EntryTime = row.EntryTime.ToIst().DateTime,
+                Entry = entry,
+                InitialStop = initialStop,
+                Stop = stop,
+                Best = best
+            };
+
+            _leg = new EmaCrossLeg
+            {
+                Id = row.Id,
+                Side = side,
+                Instrument = instrument,
+                LotSize = row.LotSize,
+                IndexEntry = row.SpotAtEntry,
+                IndexStop = (decimal)stop,
+                InitialIndexStop = (decimal)initialStop,
+                EntryPremium = row.EntryPremium,
+                LastPremium = row.LastKnownPremium,
+                OpenedAt = row.EntryTime,
+                PremiumStop = row.StopLossPremium ?? 0m
+            };
+
+            await _ws.SubscribeAsync(instrument.InstrumentKey, ct);
+            await BroadcastAsync(_leg, "Open", null, ct);
+            await _telegram.SendStatusAsync(
+                $"{_v.Label}: restored the carried-forward trade {instrument.TradingSymbol} (entry ₹{row.EntryPremium:N2}, index stop {stop:N2}) after a restart.", ct);
+            _logger.LogInformation("EMA 9/21 {Name}: restored {Symbol} (index stop {Stop}).", _v.Name, instrument.TradingSymbol, stop);
+        }
+        finally { _gate.Release(); }
     }
 
     // ------------------------------------------------------------------ Dashboard / API

@@ -5,7 +5,7 @@ namespace AlgoWorker.Services;
 
 /// <summary>
 /// Idempotent schema upgrades the Worker applies itself at startup, so nobody has to run SQL by hand.
-/// Currently: add the StopLossPremium / StopLossSpot columns, and allow 'Reversal', 'EmaCrossA' and 'EmaCrossB' in the Strategy CHECK constraints of Positions and SignalLog.
+/// Currently: add the StopLossPremium / StopLossSpot / PeakPremium / PeakSpot columns, and allow 'Reversal', 'EmaCrossA' and 'EmaCrossB' in the Strategy CHECK constraints of Positions and SignalLog.
 /// </summary>
 public static class SchemaMigrator
 {
@@ -73,6 +73,11 @@ IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PcrSnapshot_Underlying
                 "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossPremium') IS NULL ALTER TABLE Positions ADD StopLossPremium DECIMAL(18,2) NULL", ct);
             await db.Database.ExecuteSqlRawAsync(
                 "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossSpot') IS NULL ALTER TABLE Positions ADD StopLossSpot DECIMAL(18,2) NULL", ct);
+            // Carry-forward: the peaks that let an open position be restored after a restart.
+            await db.Database.ExecuteSqlRawAsync(
+                "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'PeakPremium') IS NULL ALTER TABLE Positions ADD PeakPremium DECIMAL(18,2) NULL", ct);
+            await db.Database.ExecuteSqlRawAsync(
+                "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'PeakSpot') IS NULL ALTER TABLE Positions ADD PeakSpot DECIMAL(18,2) NULL", ct);
 
             // DailyCpr: one row per index per day (Nifty). Existing rows become NIFTY50; the old (Day, Label) unique key is replaced.
             await db.Database.ExecuteSqlRawAsync(DailyCprUnderlyingSql, ct);

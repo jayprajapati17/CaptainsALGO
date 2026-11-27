@@ -90,6 +90,17 @@ public sealed class StrategyEngine
         Trades.Clear();
     }
 
+    /// <summary>
+    /// Live restart of a carried-forward trade: after the EMAs were warmed up (<see cref="ResetPositionState"/>), put back the
+    /// position that was still open, so its breakeven / trailing stop and its crossover exit keep working.
+    /// </summary>
+    public void RestorePosition(Position position)
+    {
+        _pos = position;
+        _pendingEntry = null;
+        _pendingExit = false;
+    }
+
     private void OpenAt(Side side, Bar c)
     {
         int d = (int)side;

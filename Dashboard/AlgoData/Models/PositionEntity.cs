@@ -41,6 +41,12 @@ public sealed class PositionEntity
     /// <summary>Current stop-loss as a NIFTY SPOT level -- Reversal strategy only (null for the premium-based strategies).</summary>
     public decimal? StopLossSpot { get; set; }
 
+    /// <summary>Highest option premium seen since entry -- the anchor of the trailing stop-loss. Kept so a carried-forward position can be restored after a restart.</summary>
+    public decimal? PeakPremium { get; set; }
+
+    /// <summary>Best Nifty level seen since entry (high for a long, low for a short) -- EMA 9/21 only; the anchor of its breakeven / trailing index stop.</summary>
+    public decimal? PeakSpot { get; set; }
+
     public decimal? ExitPremium { get; set; }
     public DateTimeOffset? ExitTime { get; set; }
     public string? ExitReason { get; set; }

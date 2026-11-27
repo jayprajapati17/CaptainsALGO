@@ -1,9 +1,9 @@
 // Settings page behaviour (Control Room design).
 // Everything is driven by the real <input data-k="Section:Key"> fields rendered by Views/Settings/_Field.cshtml,
 // so the normal POST /Settings/Save flow is unchanged -- this script only adds the UI niceties:
-// tabs, switches, +/- steppers, pending-change tracking + review diff, Reset, the live trailing-SL chart,
+// tabs, switches, +/- steppers, pending-change tracking + review diff, Reset, the plain-language trailing-SL summary,
 // the "What if..." calculator, the Telegram test button and the Upstox token status card.
-import { sgn, inr, pad } from './lib/format.js';
+import { inr, pad } from './lib/format.js';
 import { slOffset } from './lib/trailing.js';
 
 (function () {
@@ -120,7 +120,7 @@ import { slOffset } from './lib/trailing.js';
         }
 
         renderCards();
-        renderChart();
+        renderTrailing();
     }
 
     // ------------------------------------------------------------------ tabs
@@ -133,7 +133,7 @@ import { slOffset } from './lib/trailing.js';
         $$('[data-st-panel]', form).forEach((p) => { p.hidden = p.dataset.stPanel !== name; });
         const hid = $('#activeTab');
         if (hid) hid.value = name;
-        if (name === 'Strategies') renderChart();
+        if (name === 'Strategies') renderTrailing();
     }
     $$('.st-tab', form).forEach((t) => t.addEventListener('click', () => showTab(t.dataset.stTab)));
 
@@ -189,7 +189,7 @@ import { slOffset } from './lib/trailing.js';
     });
 
     // ------------------------------------------------------------------ strategy cards
-    let profile = 'nifty';   // which trailing profile the chart shows
+    let profile = 'nifty';   // the highlighted card's profile
 
     function renderCards() {
         $$('.st-card', form).forEach((card) => {
@@ -216,12 +216,12 @@ import { slOffset } from './lib/trailing.js';
         const lbl = $('#stProfLabel');
         if (lbl) lbl.textContent = 'Nifty';
         renderCards();
-        renderChart();
+        renderTrailing();
     }
     $$('.st-card-pick', form).forEach((b) => b.addEventListener('click', () => pickProfile(b.dataset.pick, b.closest('.st-card').dataset.card)));
     $$('.st-prof', form).forEach((b) => b.addEventListener('click', () => pickProfile(b.dataset.pick, null)));
 
-    // ------------------------------------------------------------------ trailing-SL chart + what-if
+    // ------------------------------------------------------------------ trailing-SL summary + what-if
     let gain = 55;
     const gainBox = $('#stGains');
     if (gainBox) {
@@ -233,7 +233,7 @@ import { slOffset } from './lib/trailing.js';
             const b = document.createElement('button');
             b.type = 'button';
             b.textContent = (d > 0 ? '+' : '−') + Math.abs(d);
-            b.addEventListener('click', () => { gain = Math.max(0, Math.min(150, gain + d)); renderChart(); });
+            b.addEventListener('click', () => { gain = Math.max(0, Math.min(150, gain + d)); renderTrailing(); });
             gainBox.append(b);
         });
     }
@@ -255,65 +255,18 @@ import { slOffset } from './lib/trailing.js';
         return p;
     }
 
-    function renderChart() {
-        const svg = $('#stChart');
-        if (!svg || svg.closest('[data-st-panel]')?.hidden) return;
-
+    function renderTrailing() {
         const p = params();
-        const W = 640, H = 280;
-        const xMax = Math.max(60, Math.ceil((p.target * 2) / 10) * 10);
-        const offs = [];
-        for (let g = 0; g <= xMax; g++) offs.push(slOffset(p, g));
-        const yLo = Math.floor((Math.min(...offs, 0) - 5) / 10) * 10;
-        const yHi = Math.ceil((Math.max(...offs, 0) + 10) / 10) * 10;
-        const X = (g) => (g / xMax) * W;
-        const Y = (v) => ((yHi - v) / (yHi - yLo)) * H;
-        const f = (n) => n.toFixed(1);
-        const yStep = (yHi - yLo) > 120 ? 40 : 20;
-        const xStep = xMax > 80 ? 20 : 10;
+        const curOff = slOffset(p, gain);
 
-        let grid = '', labels = '';
-        for (let v = Math.ceil(yLo / yStep) * yStep; v <= yHi; v += yStep) {
-            grid += 'M0 ' + f(Y(v)) + 'H' + W;
-            labels += '<text x="-8" y="' + f(Y(v) + 4) + '" text-anchor="end">' + (v === 0 ? '0' : sgn(v)) + '</text>';
-        }
-        for (let g = 0; g <= xMax; g += xStep) {
-            grid += 'M' + f(X(g)) + ' 0V' + H;
-            labels += '<text x="' + f(X(g)) + '" y="' + (H + 20) + '" text-anchor="middle">' + g + '</text>';
-        }
-        let line = '';
-        offs.forEach((v, g) => { line += (g === 0 ? 'M' : 'L') + f(X(g)) + ' ' + f(Y(v)); });
-        const area = line + 'L' + f(X(xMax)) + ' ' + f(Y(0)) + 'L0 ' + f(Y(0)) + 'Z';
-        const g0 = Math.min(gain, xMax);
-        const curOff = slOffset(p, g0);
-        const zeroY = f(Y(0));
-
-        svg.setAttribute('viewBox', '-52 -26 700 340');
-        svg.innerHTML =
-            '<defs>' +
-            '<clipPath id="stClipPos"><rect x="0" y="0" width="' + W + '" height="' + zeroY + '"></rect></clipPath>' +
-            '<clipPath id="stClipNeg"><rect x="0" y="' + zeroY + '" width="' + W + '" height="' + H + '"></rect></clipPath>' +
-            '</defs>' +
-            '<path d="' + grid + '" stroke="#EFEADD" stroke-width="1" fill="none"></path>' +
-            '<path d="' + area + '" fill="#17803D" fill-opacity="0.14" stroke="none" clip-path="url(#stClipPos)"></path>' +
-            '<path d="' + area + '" fill="#B42318" fill-opacity="0.12" stroke="none" clip-path="url(#stClipNeg)"></path>' +
-            '<path d="M0 ' + zeroY + 'H' + W + '" stroke="#5B6672" stroke-width="1.5" stroke-dasharray="5 5" fill="none"></path>' +
-            '<path d="M' + f(X(p.target)) + ' 0V' + H + '" stroke="#C77D0A" stroke-width="1.5" stroke-dasharray="3 5" fill="none"></path>' +
-            '<path d="' + line + '" stroke="#0E6B63" stroke-width="3" stroke-linejoin="round" fill="none"></path>' +
-            '<path d="M' + f(X(g0)) + ' 0V' + H + '" stroke="#14202B" stroke-width="1.5" stroke-dasharray="2 4" fill="none"></path>' +
-            '<circle cx="' + f(X(g0)) + '" cy="' + f(Y(curOff)) + '" r="7" fill="#FFFDF8" stroke="#14202B" stroke-width="3"></circle>' +
-            labels +
-            '<text class="tgt" x="' + f(X(p.target)) + '" y="-10" text-anchor="middle">TARGET +' + p.target + '</text>';
-
-        // insight line
-        const before = slOffset(p, Math.max(0, p.target - 1));
-        const jump = p.lock - before;
-        const ins = $('#stInsight');
-        if (ins) {
-            ins.textContent = 'Just below the target the stop sits at ' + sgn(before) + ' points; at +' + p.target +
-                ' it jumps to ' + sgn(p.lock) + ' (a ' + (jump >= 0 ? '+' : '−') + Math.abs(jump) + ' point leap). ' +
-                'Between +' + p.step + ' and +' + Math.max(p.step, p.target - 1) + ' the stop only creeps ' + p.stepSl +
-                ' per ' + p.step + ' points, so a trade can run a long way before it is protected.';
+        // plain-language summary of the current numbers (updates as the settings change)
+        const sum = $('#stSummary');
+        if (sum) {
+            sum.innerHTML =
+                '<li><b>Start</b>The stop-loss sits <b class="st-mono">' + p.risk + '</b> points below your entry premium.</li>' +
+                '<li><b>Before target</b>Every <b class="st-mono">' + p.step + '</b> points the premium gains, the stop moves up <b class="st-mono">' + p.stepSl + '</b> points.</li>' +
+                '<li><b>At target (+' + p.target + ')</b>The stop jumps to <b class="st-mono">' + p.lock + '</b> points above entry. The trade stays open.</li>' +
+                '<li><b>After target</b>Every <b class="st-mono">' + p.postStep + '</b> points gained, the stop moves up <b class="st-mono">' + p.postStepSl + '</b> points.</li>';
         }
 
         // what-if calculator: an illustrative entry premium (Rs 100)
@@ -321,10 +274,10 @@ import { slOffset } from './lib/trailing.js';
         const lot = num('Strategy:LotSize', 65);
         const pnl = curOff * lot;
         const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
-        set('stGainVal', '+' + g0);
+        set('stGainVal', '+' + gain);
         set('stCalcEntryLabel', 'Entry premium (example)');
         set('stCalcEntry', '₹' + inr(entry));
-        set('stCalcPeak', '₹' + inr(entry + g0));
+        set('stCalcPeak', '₹' + inr(entry + gain));
         set('stCalcSl', '₹' + inr(entry + curOff));
         const pnlEl = document.getElementById('stCalcPnl');
         if (pnlEl) {

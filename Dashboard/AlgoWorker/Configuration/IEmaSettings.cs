@@ -21,7 +21,8 @@ public interface ITrailingSettings
 /// </summary>
 public interface IEmaSettings : ITrailingSettings
 {
-    bool EmaStrategyEnabled { get; }
+    bool EmaStrategyEnabled { get; }
+    bool EmaCarryForwardEnabled { get; }
     int EmaFastPeriod { get; }
     int EmaMidPeriod { get; }
     int EmaSlowPeriod { get; }

@@ -48,16 +48,36 @@ public static class StartupTasks
     }
 
     /// <summary>
-    /// The trackers keep open positions in memory only, so any row still marked Open in the DB at process start is an
-    /// orphan from a previous run (crash / redeploy / reboot). Close them out now so the Dashboard's Live page never
-    /// shows phantom positions that nothing is tracking anymore.
+    /// The intraday trackers keep open positions in memory only, so any of their rows still marked Open in the DB at process
+    /// start is an orphan from a previous run (crash / redeploy / reboot). Close them out now so the Dashboard's Live page never
+    /// shows phantom positions that nothing is tracking anymore. Carried-forward strategies are skipped (see below).
     /// </summary>
     public static async Task CloseOrphanedPositionsAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var positions = scope.ServiceProvider.GetRequiredService<IPositionRepository>();
         const string reason = "Worker restarted -- position no longer tracked";
-        await positions.CloseOrphanedOpenPositionsAsync(reason, CancellationToken.None, Underlyings.Nifty50);
+
+        // Carried-forward strategies keep their rows open: EMA 9/21 (A and B) is positional by design, EMA 21/50 when its
+        // carry-forward setting is on. They are restored (below / by the EMA 9/21 service) instead of closed.
+        var keepOpen = new List<StrategyType> { StrategyType.EmaCrossA, StrategyType.EmaCrossB };
+        if (app.Services.GetRequiredService<IOptions<StrategyOptions>>().Value.EmaCarryForwardEnabled)
+            keepOpen.Add(StrategyType.Ema);
+
+        await positions.CloseOrphanedOpenPositionsAsync(reason, CancellationToken.None, Underlyings.Nifty50, keepOpen);
+    }
+
+    /// <summary>Puts the carried-forward EMA 21/50 legs back into the tracker (the EMA 9/21 service restores its own).</summary>
+    public static async Task RestoreCarriedPositionsAsync(this WebApplication app)
+    {
+        if (!app.Services.GetRequiredService<IOptions<StrategyOptions>>().Value.EmaCarryForwardEnabled) return;
+
+        using var scope = app.Services.CreateScope();
+        var positions = scope.ServiceProvider.GetRequiredService<IPositionRepository>();
+        var rows = await positions.GetOpenPositionsAsync(new[] { StrategyType.Ema }, Underlyings.Nifty50, CancellationToken.None);
+        if (rows.Count == 0) return;
+
+        await app.Services.GetRequiredService<VirtualPositionTracker>().RestoreOpenPositionsAsync(rows, CancellationToken.None);
     }
 
     /// <summary>

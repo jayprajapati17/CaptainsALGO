@@ -26,6 +26,7 @@ public sealed class EmaCrossService : BackgroundService, IMarketFeedConsumer
     private readonly UpstoxWebSocketClient _ws;
     private readonly MarketHoursService _market;
     private readonly TelegramAlertService _telegram;
+    private readonly IPositionRepository _positions;
     private readonly EmaCrossOptions _opt;
     private readonly UpstoxOptions _upstox;
     private readonly List<EmaCrossRunner> _runners = new();
@@ -45,7 +46,7 @@ public sealed class EmaCrossService : BackgroundService, IMarketFeedConsumer
         EmaCrossOptionSelector selector, IPositionRepository positions, ISignalLogRepository signalLog, IHubContext<PositionHub> hub,
         IClock clock, IOptions<EmaCrossOptions> options, IOptions<UpstoxOptions> upstox, ILoggerFactory loggerFactory, ILogger<EmaCrossService> logger)
     {
-        _rest = rest; _ws = ws; _market = market; _telegram = telegram;
+        _rest = rest; _ws = ws; _market = market; _telegram = telegram; _positions = positions;
         _opt = options.Value; _upstox = upstox.Value; _logger = logger;
 
         if (_opt.StrategyAEnabled)
@@ -79,6 +80,9 @@ public sealed class EmaCrossService : BackgroundService, IMarketFeedConsumer
         }
 
         _logger.LogInformation("EMA 9/21 pipeline starting ({Count} strategy(ies)); paper trading only.", _runners.Count);
+
+        // These strategies are held overnight: take over any trade that was still open when the Worker last stopped.
+        await RestoreOpenLegsAsync(stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -143,6 +147,14 @@ public sealed class EmaCrossService : BackgroundService, IMarketFeedConsumer
         }
 
         await DelaySafe(TimeSpan.FromSeconds(3), ct);
+    }
+
+    private async Task RestoreOpenLegsAsync(CancellationToken ct)
+    {
+        var rows = await _positions.GetOpenPositionsAsync(new[] { StrategyType.EmaCrossA, StrategyType.EmaCrossB }, Underlyings.Nifty50, ct);
+        foreach (var runner in _runners)
+            foreach (var row in rows.Where(r => r.Strategy == runner.Strategy))
+                await runner.RestoreAsync(row, ct);
     }
 
     // ------------------------------------------------------------------ candles

@@ -80,7 +80,7 @@
         <div data-st-panel="Strategies" @(activeTab == "Strategies" ? "" : "hidden") class="st-panel">
 
             <div>
-                <div class="st-kicker">Strategies &middot; tap a card to see its stop-loss profile</div>
+                <div class="st-kicker">Strategies &middot; on/off switch and the key numbers of each</div>
                 <div class="st-cards" id="stCards">
                     @foreach (var c in SettingsUi.Cards)
                     {
@@ -113,16 +113,32 @@
 
             <div class="st-split">
                 <div class="st-col-main">
+                    <div class="ct-card st-set-card">
+                        <div class="ct-set-head">Trailing stop-loss <span class="st-sub">common rule &middot; every strategy</span></div>
+                        @{
+                            var trailGroups = new (string Title, string Help, string[] Keys)[]
+                            {
+                                ("1 · Starting stop-loss", "Where the stop-loss is placed when a trade opens.", new[] { "TrailingInitialRiskPoints" }),
+                                ("2 · Step trailing before the target", "As the premium gains, the stop-loss follows in small steps.", new[] { "TrailingStepPoints", "TrailingStepSlPoints" }),
+                                ("3 · At the target", "When the gain reaches the target, the stop jumps up and locks profit. The trade is not closed.", new[] { "TrailingTargetPoints", "TrailingTargetLockPoints" }),
+                                ("4 · After the target", "Steps used once the target is passed. 0 = same step as before the target.", new[] { "TrailingPostStepPoints", "TrailingPostStepSlPoints" })
+                            };
+                        }
+                        @foreach (var tg in trailGroups)
+                        {
+                            var trailRows = niftyTrail.Where(x => tg.Keys.Contains(x.Key)).ToList();
+                            if (trailRows.Count == 0) { continue; }
+                            <div class="st-trail-group"><b>@tg.Title</b><span>@tg.Help</span></div>
+                            @foreach (var tp in SettingsUi.Pair(trailRows)) { <partial name="_PairRow" model="tp" /> }
+                        }
+                        @foreach (var tp in SettingsUi.Pair(niftyTrail.Where(x => !trailGroups.Any(t2 => t2.Keys.Contains(x.Key))))) { <partial name="_PairRow" model="tp" /> }
+                    </div>
+                </div>
+
+                <div class="st-col-side">
                     <div class="ct-card st-box">
-                        <div class="st-box-head">
-                            <h2 class="st-h2">Trailing stop-loss &middot; <span id="stProfLabel">Nifty</span></h2>
-                            <div class="ct-seg st-mini-seg" role="group" aria-label="Stop-loss profile">
-                                <button type="button" class="st-prof active" data-pick="nifty">Nifty</button>
-                            </div>
-                        </div>
-                        <div class="st-chart-wrap"><svg id="stChart" viewBox="0 0 640 280" role="img" aria-label="Stop-loss level against premium gained"></svg></div>
-                        <div class="st-axes"><span>x &middot; premium gained from entry (points)</span><span>y &middot; stop-loss vs entry (points)</span></div>
-                        <div class="st-insight"><i></i><span id="stInsight"></span></div>
+                        <div class="st-box-head"><h2 class="st-h2">How it works (with your numbers)</h2></div>
+                        <ul class="st-summary" id="stSummary"></ul>
                     </div>
 
                     <div class="ct-card st-box">
@@ -139,12 +155,6 @@
                     </div>
                 </div>
 
-                <div class="st-col-side">
-                    <div class="ct-card st-set-card">
-                        <div class="ct-set-head">Trailing stop-loss <span class="st-sub">common rule &middot; every strategy</span></div>
-                        @foreach (var p in SettingsUi.Pair(niftyTrail)) { <partial name="_PairRow" model="p" /> }
-                    </div>
-                </div>
             </div>
 
             <div>
@@ -160,7 +170,7 @@
                     {
                         <details class="ct-card st-details">
                             <summary><span>@Html.Raw(grp.Key)</span><span class="st-sub">@grp.Sum(g => g.Items.Count) settings</span></summary>
-                            @foreach (var item in grp.SelectMany(g => g.Items)) { <partial name="_Row" model="item" /> }
+                            @foreach (var item in grp.SelectMany(g => g.Items).Where(i => !toggleKeys.Contains(SettingsUi.Key(i)))) { <partial name="_Row" model="item" /> }
                         </details>
                     }
                     @foreach (var grp in paramGroups)

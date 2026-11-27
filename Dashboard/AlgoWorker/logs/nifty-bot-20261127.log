@@ -1,0 +1,825 @@
+2026-11-27 08:57:12.680 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-11-27 08:57:12.761 +05:30 [DBG] AlgoWorker.Services.UpstoxRestClient: Using appsettings.json fallback token -- no database token found for today yet.
+2026-11-27 08:57:13.002 +05:30 [INF] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21 pipeline starting (2 strategy(ies)); paper trading only.
+2026-11-27 08:57:13.184 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-11-26", High=25974.95, Low=25733.5, Close=25884.5
+2026-11-27 08:57:13.192 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-27": Pivot=25864.316666666666666666666667, TC=25874.408333333333333333333334, BC=25854.225, Width%=0.078, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-11-27 08:57:13.602 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-11-26"'s OHLC).
+2026-11-27 08:57:50.877 +05:30 [INF] AlgoWorker.Services.Persistence.TokenRepository: Access token saved for "2026-11-27".
+2026-11-27 08:57:50.880 +05:30 [INF] Program: Upstox access token generated and saved via the dashboard OAuth flow.
+2026-11-27 09:15:13.267 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2134 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-11-27 09:15:13.277 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty 50: 01-Dec-2026 (Tue), 08-Dec-2026 (Tue), 15-Dec-2026 (Tue), 22-Dec-2026 (Tue), 29-Dec-2026 (Tue), 25-Jan-2027 (Mon)
+2026-11-27 09:15:13.353 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Option chain sample (NSE_INDEX|Nifty 50, "2026-12-01"): {"status":"success","data":[{"expiry":"2026-12-01","pcr":7822.0,"strike_price":20850.0,"underlying_key":"NSE_INDEX|Nifty 50","underlying_spot_price":25833.7,"call_options":{"instrument_key":"NSE_FO|47357","market_data":{"ltp":4938.2,"volume":0,"oi":65.0,"close_price":0.0,"bid_price":4991.6,"bid_qty":2145,"ask_price":5401.1,"ask_qty":1625,"prev_oi":65.0},"option_greeks":{"vega":0.0,"theta":0.0,"gamma":0.0,"delta":0.0,"iv":0.0,"pop":0.0}},"put_options":{"instrument_key":"NSE_FO|47361","market_data":{"ltp":0.55,"volume":1063140,"oi":508430.0,"close_price":0.0,"bid_price":0.55,"bid_qty":160290,"ask_price":0.6,"ask_qty":28535,"prev_oi":508430.0},"option_greeks":{"vega":0.0,"theta":0.0,"gamma":0.0...
+2026-11-27 09:15:13.399 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-11-27 09:15:13.458 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 430 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-10-31" to "2026-11-26")
+2026-11-27 09:15:13.472 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.94, full 1.03 (Neutral), expiry "2026-12-01".
+2026-11-27 09:15:13.515 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-10-04" to "2026-10-30")
+2026-11-27 09:15:13.582 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-07" to "2026-10-03")
+2026-11-27 09:15:13.644 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-08-11" to "2026-09-06")
+2026-11-27 09:15:13.703 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-07-15" to "2026-08-10")
+2026-11-27 09:15:13.751 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:15:13.751 +05:30 [INF] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21: replaying 2305 closed 15-min candles to warm up the EMAs.
+2026-11-27 09:15:13.784 +05:30 [WRN] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21: dropping an incomplete 1-hour bucket starting 14:20 (a 15-min candle was missing).
+2026-11-27 09:15:13.786 +05:30 [WRN] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21: dropping an incomplete 1-hour bucket starting 15:20 (a 15-min candle was missing).
+2026-11-27 09:15:15.760 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-11-27 09:15:15.763 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-11-27 09:15:15.763 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-10-30" to "2026-11-26"...
+2026-11-27 09:15:15.815 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 455 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-10-30" to "2026-11-26")
+2026-11-27 09:15:15.859 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:15:15.865 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-30T09:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.866 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-30T10:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.867 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-30T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.867 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-30T11:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.867 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-30T11:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.871 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-13T12:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.871 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-11-13T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.871 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-11-16T10:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.871 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-11-16T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.871 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-18T11:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.872 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-11-18T12:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.872 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-11-19T12:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.872 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-11-19T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.872 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-23T14:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.872 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-11-23T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.872 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-11-25T09:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:15:15.872 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-11-25T10:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:15.872 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 455 candles replayed through the indicator pipeline (455 historical + 0 today).
+2026-11-27 09:15:15.873 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "GoldenCross" originally crossed at "2026-11-25T09:45:00.0000000+05:30" (48 candles ago), still active as of "2026-11-26T15:15:00.0000000+05:30".
+2026-11-27 09:15:16.255 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-11-16" to "2026-11-26", keeping the last 2 trading day(s)...
+2026-11-27 09:15:16.347 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1000 historical 5-min candles for NSE_INDEX|Nifty 50 ("2026-11-16" to "2026-11-26")
+2026-11-27 09:15:16.403 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 intraday (today's) 5-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:15:16.408 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T09:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.61, Signal -0.65, likely choppy/hugging zero).
+2026-11-27 09:15:16.408 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T09:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 2.07, Signal 2.65, likely choppy/hugging zero).
+2026-11-27 09:15:16.408 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-25T09:48:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:16.408 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T10:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.48, Signal 4.87, likely choppy/hugging zero).
+2026-11-27 09:15:16.408 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-25T10:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T11:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 35.42, Signal 35.54, likely choppy/hugging zero).
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T13:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -48.76, Signal -50.89, likely choppy/hugging zero).
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.46, Signal 15.51, likely choppy/hugging zero).
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-26T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.08, Signal 15.93, likely choppy/hugging zero).
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-26T09:54:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:16.409 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T11:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 33.68, Signal 34.47, likely choppy/hugging zero).
+2026-11-27 09:15:16.410 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-26T11:57:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:15:16.410 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T12:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.10, Signal 8.39, likely choppy/hugging zero).
+2026-11-27 09:15:16.410 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T14:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -20.39, Signal -22.33, likely choppy/hugging zero).
+2026-11-27 09:15:16.410 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 13.79, Signal 14.36, likely choppy/hugging zero).
+2026-11-27 09:15:16.410 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 250 3-min candles replayed (2 trading day(s) + 0 today).
+2026-11-27 09:15:16.468 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 600 5-min historical candles.
+2026-11-27 09:15:16.518 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 0 5-min intraday candles.
+2026-11-27 09:15:16.522 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-11-25" from first 5-min candle ("2026-11-25T09:15:00.0000000+05:30"): High=25756.0, Low=25619.0
+2026-11-27 09:15:16.532 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T09:25:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.532 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T09:50:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.532 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T10:10:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.536 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-25T13:55:00.0000000+05:30": low 25692.8 swept the red candle's low 25696.6; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.539 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-25T14:00:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.539 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T14:10:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.539 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T14:30:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.539 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-25T14:30:00.0000000+05:30": low 25724.4 swept the red candle's low 25730.45; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.539 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T14:50:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.539 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-25T14:50:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.540 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-11-26" from first 5-min candle ("2026-11-26T09:15:00.0000000+05:30"): High=25880.0, Low=25770.4
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T09:25:00.0000000+05:30": low 25768.15 swept the red candle's low 25771.2; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-11-26T09:40:00.0000000+05:30": close vs level 25770.4 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25752.45 below the sweep low 25768.15.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T09:45:00.0000000+05:30": low 25733.5 swept the red candle's low 25734.6; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T09:50:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T10:25:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T11:05:00.0000000+05:30": low 25927.45 swept the red candle's low 25935.1; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.540 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T11:10:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T11:35:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T11:35:00.0000000+05:30": low 25869.2 swept the red candle's low 25872.15; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T11:45:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T11:45:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T11:45:00.0000000+05:30": low 25865.2 swept the red candle's low 25874.5; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T11:50:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:05:00.0000000+05:30": low 25911.0 swept the red candle's low 25916.05; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T12:10:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:20:00.0000000+05:30": low 25915.0 swept the red candle's low 25924.15; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25911.05 below the sweep low 25915.0.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:30:00.0000000+05:30": low 25907.0 swept the red candle's low 25909.35; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25905.95 below the sweep low 25907.0.
+2026-11-27 09:15:16.541 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:55:00.0000000+05:30": low 25886.6 swept the red candle's low 25888.65; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.542 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25884.9 below the sweep low 25886.6.
+2026-11-27 09:15:16.542 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T14:15:00.0000000+05:30": low 25777.6 swept the red candle's low 25786.35; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.543 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep ignored: counter-trend bounce away from a support zone.
+2026-11-27 09:15:16.543 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T14:40:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:15:16.543 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T15:05:00.0000000+05:30": low 25885.2 swept the red candle's low 25892.65; waiting up to 4 candles for confirmation.
+2026-11-27 09:15:16.543 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25884.5 below the sweep low 25885.2.
+2026-11-27 09:15:16.543 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 150 candles replayed (2 previous day(s) + 0 today).
+2026-11-27 09:15:16.543 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-11-27 09:15:17.234 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 09:15:17.234 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 09:15:17.240 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-11-27 09:15:17.297 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-11-27 09:16:43.716 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 1.02 (Neutral), expiry "2026-12-01".
+2026-11-27 09:18:13.958 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 1.00 (Neutral), expiry "2026-12-01".
+2026-11-27 09:19:44.274 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.93, full 1.01 (Neutral), expiry "2026-12-01".
+2026-11-27 09:19:59.978 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-11-27" from first 5-min candle ("2026-11-27T09:15:00.0000000+05:30"): High=25908.9, Low=25830.45
+2026-11-27 09:21:14.582 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.84, full 1.00 (Neutral), expiry "2026-12-01".
+2026-11-27 09:22:44.847 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.99 (Neutral), expiry "2026-12-01".
+2026-11-27 09:24:15.263 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.90, full 0.99 (Neutral), expiry "2026-12-01".
+2026-11-27 09:25:45.503 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.92, full 0.99 (Neutral), expiry "2026-12-01".
+2026-11-27 09:27:15.784 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 1.02, full 0.99 (Neutral), expiry "2026-12-01".
+2026-11-27 09:28:46.062 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.99, full 0.97 (Neutral), expiry "2026-12-01".
+2026-11-27 09:29:59.985 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT DOWN confirmed at "2026-11-27T09:25:00.0000000+05:30": close 25814.1 vs level 25830.45
+2026-11-27 09:30:00.066 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Put" option for breakout on NSE_INDEX|Nifty 50: strike 25800, expiry "2026-12-01".
+2026-11-27 09:30:00.336 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47846
+2026-11-27 09:30:01.301 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Down" position opened: NIFTY 25800 PE 01 DEC 26 @ 164.2
+2026-11-27 09:30:03.362 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:30:16.558 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.96, full 0.96 (Neutral), expiry "2026-12-01".
+2026-11-27 09:31:46.837 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.96, full 0.96 (Neutral), expiry "2026-12-01".
+2026-11-27 09:33:17.149 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.84, full 0.95 (Neutral), expiry "2026-12-01".
+2026-11-27 09:33:53.832 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47846
+2026-11-27 09:33:53.870 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹144.20 (peak ₹168.75). P&L: -1,300.00 (-12.2%)
+2026-11-27 09:35:53.836 +05:30 [INF] AlgoWorker.Worker: Nifty EMA Alert Bot starting up...
+2026-11-27 09:35:54.073 +05:30 [INF] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21 pipeline starting (2 strategy(ies)); paper trading only.
+2026-11-27 09:35:54.288 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Previous trading day for NSE_INDEX|Nifty 50: "2026-11-26", High=25974.95, Low=25733.5, Close=25884.5
+2026-11-27 09:35:54.295 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-27": Pivot=25864.316666666666666666666667, TC=25874.408333333333333333333334, BC=25854.225, Width%=0.078, Reading=Narrow CPR -- Trending day likely, bigger range moves expected
+2026-11-27 09:35:54.386 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-11-27 09:35:54.506 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 430 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-10-31" to "2026-11-26")
+2026-11-27 09:35:54.546 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: today's CPR saved (from "2026-11-26"'s OHLC).
+2026-11-27 09:35:54.605 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-10-04" to "2026-10-30")
+2026-11-27 09:35:54.682 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 450 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-09-07" to "2026-10-03")
+2026-11-27 09:35:54.721 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2134 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-11-27 09:35:54.731 +05:30 [INF] AlgoWorker.Services.ExpiryProvider: Expiries for NSE_INDEX|Nifty 50: 01-Dec-2026 (Tue), 08-Dec-2026 (Tue), 15-Dec-2026 (Tue), 22-Dec-2026 (Tue), 29-Dec-2026 (Tue), 25-Jan-2027 (Mon)
+2026-11-27 09:35:54.749 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-08-11" to "2026-09-06")
+2026-11-27 09:35:54.799 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 475 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-07-15" to "2026-08-10")
+2026-11-27 09:35:54.902 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Option chain sample (NSE_INDEX|Nifty 50, "2026-12-01"): {"status":"success","data":[{"expiry":"2026-12-01","pcr":8903.0,"strike_price":20850.0,"underlying_key":"NSE_INDEX|Nifty 50","underlying_spot_price":25850.5,"call_options":{"instrument_key":"NSE_FO|47357","market_data":{"ltp":4938.2,"volume":0,"oi":65.0,"close_price":4932.05,"bid_price":4627.25,"bid_qty":1690,"ask_price":5515.7,"ask_qty":1625,"prev_oi":65.0},"option_greeks":{"vega":0.0,"theta":0.0,"gamma":0.0,"delta":1.0,"iv":0.0,"pop":99.0}},"put_options":{"instrument_key":"NSE_FO|47361","market_data":{"ltp":0.45,"volume":244790,"oi":578695.0,"close_price":0.6,"bid_price":0.45,"bid_qty":293215,"ask_price":0.5,"ask_qty":82745,"prev_oi":508430.0},"option_greeks":{"vega":0.0806,"theta":-0.6119...
+2026-11-27 09:35:54.902 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:35:54.902 +05:30 [INF] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21: replaying 2306 closed 15-min candles to warm up the EMAs.
+2026-11-27 09:35:54.932 +05:30 [WRN] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21: dropping an incomplete 1-hour bucket starting 14:20 (a 15-min candle was missing).
+2026-11-27 09:35:54.934 +05:30 [WRN] AlgoWorker.EmaCross.EmaCrossService: EMA 9/21: dropping an incomplete 1-hour bucket starting 15:20 (a 15-min candle was missing).
+2026-11-27 09:35:55.049 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 09:35:55.375 +05:30 [DBG] AlgoWorker.Services.MarketHoursService: Upstox exchange status: "NormalOpen" (open=true)
+2026-11-27 09:35:55.378 +05:30 [WRN] AlgoWorker.Services.HistoricalSeederService: Configured SeedLookbackTradingDays (20) implies a 40-day window, which exceeds Upstox's 1-month limit for 15-min candles. Clamping to 27 days.
+2026-11-27 09:35:55.378 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding historical candles from "2026-10-30" to "2026-11-26"...
+2026-11-27 09:35:55.431 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 455 historical 15-min candles for NSE_INDEX|Nifty 50 ("2026-10-30" to "2026-11-26")
+2026-11-27 09:35:55.480 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:35:55.491 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-30T09:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.493 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-10-30T10:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.495 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-10-30T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.496 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-10-30T11:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.496 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-10-30T11:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.518 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-13T12:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.519 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-11-13T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.519 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-11-16T10:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.519 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-11-16T10:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.519 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-18T11:30:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.519 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-11-18T12:00:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.519 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-11-19T12:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.519 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-11-19T12:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.520 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-23T14:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.520 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "DeathCross" confirmed at "2026-11-23T14:30:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.520 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "GoldenCross" crossover detected at "2026-11-25T09:45:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 09:35:55.520 +05:30 [DBG] AlgoWorker.Services.SignalEngine: (seeding) "GoldenCross" confirmed at "2026-11-25T10:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:55.520 +05:30 [INF] AlgoWorker.Services.HistoricalSeederService: Seeding complete -- 457 candles replayed through the indicator pipeline (455 historical + 2 today).
+2026-11-27 09:35:55.521 +05:30 [INF] AlgoWorker.Services.SignalEngine: Catch-up signal: "GoldenCross" originally crossed at "2026-11-25T09:45:00.0000000+05:30" (50 candles ago), still active as of "2026-11-27T09:30:00.0000000+05:30".
+2026-11-27 09:35:56.017 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: Seeding MACD 3-min candles: fetching "2026-11-16" to "2026-11-26", keeping the last 2 trading day(s)...
+2026-11-27 09:35:56.092 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 1000 historical 5-min candles for NSE_INDEX|Nifty 50 ("2026-11-16" to "2026-11-26")
+2026-11-27 09:35:56.147 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 7 intraday (today's) 5-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:35:56.151 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T09:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 0.61, Signal -0.65, likely choppy/hugging zero).
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T09:45:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 2.07, Signal 2.65, likely choppy/hugging zero).
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-25T09:48:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T10:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 3.48, Signal 4.87, likely choppy/hugging zero).
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-25T10:15:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T11:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 35.42, Signal 35.54, likely choppy/hugging zero).
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-25T13:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -48.76, Signal -50.89, likely choppy/hugging zero).
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T09:24:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.46, Signal 15.51, likely choppy/hugging zero).
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-26T09:27:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:56.152 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T09:33:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 15.08, Signal 15.93, likely choppy/hugging zero).
+2026-11-27 09:35:56.153 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-26T09:54:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:56.153 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T11:06:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 33.68, Signal 34.47, likely choppy/hugging zero).
+2026-11-27 09:35:56.153 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: (seeding) MACD "Bullish" confirmed at "2026-11-26T11:57:00.0000000+05:30" -- not alerting, historical replay only.
+2026-11-27 09:35:56.153 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T12:27:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 7.10, Signal 8.39, likely choppy/hugging zero).
+2026-11-27 09:35:56.153 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T14:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -20.39, Signal -22.33, likely choppy/hugging zero).
+2026-11-27 09:35:56.153 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-26T15:18:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD 13.79, Signal 14.36, likely choppy/hugging zero).
+2026-11-27 09:35:56.153 +05:30 [INF] AlgoWorker.Services.MacdHistoricalSeederService: MACD seeding complete -- 257 3-min candles replayed (2 trading day(s) + 7 today).
+2026-11-27 09:35:56.219 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 600 5-min historical candles.
+2026-11-27 09:35:56.271 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 4 5-min intraday candles.
+2026-11-27 09:35:56.273 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-11-25" from first 5-min candle ("2026-11-25T09:15:00.0000000+05:30"): High=25756.0, Low=25619.0
+2026-11-27 09:35:56.277 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T09:25:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.277 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T09:50:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.278 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T10:10:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.280 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-25T13:55:00.0000000+05:30": low 25692.8 swept the red candle's low 25696.6; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.282 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-25T14:00:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T14:10:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T14:30:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-25T14:30:00.0000000+05:30": low 25724.4 swept the red candle's low 25730.45; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-25T14:50:00.0000000+05:30": close vs level 25756.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-25T14:50:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.283 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-11-26" from first 5-min candle ("2026-11-26T09:15:00.0000000+05:30"): High=25880.0, Low=25770.4
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T09:25:00.0000000+05:30": low 25768.15 swept the red candle's low 25771.2; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-11-26T09:40:00.0000000+05:30": close vs level 25770.4 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25752.45 below the sweep low 25768.15.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T09:45:00.0000000+05:30": low 25733.5 swept the red candle's low 25734.6; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T09:50:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.283 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T10:25:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T11:05:00.0000000+05:30": low 25927.45 swept the red candle's low 25935.1; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T11:10:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T11:35:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T11:35:00.0000000+05:30": low 25869.2 swept the red candle's low 25872.15; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T11:45:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T11:45:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T11:45:00.0000000+05:30": low 25865.2 swept the red candle's low 25874.5; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T11:50:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:05:00.0000000+05:30": low 25911.0 swept the red candle's low 25916.05; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: (seeding) Liquidity sweep at "2026-11-26T12:10:00.0000000+05:30" -- historical replay only, not raised.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:20:00.0000000+05:30": low 25915.0 swept the red candle's low 25924.15; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25911.05 below the sweep low 25915.0.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:30:00.0000000+05:30": low 25907.0 swept the red candle's low 25909.35; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25905.95 below the sweep low 25907.0.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T12:55:00.0000000+05:30": low 25886.6 swept the red candle's low 25888.65; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25884.9 below the sweep low 25886.6.
+2026-11-27 09:35:56.284 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T14:15:00.0000000+05:30": low 25777.6 swept the red candle's low 25786.35; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.285 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep ignored: counter-trend bounce away from a support zone.
+2026-11-27 09:35:56.285 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT UP at "2026-11-26T14:40:00.0000000+05:30": close vs level 25880.0 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.285 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-26T15:05:00.0000000+05:30": low 25885.2 swept the red candle's low 25892.65; waiting up to 4 candles for confirmation.
+2026-11-27 09:35:56.285 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25884.5 below the sweep low 25885.2.
+2026-11-27 09:35:56.285 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening range captured for "2026-11-27" from first 5-min candle ("2026-11-27T09:15:00.0000000+05:30"): High=25909.15, Low=25814.5
+2026-11-27 09:35:56.285 +05:30 [DBG] AlgoWorker.Services.BreakoutSignalEngine: (seeding) Opening-range BREAKOUT DOWN at "2026-11-27T09:25:00.0000000+05:30": close vs level 25814.5 -- not alerting yet, historical replay only.
+2026-11-27 09:35:56.286 +05:30 [INF] AlgoWorker.Services.FiveMinHistoricalSeederService: 5-min seeding complete -- 154 candles replayed (2 previous day(s) + 4 today).
+2026-11-27 09:35:56.286 +05:30 [INF] AlgoWorker.Worker: Market is open -- starting live WebSocket feed.
+2026-11-27 09:35:57.474 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 09:35:57.474 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 09:35:57.479 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_INDEX|Nifty 50
+2026-11-27 09:35:57.508 +05:30 [INF] AlgoWorker.Services.Decoding.ProtobufMarketDataDecoder: First WebSocket frame decoded successfully. Type="MarketInfo"
+2026-11-27 09:37:25.353 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 09:38:55.592 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 09:40:25.888 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 09:41:56.159 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 09:43:26.472 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 09:44:56.773 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 09:45:03.557 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 09:46:27.097 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 09:47:57.417 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.94 (Neutral), expiry "2026-12-01".
+2026-11-27 09:49:27.768 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 09:50:58.074 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.94 (Neutral), expiry "2026-12-01".
+2026-11-27 09:52:28.365 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.84, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 09:53:58.699 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.88, full 0.94 (Neutral), expiry "2026-12-01".
+2026-11-27 09:55:30.023 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.88, full 0.94 (Neutral), expiry "2026-12-01".
+2026-11-27 09:57:00.377 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.97, full 0.94 (Neutral), expiry "2026-12-01".
+2026-11-27 09:58:30.678 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.94 (Neutral), expiry "2026-12-01".
+2026-11-27 09:59:59.969 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T09:55:00.0000000+05:30": low 25817.9 swept the red candle's low 25822.25; waiting up to 4 candles for confirmation.
+2026-11-27 10:00:00.979 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:00:04.309 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 3 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 10:01:31.241 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:03:01.540 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:04:32.665 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:06:03.199 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:07:33.546 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:09:03.837 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.84, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:09:59.998 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep confirmed at "2026-11-27T10:05:00.0000000+05:30": entry 25882.85, SL 25815.25, EMA short 25,854.63, EMA long 25,858.60 -> hold with trailing SL.
+2026-11-27 10:10:00.061 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-27T10:05:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -6.03, Signal -6.48, likely choppy/hugging zero).
+2026-11-27 10:10:00.065 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Call" option for breakout on NSE_INDEX|Nifty 50: strike 25900, expiry "2026-12-01".
+2026-11-27 10:10:00.524 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47855
+2026-11-27 10:10:01.501 +05:30 [INF] AlgoWorker.Services.ReversalPositionTracker: Virtual liquidity-sweep position opened: NIFTY 25900 CE 01 DEC 26 @ 155.75 ("TrendHold").
+2026-11-27 10:10:33.946 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.91 (Neutral), expiry "2026-12-01".
+2026-11-27 10:12:04.204 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.91 (Neutral), expiry "2026-12-01".
+2026-11-27 10:13:34.467 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.85, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:15:05.966 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 4 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 10:15:07.067 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:16:37.446 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:18:07.737 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.84, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:19:38.003 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:19:59.971 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bearish" crossover confirmed at "2026-11-27T10:15:00.0000000+05:30": MACD -7.22, Signal -6.59
+2026-11-27 10:21:08.273 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:22:38.558 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:23:31.670 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47855
+2026-11-27 10:23:31.704 +05:30 [INF] AlgoWorker.Services.ReversalPositionTracker: Virtual liquidity-sweep position closed. Reason: Stop-loss hit: Nifty 25,814.00 reached the previous candle's low (25,815.25). P&L: -2,466.75 (-24.4%)
+2026-11-27 10:24:08.882 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.96, full 0.93 (Neutral), expiry "2026-12-01".
+2026-11-27 10:25:00.064 +05:30 [INF] AlgoWorker.Services.BreakoutSignalEngine: Opening-range BREAKOUT DOWN confirmed at "2026-11-27T10:20:00.0000000+05:30": close 25808.6 vs level 25814.5
+2026-11-27 10:25:00.122 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Put" option for breakout on NSE_INDEX|Nifty 50: strike 25800, expiry "2026-12-01".
+2026-11-27 10:25:00.309 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47846
+2026-11-27 10:25:01.186 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout "Down" position opened: NIFTY 25800 PE 01 DEC 26 @ 164.5
+2026-11-27 10:25:39.010 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.93, full 0.92 (Neutral), expiry "2026-12-01".
+2026-11-27 10:27:09.279 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.92, full 0.91 (Neutral), expiry "2026-12-01".
+2026-11-27 10:28:39.558 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.92, full 0.91 (Neutral), expiry "2026-12-01".
+2026-11-27 10:30:04.027 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 5 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 10:30:05.025 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2134 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-11-27 10:30:05.142 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|42734
+2026-11-27 10:30:05.569 +05:30 [INF] AlgoWorker.EmaCross.A: EMA 9/21 A: opened NIFTY 25450 PE 08 DEC 26 @ 133.65 (spot 25802.2, stop 25882.2).
+2026-11-27 10:30:09.703 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.93, full 0.91 (Neutral), expiry "2026-12-01".
+2026-11-27 10:31:39.954 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 1.00, full 0.91 (Neutral), expiry "2026-12-01".
+2026-11-27 10:33:10.295 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.96, full 0.89 (Neutral), expiry "2026-12-01".
+2026-11-27 10:34:40.592 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.95, full 0.88 (Neutral), expiry "2026-12-01".
+2026-11-27 10:35:03.005 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-11-27 10:35:03.033 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-11-27 10:35:08.968 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 10:35:08.968 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 10:35:08.969 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 3 instrument(s): NSE_INDEX|Nifty 50, NSE_FO|47846, NSE_FO|42734
+2026-11-27 10:35:35.742 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-11-27 10:35:35.743 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-11-27 10:35:41.620 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 10s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-11-27 10:35:41.625 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-11-27 10:35:51.986 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 10:35:51.986 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 10:35:51.987 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 3 instrument(s): NSE_INDEX|Nifty 50, NSE_FO|47846, NSE_FO|42734
+2026-11-27 10:36:10.715 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.94, full 0.87 (Neutral), expiry "2026-12-01".
+2026-11-27 10:37:41.447 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.90, full 0.86 (Neutral), expiry "2026-12-01".
+2026-11-27 10:38:49.092 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47846
+2026-11-27 10:38:49.098 +05:30 [INF] AlgoWorker.Services.BreakoutPositionTracker: Virtual breakout position closed. Reason: Stop-loss hit at ₹179.50 (peak ₹195.65). P&L: 971.75 (9.1%)
+2026-11-27 10:39:11.701 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:39:59.970 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T10:35:00.0000000+05:30": low 25755.8 swept the red candle's low 25765.6; waiting up to 4 candles for confirmation.
+2026-11-27 10:40:42.000 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:42:12.315 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.84 (Neutral), expiry "2026-12-01".
+2026-11-27 10:43:42.674 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.89, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:44:59.977 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep confirmed at "2026-11-27T10:40:00.0000000+05:30": entry 25786.35, SL 25758.6, EMA short 25,807.56, EMA long 25,830.01 -> hold until EMA long.
+2026-11-27 10:44:59.987 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ATM "Call" option for breakout on NSE_INDEX|Nifty 50: strike 25800, expiry "2026-12-01".
+2026-11-27 10:45:00.339 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47839
+2026-11-27 10:45:01.284 +05:30 [INF] AlgoWorker.Services.ReversalPositionTracker: Virtual liquidity-sweep position opened: NIFTY 25800 CE 01 DEC 26 @ 152.9 ("Ema21Target").
+2026-11-27 10:45:06.002 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 6 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 10:45:06.027 +05:30 [INF] AlgoWorker.EmaCross.A: EMA 9/21 A: index stop moved to 25,883.30.
+2026-11-27 10:45:12.845 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:46:43.530 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:48:24.907 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR poll failed.
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetOptionChainAsync(String underlyingInstrumentKey, DateOnly expiry, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.OptionChain.cs:line 23
+   at AlgoWorker.Services.PcrPublisherService.PollIndexAsync(String underlying, String key, String name, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 105
+   at AlgoWorker.Services.PcrPublisherService.PollOnceAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 85
+2026-11-27 10:48:24.908 +05:30 [WRN] AlgoWorker.Services.PcrPublisherService: Nifty: PCR poll failed -- will retry.
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetOptionChainAsync(String underlyingInstrumentKey, DateOnly expiry, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.OptionChain.cs:line 23
+   at AlgoWorker.Services.PcrPublisherService.PollIndexAsync(String underlying, String key, String name, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 105
+   at AlgoWorker.Services.PcrPublisherService.PollOnceAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 85
+2026-11-27 10:48:30.944 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.EnsureFullTlsFrameAsync[TIOAdapter](CancellationToken cancellationToken, Int32 estimatedSize)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Security.SslStream.ReadAsyncInternal[TIOAdapter](Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.IO.Stream.ReadAtLeastAsyncCore(Memory`1 buffer, Int32 minimumBytes, Boolean throwOnEndOfStream, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-11-27 10:48:30.946 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-11-27 10:48:36.708 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 10:48:36.708 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 10:48:36.708 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 3 instrument(s): NSE_INDEX|Nifty 50, NSE_FO|47839, NSE_FO|42734
+2026-11-27 10:49:55.436 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:51:25.931 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.89, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:52:56.499 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.91, full 0.86 (Neutral), expiry "2026-12-01".
+2026-11-27 10:54:11.110 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47839
+2026-11-27 10:54:11.136 +05:30 [INF] AlgoWorker.Services.ReversalPositionTracker: Virtual liquidity-sweep position closed. Reason: Stop-loss hit: Nifty 25,758.45 reached the previous candle's low (25,758.60). P&L: -1,189.50 (-12.0%)
+2026-11-27 10:54:27.010 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.91, full 0.86 (Neutral), expiry "2026-12-01".
+2026-11-27 10:55:57.414 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.91, full 0.86 (Neutral), expiry "2026-12-01".
+2026-11-27 10:57:27.994 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.89, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 10:58:58.496 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.89, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 11:00:06.062 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 7 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 11:00:20.005 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-11-27 11:00:20.006 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-11-27 11:00:26.039 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 11:00:26.039 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 11:00:26.039 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_FO|42734
+2026-11-27 11:00:28.736 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 1.01, full 0.85 (Neutral), expiry "2026-12-01".
+2026-11-27 11:01:58.966 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR poll failed.
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetOptionChainAsync(String underlyingInstrumentKey, DateOnly expiry, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.OptionChain.cs:line 23
+   at AlgoWorker.Services.PcrPublisherService.PollIndexAsync(String underlying, String key, String name, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 105
+   at AlgoWorker.Services.PcrPublisherService.PollOnceAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 85
+2026-11-27 11:01:58.967 +05:30 [WRN] AlgoWorker.Services.PcrPublisherService: Nifty: PCR poll failed -- will retry.
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetOptionChainAsync(String underlyingInstrumentKey, DateOnly expiry, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.OptionChain.cs:line 23
+   at AlgoWorker.Services.PcrPublisherService.PollIndexAsync(String underlying, String key, String name, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 105
+   at AlgoWorker.Services.PcrPublisherService.PollOnceAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\PcrPublisherService.cs:line 85
+2026-11-27 11:02:15.430 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-11-27 11:02:15.432 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-11-27 11:02:20.679 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 10s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-11-27 11:02:20.680 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-11-27 11:02:30.897 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 20s...
+System.Net.Http.HttpRequestException: No such host is known. (api.upstox.com:443)
+ ---> System.Net.Sockets.SocketException (11001): No such host is known.
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.<SendCoreAsync>g__Core|5_0(HttpRequestMessage request, Boolean useAsync, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at AlgoWorker.Services.UpstoxRestClient.GetAuthorizedWebSocketUrlAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxRestClient.cs:line 113
+   at AlgoWorker.Services.UpstoxWebSocketClient.ConnectAndSubscribeAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 96
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 60
+2026-11-27 11:02:30.898 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: No such host is known. (api.upstox.com:443)
+2026-11-27 11:02:51.595 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 11:02:51.595 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 11:02:51.595 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_FO|42734
+2026-11-27 11:03:29.458 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.80 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:05:02.394 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.80 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:06:32.940 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.80 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:08:03.585 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.79 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:08:07.096 +05:30 [WRN] AlgoWorker.Services.UpstoxWebSocketClient: WebSocket connection lost/failed. Reconnecting in 5s...
+System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at AlgoWorker.Services.UpstoxWebSocketClient.ReceiveLoopAsync(CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 147
+   at AlgoWorker.Services.UpstoxWebSocketClient.RunAsync(IReadOnlyCollection`1 instrumentKeys, CancellationToken ct) in C:\CaptainsALGO\Dashboard\AlgoWorker\Services\UpstoxWebSocketClient.cs:line 62
+2026-11-27 11:08:07.097 +05:30 [WRN] AlgoWorker.Worker: WebSocket disconnected: The remote party closed the WebSocket connection without completing the close handshake.
+2026-11-27 11:08:13.043 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: Upstox WebSocket connected.
+2026-11-27 11:08:13.043 +05:30 [INF] AlgoWorker.Worker: WebSocket connected event fired.
+2026-11-27 11:08:13.043 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 2 instrument(s): NSE_INDEX|Nifty 50, NSE_FO|42734
+2026-11-27 11:09:34.109 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.79 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:11:04.343 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.78 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:12:34.622 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.78 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:14:04.928 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.78 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:15:03.349 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 8 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 11:15:35.030 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.79 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:17:05.324 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.80 (Neutral), expiry "2026-12-01".
+2026-11-27 11:18:35.758 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.93, full 0.80 (Neutral), expiry "2026-12-01".
+2026-11-27 11:20:05.989 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.93, full 0.80 (Neutral), expiry "2026-12-01".
+2026-11-27 11:21:36.350 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.92, full 0.80 (Neutral), expiry "2026-12-01".
+2026-11-27 11:23:06.570 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.87, full 0.77 (Neutral), expiry "2026-12-01".
+2026-11-27 11:24:36.802 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.77 (Neutral), expiry "2026-12-01".
+2026-11-27 11:26:07.032 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.76 (Neutral), expiry "2026-12-01".
+2026-11-27 11:27:37.715 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.75 (Neutral), expiry "2026-12-01".
+2026-11-27 11:29:07.949 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.74 (Neutral), expiry "2026-12-01".
+2026-11-27 11:30:04.071 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 9 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 11:30:38.048 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.89, full 0.75 (Neutral), expiry "2026-12-01".
+2026-11-27 11:32:08.257 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.74 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:33:38.700 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.74 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:34:59.957 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T11:30:00.0000000+05:30": low 25666.85 swept the red candle's low 25670.6; waiting up to 4 candles for confirmation.
+2026-11-27 11:35:08.955 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:36:39.296 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:38:09.811 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:39:40.028 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:39:59.956 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep confirmed at "2026-11-27T11:35:00.0000000+05:30": entry 25717.1, SL 25663.6, EMA short 25,718.44, EMA long 25,757.25 -> hold until EMA long.
+2026-11-27 11:41:10.247 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:42:40.473 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.74 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:44:10.773 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.75 (Neutral), expiry "2026-12-01".
+2026-11-27 11:45:04.682 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 10 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 11:45:41.113 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.75 (Neutral), expiry "2026-12-01".
+2026-11-27 11:47:11.358 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.75 (Neutral), expiry "2026-12-01".
+2026-11-27 11:48:41.574 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.74 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:49:59.951 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T11:45:00.0000000+05:30": low 25681.8 swept the red candle's low 25685.65; waiting up to 4 candles for confirmation.
+2026-11-27 11:50:11.820 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.74 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:51:42.044 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.74 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:53:12.462 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:54:42.684 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:54:59.954 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep confirmed at "2026-11-27T11:50:00.0000000+05:30": entry 25699.75, SL 25678.65, EMA short 25,706.52, EMA long 25,741.37 -> hold until EMA long.
+2026-11-27 11:56:13.115 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:57:43.423 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:59:13.739 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 11:59:59.955 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-27T11:55:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -35.02, Signal -36.50, likely choppy/hugging zero).
+2026-11-27 12:00:04.638 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 11 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 12:00:43.853 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.67, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:02:14.284 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.66, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:03:44.500 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.66, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:05:14.800 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:06:45.034 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:08:15.556 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:09:45.845 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:11:16.106 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.73 (Neutral), expiry "2026-12-01".
+2026-11-27 12:12:46.565 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.73 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:14:16.843 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:14:59.953 +05:30 [INF] AlgoWorker.Services.SignalEngine: New "DeathCross" crossover detected at "2026-11-27T12:00:00.0000000+05:30", tracking for 2 candles before confirming.
+2026-11-27 12:15:05.062 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 12 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 12:15:46.934 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:17:17.470 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:18:47.730 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:20:18.207 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:21:48.422 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:23:19.198 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:24:49.452 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:26:19.693 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:27:50.879 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:29:21.313 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:30:00.180 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T12:25:00.0000000+05:30": low 25685.6 swept the red candle's low 25691.7; waiting up to 4 candles for confirmation.
+2026-11-27 12:30:05.762 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 13 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 12:30:51.432 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:32:22.682 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:33:53.915 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.69, full 0.72 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:35:24.213 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:36:54.467 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:38:25.255 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:39:55.577 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:41:25.845 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:42:56.714 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:44:30.343 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:44:59.946 +05:30 [INF] AlgoWorker.Services.SignalEngine: CONFIRMED "DeathCross" signal ("Low" confidence) at "2026-11-27T12:30:00.0000000+05:30", spot=25695.95, ADX 23.041107604760104->24.952695214531712.
+2026-11-27 12:44:59.950 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving CURRENT-EXPIRY ITM "Put" option on NSE_INDEX|Nifty 50: strike 25800 (2 strikes ITM), expiry "2026-12-01".
+2026-11-27 12:45:00.145 +05:30 [INF] AlgoWorker.Services.OptionInstrumentResolver: Resolving NEXT-EXPIRY ATM "Put" option on NSE_INDEX|Nifty 50: strike 25700, expiry "2026-12-08".
+2026-11-27 12:45:00.637 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|47846
+2026-11-27 12:45:02.427 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position opened ["CurrentWeekItm"]: NIFTY 25800 PE 01 DEC 26 @ 228.9
+2026-11-27 12:45:02.478 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|42751
+2026-11-27 12:45:02.871 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position opened ["NextWeekAtm"]: NIFTY 25700 PE 08 DEC 26 @ 274.5
+2026-11-27 12:45:03.310 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 14 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 12:46:00.822 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:47:35.723 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:47:54.884 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|47846
+2026-11-27 12:47:54.911 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position closed ["CurrentWeekItm"]. Reason: Stop-loss hit at ₹208.90 (peak ₹230.80). P&L: -1,326.00 (-8.9%)
+2026-11-27 12:48:59.818 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|42751
+2026-11-27 12:48:59.826 +05:30 [INF] AlgoWorker.Services.VirtualPositionTracker: Virtual "DeathCross" position closed ["NextWeekAtm"]. Reason: Stop-loss hit at ₹254.50 (peak ₹276.35). P&L: -1,319.50 (-7.4%)
+2026-11-27 12:49:05.944 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.68, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:49:59.932 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep confirmed at "2026-11-27T12:45:00.0000000+05:30": entry 25730.75, SL 25684.7, EMA short 25,711.86, EMA long 25,722.69 -> hold with trailing SL.
+2026-11-27 12:50:37.337 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:52:08.490 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:53:38.998 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:55:10.056 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:56:40.302 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:58:11.889 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 12:59:44.077 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:00:03.975 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 15 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 13:01:15.851 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:02:47.822 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:04:18.295 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:04:59.929 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T13:00:00.0000000+05:30": low 25679.95 swept the red candle's low 25682.85; waiting up to 4 candles for confirmation.
+2026-11-27 13:05:48.608 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:07:18.856 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:08:51.325 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:09:59.925 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25675.7 below the sweep low 25679.95.
+2026-11-27 13:10:21.539 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:11:51.773 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:13:22.004 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.71 (Neutral), expiry "2026-12-01".
+2026-11-27 13:14:52.660 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.86, full 0.71 (Neutral), expiry "2026-12-01".
+2026-11-27 13:14:59.974 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bearish" crossover confirmed at "2026-11-27T13:10:00.0000000+05:30": MACD -20.48, Signal -20.39
+2026-11-27 13:15:04.684 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 16 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 13:16:22.924 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.71 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:17:53.397 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:19:23.644 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.70 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:19:59.921 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T13:15:00.0000000+05:30": low 25657.5 swept the red candle's low 25663.85; waiting up to 4 candles for confirmation.
+2026-11-27 13:20:53.873 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.70 (Neutral), expiry "2026-12-01".
+2026-11-27 13:22:24.119 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.70 (Neutral), expiry "2026-12-01".
+2026-11-27 13:23:54.369 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.70 (Neutral), expiry "2026-12-01".
+2026-11-27 13:25:24.607 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:26:55.068 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:28:25.318 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:29:55.577 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:29:59.918 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup cancelled: close 25647.35 below the sweep low 25657.5.
+2026-11-27 13:30:05.297 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 17 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 13:31:25.858 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:32:56.114 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:34:26.592 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 13:34:59.919 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T13:30:00.0000000+05:30": low 25643.65 swept the red candle's low 25647.2; waiting up to 4 candles for confirmation.
+2026-11-27 13:35:56.816 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:37:27.463 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:38:57.735 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:39:59.918 +05:30 [INF] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep confirmed at "2026-11-27T13:35:00.0000000+05:30": entry 25685.05, SL 25640.2, EMA short 25,675.95, EMA long 25,692.09 -> hold until EMA long.
+2026-11-27 13:39:59.923 +05:30 [DBG] AlgoWorker.Services.MacdSignalEngine: MACD crossover at "2026-11-27T13:35:00.0000000+05:30" skipped -- zero-line bias not confirmed (MACD -19.89, Signal -21.02, likely choppy/hugging zero).
+2026-11-27 13:40:27.981 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:41:58.211 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:43:28.439 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:44:58.679 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:45:05.921 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 18 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 13:46:28.915 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.70, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:47:59.388 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:49:30.215 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.70, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:51:00.450 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:52:31.567 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:54:01.789 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:55:32.098 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:57:02.428 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 13:58:32.904 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:00:03.173 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:00:03.471 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 19 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 14:01:33.417 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:03:04.613 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:04:34.898 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:06:05.253 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:07:35.575 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:09:05.819 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:10:36.254 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:12:06.490 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:13:36.954 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.69 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:14:59.908 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Liquidity sweep at "2026-11-27T14:10:00.0000000+05:30": low 25652.4 swept the red candle's low 25659.4; waiting up to 4 candles for confirmation.
+2026-11-27 14:15:04.247 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 20 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 14:15:07.064 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:16:37.281 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:18:07.518 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:19:38.607 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:21:09.250 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:22:39.655 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:24:10.533 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:25:40.870 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.69 (Neutral), expiry "2026-12-01".
+2026-11-27 14:27:11.123 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:28:41.352 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:30:05.174 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 21 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 14:30:11.481 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:31:41.738 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.68 (Neutral), expiry "2026-12-01".
+2026-11-27 14:33:12.032 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:34:43.097 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:34:59.904 +05:30 [DBG] AlgoWorker.Services.ReversalSignalEngine: Sweep setup expired without confirmation after 4 candles.
+2026-11-27 14:36:13.341 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:37:43.653 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.71, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:39:13.929 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.70, full 0.67 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:40:44.171 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.67 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:42:14.402 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.81, full 0.68 (Neutral), expiry "2026-12-01".
+2026-11-27 14:43:45.023 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.68 (Neutral), expiry "2026-12-01".
+2026-11-27 14:45:03.270 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 22 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 14:45:15.179 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:46:45.688 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.68 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:48:15.916 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.67 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:49:46.498 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.67 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:49:59.921 +05:30 [INF] AlgoWorker.Services.MacdSignalEngine: MACD "Bearish" crossover confirmed at "2026-11-27T14:45:00.0000000+05:30": MACD -13.97, Signal -12.38
+2026-11-27 14:51:16.914 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:52:47.130 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:54:17.407 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:55:47.750 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:57:18.078 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 14:58:48.305 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.75, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:00:04.314 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 23 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 15:00:18.430 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.67 (Neutral), expiry "2026-12-01".
+2026-11-27 15:01:48.746 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.83, full 0.67 (Neutral), expiry "2026-12-01".
+2026-11-27 15:03:19.045 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.67 (Neutral), expiry "2026-12-01".
+2026-11-27 15:04:49.361 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.82, full 0.67 (Neutral), expiry "2026-12-01".
+2026-11-27 15:06:19.590 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.80, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:07:50.101 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.78, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:09:20.486 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:10:50.733 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.79, full 0.66 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:12:20.969 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.77, full 0.65 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:13:51.204 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.76, full 0.65 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:15:05.187 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 24 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 15:15:05.657 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 2134 option contracts for NSE_INDEX|Nifty 50 (18 expiries).
+2026-11-27 15:15:05.737 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: sub -> 1 instrument(s): NSE_FO|42727
+2026-11-27 15:15:06.572 +05:30 [INF] AlgoWorker.EmaCross.B: EMA 9/21 B: opened NIFTY 25300 PE 08 DEC 26 @ 136.15 (spot 25593.85, stop 25743.85).
+2026-11-27 15:15:21.315 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.64 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:16:52.487 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.64 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:18:22.708 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.63 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:19:53.008 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.63 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:21:23.255 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.63 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:22:53.473 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.63 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:24:24.508 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.74, full 0.63 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:25:54.756 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.73, full 0.63 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:27:24.971 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.62 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:28:55.183 +05:30 [DBG] AlgoWorker.Services.PcrPublisherService: Nifty: PCR near-ATM 0.72, full 0.62 (Bearish-ish), expiry "2026-12-01".
+2026-11-27 15:29:51.413 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|42727
+2026-11-27 15:29:52.234 +05:30 [INF] AlgoWorker.EmaCross.B: EMA 9/21 B: closed NIFTY 25300 PE 08 DEC 26 -- Manually closed from Dashboard -- P&L 172.25.
+2026-11-27 15:30:04.269 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 25 intraday (today's) 15-min candles for NSE_INDEX|Nifty 50
+2026-11-27 15:34:24.029 +05:30 [INF] AlgoWorker.Services.UpstoxWebSocketClient: unsub -> 1 instrument(s): NSE_FO|42734
+2026-11-27 15:34:25.109 +05:30 [INF] AlgoWorker.EmaCross.A: EMA 9/21 A: closed NIFTY 25450 PE 08 DEC 26 -- Manually closed from Dashboard -- P&L 4,104.75.
+2026-11-27 15:35:58.659 +05:30 [INF] AlgoWorker.Services.UpstoxRestClient: Fetched 75 5-min intraday candles.
+2026-11-27 15:35:58.665 +05:30 [INF] AlgoWorker.Services.CprAnalysisService: CPR computed for "2026-11-30": Pivot=25694.083333333333333333333333, TC=25650.641666666666666666666666, BC=25737.525, Width%=0.339, Reading=Normal CPR -- Moderate movement expected
+2026-11-27 15:35:58.711 +05:30 [INF] AlgoWorker.Services.CprPublisherService: Nifty: tomorrow's ("2026-11-30") CPR saved.

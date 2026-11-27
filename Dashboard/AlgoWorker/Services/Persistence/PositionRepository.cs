@@ -152,12 +152,50 @@ public sealed class PositionRepository : IPositionRepository
         }
     }
 
-    public async Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct, string underlying = Underlyings.Nifty50)
+    public async Task<List<PositionEntity>> GetOpenPositionsAsync(IReadOnlyCollection<StrategyType> strategies, string underlying, CancellationToken ct)
     {
         try
         {
             await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
-            var orphans = await db.Positions.Where(p => p.Status == PositionStatus.Open && p.Underlying == underlying).ToListAsync(ct);
+            var wanted = strategies.ToArray();
+            return await db.Positions.AsNoTracking()
+                .Where(p => p.Status == PositionStatus.Open && p.Underlying == underlying && wanted.Contains(p.Strategy))
+                .OrderBy(p => p.Id)
+                .ToListAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to read the open positions to restore.");
+            return new List<PositionEntity>();
+        }
+    }
+
+    public async Task UpdatePeaksAsync(int positionId, decimal? peakPremium, decimal? peakSpot, CancellationToken ct)
+    {
+        if (positionId < 0 || (peakPremium is null && peakSpot is null)) return;
+
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            var row = await db.Positions.FirstOrDefaultAsync(p => p.Id == positionId, ct);
+            if (row is null) return;
+            if (peakPremium is { } a) row.PeakPremium = a;
+            if (peakSpot is { } b) row.PeakSpot = b;
+            await db.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to update the peak values of PositionId {Id}.", positionId);
+        }
+    }
+
+    public async Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct, string underlying = Underlyings.Nifty50, IReadOnlyCollection<StrategyType>? keepOpen = null)
+    {
+        try
+        {
+            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
+            var keep = keepOpen?.ToArray() ?? Array.Empty<StrategyType>();
+            var orphans = await db.Positions.Where(p => p.Status == PositionStatus.Open && p.Underlying == underlying && !keep.Contains(p.Strategy)).ToListAsync(ct);
             if (orphans.Count == 0)
                 return 0;
 

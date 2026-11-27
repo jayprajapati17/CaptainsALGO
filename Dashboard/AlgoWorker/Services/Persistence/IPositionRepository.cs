@@ -26,6 +26,12 @@ public interface IPositionRepository
     /// <summary>Persists the position's current (trailing) stop-loss. Pass null for the kind that doesn't apply (premium for Reversal, spot for the others).</summary>
     Task UpdateStopLossAsync(int positionId, decimal? stopLossPremium, decimal? stopLossSpot, CancellationToken ct);
 
+    /// <summary>Open positions of the given strategies (used at startup to restore carried-forward trades).</summary>
+    Task<List<PositionEntity>> GetOpenPositionsAsync(IReadOnlyCollection<StrategyType> strategies, string underlying, CancellationToken ct);
+
+    /// <summary>Saves the highest premium / best Nifty level seen since entry (only the non-null values are written).</summary>
+    Task UpdatePeaksAsync(int positionId, decimal? peakPremium, decimal? peakSpot, CancellationToken ct);
+
     /// <summary>Marks a position Closed with its final outcome.</summary>
     Task CloseAsync(
         int positionId,
@@ -43,6 +49,7 @@ public interface IPositionRepository
     /// premium so the Dashboard's Live page doesn't show phantom positions forever. Returns how many were closed.
     /// </summary>
     /// <param name="underlying">Only rows of this underlying are touched ("NIFTY50" by default).</param>
-    Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct, string underlying = Underlyings.Nifty50);
+    /// <param name="keepOpen">Strategies whose open rows are carried forward and must NOT be closed (they are restored instead).</param>
+    Task<int> CloseOrphanedOpenPositionsAsync(string reason, CancellationToken ct, string underlying = Underlyings.Nifty50, IReadOnlyCollection<StrategyType>? keepOpen = null);
 
 }

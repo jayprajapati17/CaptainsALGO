@@ -203,6 +203,7 @@ public sealed class VirtualPositionTracker
             {
                 position.CurrentStopLossPremium = newStopLoss;
                 await _positionRepository.UpdateStopLossAsync(position.Id, newStopLoss, null, ct);   // persist the trailing SL
+                await _positionRepository.UpdatePeaksAsync(position.Id, position.PeakPremium, null, ct);   // ...and its anchor, for a restart
             }
             position.TrailingActive = TrailingStopCalculator.IsTrailing(position.EntryPremium, position.PeakPremium, _options);
 
@@ -251,6 +252,7 @@ public sealed class VirtualPositionTracker
         {
             await _telegram.SendPositionUpdateAsync(position, ct, _target.Name);
             await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
+            await _positionRepository.UpdatePeaksAsync(position.Id, position.PeakPremium, null, ct);
             await BroadcastAsync(position, "Open", null, ct);
             position.LastUpdateSentAt = DateTimeOffset.UtcNow;
         }
@@ -265,11 +267,11 @@ public sealed class VirtualPositionTracker
         if (oppositeCrossoverHappened)
             return (true, "Opposite EMA21/50 crossover occurred");
 
-        // Current-week ITM leg has its OWN, earlier expiry than the next-week
-        // ATM leg -- so "is today an expiry day" needs to be leg-aware. The
-        // next-week leg should NOT be force-closed on the current week's Tuesday.
-        if (isExpiryDay && position.Leg == OptionLeg.CurrentWeekItm)
-            return (true, "Current-week option expiry day reached (forced exit)");
+        // Each leg has its OWN expiry (the current-week ITM leg expires a week before the next-week ATM leg), and a
+        // carried-forward trade can live for days -- so the exit is tied to THIS contract's expiry date, not to "today
+        // is the weekly expiry". On (or after) its expiry day the leg is closed at the first candle close.
+        if (position.Instrument.Expiry <= _clock.Today)
+            return (true, $"Option expiry day reached ({position.Instrument.Expiry:dd-MMM}) -- forced exit");
 
         var hardStopBreached = isLong
             ? current.Close < (decimal)current.Ema50
@@ -312,11 +314,93 @@ public sealed class VirtualPositionTracker
             position.Signal.Direction, position.Leg, reason, position.PnlRupees, position.PnlPercent);
     }
 
-    /// <summary>Force-close any open legs, e.g. at market close for the day.</summary>
+    /// <summary>
+    /// End of the trading day. With carry-forward ON (the default) open legs are NOT squared off: their state is saved and they
+    /// stay open for the next session. With it OFF, every open leg is closed as before.
+    /// </summary>
     public async Task CloseAllForMarketCloseAsync(CancellationToken ct)
     {
-        foreach (var position in _activePositions.Where(p => p.IsOpen).ToList())
+        var open = _activePositions.Where(p => p.IsOpen).ToList();
+        if (open.Count == 0) return;
+
+        if (_options.EmaCarryForwardEnabled)
+        {
+            foreach (var position in open)
+            {
+                await _positionRepository.UpdateLivePremiumAsync(position.Id, position.LastKnownPremium, DateTimeOffset.UtcNow, ct);
+                await _positionRepository.UpdatePeaksAsync(position.Id, position.PeakPremium, null, ct);
+            }
+            await _telegram.SendStatusAsync(
+                $"{_target.Name} EMA 21/50: {open.Count} position(s) carried forward to the next session: " +
+                string.Join(", ", open.Select(p => $"{p.Instrument.TradingSymbol} ({p.PnlRupees:+#,0;-#,0;0})")) + ".", ct);
+            _logger.LogInformation("EMA 21/50: {Count} open leg(s) carried forward overnight.", open.Count);
+            return;
+        }
+
+        foreach (var position in open)
             await ClosePositionAsync(position, "Market closed for the day", ct);
+    }
+
+    /// <summary>
+    /// Startup: put back the legs that were open when the Worker stopped (carry-forward). A leg whose contract has expired in the
+    /// meantime is closed at its last known premium instead.
+    /// </summary>
+    public async Task RestoreOpenPositionsAsync(IReadOnlyList<SharedModels.PositionEntity> rows, CancellationToken ct)
+    {
+        var today = _clock.Today;
+        var restored = new List<VirtualPosition>();
+
+        foreach (var row in rows)
+        {
+            if (_activePositions.Any(p => p.Id == row.Id)) continue;
+
+            if (row.Expiry < today)
+            {
+                var pnl = (row.LastKnownPremium - row.EntryPremium) * row.LotSize;
+                var pct = row.EntryPremium == 0 ? 0 : (double)((row.LastKnownPremium - row.EntryPremium) / row.EntryPremium) * 100.0;
+                await _positionRepository.CloseAsync(row.Id, row.LastKnownPremium, DateTimeOffset.UtcNow,
+                    $"Option expired ({row.Expiry:dd-MMM}) while the Worker was not running", pnl, pct, ct);
+                _logger.LogWarning("EMA 21/50: {Symbol} expired while the Worker was off -- closed at its last known premium.", row.TradingSymbol);
+                continue;
+            }
+
+            var direction = Enum.TryParse<SignalDirection>(row.Direction, out var d) ? d : SignalDirection.GoldenCross;
+            var signal = new TradeSignal(direction, MapConfidenceBack(row.Confidence), row.EntryTime, row.SpotAtEntry,
+                row.AdxAtEntry ?? 0, row.AdxNCandlesAgo ?? 0);
+            var instrument = new OptionInstrument(row.InstrumentKey, row.TradingSymbol, row.Strike,
+                row.OptionType == SharedModels.OptionType.CE ? OptionType.Call : OptionType.Put, row.Expiry);
+
+            var peak = Math.Max(row.PeakPremium ?? 0m, Math.Max(row.EntryPremium, row.LastKnownPremium));
+            var position = new VirtualPosition
+            {
+                Id = row.Id,
+                Signal = signal,
+                Instrument = instrument,
+                Leg = row.Leg == SharedModels.PositionLeg.NextWeekAtm ? OptionLeg.NextWeekAtm : OptionLeg.CurrentWeekItm,
+                LotSize = row.LotSize,
+                EntryPremium = row.EntryPremium,
+                OpenedAt = row.EntryTime,
+                LastKnownPremium = row.LastKnownPremium,
+                AdxPeakSinceEntry = row.AdxAtEntry ?? 0,   // the post-entry ADX peak is not stored; start again from the entry value
+                LastUpdateSentAt = DateTimeOffset.UtcNow,
+                PeakPremium = peak,
+                CurrentStopLossPremium = row.StopLossPremium ?? TrailingStopCalculator.ComputeStopLoss(row.EntryPremium, peak, _options),
+                TrailingActive = TrailingStopCalculator.IsTrailing(row.EntryPremium, peak, _options)
+            };
+
+            _activePositions.Add(position);
+            restored.Add(position);
+            await _webSocketClient.SubscribeAsync(instrument.InstrumentKey, ct);
+            await BroadcastAsync(position, "Open", null, ct);
+        }
+
+        if (restored.Count > 0)
+        {
+            _logger.LogInformation("EMA 21/50: restored {Count} carried-forward leg(s) after the restart.", restored.Count);
+            await _telegram.SendStatusAsync(
+                $"{_target.Name} EMA 21/50: restored {restored.Count} carried-forward position(s) after a restart: " +
+                string.Join(", ", restored.Select(p => $"{p.Instrument.TradingSymbol} @ ₹{p.EntryPremium:N2}, SL ₹{p.CurrentStopLossPremium:N2}")) + ".", ct);
+        }
     }
 
     // >>> NEW (Task 5): Command API support.
@@ -412,6 +496,13 @@ public sealed class VirtualPositionTracker
         };
         await _signalLogRepository.LogAsync(entry, ct);
     }
+
+    private static ConfidenceLevel MapConfidenceBack(SharedModels.ConfidenceLevel? confidence) => confidence switch
+    {
+        SharedModels.ConfidenceLevel.High => ConfidenceLevel.High,
+        SharedModels.ConfidenceLevel.Low => ConfidenceLevel.Low,
+        _ => ConfidenceLevel.Medium
+    };
 
     private static SharedModels.ConfidenceLevel MapConfidence(ConfidenceLevel confidence) => confidence switch
     {

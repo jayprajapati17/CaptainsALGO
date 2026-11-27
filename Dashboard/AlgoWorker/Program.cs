@@ -22,5 +22,6 @@ app.MapWorkerEndpoints(dbConfigSource);
 
 await app.SeedSettingsAsync(dbConfigSource);
 await app.CloseOrphanedPositionsAsync();
+await app.RestoreCarriedPositionsAsync();
 
 await app.RunAsync();

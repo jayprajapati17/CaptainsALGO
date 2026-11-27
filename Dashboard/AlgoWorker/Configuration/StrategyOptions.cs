@@ -17,6 +17,8 @@ public sealed class StrategyOptions : IEmaSettings, IReversalSettings
     // 1/3/5/10/15/30 minute candles).
     [Setting("EMA strategy", "Turn the EMA21/50 crossover strategy on/off.")]
     public bool EmaStrategyEnabled { get; set; } = true;
+    [Setting("EMA strategy", "Carry open EMA 21/50 trades forward overnight (no end-of-day square-off). They exit only on the strategy's own rules: stop-loss / trailing, opposite crossover, EMA 50, ADX, or the option's expiry day. Off = close everything at market close.")]
+    public bool EmaCarryForwardEnabled { get; set; } = true;
     [Setting("EMA strategy", "Fast EMA period (tracked, not used by signals).", RestartRequired = true)]
     public int EmaFastPeriod { get; set; } = 10;
     [Setting("EMA strategy", "Mid EMA period -- the line that crosses the slow EMA.", RestartRequired = true)]

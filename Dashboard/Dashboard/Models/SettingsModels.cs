@@ -114,6 +114,10 @@ public static class SettingsUi
     {
         new("ema",  "EMA 21/50 + ADX",        "NIFTY · 15 MIN",    "nifty", "Strategy:EmaStrategyEnabled",
             new[] { ("Candle", "Strategy:EmaCandleMinutes", " min"), ("Confirmation bars", "Strategy:ConfirmationBars", ""), ("Lot size", "Strategy:LotSize", "") }),
+        new("emaxa", "EMA 9/21 · A",           "NIFTY · 15 MIN",    "nifty", "EmaCross:StrategyAEnabled",
+            new[] { ("Stop-loss", "EmaCross:StrategyAStopPoints", " pts"), ("Premium cap", "EmaCross:StrategyAPremiumStopPercent", " %"), ("Lot size", "EmaCross:LotSize", "") }),
+        new("emaxb", "EMA 9/21 · B",           "NIFTY · 1 HOUR",    "nifty", "EmaCross:StrategyBEnabled",
+            new[] { ("Stop-loss", "EmaCross:StrategyBStopPoints", " pts"), ("Breakeven at", "EmaCross:StrategyBBreakevenAtR", " R"), ("Lot size", "EmaCross:LotSize", "") }),
         new("orb",  "Opening Range Breakout", "NIFTY · 5 MIN",     "nifty", "Strategy:BreakoutStrategyEnabled",
             new[] { ("Max trades / day", "Strategy:BreakoutMaxTradesPerDay", ""), ("Force exit", "Strategy:BreakoutForceExitTime", ""), ("Lot size", "Strategy:LotSize", "") }),
         new("macd", "MACD",                   "NIFTY · 3 MIN",     "nifty", "Strategy:MacdStrategyEnabled",
