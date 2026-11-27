@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Put/Call ratio (open interest) settings -- config section "Pcr", editable on the Dashboard's Settings page.
-/// Pure information: no strategy reads the PCR. One set of values is used for both Nifty and Bank Nifty.
+/// Pure information: no strategy reads the PCR. One set of values is used for Nifty.
 /// </summary>
 public sealed class PcrOptions
 {

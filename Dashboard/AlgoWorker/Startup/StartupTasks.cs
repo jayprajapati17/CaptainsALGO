@@ -29,7 +29,6 @@ public static class StartupTasks
                 sp.GetRequiredService<IOptions<UpstoxOptions>>().Value,
                 sp.GetRequiredService<IOptions<TelegramOptions>>().Value,
                 sp.GetRequiredService<IOptions<StrategyOptions>>().Value,
-                sp.GetRequiredService<IOptions<BankNiftyOptions>>().Value,
                 sp.GetRequiredService<IOptions<PcrOptions>>().Value,
                 sp.GetRequiredService<IOptions<EmaCrossOptions>>().Value);
 
@@ -59,7 +58,6 @@ public static class StartupTasks
         var positions = scope.ServiceProvider.GetRequiredService<IPositionRepository>();
         const string reason = "Worker restarted -- position no longer tracked";
         await positions.CloseOrphanedOpenPositionsAsync(reason, CancellationToken.None, Underlyings.Nifty50);
-        await positions.CloseOrphanedOpenPositionsAsync(reason, CancellationToken.None, Underlyings.BankNifty);
     }
 
     /// <summary>
@@ -72,7 +70,6 @@ public static class StartupTasks
         config.GetSection(UpstoxOptions.SectionName).Bind(sp.GetRequiredService<IOptions<UpstoxOptions>>().Value);
         config.GetSection(TelegramOptions.SectionName).Bind(sp.GetRequiredService<IOptions<TelegramOptions>>().Value);
         config.GetSection(StrategyOptions.SectionName).Bind(sp.GetRequiredService<IOptions<StrategyOptions>>().Value);
-        config.GetSection(BankNiftyOptions.SectionName).Bind(sp.GetRequiredService<IOptions<BankNiftyOptions>>().Value);
         config.GetSection(PcrOptions.SectionName).Bind(sp.GetRequiredService<IOptions<PcrOptions>>().Value);
         config.GetSection(EmaCrossOptions.SectionName).Bind(sp.GetRequiredService<IOptions<EmaCrossOptions>>().Value);
     }

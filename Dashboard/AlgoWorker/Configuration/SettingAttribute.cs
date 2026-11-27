@@ -2,7 +2,7 @@ namespace AlgoWorker.Configuration;
 
 /// <summary>
 /// Describes one editable setting for the Dashboard's Settings page. Put it on a public settable property of an
-/// options class (UpstoxOptions, TelegramOptions, StrategyOptions, BankNiftyOptions); <see cref="Services.SettingsSeeder"/>
+/// options class (UpstoxOptions, TelegramOptions, StrategyOptions, PcrOptions, EmaCrossOptions); <see cref="Services.SettingsSeeder"/>
 /// then creates the AppSettings row from it (group, description, secret / restart flags). A new setting is therefore
 /// one property with one attribute -- no second list to keep in sync.
 /// </summary>

@@ -74,7 +74,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PcrSnapshot_Underlying
             await db.Database.ExecuteSqlRawAsync(
                 "IF OBJECT_ID('Positions') IS NOT NULL AND COL_LENGTH('Positions', 'StopLossSpot') IS NULL ALTER TABLE Positions ADD StopLossSpot DECIMAL(18,2) NULL", ct);
 
-            // DailyCpr: one row per index per day (Nifty + Bank Nifty). Existing rows become NIFTY50; the old (Day, Label) unique key is replaced.
+            // DailyCpr: one row per index per day (Nifty). Existing rows become NIFTY50; the old (Day, Label) unique key is replaced.
             await db.Database.ExecuteSqlRawAsync(DailyCprUnderlyingSql, ct);
 
             // PcrSnapshot: put/call ratio history (created on first start after the PCR update).

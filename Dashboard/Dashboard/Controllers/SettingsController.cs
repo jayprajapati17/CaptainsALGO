@@ -13,7 +13,7 @@ namespace Dashboard.Controllers;
 /// </summary>
 public sealed class SettingsController : Controller
 {
-    private static readonly string[] SectionOrder = { "Telegram", "Strategy", "BankNifty", "Upstox" };
+    private static readonly string[] SectionOrder = { "Telegram", "Strategy", "EmaCross", "Upstox" };
 
     // Upstox settings are view-only on the dashboard (edit them in the Worker's appsettings / database directly).
     private const string ReadOnlySection = "Upstox";

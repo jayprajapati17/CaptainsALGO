@@ -5,7 +5,7 @@ public sealed class PcrSnapshotEntity
 {
     public long Id { get; set; }
 
-    /// <summary>"NIFTY50" | "BANKNIFTY" (see <see cref="Underlyings"/>).</summary>
+    /// <summary>"NIFTY50" (see <see cref="Underlyings"/>).</summary>
     public string Underlying { get; set; } = Underlyings.Nifty50;
 
     public DateTimeOffset Time { get; set; }

@@ -23,7 +23,7 @@ public sealed class SignalsController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index(string? strategy, string? underlying, string? outcome, string? period, int page = 1, CancellationToken ct = default)
+    public async Task<IActionResult> Index(string? strategy, string? outcome, string? period, int page = 1, CancellationToken ct = default)
     {
         StrategyType? strategyFilter = Enum.TryParse<StrategyType>(strategy, ignoreCase: true, out var parsed) && Enum.IsDefined(parsed)
             ? parsed
@@ -35,12 +35,8 @@ public sealed class SignalsController : Controller
         var periodKey = (period ?? "all").ToLowerInvariant();
         if (periodKey is not ("today" or "7d" or "30d" or "all")) periodKey = "all";
 
-        var underlyingKey = (underlying ?? "all").ToLowerInvariant();
-        if (underlyingKey is not ("nifty" or "banknifty")) underlyingKey = "all";
-
         var vm = new SignalsViewModel
         {
-            UnderlyingFilter = underlyingKey,
             StrategyFilter = strategyFilter?.ToString().ToLowerInvariant() ?? "all",
             Outcome = outcomeKey,
             Period = periodKey,
@@ -54,7 +50,7 @@ public sealed class SignalsController : Controller
             if (strategyFilter is { } s)
                 q = q.Where(x => x.Strategy == s);
 
-            q = q.ForUnderlying(Underlyings.FromFilterKey(underlyingKey));
+            q = q.ForUnderlying(Underlyings.Nifty50);   // only Nifty rows are shown
 
             if (CutoffFor(periodKey) is { } cutoff)
                 q = q.Where(x => x.SignalTime >= cutoff);

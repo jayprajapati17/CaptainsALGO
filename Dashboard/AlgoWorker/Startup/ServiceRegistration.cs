@@ -1,5 +1,4 @@
 using AlgoData.Data;
-using AlgoWorker.BankNifty;
 using AlgoWorker.Configuration;
 using AlgoWorker.EmaCross;
 using AlgoWorker.Services;
@@ -15,13 +14,12 @@ namespace AlgoWorker.Startup;
 /// <summary>Dependency-injection registrations, grouped by what they belong to.</summary>
 public static class ServiceRegistration
 {
-    /// <summary>The four options sections (Upstox, Telegram, Strategy, BankNifty) and the multi-instrument config.</summary>
+    /// <summary>The options sections (Upstox, Telegram, Strategy, Pcr, EmaCross).</summary>
     public static IServiceCollection AddWorkerOptions(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<UpstoxOptions>(config.GetSection(UpstoxOptions.SectionName));
         services.Configure<TelegramOptions>(config.GetSection(TelegramOptions.SectionName));
         services.Configure<StrategyOptions>(config.GetSection(StrategyOptions.SectionName));
-        services.Configure<BankNiftyOptions>(config.GetSection(BankNiftyOptions.SectionName));
         services.Configure<PcrOptions>(config.GetSection(PcrOptions.SectionName));
         services.Configure<EmaCrossOptions>(config.GetSection(EmaCrossOptions.SectionName));
         return services;
@@ -57,7 +55,7 @@ public static class ServiceRegistration
         return services;
     }
 
-    /// <summary>The Nifty pipelines: EMA 21/50 + ADX, Opening Range Breakout, Upside Reversal, 3-min MACD, CPR -- and the Worker that drives them.</summary>
+    /// <summary>The Nifty pipelines: EMA 21/50 + ADX, Opening Range Breakout, Liquidity Sweep (CE), 3-min MACD, CPR -- and the Worker that drives them.</summary>
     public static IServiceCollection AddNiftyStrategies(this IServiceCollection services)
     {
         // EMA strategy (candle size comes from the configured EmaCandleMinutes, default 15).
@@ -71,7 +69,7 @@ public static class ServiceRegistration
         services.AddSingleton<VirtualPositionTracker>();
         services.AddSingleton<HistoricalSeederService>();
 
-        // Opening Range Breakout + Upside Reversal share the 5-min candle stream.
+        // Opening Range Breakout + Liquidity Sweep share the 5-min candle stream.
         services.AddSingleton<FiveMinCandleAggregatorService>();
         services.AddSingleton<BreakoutSignalEngine>();
         services.AddSingleton<BreakoutPositionTracker>();
@@ -87,8 +85,8 @@ public static class ServiceRegistration
         services.AddSingleton<MacdHistoricalSeederService>();
 
         services.AddSingleton<CprAnalysisService>();
-        services.AddHostedService<CprPublisherService>();   // today's + tomorrow's CPR for Nifty and Bank Nifty -> DailyCpr table
-        services.AddHostedService<PcrPublisherService>();   // put/call ratio of Nifty and Bank Nifty every ~90 s in market hours -> PcrSnapshot table + Live page
+        services.AddHostedService<CprPublisherService>();   // today's + tomorrow's CPR for Nifty -> DailyCpr table
+        services.AddHostedService<PcrPublisherService>();   // put/call ratio of Nifty every ~90 s in market hours -> PcrSnapshot table + Live page
 
         services.AddHostedService<Worker>();
         return services;
@@ -104,23 +102,6 @@ public static class ServiceRegistration
         return services;
     }
 
-    /// <summary>The Bank Nifty pipeline (code in /BankNifty): shares the feed, token, Telegram, hub and DB with Nifty.</summary>
-    public static IServiceCollection AddBankNifty(this IServiceCollection services)
-    {
-        services.AddSingleton<BankNiftyCandleAggregator>();
-        services.AddSingleton<OrbSignalEngine>();
-        services.AddSingleton<BankNiftyAlertService>();
-        services.AddSingleton<OpeningRangeSeederService>();
-        services.AddSingleton<BankNiftyPositionTracker>();
-        services.AddSingleton<BankNiftyReversalPipeline>();   // Upside Reversal on Bank Nifty (same strategy classes as Nifty)
-        services.AddSingleton<BankNiftyEmaPipeline>();   // EMA21/50 + ADX strategy on Bank Nifty (same strategy classes as Nifty)
-
-        // One instance, seen both as the background service and as a consumer of the shared feed.
-        services.AddSingleton<BankNiftyService>();
-        services.AddHostedService(sp => sp.GetRequiredService<BankNiftyService>());
-        services.AddSingleton<IMarketFeedConsumer>(sp => sp.GetRequiredService<BankNiftyService>());
-        return services;
-    }
 
     /// <summary>SignalR + CORS: the Dashboard's browser JS connects to the hub from another origin/port.</summary>
     public static IServiceCollection AddDashboardChannel(this IServiceCollection services, IConfiguration config)

@@ -81,51 +81,6 @@ public sealed class PositionRepository : IPositionRepository
         }
     }
 
-    public async Task<(int Opened, int ConsecutiveLosses)> GetDayStatsAsync(DateOnly day, CancellationToken ct)
-    {
-        try
-        {
-            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
-            var start = AlgoData.Models.MarketTime.StartOfDay(day);
-            var end = start.AddDays(1);
-            var rows = await db.Positions.AsNoTracking()
-                .Where(p => p.Underlying == Underlyings.BankNifty && p.EntryTime >= start && p.EntryTime < end)
-                .OrderByDescending(p => p.EntryTime)
-                .Select(p => new { p.Status, p.FinalPnlRupees })
-                .ToListAsync(ct);
-
-            var losses = 0;
-            foreach (var r in rows)
-            {
-                if (r.Status != PositionStatus.Closed) continue;
-                if (r.FinalPnlRupees is < 0) losses++; else break;
-            }
-            return (rows.Count, losses);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Could not read today's Bank Nifty trade stats; assuming none.");
-            return (0, 0);
-        }
-    }
-
-    public async Task<decimal> GetClosedPnlSinceAsync(DateOnly from, CancellationToken ct)
-    {
-        try
-        {
-            await using var db = await _dbContextFactory.CreateDbContextAsync(ct);
-            var start = AlgoData.Models.MarketTime.StartOfDay(from);
-            return await db.Positions.AsNoTracking()
-                .Where(p => p.Underlying == Underlyings.BankNifty && p.Status == PositionStatus.Closed && p.EntryTime >= start)
-                .SumAsync(p => p.FinalPnlRupees ?? 0m, ct);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Could not read this week's Bank Nifty P&L; assuming 0.");
-            return 0m;
-        }
-    }
-
     public async Task UpdateStopLossAsync(int positionId, decimal? stopLossPremium, decimal? stopLossSpot, CancellationToken ct)
     {
         if (positionId < 0) return;

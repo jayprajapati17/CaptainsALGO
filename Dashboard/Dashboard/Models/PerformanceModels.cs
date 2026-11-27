@@ -30,7 +30,6 @@ public sealed class PerfDay
 public sealed class PerformanceViewModel
 {
     public string? Error { get; set; }
-    public string UnderlyingFilter { get; set; } = "all";
     public string StrategyFilter { get; set; } = "all";
     public string Period { get; set; } = "90";            // 30 | 90 | all
 
@@ -49,6 +48,5 @@ public sealed class PerformanceViewModel
     public TimeSpan? AvgHold { get; set; }
 
     public List<PerfSlice> ByStrategy { get; set; } = new();
-    public List<PerfSlice> ByIndex { get; set; } = new();
     public List<PerfSlice> ByExit { get; set; } = new();
 }

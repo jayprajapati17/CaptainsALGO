@@ -9,7 +9,7 @@ namespace AlgoWorker.Services;
 
 /// <summary>
 /// Makes sure the `AppSettings` table exists and contains one row for every public setting of the options classes
-/// (Upstox, Telegram, Strategy, BankNifty). Rows that already exist are NEVER touched (so values you edited on the
+/// (Upstox, Telegram, Strategy, Pcr, EmaCross). Rows that already exist are NEVER touched (so values you edited on the
 /// Dashboard survive restarts); only missing ones are inserted, using whatever the Worker currently resolved for them
 /// (appsettings.json value, else the class default). A new setting is just a new property: its group, description and
 /// secret / restart flags come from its <see cref="SettingAttribute"/>, so it appears on the Settings page automatically.
@@ -35,29 +35,25 @@ BEGIN
     );
 END";
 
-    /// <summary>Bank Nifty keys that were removed or renamed when the ORB was aligned with the Nifty ORB.</summary>
-    private static readonly string[] ObsoleteBankNiftyKeys =
+    /// <summary>Every "Section:Key" whose AppSettings row is deleted at startup because the setting no longer exists.</summary>
+    private static readonly string[] ObsoleteRows =
     {
-        "EntryStartTime", "EntryEndTime", "ForceExitTime", "MaxDaysToExpiry",
-        "TargetPremium", "ExpiryDayTargetPremium", "TargetPremiumTolerance", "MaxPremium", "MinPremium", "StrikeSearchRangePoints",
-        "MaxTradesPerDay", "MaxConsecutiveLosses", "WeeklyLossLimitRupees",
-        "OrbStrategyEnabled", "OrbMinRangePercent", "OrbMaxRangePercent", "OrbStructureExitEnabled"
+        "Strategy:AdxRisingFilter",                      // never read by any strategy code
+        // Liquidity Sweep (CE): Setup A (double bottom), the fixed-target rules and the old EMA 21/50 settings were removed.
+        "Strategy:ReversalSetupAEnabled", "Strategy:ReversalSetupCEnabled", "Strategy:ReversalDoubleBottomTolerancePoints",
+        "Strategy:ReversalMinBouncePoints", "Strategy:ReversalMinRiskReward", "Strategy:ReversalEmaFastPeriod", "Strategy:ReversalEmaSlowPeriod"
     };
 
-    /// <summary>Every "Section:Key" whose AppSettings row is deleted at startup because the setting no longer exists.</summary>
-    private static readonly string[] ObsoleteRows = ObsoleteBankNiftyKeys
-        .Select(k => BankNiftyOptions.SectionName + ":" + k)
-        .Concat(new[] { "Strategy:AdxRisingFilter", "BankNifty:AdxRisingFilter" })   // never read by any strategy code
-        .ToArray();
+    /// <summary>Whole sections that no longer exist: all their rows are deleted at startup (the Bank Nifty pipeline was removed).</summary>
+    private static readonly string[] ObsoleteSections = { "BankNifty" };
 
     /// <summary>The (section name, live options instance) pairs that make up the Settings page, in display order.</summary>
     public static IReadOnlyList<(string Section, object Options)> Sections(
-        UpstoxOptions upstox, TelegramOptions telegram, StrategyOptions strategy, BankNiftyOptions bankNifty, PcrOptions pcr, EmaCrossOptions emaCross) => new (string, object)[]
+        UpstoxOptions upstox, TelegramOptions telegram, StrategyOptions strategy, PcrOptions pcr, EmaCrossOptions emaCross) => new (string, object)[]
     {
         (UpstoxOptions.SectionName, upstox),
         (TelegramOptions.SectionName, telegram),
         (StrategyOptions.SectionName, strategy),
-        (BankNiftyOptions.SectionName, bankNifty),
         (PcrOptions.SectionName, pcr),
         (EmaCrossOptions.SectionName, emaCross)
     };
@@ -75,17 +71,21 @@ END";
             .ToListAsync(ct);
         var known = new HashSet<string>(existing, StringComparer.OrdinalIgnoreCase);
 
-        // Rows left behind by settings that no longer exist (the Bank Nifty ORB now follows the Nifty rules, AdxRisingFilter was
-        // removed): delete them so the Settings page doesn't show controls that do nothing.
+        // Rows left behind by settings that no longer exist (the whole BankNifty section, AdxRisingFilter): delete them so the
+        // Settings page doesn't show controls that do nothing.
         var obsolete = ObsoleteRows.ToHashSet(StringComparer.OrdinalIgnoreCase);
         var stale = (await db.AppSettings.ToListAsync(ct))
-            .Where(a => obsolete.Contains(a.Section + ":" + a.Key)).ToList();
+            .Where(a => obsolete.Contains(a.Section + ":" + a.Key) || ObsoleteSections.Contains(a.Section)).ToList();
         if (stale.Count > 0)
         {
             db.AppSettings.RemoveRange(stale);
             await db.SaveChangesAsync(ct);
             logger.LogInformation("Settings: removed {Count} obsolete row(s).", stale.Count);
         }
+
+        // Keep the text of existing rows in step with the code (group, description, restart flag, order); the VALUE is never touched.
+        var rows = (await db.AppSettings.ToListAsync(ct)).ToDictionary(a => a.Section + ":" + a.Key, StringComparer.OrdinalIgnoreCase);
+        var synced = 0;
 
         var added = 0;
         var order = 0;
@@ -98,9 +98,20 @@ END";
                 if (type is null) continue;
 
                 order++;
-                if (known.Contains($"{section}:{prop.Name}")) continue;
-
                 var meta = prop.GetCustomAttribute<SettingAttribute>();
+                if (known.Contains($"{section}:{prop.Name}"))
+                {
+                    if (meta is not null && rows.TryGetValue($"{section}:{prop.Name}", out var row)
+                        && (row.GroupName != meta.Group || row.Description != meta.Description || row.RequiresRestart != meta.RestartRequired))
+                    {
+                        row.GroupName = meta.Group;
+                        row.Description = meta.Description;
+                        row.RequiresRestart = meta.RestartRequired;
+                        synced++;
+                    }
+                    continue;
+                }
+
                 db.AppSettings.Add(new AppSettingEntity
                 {
                     Section = section,
@@ -118,10 +129,10 @@ END";
             }
         }
 
-        if (added > 0)
+        if (added > 0 || synced > 0)
         {
             await db.SaveChangesAsync(ct);
-            logger.LogInformation("Settings: seeded {Count} new row(s) into AppSettings from appsettings.json / defaults.", added);
+            logger.LogInformation("Settings: seeded {Added} new row(s), refreshed the text of {Synced} existing row(s).", added, synced);
         }
     }
 

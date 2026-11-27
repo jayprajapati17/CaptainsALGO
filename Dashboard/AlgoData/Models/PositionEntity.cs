@@ -10,7 +10,7 @@ public sealed class PositionEntity
     public PositionLeg? Leg { get; set; }                  // null for Breakout
 
     // >>> NEW (multi-instrument): which underlying (see Underlyings, e.g.
-    // "NIFTY50", "BANKNIFTY", "RELIANCE") this position belongs to -- NOT the option
+    // "NIFTY50") this position belongs to -- NOT the option
     // contract's own Upstox key, that's still InstrumentKey below. Defaults to
     // "NIFTY50" for rows written before multi-instrument support existed.
     public string Underlying { get; set; } = Underlyings.Nifty50;

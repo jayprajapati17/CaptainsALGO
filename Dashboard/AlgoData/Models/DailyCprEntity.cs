@@ -11,7 +11,7 @@ public sealed class DailyCprEntity
 {
     public int Id { get; set; }
 
-    /// <summary>"NIFTY50" | "BANKNIFTY" (see <see cref="Underlyings"/>). Rows from before Bank Nifty support default to NIFTY50.</summary>
+    /// <summary>"NIFTY50" (see <see cref="Underlyings"/>). Defaults to NIFTY50.</summary>
     public string Underlying { get; set; } = Underlyings.Nifty50;
 
     public DateOnly ForTradingDay { get; set; }

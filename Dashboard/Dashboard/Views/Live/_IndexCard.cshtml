@@ -1,9 +1,8 @@
 @model CprPair
 @* One index as a slim card: live spot with the day's change, the PCR chip, and today's / tomorrow's CPR as plain ranges. *@
 @{
-    var isNifty = Model.Key == "nifty";
-    var spotId = isNifty ? "niftySpot" : "bankNiftySpot";
-    var chgId = isNifty ? "niftyChg" : "bankNiftyChg";
+    var spotId = "niftySpot";
+    var chgId = "niftyChg";
     var inv = System.Globalization.CultureInfo.InvariantCulture;
     var today = Model.Today;
     var next = Model.Tomorrow;

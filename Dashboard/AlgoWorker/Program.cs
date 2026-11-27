@@ -1,7 +1,7 @@
 using AlgoWorker.Startup;
 using Microsoft.AspNetCore.Builder;
 
-// The Worker process: the Nifty and Bank Nifty pipelines (BackgroundServices) plus Kestrel for the SignalR hub,
+// The Worker process: the Nifty pipelines (BackgroundServices) plus Kestrel for the SignalR hub,
 // the command API and the Upstox OAuth callback. Each concern lives in /Startup.
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,6 @@ builder.Services
     .AddWorkerOptions(builder.Configuration)
     .AddSharedInfrastructure(builder.Configuration)
     .AddNiftyStrategies()
-    .AddBankNifty()
     .AddEmaCross()
     .AddDashboardChannel(builder.Configuration);
 

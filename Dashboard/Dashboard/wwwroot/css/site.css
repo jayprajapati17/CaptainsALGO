@@ -426,7 +426,7 @@ h1, h2, h3, h4 {
     font-size: 13px;
     color: var(--ink-muted);
 }
-/* Nifty 50 + Bank Nifty share one card: two stacked rows split by a hairline. */
+/* Nifty 50 index card. */
 .ct-stat-pair {
     gap: 0;
     padding: 0;
@@ -1583,11 +1583,6 @@ h1, h2, h3, h4 {
     color: var(--teal-ink);
 }
 
-.st-tag-bn {
-    background: var(--amber-tint);
-    color: var(--amber-ink);
-}
-
 .st-card-stats {
     display: flex;
     flex-direction: column;
@@ -2055,7 +2050,7 @@ h1, h2, h3, h4 {
     color: var(--gain-ink);
 }
 
-/* Settings: a setting that exists for both indices shows Nifty and Bank Nifty controls side by side. */
+/* Settings: one row per setting with its Nifty control. */
 .st-pair-ctl {
     display: flex;
     flex-wrap: wrap;

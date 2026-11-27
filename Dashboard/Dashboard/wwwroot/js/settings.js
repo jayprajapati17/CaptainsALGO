@@ -56,7 +56,7 @@ import { slOffset } from './lib/trailing.js';
         // per-row dots + pending list
         const changed = [];
         const tabsChanged = new Set();
-        const rowChanged = new Map();   // a row can hold two fields (Nifty + Bank Nifty): its dot is on if either changed
+        const rowChanged = new Map();   // a row's dot is on if its field changed
         fields().forEach((el) => {
             if (el.disabled) return;
             const ch = isChanged(el);
@@ -207,14 +207,14 @@ import { slOffset } from './lib/trailing.js';
         profile = p;
         $$('.st-card', form).forEach((c) => { c.dataset.selected = cardId && c.dataset.card === cardId ? '1' : ''; });
         if (!cardId) {
-            // chosen via the Nifty / Bank Nifty chips: highlight the first card of that profile
+            // highlight the first card of that profile
             const first = $$('.st-card', form).find((c) => c.dataset.profile === p);
             if (first) first.dataset.selected = '1';
         }
         $$('.st-prof', form).forEach((b) => b.classList.toggle('active', b.dataset.pick === p));
         $$('[data-profile-params]', form).forEach((c) => { c.hidden = c.dataset.profileParams !== p; });
         const lbl = $('#stProfLabel');
-        if (lbl) lbl.textContent = p === 'bn' ? 'Bank Nifty' : 'Nifty';
+        if (lbl) lbl.textContent = 'Nifty';
         renderCards();
         renderChart();
     }
@@ -239,15 +239,15 @@ import { slOffset } from './lib/trailing.js';
     }
 
     function params() {
-        const sec = profile === 'bn' ? 'BankNifty' : 'Strategy';
+        const sec = 'Strategy';
         const p = {
-            risk: num(sec + ':TrailingInitialRiskPoints', profile === 'bn' ? 30 : 15),
-            step: num(sec + ':TrailingStepPoints', profile === 'bn' ? 10 : 5),
-            stepSl: num(sec + ':TrailingStepSlPoints', profile === 'bn' ? 5 : 3),
-            target: num(sec + ':TrailingTargetPoints', profile === 'bn' ? 50 : 30),
-            lock: num(sec + ':TrailingTargetLockPoints', profile === 'bn' ? 25 : 20)
+            risk: num(sec + ':TrailingInitialRiskPoints', 15),
+            step: num(sec + ':TrailingStepPoints', 5),
+            stepSl: num(sec + ':TrailingStepSlPoints', 3),
+            target: num(sec + ':TrailingTargetPoints', 30),
+            lock: num(sec + ':TrailingTargetLockPoints', 20)
         };
-        // After the target both indices have their own step; 0 (or missing) means "same as before the target".
+        // After the target the index has its own step; 0 (or missing) means "same as before the target".
         const postStep = num(sec + ':TrailingPostStepPoints', 0);
         const postStepSl = num(sec + ':TrailingPostStepSlPoints', 0);
         p.postStep = postStep > 0 ? postStep : p.step;
@@ -316,13 +316,13 @@ import { slOffset } from './lib/trailing.js';
                 ' per ' + p.step + ' points, so a trade can run a long way before it is protected.';
         }
 
-        // what-if calculator: an illustrative entry premium (Rs 100 for Nifty, Rs 300 for Bank Nifty)
-        const entry = profile === 'bn' ? 300 : 100;
-        const lot = profile === 'bn' ? num('BankNifty:LotSize', 30) : num('Strategy:LotSize', 65);
+        // what-if calculator: an illustrative entry premium (Rs 100)
+        const entry = 100;
+        const lot = num('Strategy:LotSize', 65);
         const pnl = curOff * lot;
         const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
         set('stGainVal', '+' + g0);
-        set('stCalcEntryLabel', profile === 'bn' ? 'Entry premium (target)' : 'Entry premium (example)');
+        set('stCalcEntryLabel', 'Entry premium (example)');
         set('stCalcEntry', '₹' + inr(entry));
         set('stCalcPeak', '₹' + inr(entry + g0));
         set('stCalcSl', '₹' + inr(entry + curOff));

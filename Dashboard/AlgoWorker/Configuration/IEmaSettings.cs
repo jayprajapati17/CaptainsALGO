@@ -1,6 +1,6 @@
 ﻿namespace AlgoWorker.Configuration;
 
-/// <summary>The seven numbers of the step-trailing stop-loss rule. Both StrategyOptions (Nifty) and BankNiftyOptions expose them under the same names.</summary>
+/// <summary>The seven numbers of the step-trailing stop-loss rule. StrategyOptions (Nifty) exposes them.</summary>
 public interface ITrailingSettings
 {
     double TrailingInitialRiskPoints { get; }
@@ -16,7 +16,7 @@ public interface ITrailingSettings
 
 /// <summary>
 /// Everything the EMA21/50 + ADX strategy reads (signal engine, indicator engine, seeder, position tracker). Implemented by
-/// <see cref="StrategyOptions"/> (Nifty) and <see cref="BankNiftyOptions"/> (Bank Nifty) with identical property names, so the same
+/// <see cref="StrategyOptions"/> (Nifty) with its property names, so the same
 /// strategy code runs for either index and the Settings page shows both side by side.
 /// </summary>
 public interface IEmaSettings : ITrailingSettings

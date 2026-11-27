@@ -39,12 +39,12 @@ public sealed class SettingsViewModel
     public List<SettingSection> Sections { get; set; } = new();
 }
 
-/// <summary>One setting shown once with a Nifty and a Bank Nifty control side by side. Either side can be missing.</summary>
-public sealed record SettingPair(SettingItem? Nifty, SettingItem? BankNifty)
+/// <summary>One Nifty setting row, shown with its label, description and control.</summary>
+public sealed record SettingPair(SettingItem Nifty)
 {
-    public SettingItem Any => Nifty ?? BankNifty!;
-    public bool RestartRequired => (Nifty?.RequiresRestart ?? false) || (BankNifty?.RequiresRestart ?? false);
-    public string Description => !string.IsNullOrWhiteSpace(Nifty?.Description) ? Nifty!.Description : BankNifty?.Description ?? string.Empty;
+    public SettingItem Any => Nifty;
+    public bool RestartRequired => Nifty.RequiresRestart;
+    public string Description => Nifty.Description;
 }
 
 public sealed record StrategyCardDef(string Id, string Name, string Tag, string Profile, string? ToggleKey, (string Label, string Key, string Suffix)[] Stats);
@@ -65,12 +65,12 @@ public static class SettingsUi
 
     public static string Key(SettingItem i) => i.Section + ":" + i.Key;
 
-    public static string Scope(string section) => section switch { "Strategy" => "Nifty", "BankNifty" => "Bank Nifty", _ => section };
+    public static string Scope(string section) => section switch { "Strategy" => "Nifty", _ => section };
 
     public static bool IsTrailing(SettingItem i) => i.Key.StartsWith("Trailing", StringComparison.Ordinal);
 
     public static bool IsSession(SettingItem i) =>
-        (i.Section is "Strategy" or "BankNifty")
+        (i.Section is "Strategy")
         && (i.Key.EndsWith("Time", StringComparison.Ordinal) || i.Key == "PositionUpdateIntervalMinutes");
 
     public static string TabOf(SettingItem i) => i.Section switch
@@ -107,18 +107,8 @@ public static class SettingsUi
         return 1;
     }
 
-    /// <summary>
-    /// Lines up the Nifty ("Strategy") and Bank Nifty rows by setting key, so a setting that exists for both indices is shown once
-    /// with two columns. Nifty order first, then Bank Nifty-only keys.
-    /// </summary>
-    public static List<SettingPair> Pair(IEnumerable<SettingItem> nifty, IEnumerable<SettingItem> bankNifty)
-    {
-        var n = nifty.ToList();
-        var b = bankNifty.ToList();
-        var result = n.Select(x => new SettingPair(x, b.FirstOrDefault(y => y.Key == x.Key))).ToList();
-        result.AddRange(b.Where(y => n.All(x => x.Key != y.Key)).Select(y => new SettingPair(null, y)));
-        return result;
-    }
+    /// <summary>Wraps the Nifty ("Strategy") rows for the _PairRow partial.</summary>
+    public static List<SettingPair> Pair(IEnumerable<SettingItem> nifty) => nifty.Select(x => new SettingPair(x)).ToList();
 
     public static readonly StrategyCardDef[] Cards =
     {
@@ -128,15 +118,7 @@ public static class SettingsUi
             new[] { ("Max trades / day", "Strategy:BreakoutMaxTradesPerDay", ""), ("Force exit", "Strategy:BreakoutForceExitTime", ""), ("Lot size", "Strategy:LotSize", "") }),
         new("macd", "MACD",                   "NIFTY · 3 MIN",     "nifty", "Strategy:MacdStrategyEnabled",
             new[] { ("Candle", "Strategy:MacdCandleMinutes", " min"), ("Force exit", "Strategy:MacdForceExitTime", ""), ("Lot size", "Strategy:MacdLotSize", "") }),
-        new("rev",  "Upside Reversal",        "NIFTY · 5 MIN",     "nifty", "Strategy:ReversalStrategyEnabled",
-            new[] { ("Entries from", "Strategy:ReversalEarliestEntryTime", ""), ("Entries until", "Strategy:ReversalLastEntryTime", ""), ("Max trades / day", "Strategy:ReversalMaxTradesPerDay", "") }),
-        new("bn",   "Bank Nifty ORB",         "BANK NIFTY · 5 MIN", "bn",   "BankNifty:BreakoutStrategyEnabled",
-            new[] { ("Max trades / day", "BankNifty:BreakoutMaxTradesPerDay", ""), ("Force exit", "BankNifty:BreakoutForceExitTime", ""), ("Lot size", "BankNifty:LotSize", "") }),
-        new("bnema", "EMA 21/50 + ADX",       "BANK NIFTY · 15 MIN", "bn", "BankNifty:EmaStrategyEnabled",
-            new[] { ("Candle", "BankNifty:EmaCandleMinutes", " min"), ("Confirmation bars", "BankNifty:ConfirmationBars", ""), ("Lot size", "BankNifty:LotSize", "") }),
-        new("bnrev", "Upside Reversal",       "BANK NIFTY · 5 MIN", "bn", "BankNifty:ReversalStrategyEnabled",
-            new[] { ("Entries from", "BankNifty:ReversalEarliestEntryTime", ""), ("Entries until", "BankNifty:ReversalLastEntryTime", ""), ("Max trades / day", "BankNifty:ReversalMaxTradesPerDay", "") }),
-        new("bnw",  "Bank Nifty worker",      "BANK NIFTY · WORKER", "bn", "BankNifty:Enabled",
-            new[] { ("Session start", "BankNifty:SessionStartTime", ""), ("Session end", "BankNifty:SessionEndTime", ""), ("Strike step", "BankNifty:StrikeStepPoints", "") })
+        new("rev",  "Liquidity sweep (CE)",    "NIFTY · 5 MIN",     "nifty", "Strategy:ReversalStrategyEnabled",
+            new[] { ("Entries from", "Strategy:ReversalEarliestEntryTime", ""), ("Entries until", "Strategy:ReversalLastEntryTime", ""), ("Max trades / day", "Strategy:ReversalMaxTradesPerDay", "") })
     };
 }

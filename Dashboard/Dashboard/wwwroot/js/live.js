@@ -18,18 +18,14 @@
     const baseTitle = document.title;
 
     const hubUrl = root.dataset.hubUrl;
-    const bnSpotEl = document.getElementById('bankNiftySpot');
     const niftyChgEl = document.getElementById('niftyChg');
-    const bnChgEl = document.getElementById('bankNiftyChg');
     const closeUrl = root.dataset.closeUrl;
     const openUrl = root.dataset.openUrl;
     const initialRisk = parseFloat(root.dataset.initialRisk) || 15;
     const nifTargetPoints = parseFloat(root.dataset.targetPoints) || 30;
-    const bnInitialRisk = parseFloat(root.dataset.bnInitialRisk) || 30;
-    const bnTargetPoints = parseFloat(root.dataset.bnTargetPoints) || 50;
 
     const inr = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const STRATEGY_LABELS = { Ema: 'EMA', Breakout: 'Breakout', Macd: 'MACD', Reversal: 'Reversal', EmaCrossA: 'EMA 9/21 · 15m', EmaCrossB: 'EMA 9/21 · 1h' };
+    const STRATEGY_LABELS = { Ema: 'EMA', Breakout: 'Breakout', Macd: 'MACD', Reversal: 'Liquidity sweep (CE)', EmaCrossA: 'EMA 9/21 · 15m', EmaCrossB: 'EMA 9/21 · 1h' };
     const STRATEGY_CLASS = { Ema: 'st-ema', Breakout: 'st-breakout', Macd: 'st-macd', Reversal: 'st-reversal', EmaCrossA: 'st-ema', EmaCrossB: 'st-ema' };
 
     let activeFilter = 'all';
@@ -39,7 +35,7 @@
     const cards = new Map();
 
     const keyOf = p => `${p.underlying || 'NIFTY50'}|${p.strategy}|${p.tradingSymbol}|${p.entryTime}`;
-    const instrumentLabel = p => (p.underlying === 'BANKNIFTY' ? 'BANKNIFTY' : 'NIFTY');
+    const instrumentLabel = p => 'NIFTY';
 
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c =>
@@ -141,7 +137,7 @@
         const sl = Number(p.stopLossPremium) || 0;
         const slSpot = Number(p.stopLossSpot) || 0;
 
-        // Stop-loss column: current (trailing) SL. Premium-based for EMA / Breakout / MACD, Nifty level for Reversal.
+        // Stop-loss column: current (trailing) SL. Premium-based for EMA / Breakout / MACD, Nifty level (plus the trailing premium SL) for Liquidity sweep.
         const slVal = tr.querySelector('.pos-slval');
         const slNote = tr.querySelector('.pos-slnote');
         if (slSpot > 0) {
@@ -150,7 +146,7 @@
             slNote.className = 'sl-note pos-slnote' + (p.stopLossTrailing ? ' trailing' : '');
         } else if (sl > 0) {
             const entryPx = Number(p.entryPremium);
-            const risk = p.underlying === 'BANKNIFTY' ? bnInitialRisk : initialRisk;
+            const risk = initialRisk;
             const trailing = sl > entryPx - risk + 0.005;
             slVal.textContent = `₹${inr.format(sl)}`;
             slNote.textContent = sl >= entryPx ? 'trailing · profit locked' : trailing ? 'trailing' : 'initial stop';
@@ -164,9 +160,9 @@
         const entry = Number(p.entryPremium), ltp = Number(p.currentPremium);
         const lows = [entry, ltp].concat(sl > 0 ? [sl] : []);
         const min = Math.min(...lows) - 6;
-        // Reversal exits on Nifty spot levels (not premium points), so it has no premium target marker.
+        // Liquidity sweep has no fixed premium target (EMA 21 / trailing stop-loss), so no premium target marker.
         const hasPremiumTarget = p.strategy !== 'Reversal' && !String(p.strategy).startsWith('EmaCross');   // spot-level / open-ended exits have no premium target
-        const targetPoints = p.underlying === 'BANKNIFTY' ? bnTargetPoints : nifTargetPoints;
+        const targetPoints = nifTargetPoints;
         const max = Math.max(hasPremiumTarget ? entry + targetPoints : entry, ltp) + 6;
         const pos = v => ((v - min) / (max - min)) * 100;
         const lo = Math.min(entry, ltp), hi = Math.max(entry, ltp);
@@ -290,7 +286,7 @@
     const fmtLevel = v => (v === null || v === undefined) ? '\u2014' : Number(v).toLocaleString('en-IN');
 
     function renderPcr(d) {
-        const el = document.getElementById(d.underlying === 'BANKNIFTY' ? 'pcr-banknifty' : 'pcr-nifty');
+        const el = document.getElementById('pcr-nifty');
         if (!el) return;
         el.querySelector('[data-pcr="value"]').textContent = fmtPcr(d.windowPcr);
         el.querySelector('[data-pcr="label"]').textContent = d.label;
@@ -407,7 +403,6 @@
     connection.on('PositionChanged', p => { markTick(); upsert(p); });
     connection.on('PcrChanged', renderPcr);
 
-    // One hub, two indices: Bank Nifty ticks carry underlying = 'BANKNIFTY'; Nifty's don't.
     // Spot plus its change against the previous close (the close today's CPR was computed from; no change shown without it).
     function setSpot(el, chgEl, price) {
         if (!el) return;
@@ -421,8 +416,7 @@
 
     connection.on('SpotChanged', d => {
         markTick();
-        if (d.underlying === 'BANKNIFTY') setSpot(bnSpotEl, bnChgEl, d.price);
-        else setSpot(spotEl, niftyChgEl, d.price);
+        setSpot(spotEl, niftyChgEl, d.price);
     });
 
 

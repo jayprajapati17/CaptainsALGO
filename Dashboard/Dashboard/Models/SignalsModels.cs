@@ -25,7 +25,6 @@ public sealed class SignalsViewModel
     public string? Error { get; set; }
 
     public string StrategyFilter { get; set; } = "all";   // all | ema | breakout | macd
-    public string UnderlyingFilter { get; set; } = "all"; // all | nifty | banknifty
     public string Outcome { get; set; } = "all";          // all | opened | skipped
     public string Period { get; set; } = "all";           // today | 7d | 30d | all
     public int Page { get; set; } = 1;

@@ -95,7 +95,7 @@ public sealed class StrategyOptions : IEmaSettings, IReversalSettings
     [Setting("EMA strategy", "How many strikes in-the-money the EMA current-week leg is.")]
     public int ItmStrikeDepth { get; set; } = 2;
 
-    // Opening Range Breakout (ORB) strategy (5-min timeframe, intraday only). Same key names as BankNiftyOptions.
+    // Opening Range Breakout (ORB) strategy (5-min timeframe, intraday only). 
     [Setting("Breakout (ORB) strategy", "", RestartRequired = true)]
     public bool BreakoutStrategyEnabled { get; set; } = true;
 
@@ -109,64 +109,59 @@ public sealed class StrategyOptions : IEmaSettings, IReversalSettings
 
 
     // =====================================================================
-    // Nifty 50 UPSIDE REVERSAL strategy (5-min, bullish only, buys CE).
-    // Setups: A = Double Bottom, C = Liquidity Sweep + confirmation window.
-    // Exits are on NIFTY SPOT levels: SL below the setup low, T1 -> SL to cost, T2 -> exit.
-    // Volume / VWAP / VPVR filters from the logic document are NOT used (the index feed has no volume).
+    // Nifty 50 LIQUIDITY SWEEP (CE) strategy (5-min, bullish only, buys CE).
+    // Sweep: previous candle red; the current candle trades below its low and closes back above it; a confirmation
+    // candle then closes above the sweep candle's high. Stop-loss = the previous (red) candle's low.
+    // EMA short >= EMA long: hold with the app's existing trailing stop-loss. EMA short < EMA long: hold until Nifty
+    // reaches the long EMA; a candle close above it turns the trade into the long hold with the trailing stop-loss.
+    // Volume / VWAP / VPVR filters are NOT used (the index feed has no volume).
     // =====================================================================
-    [Setting("Upside Reversal strategy", "Turn the Upside Reversal strategy on/off (needs a Worker restart to take effect on new signals only if changed while a trade is open).")]
+    [Setting("Liquidity sweep (CE)", "Turn the Liquidity Sweep (CE) strategy on/off. Changes apply to new signals; an open trade keeps running.")]
     public bool ReversalStrategyEnabled { get; set; } = true;
-    [Setting("Upside Reversal strategy", "Setup A: Double Bottom.")]
-    public bool ReversalSetupAEnabled { get; set; } = true;
-    [Setting("Upside Reversal strategy", "Setup C: Liquidity Sweep + confirmation window.")]
-    public bool ReversalSetupCEnabled { get; set; } = true;
 
     /// <summary>No entries before this time (HH:mm) -- avoids the first 15 min of opening volatility.</summary>
-    [Setting("Upside Reversal strategy", "No reversal entries before this time (HH:mm, IST).")]
+    [Setting("Liquidity sweep (CE)", "No new entries before this time (HH:mm, IST).")]
     public string ReversalEarliestEntryTime { get; set; } = "09:30";
     /// <summary>No new entries after this time (HH:mm).</summary>
-    [Setting("Upside Reversal strategy", "No new reversal entries after this time (HH:mm, IST).")]
+    [Setting("Liquidity sweep (CE)", "No new entries after this time (HH:mm, IST).")]
     public string ReversalLastEntryTime { get; set; } = "14:45";
-    /// <summary>Open Reversal positions are force-closed at this time (HH:mm, IST).</summary>
-    [Setting("Upside Reversal strategy", "Open Reversal positions are force-closed at this time (HH:mm, IST).")]
+    /// <summary>Open positions are force-closed at this time (HH:mm, IST).</summary>
+    [Setting("Liquidity sweep (CE)", "Open trades are closed at this time (HH:mm, IST). They are never carried overnight.")]
     public string ReversalForceExitTime { get; set; } = "15:20";
 
-    [Setting("Upside Reversal strategy", "Fast EMA period on the 5-min chart (price must be below it for a setup).", RestartRequired = true)]
-    public int ReversalEmaFastPeriod { get; set; } = 21;
-    [Setting("Upside Reversal strategy", "Slow EMA period on the 5-min chart (used by the down-trend-day filter).", RestartRequired = true)]
-    public int ReversalEmaSlowPeriod { get; set; } = 50;
-    [Setting("Upside Reversal strategy", "Previous trading days of 5-min candles replayed at startup.", RestartRequired = true)]
+    [Setting("Liquidity sweep (CE)", "Short EMA period on the 5-min chart. EMA short above EMA long means: hold with the trailing stop-loss (restart needed).", RestartRequired = true)]
+    public int ReversalEmaShortPeriod { get; set; } = 9;
+    [Setting("Liquidity sweep (CE)", "Long EMA period on the 5-min chart. When EMA short is below it, the trade is held until Nifty reaches this EMA (restart needed).", RestartRequired = true)]
+    public int ReversalEmaLongPeriod { get; set; } = 21;
+    [Setting("Liquidity sweep (CE)", "Trend EMA period, used only by the strong-down-trend-day filter (restart needed).", RestartRequired = true)]
+    public int ReversalEmaTrendPeriod { get; set; } = 50;
+    [Setting("Liquidity sweep (CE)", "'Touch / near' distance: Nifty counts as reaching the long EMA when it is within this many points below it.")]
+    public double ReversalEmaTouchTolerancePoints { get; set; } = 3.0;
+    [Setting("Liquidity sweep (CE)", "On reaching the long EMA, wait for the 5-min candle close: closes above it = keep holding with the trailing stop-loss, otherwise exit. Off = exit immediately on touch.")]
+    public bool ReversalWaitForCandleCloseAtEma { get; set; } = true;
+    [Setting("Liquidity sweep (CE)", "Previous trading days of 5-min candles replayed at startup.", RestartRequired = true)]
     public int ReversalSeedLookbackTradingDays { get; set; } = 2;
 
-    /// <summary>Setup A: the second low must be within +/- this many points of the first low.</summary>
-    [Setting("Upside Reversal strategy", "Setup A: second low must be within +/- this many points of the first low.")]
-    public double ReversalDoubleBottomTolerancePoints { get; set; } = 10.0;
-    /// <summary>Setup A: minimum bounce (points) between the two lows.</summary>
-    [Setting("Upside Reversal strategy", "Setup A: minimum bounce (points) between the two lows.")]
-    public double ReversalMinBouncePoints { get; set; } = 30.0;
-    /// <summary>Setup C: max candles to wait for confirmation (document suggests 3-4; backtest 2-5).</summary>
-    [Setting("Upside Reversal strategy", "Setup C: maximum candles to wait for confirmation (3-4 suggested).")]
+    /// <summary>Max candles to wait for the confirmation candle after the sweep candle.</summary>
+    [Setting("Liquidity sweep (CE)", "Maximum candles to wait for confirmation after the sweep candle (3-4 suggested).")]
     public int ReversalConfirmCandles { get; set; } = 4;
-    /// <summary>Setup C: minimum candles in the window with a low above the sweep low (higher lows).</summary>
-    [Setting("Upside Reversal strategy", "Setup C: minimum candles in the window with a low above the sweep low.")]
+    /// <summary>Minimum candles in the window with a low above the sweep low (higher lows).</summary>
+    [Setting("Liquidity sweep (CE)", "Minimum candles in the confirmation window with a low above the sweep candle's low.")]
     public int ReversalMinHigherLows { get; set; } = 1;
-    /// <summary>Stop-loss buffer (points) below the setup low (document: 5-10).</summary>
-    [Setting("Upside Reversal strategy", "Stop-loss buffer in Nifty points below the setup low (5-10 suggested).")]
-    public double ReversalSlBufferPoints { get; set; } = 7.0;
-    /// <summary>Minimum reward:risk to T2; setups below this are skipped.</summary>
-    [Setting("Upside Reversal strategy", "Minimum reward:risk to T2. Setups below this are skipped.")]
-    public double ReversalMinRiskReward { get; set; } = 2.0;
-    /// <summary>The setup low must be within this many points of the previous-day low or today's low (support zone).</summary>
-    [Setting("Upside Reversal strategy", "Setup low must be within this many Nifty points of the previous-day low or today's low.")]
+    /// <summary>Stop-loss buffer (points) below the previous (red) candle's low. 0 = exactly at the low.</summary>
+    [Setting("Liquidity sweep (CE)", "Stop-loss buffer in Nifty points below the previous (red) candle's low. 0 = stop-loss exactly at that low.")]
+    public double ReversalSlBufferPoints { get; set; } = 0.0;
+    /// <summary>The sweep low must be within this many points of the previous-day low or today's low (support zone).</summary>
+    [Setting("Liquidity sweep (CE)", "Counter-trend entries only (EMA short below EMA long): the sweep low must be within this many Nifty points of the previous-day low or today's low.")]
     public double ReversalSupportTolerancePoints { get; set; } = 25.0;
-    /// <summary>Skip when EMA21 &lt; EMA50 AND price is this % below today's open (strong down-trend day). 0 = filter off.</summary>
-    [Setting("Upside Reversal strategy", "Skip when EMA fast < EMA slow and Nifty is this % below today's open (strong down-trend day). 0 = filter off.")]
+    /// <summary>Skip when EMA long &lt; EMA trend AND price is this % below today's open (strong down-trend day). 0 = filter off.</summary>
+    [Setting("Liquidity sweep (CE)", "Skip when the long EMA is below the trend EMA and Nifty is this % below today's open (strong down-trend day). 0 = filter off.")]
     public double ReversalTrendDownPercent { get; set; } = 0.75;
 
-    [Setting("Upside Reversal strategy", "Maximum Reversal trades opened per day.")]
+    [Setting("Liquidity sweep (CE)", "Maximum trades opened per day.")]
     public int ReversalMaxTradesPerDay { get; set; } = 3;
-    /// <summary>No more Reversal trades for the day after this many consecutive losses.</summary>
-    [Setting("Upside Reversal strategy", "No more Reversal trades for the day after this many consecutive losses.")]
+    /// <summary>No more trades for the day after this many consecutive losses.</summary>
+    [Setting("Liquidity sweep (CE)", "No more trades for the day after this many consecutive losses.")]
     public int ReversalMaxConsecutiveLosses { get; set; } = 2;
 
     // >>> CHANGED (step-trailing rule): all three strategies (EMA, Breakout, MACD)
@@ -204,10 +199,7 @@ public sealed class StrategyOptions : IEmaSettings, IReversalSettings
     public double TrailingPostStepSlPoints { get; set; } = 0.0;
 
     // >>> NEW: 3-Minute MACD (12/26/9) Intraday Strategy
-    // (per "3-Minute MACD & Dynamic Trailing SL Strategy" doc). Scoped to Nifty only for
-    // now, same as the rest of this bot -- Bank Nifty/Sensex values are listed in the doc
-    // but wiring a second/third index (own instrument key, own option chain, own
-    // WebSocket subscription) is a bigger multi-index change, not part of this strategy.
+    // (per "3-Minute MACD & Dynamic Trailing SL Strategy" doc). Nifty only.
     [Setting("MACD strategy", "", RestartRequired = true)]
     public bool MacdStrategyEnabled { get; set; } = true;
 

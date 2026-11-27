@@ -218,29 +218,29 @@ public sealed class TelegramAlertService
             position.PnlRupees, (decimal)position.PnlPercent, position.OpenedAt), ct);
 
     // ------------------------------------------------------------------
-    // Upside Reversal strategy (levels are Nifty SPOT levels)
+    // Liquidity Sweep (CE) strategy (levels are Nifty SPOT levels)
     // ------------------------------------------------------------------
-    private static string ReversalName(ReversalPosition p) => "REVERSAL · " + p.Signal.SetupName;
+    private static string ReversalName(ReversalPosition p) => "LIQUIDITY SWEEP · CE";
 
     public Task SendReversalEntryAlertAsync(ReversalSignal signal, OptionInstrument instrument, decimal entryPremium, int lotSize, CancellationToken ct, string indexName = "Nifty")
     {
-        var rr = signal.RiskPoints > 0 ? (double)(signal.RewardToT2Points / signal.RiskPoints) : 0;
+        var plan = signal.HoldWithTrailing
+            ? "Plan: EMA 9 above EMA 21 -> hold long, trailing stop-loss, no fixed target"
+            : $"Plan: EMA 9 below EMA 21 -> hold until {indexName} reaches EMA 21 <code>{Num(signal.EmaLong, "N2")}</code>; a candle close above it = keep holding with trailing stop-loss";
         var text =
-            $"🟢 <b>REVERSAL · {signal.SetupName}</b>\n" +
+            $"🟢 <b>LIQUIDITY SWEEP · CE</b>\n" +
             $"{indexName}: <code>{Num(signal.EntrySpot, "N2")}</code> · {Time(signal.ConfirmedAtCandleTime)}\n" +
             $"<b>BUY {instrument.Strike} {OptType(instrument)}</b> | Exp {Exp(instrument)}\n" +
             $"Entry <code>{Rs(entryPremium)}</code>\n" +
-            $"{indexName} SL <code>{Num(signal.StopLossSpot, "N2")}</code> | T1 <code>{Num(signal.Target1Spot, "N2")}</code> | T2 <code>{Num(signal.Target2Spot, "N2")}</code>\n" +
-            $"Risk {Num(signal.RiskPoints, "N0")} pts | R:R 1:{rr.ToString("0.0", Inv)} (to T2)\n" +
+            $"{indexName} SL <code>{Num(signal.StopLossSpot, "N2")}</code> (previous candle low) | Risk {Num(signal.RiskPoints, "N0")} pts\n" +
+            $"EMA 9 <code>{Num(signal.EmaShort, "N2")}</code> | EMA 21 <code>{Num(signal.EmaLong, "N2")}</code>\n" +
+            $"{plan}\n" +
             $"Intraday only | 📝 Virtual";
         return SendAsync(text, ct);
     }
 
-    public Task SendReversalTarget1Async(ReversalPosition p, CancellationToken ct, string indexName = "Nifty") =>
-        SendAsync(
-            $"🎯 <b>{ReversalName(p)}</b> · T1 hit\n" +
-            $"{indexName} <code>{Num(p.LastSpot, "N2")}</code> ≥ T1 <code>{Num(p.Signal.Target1Spot, "N2")}</code>\n" +
-            $"Stop-loss moved to cost: {indexName} <code>{Num(p.StopLossSpot, "N2")}</code> | T2 <code>{Num(p.Signal.Target2Spot, "N2")}</code>", ct);
+    public Task SendReversalNoteAsync(ReversalPosition p, string html, CancellationToken ct, string indexName = "Nifty") =>
+        SendAsync($"ℹ️ <b>{ReversalName(p)}</b>\n{html}", ct);
 
     public Task SendReversalPositionUpdateAsync(ReversalPosition p, CancellationToken ct, string indexName = "Nifty") =>
         SendAsync(
@@ -248,7 +248,9 @@ public sealed class TelegramAlertService
             $"📊 {indexName} <b>{p.Instrument.Strike} {OptType(p.Instrument)}</b> | Exp {Exp(p.Instrument)}\n" +
             $"Entry at <code>{Rs(p.EntryPremium)}</code> → <code>{Rs(p.LastKnownPremium)}</code>\n" +
             $"{PnlEmoji(p.PnlRupees)} Profit/Loss: <b>{Pnl(p.PnlRupees, (decimal)p.PnlPercent)}</b>\n" +
-            $"{indexName} <code>{Num(p.LastSpot, "N2")}</code> | SL <code>{Num(p.StopLossSpot, "N2")}</code>{(p.Target1Hit ? " (at cost)" : "")} | T2 <code>{Num(p.Signal.Target2Spot, "N2")}</code>\n" +
+            $"{indexName} <code>{Num(p.LastSpot, "N2")}</code> | SL <code>{Num(p.StopLossSpot, "N2")}</code>" +
+            (p.TrailingActive ? $" | trailing SL <code>{Rs(p.TrailingStopPremium)}</code>" : "") +
+            (p.Mode == ReversalHoldMode.Ema21Target ? $" | target EMA 21 <code>{Num(p.EmaLong, "N2")}</code>" : " | trailing, no target") + "\n" +
             $"Since {Time(p.OpenedAt)}", ct);
 
     public Task SendReversalExitAlertAsync(ReversalPosition p, string reason, CancellationToken ct, string indexName = "Nifty") =>

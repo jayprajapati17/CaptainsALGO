@@ -30,7 +30,6 @@ public sealed class HistoryViewModel
 
     // Current filter/sort/paging state -- echoed back so the view can build chip links.
     public string StrategyFilter { get; set; } = "all";   // all | ema | breakout | macd
-    public string UnderlyingFilter { get; set; } = "all"; // all | nifty | banknifty
     public string From { get; set; } = "";                // yyyy-MM-dd or empty
     public string To { get; set; } = "";                  // yyyy-MM-dd or empty
     public string Sort { get; set; } = "time";            // time | pnl_desc | pnl_asc

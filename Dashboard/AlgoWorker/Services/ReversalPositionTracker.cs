@@ -9,12 +9,13 @@ using SharedModels = AlgoData.Models;
 namespace AlgoWorker.Services;
 
 /// <summary>
-/// Virtual position lifecycle for the Upside Reversal strategy. One position at a time (buy ATM CE, current week).
-/// Exits are driven by NIFTY SPOT levels from the setup:
-///   spot &lt;= SL            -> stop-loss exit
-///   spot &gt;= T1            -> SL moves to cost (the entry spot); position stays open
-///   spot &gt;= T2            -> target exit
-///   force-exit time        -> intraday cutoff
+/// Virtual position lifecycle for the Liquidity Sweep (CE) strategy. One position at a time (buy ATM CE, current week).
+///   stop-loss: the previous (red) candle's low, a NIFTY SPOT level -- spot &lt;= SL closes the trade, always.
+///   EMA 9 &gt;= EMA 21 (or price above EMA 21) -> TrendHold: no target; the app's existing step-trailing stop-loss
+///                                                (premium based, see TrailingStop) protects the profit.
+///   EMA 9 &lt;  EMA 21 -> Ema21Target: hold until Nifty reaches (touches / nears) EMA 21. With "wait for candle close" a 5-min
+///                      candle closing ABOVE EMA 21 turns it into TrendHold; otherwise the trade exits at the close.
+///   force-exit time  -> intraday cutoff
 /// Risk rules: max trades per day, and no more trades after N consecutive losses.
 /// </summary>
 public sealed class ReversalPositionTracker
@@ -50,7 +51,7 @@ public sealed class ReversalPositionTracker
                positionRepository, signalLogRepository, hub, clock, logger)
     { }
 
-    /// <summary>Generic form: the same Reversal position logic for any index (Bank Nifty builds its own instance).</summary>
+    /// <summary>Generic form: the same Reversal position logic for any index.</summary>
     public ReversalPositionTracker(
         OptionInstrumentResolver instrumentResolver,
         UpstoxRestClient restClient,
@@ -83,7 +84,7 @@ public sealed class ReversalPositionTracker
 
         if (_active is { IsOpen: true })
         {
-            await LogSignalAsync(signal, false, null, "A reversal position is already open", ct);
+            await LogSignalAsync(signal, false, null, "A liquidity-sweep position is already open", ct);
             return;
         }
 
@@ -91,19 +92,19 @@ public sealed class ReversalPositionTracker
         var (opened, consecutiveLosses) = await _positionRepository.GetReversalDayStatsAsync(today, ct, _target.Underlying);
         if (opened >= _options.ReversalMaxTradesPerDay)
         {
-            await LogSignalAsync(signal, false, null, $"Daily limit of {_options.ReversalMaxTradesPerDay} reversal trades reached", ct);
+            await LogSignalAsync(signal, false, null, $"Daily limit of {_options.ReversalMaxTradesPerDay} liquidity-sweep trades reached", ct);
             return;
         }
         if (consecutiveLosses >= _options.ReversalMaxConsecutiveLosses)
         {
-            await LogSignalAsync(signal, false, null, $"{consecutiveLosses} consecutive losses today -- reversal trading stopped for the day", ct);
+            await LogSignalAsync(signal, false, null, $"{consecutiveLosses} consecutive losses today -- liquidity-sweep trading stopped for the day", ct);
             return;
         }
 
         var instrument = await _instrumentResolver.ResolveCurrentAtmAsync(_target.UnderlyingKey, signal.EntrySpot, OptionType.Call, _options.StrikeStepPoints, today, ct);
         if (instrument is null)
         {
-            await _telegram.SendWarningAsync($"{_target.Name} Reversal ({signal.SetupName}) confirmed but could not resolve an ATM CE instrument. No position opened.", ct);
+            await _telegram.SendWarningAsync($"{_target.Name} Liquidity sweep confirmed but could not resolve an ATM CE instrument. No position opened.", ct);
             await LogSignalAsync(signal, false, null, "Could not resolve an ATM option instrument", ct);
             return;
         }
@@ -115,8 +116,8 @@ public sealed class ReversalPositionTracker
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to fetch entry LTP for reversal instrument {Instrument}.", instrument.InstrumentKey);
-            await _telegram.SendWarningAsync($"Reversal confirmed but could not fetch entry price for {instrument.TradingSymbol}. Position not opened.", ct);
+            _logger.LogError(ex, "Failed to fetch entry LTP for liquidity-sweep instrument {Instrument}.", instrument.InstrumentKey);
+            await _telegram.SendWarningAsync($"Liquidity sweep confirmed but could not fetch entry price for {instrument.TradingSymbol}. Position not opened.", ct);
             await LogSignalAsync(signal, false, null, "Entry LTP fetch failed", ct);
             return;
         }
@@ -131,7 +132,12 @@ public sealed class ReversalPositionTracker
             LastKnownPremium = entryPremium,
             LastUpdateSentAt = DateTimeOffset.UtcNow,
             StopLossSpot = signal.StopLossSpot,
-            LastSpot = signal.EntrySpot
+            LastSpot = signal.EntrySpot,
+            Mode = signal.HoldWithTrailing ? ReversalHoldMode.TrendHold : ReversalHoldMode.Ema21Target,
+            EmaShort = signal.EmaShort,
+            EmaLong = signal.EmaLong,
+            PeakPremium = entryPremium,
+            EntryCandleTime = signal.ConfirmedAtCandleTime
         };
 
         var dbId = await _positionRepository.SaveOpenedAsync(ToEntity(_active, entryPremium), ct);
@@ -142,10 +148,10 @@ public sealed class ReversalPositionTracker
         await _telegram.SendReversalEntryAlertAsync(signal, instrument, entryPremium, _options.LotSize, ct, _target.Name);
         await BroadcastAsync(_active, "Open", null, ct);
 
-        _logger.LogInformation("Virtual reversal ({Setup}) position opened: {Symbol} @ {Premium}", signal.Setup, instrument.TradingSymbol, entryPremium);
+        _logger.LogInformation("Virtual liquidity-sweep position opened: {Symbol} @ {Premium} ({Mode}).", instrument.TradingSymbol, entryPremium, _active.Mode);
     }
 
-    /// <summary>Index SPOT tick: this is where SL / T1 / T2 are evaluated (every tick).</summary>
+    /// <summary>Index SPOT tick: the stop-loss and the "reached EMA 21" check are evaluated on every tick.</summary>
     public async Task OnSpotTick(decimal spot, CancellationToken ct)
     {
         if (_active is not { IsOpen: true } position) return;
@@ -153,36 +159,58 @@ public sealed class ReversalPositionTracker
 
         if (spot <= position.StopLossSpot)
         {
-            var reason = position.Target1Hit
-                ? $"Stop-loss at cost hit ({_target.Name} {position.StopLossSpot:N2}) after T1"
-                : $"Stop-loss hit ({_target.Name} {position.StopLossSpot:N2})";
-            await CloseAsync(position, reason, ct);
+            await CloseAsync(position, $"Stop-loss hit: {_target.Name} {spot:N2} reached the previous candle's low ({position.StopLossSpot:N2})", ct);
             return;
         }
 
-        if (spot >= position.Signal.Target2Spot)
+        // EMA 9 below EMA 21: the trade is held until Nifty reaches (touches / nears) EMA 21.
+        if (position.Mode == ReversalHoldMode.Ema21Target && !position.AtEma21Zone && position.EmaLong > 0
+            && spot >= position.EmaLong - (decimal)_options.ReversalEmaTouchTolerancePoints)
         {
-            await CloseAsync(position, $"Target 2 hit ({_target.Name} {position.Signal.Target2Spot:N2})", ct);
-            return;
-        }
+            if (!_options.ReversalWaitForCandleCloseAtEma)
+            {
+                await CloseAsync(position, $"Target: {_target.Name} {spot:N2} reached EMA {_options.ReversalEmaLongPeriod} ({position.EmaLong:N2})", ct);
+                return;
+            }
 
-        if (!position.Target1Hit && spot >= position.Signal.Target1Spot)
-        {
-            position.Target1Hit = true;
-            position.StopLossSpot = Math.Max(position.StopLossSpot, position.Signal.EntrySpot);
-            await _positionRepository.UpdateStopLossAsync(position.Id, null, position.StopLossSpot, ct);   // persist SL moved to cost
-            await _telegram.SendReversalTarget1Async(position, ct, _target.Name);
+            position.AtEma21Zone = true;
+            await _telegram.SendReversalNoteAsync(position,
+                $"{_target.Name} <code>{spot:N2}</code> reached EMA {_options.ReversalEmaLongPeriod} <code>{position.EmaLong:N2}</code>.\n" +
+                "Waiting for the 5-min candle close: a close above it keeps the trade (trailing stop-loss), otherwise it exits.", ct, _target.Name);
             await BroadcastAsync(position, "Open", null, ct);
         }
     }
 
-    /// <summary>Option tick: keeps the premium (and so the P&amp;L) fresh; throttled Dashboard push.</summary>
+    /// <summary>Option tick: keeps the premium (and so the P&amp;L) fresh and runs the existing trailing stop-loss in TrendHold.</summary>
     public async Task OnOptionTick(MarketTick tick, CancellationToken ct)
     {
         if (_active is not { IsOpen: true } position || position.Instrument.InstrumentKey != tick.InstrumentKey)
             return;
 
         position.LastKnownPremium = tick.LastTradedPrice;
+        if (tick.LastTradedPrice > position.PeakPremium) position.PeakPremium = tick.LastTradedPrice;
+
+        if (position.Mode == ReversalHoldMode.TrendHold)
+        {
+            // The app's existing step-trailing rule (premium points). It stays out of the way until the premium has gained one
+            // step, so until then only the previous-candle-low stop-loss (a Nifty level) applies.
+            var trail = TrailingParams.From(_options);
+            if (TrailingStop.IsTrailing(position.EntryPremium, position.PeakPremium, trail))
+            {
+                var sl = TrailingStop.Compute(position.EntryPremium, position.PeakPremium, trail);
+                if (sl > position.TrailingStopPremium)
+                {
+                    position.TrailingStopPremium = sl;
+                    await _positionRepository.UpdateStopLossAsync(position.Id, sl, position.StopLossSpot, ct);
+                }
+            }
+
+            if (position.TrailingActive && tick.LastTradedPrice <= position.TrailingStopPremium)
+            {
+                await CloseAsync(position, $"Trailing stop-loss hit (premium {position.TrailingStopPremium:N2})", ct);
+                return;
+            }
+        }
 
         if (DateTimeOffset.UtcNow - position.LastBroadcastAt >= TimeSpan.FromSeconds(1))
         {
@@ -191,15 +219,42 @@ public sealed class ReversalPositionTracker
         }
     }
 
-    public async Task OnCandleClosedAsync(DateTimeOffset candleTime, CancellationToken ct)
+    /// <summary>Called after every closed 5-min candle with the EMA values the signal engine has just updated.</summary>
+    public async Task OnCandleClosedAsync(DateTimeOffset candleTime, decimal candleClose, decimal emaShort, decimal emaLong, CancellationToken ct)
     {
         if (_active is not { IsOpen: true } position) return;
 
         var cutoff = TimeOfDay.Parse(_options.ReversalForceExitTime);
         if (TimeOfDay.Of(candleTime) >= cutoff)
         {
-            await CloseAsync(position, $"Intraday cutoff reached ({_options.ReversalForceExitTime}) -- reversal trades are never carried overnight", ct);
+            await CloseAsync(position, $"Intraday cutoff reached ({_options.ReversalForceExitTime}) -- trades are never carried overnight", ct);
             return;
+        }
+
+        // The entry candle itself is not evaluated again; the rules below start from the next candle.
+        if (candleTime > position.EntryCandleTime)
+        {
+            position.EmaShort = emaShort;
+            position.EmaLong = emaLong;
+
+            if (position.Mode == ReversalHoldMode.Ema21Target)
+            {
+                if (candleClose > emaLong || emaShort >= emaLong)
+                {
+                    // Price closed above EMA 21 (or EMA 9 crossed above it): no longer a short bounce -- hold long, trail the stop-loss.
+                    position.Mode = ReversalHoldMode.TrendHold;
+                    position.AtEma21Zone = false;
+                    await _telegram.SendReversalNoteAsync(position,
+                        $"{_target.Name} closed above EMA {_options.ReversalEmaLongPeriod} <code>{emaLong:N2}</code> (candle close <code>{candleClose:N2}</code>).\n" +
+                        "Holding the long trade with the trailing stop-loss; no fixed target.", ct, _target.Name);
+                    await BroadcastAsync(position, "Open", null, ct);
+                }
+                else if (position.AtEma21Zone)
+                {
+                    await CloseAsync(position, $"Target: {_target.Name} reached EMA {_options.ReversalEmaLongPeriod} ({emaLong:N2}) but the candle closed below it ({candleClose:N2})", ct);
+                    return;
+                }
+            }
         }
 
         if (DateTimeOffset.UtcNow - position.LastUpdateSentAt >= TimeSpan.FromMinutes(_options.PositionUpdateIntervalMinutes))
@@ -221,7 +276,7 @@ public sealed class ReversalPositionTracker
         await _positionRepository.CloseAsync(position.Id, position.LastKnownPremium, exitTime, reason, position.PnlRupees, position.PnlPercent, ct);
         await BroadcastAsync(position, "Closed", reason, ct);
 
-        _logger.LogInformation("Virtual reversal position closed. Reason: {Reason}. P&L: {Pnl:N2} ({PnlPct:N1}%)", reason, position.PnlRupees, position.PnlPercent);
+        _logger.LogInformation("Virtual liquidity-sweep position closed. Reason: {Reason}. P&L: {Pnl:N2} ({PnlPct:N1}%)", reason, position.PnlRupees, position.PnlPercent);
     }
 
     public async Task CloseForMarketCloseAsync(CancellationToken ct)
@@ -248,7 +303,7 @@ public sealed class ReversalPositionTracker
 
     private PositionUpdateDto ToDto(ReversalPosition p, string status, string? exitReason) => new(
         PositionId: p.Id,
-        Strategy: "Reversal",
+        Strategy: "Reversal",   // stored/filtered under this key; shown as "Liquidity sweep (CE)"
         Direction: "Bullish",
         Leg: null,
         TradingSymbol: p.Instrument.TradingSymbol,
@@ -262,9 +317,9 @@ public sealed class ReversalPositionTracker
         PnlPercent: p.PnlPercent,
         Status: status,
         ExitReason: exitReason,
-        StopLossPremium: 0m,                   // Reversal SL is a Nifty spot level, not a premium
+        StopLossPremium: p.TrailingStopPremium,   // 0 until the trailing stop-loss has started; the Nifty-level stop-loss is StopLossSpot
         StopLossSpot: p.StopLossSpot,
-        StopLossTrailing: p.Target1Hit,
+        StopLossTrailing: p.TrailingActive,
         Underlying: _target.Underlying);
 
     private async Task BroadcastAsync(ReversalPosition position, string status, string? exitReason, CancellationToken ct)
@@ -287,7 +342,7 @@ public sealed class ReversalPositionTracker
         SpotAtEntry = position.Signal.EntrySpot,
         EntryPremium = entryPremium,
         EntryTime = position.OpenedAt,
-        BrokenLevel = position.Signal.SupportLevel,
+        BrokenLevel = position.Signal.SweepLowSpot,
         StopLossSpot = position.StopLossSpot,
         Status = SharedModels.PositionStatus.Open,
         LastKnownPremium = entryPremium,
@@ -304,7 +359,7 @@ public sealed class ReversalPositionTracker
             Direction = "Bullish",
             SignalTime = signal.ConfirmedAtCandleTime,
             SpotPrice = signal.EntrySpot,
-            BrokenLevel = signal.SupportLevel,
+            BrokenLevel = signal.SweepLowSpot,
             IsCatchUp = false,
             PositionOpened = positionOpened,
             PositionId = positionId,

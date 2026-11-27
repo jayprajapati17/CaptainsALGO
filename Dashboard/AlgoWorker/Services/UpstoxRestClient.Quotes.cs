@@ -133,7 +133,7 @@ public sealed partial class UpstoxRestClient
     }
 
     /// <summary>
-    /// >>> NEW (Bank Nifty): all option contracts of the underlying across every expiry (GET /v2/option/contract
+    /// all option contracts of the underlying across every expiry (GET /v2/option/contract
     /// without expiry_date). The "expiry" field is parsed leniently (date string or epoch milliseconds).
     /// </summary>
     public async Task<List<OptionContract>> GetOptionContractsAsync(string underlyingInstrumentKey, CancellationToken ct)
@@ -189,7 +189,7 @@ public sealed partial class UpstoxRestClient
     }
 
     /// <summary>
-    /// >>> NEW (Bank Nifty): batch LTP (chunks of 400 keys). The response is keyed like "NSE_FO:BANKNIFTY..." so each entry is
+    /// batch LTP (chunks of 400 keys). The response is keyed like "NSE_FO:NIFTY..." so each entry is
     /// matched back to our instrument key through its "instrument_token" field ("NSE_FO|12345"); a key already equal to ours also works.
     /// </summary>
     public async Task<Dictionary<string, decimal>> GetLastTradedPricesAsync(IReadOnlyCollection<string> instrumentKeys, CancellationToken ct)

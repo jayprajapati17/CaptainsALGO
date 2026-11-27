@@ -56,7 +56,7 @@ public sealed class VirtualPositionTracker
                positionRepository, signalLogRepository, hub, clock, logger)
     { }
 
-    /// <summary>Generic form: the same EMA position logic for any index (Bank Nifty builds its own instance).</summary>
+    /// <summary>Generic form: the same EMA position logic for any index.</summary>
     public VirtualPositionTracker(
         OptionInstrumentResolver instrumentResolver,
         UpstoxRestClient restClient,

@@ -8,7 +8,7 @@ using AlgoWorker.Services.Persistence;
 
 namespace AlgoWorker.Services;
 
-/// <summary>One option contract from the Upstox contract list (all expiries) -- used by the Bank Nifty strike selector.</summary>
+/// <summary>One option contract from the Upstox contract list (all expiries) -- used by the EMA 9/21 strike selector.</summary>
 public sealed record OptionContract(string InstrumentKey, string TradingSymbol, int Strike, OptionType Type, DateOnly Expiry);
 
 public enum ExchangeMarketState { PreOpen, NormalOpen, NormalClose, Closed, Unknown }

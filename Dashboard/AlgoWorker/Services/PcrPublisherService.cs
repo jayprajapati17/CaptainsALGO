@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 namespace AlgoWorker.Services;
 
 /// <summary>
-/// Reads the option chain of Nifty (current weekly expiry) and Bank Nifty (current expiry) every <see cref="PcrOptions.PollSeconds"/>
+/// Reads the option chain of Nifty (current weekly expiry) every <see cref="PcrOptions.PollSeconds"/>
 /// during market hours, works out the put/call ratios, saves a <see cref="PcrSnapshotEntity"/> and pushes "PcrChanged" to the
 /// Live page. Pure information -- no strategy uses it, and a failure here (no token yet, Upstox hiccup, DB down) only
 /// skips that round: the service never stops and can never affect trading.
@@ -41,7 +41,6 @@ public sealed class PcrPublisherService : BackgroundService
     private IEnumerable<(string Underlying, string Key, string Name)> Indices()
     {
         yield return (Underlyings.Nifty50, _upstox.NiftyInstrumentKey, "Nifty");
-        yield return (Underlyings.BankNifty, _upstox.BankNiftyInstrumentKey, "Bank Nifty");
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

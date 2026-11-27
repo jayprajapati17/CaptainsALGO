@@ -3,11 +3,10 @@
     ViewData["Title"] = "Signals Log";
 }
 @functions {
-    string Link(string? strategy = null, string? outcome = null, string? period = null, int page = 1, string? underlying = null) =>
+    string Link(string? strategy = null, string? outcome = null, string? period = null, int page = 1) =>
         Url.Action("Index", "Signals", new
         {
             strategy = strategy ?? Model.StrategyFilter,
-            underlying = underlying ?? Model.UnderlyingFilter,
             outcome = outcome ?? Model.Outcome,
             period = period ?? Model.Period,
             page
@@ -39,18 +38,12 @@
 
 <section class="ct-card ct-filterbar">
     <div class="chip-group">
-        <span class="chip-label">Instrument</span>
-        <a class="@Chip(Model.UnderlyingFilter == "all")" href="@Link(underlying: "all")">All</a>
-        <a class="@Chip(Model.UnderlyingFilter == "nifty")" href="@Link(underlying: "nifty")">Nifty</a>
-        <a class="@Chip(Model.UnderlyingFilter == "banknifty")" href="@Link(underlying: "banknifty")">Bank Nifty</a>
-    </div>
-    <div class="chip-group">
         <span class="chip-label">Strategy</span>
         <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
         <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
         <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
         <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
-        <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
+        <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Liquidity sweep (CE)</a>
             <a class="@Chip(Model.StrategyFilter == "emacrossa")" href="@Link(strategy: "emacrossa")">EMA 9/21 15m</a>
             <a class="@Chip(Model.StrategyFilter == "emacrossb")" href="@Link(strategy: "emacrossb")">EMA 9/21 1h</a>
     </div>
@@ -107,10 +100,6 @@ else
                         </td>
                         <td data-label="Strategy">
                             <span class="@StrategyClass(r.Strategy)">@Display.Strategy(r.Strategy)</span>
-                            @if (r.Underlying == AlgoData.Models.Underlyings.BankNifty)
-                            {
-                                <div class="ct-sub mt-1">Bank Nifty</div>
-                            }
                         </td>
                         <td data-label="Signal" class="text-nowrap">
                             <span class="fw-semibold @(Display.IsBullish(r.Direction) ? "dir-up" : "dir-down")">

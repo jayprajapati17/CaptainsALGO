@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 namespace AlgoWorker.Services;
 
 /// <summary>
-/// Keeps the DailyCpr table filled for BOTH indices (Nifty + Bank Nifty), which the Dashboard's Live page reads:
+/// Keeps the DailyCpr table filled for the Nifty index, which the Dashboard's Live page reads:
 ///   * "TodaysCpr"  -- computed in the morning from the PREVIOUS session's High/Low/Close  (today's expected range).
 ///   * "NextDayCpr" -- computed after the close (15:35 IST) from TODAY's High/Low/Close, for the next weekday (tomorrow's expected range).
 /// Pure information -- no strategy uses it. Every step is retried every minute until it succeeds (e.g. the Upstox token is not
@@ -37,7 +37,6 @@ public sealed class CprPublisherService : BackgroundService
     private IEnumerable<(string Underlying, string Key, string Name)> Indices()
     {
         yield return (Underlyings.Nifty50, _upstox.NiftyInstrumentKey, "Nifty");
-        yield return (Underlyings.BankNifty, _upstox.BankNiftyInstrumentKey, "Bank Nifty");
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

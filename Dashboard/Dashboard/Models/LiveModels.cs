@@ -27,7 +27,7 @@ public sealed record OpenPositionDto(
     decimal StopLossPremium = 0m,
     decimal StopLossSpot = 0m,
     bool StopLossTrailing = false,
-    string Underlying = AlgoData.Models.Underlyings.Nifty50);   // "NIFTY50" (Nifty worker -- field absent in its JSON) | "BANKNIFTY"
+    string Underlying = AlgoData.Models.Underlyings.Nifty50);   // "NIFTY50"
 
 /// <summary>Compact CPR reading for the Live page's header strip.</summary>
 public sealed class CprStrip
@@ -79,7 +79,7 @@ public sealed class PcrStrip
 public sealed class CprPair
 {
     public string Name { get; init; } = string.Empty;
-    /// <summary>Element-id / data key used by live.js to place the live-spot marker ("nifty" | "banknifty").</summary>
+    /// <summary>Element-id / data key used by live.js to place the live-spot marker ("nifty").</summary>
     public string Key { get; init; } = string.Empty;
     public CprStrip? Today { get; init; }
     public CprStrip? Tomorrow { get; init; }
@@ -96,11 +96,8 @@ public sealed class LiveIndexViewModel
     public string? WorkerError { get; set; }
 
     public CprPair NiftyCpr { get; set; } = new() { Name = "Nifty 50", Key = "nifty" };
-    public CprPair BankNiftyCpr { get; set; } = new() { Name = "Bank Nifty", Key = "banknifty" };
 
     /// <summary>Target (points above entry) shown as a marker on each position's gauge -- read from the AppSettings table.</summary>
     public double TargetPoints { get; set; } = 30;
     public double InitialRiskPoints { get; set; } = 15;
-    public double BnTargetPoints { get; set; } = 50;
-    public double BnInitialRiskPoints { get; set; } = 30;
 }

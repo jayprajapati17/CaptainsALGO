@@ -24,9 +24,6 @@ public sealed class UpstoxOptions
     [Setting("General")]
     public string BaseUrl { get; set; } = "https://api.upstox.com";
 
-    // >>> NEW (Bank Nifty pipeline): index to subscribe on the shared feed + the all-expiry contract list URL.
-    [Setting("General")]
-    public string BankNiftyInstrumentKey { get; set; } = "NSE_INDEX|Nifty Bank";
     /// <summary>All contracts of an underlying across every expiry ({0} = underlying instrument key). Different from OptionContractUrlTemplate, which is per expiry.</summary>
     [Setting("General")]
     public string OptionContractsAllUrlTemplate { get; set; } = "https://api.upstox.com/v2/option/contract?instrument_key={0}";

@@ -4,7 +4,7 @@ namespace AlgoWorker.Services;
 
 /// <summary>
 /// All the numbers of the step-trailing stop-loss rule, in premium points. One struct so Nifty
-/// (StrategyOptions) and Bank Nifty (BankNiftyOptions) feed the SAME formula:
+/// (StrategyOptions) feed the SAME formula:
 ///   gained = Peak - Entry
 ///   gained &lt; Target:   SL = Entry - InitialRisk + StepSl x floor(gained / Step)
 ///   gained &gt;= Target:  SL = Entry + Lock + PostStepSl x floor((gained - Target) / PostStep)

@@ -1,27 +1,25 @@
-﻿namespace AlgoWorker.Configuration;
+namespace AlgoWorker.Configuration;
 
 /// <summary>
-/// Everything the Upside Reversal strategy reads (signal engine, seeder, position tracker). Implemented by
-/// <see cref="StrategyOptions"/> (Nifty) and <see cref="BankNiftyOptions"/> (Bank Nifty) with identical property names, so the same
-/// strategy code runs for either index and the Settings page shows both side by side. All point values are in that index's own points.
+/// Everything the Liquidity Sweep (CE) strategy reads (signal engine, seeder, position tracker). Implemented by
+/// <see cref="StrategyOptions"/> (Nifty). All point values are in Nifty points. The trailing stop-loss numbers come from
+/// <see cref="ITrailingSettings"/> (the app's existing rule).
 /// </summary>
-public interface IReversalSettings
+public interface IReversalSettings : ITrailingSettings
 {
     bool ReversalStrategyEnabled { get; }
-    bool ReversalSetupAEnabled { get; }
-    bool ReversalSetupCEnabled { get; }
     string ReversalEarliestEntryTime { get; }
     string ReversalLastEntryTime { get; }
     string ReversalForceExitTime { get; }
-    int ReversalEmaFastPeriod { get; }
-    int ReversalEmaSlowPeriod { get; }
+    int ReversalEmaShortPeriod { get; }
+    int ReversalEmaLongPeriod { get; }
+    int ReversalEmaTrendPeriod { get; }
+    double ReversalEmaTouchTolerancePoints { get; }
+    bool ReversalWaitForCandleCloseAtEma { get; }
     int ReversalSeedLookbackTradingDays { get; }
-    double ReversalDoubleBottomTolerancePoints { get; }
-    double ReversalMinBouncePoints { get; }
     int ReversalConfirmCandles { get; }
     int ReversalMinHigherLows { get; }
     double ReversalSlBufferPoints { get; }
-    double ReversalMinRiskReward { get; }
     double ReversalSupportTolerancePoints { get; }
     double ReversalTrendDownPercent { get; }
     int ReversalMaxTradesPerDay { get; }

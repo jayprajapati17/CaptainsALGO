@@ -24,7 +24,7 @@ public static class PositionBroadcast
 
     /// <summary>
     /// "SpotChanged": the index price for the Live page header. Nifty's event has no <c>underlying</c> field (the
-    /// Dashboard treats a missing field as Nifty); Bank Nifty's carries <c>underlying = "BANKNIFTY"</c>.
+    /// Dashboard treats a missing field as Nifty).
     /// </summary>
     public static async Task PublishSpotAsync(IHubContext<PositionHub> hub, decimal price, DateTimeOffset time, string? underlying, ILogger logger)
     {

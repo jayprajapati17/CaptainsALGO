@@ -5,10 +5,9 @@
     var o = Model.Overall;
 }
 @functions {
-    string Link(string? underlying = null, string? strategy = null, string? period = null) =>
+    string Link(string? strategy = null, string? period = null) =>
         Url.Action("Index", "Performance", new
         {
-            underlying = underlying ?? Model.UnderlyingFilter,
             strategy = strategy ?? Model.StrategyFilter,
             period = period ?? Model.Period
         })!;
@@ -57,18 +56,12 @@
 
 <div class="ct-toolbar">
     <div class="chip-group">
-        <span class="chip-label">Instrument</span>
-        <a class="@Chip(Model.UnderlyingFilter == "all")" href="@Link(underlying: "all")">All</a>
-        <a class="@Chip(Model.UnderlyingFilter == "nifty")" href="@Link(underlying: "nifty")">Nifty</a>
-        <a class="@Chip(Model.UnderlyingFilter == "banknifty")" href="@Link(underlying: "banknifty")">Bank Nifty</a>
-    </div>
-    <div class="chip-group">
         <span class="chip-label">Strategy</span>
         <a class="@Chip(Model.StrategyFilter == "all")" href="@Link(strategy: "all")">All</a>
         <a class="@Chip(Model.StrategyFilter == "ema")" href="@Link(strategy: "ema")">EMA</a>
         <a class="@Chip(Model.StrategyFilter == "breakout")" href="@Link(strategy: "breakout")">Breakout</a>
         <a class="@Chip(Model.StrategyFilter == "macd")" href="@Link(strategy: "macd")">MACD</a>
-        <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Reversal</a>
+        <a class="@Chip(Model.StrategyFilter == "reversal")" href="@Link(strategy: "reversal")">Liquidity sweep (CE)</a>
             <a class="@Chip(Model.StrategyFilter == "emacrossa")" href="@Link(strategy: "emacrossa")">EMA 9/21 15m</a>
             <a class="@Chip(Model.StrategyFilter == "emacrossb")" href="@Link(strategy: "emacrossb")">EMA 9/21 1h</a>
     </div>
@@ -262,9 +255,6 @@ void Table(string title, List<PerfSlice> slices)
 <section class="perf-two">
     @{
         Table("By strategy", Model.ByStrategy);
-    }
-    @{
-        Table("By instrument", Model.ByIndex);
     }
 </section>
 Table("By exit reason", Model.ByExit);

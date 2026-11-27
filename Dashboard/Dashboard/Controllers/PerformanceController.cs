@@ -26,11 +26,8 @@ public sealed class PerformanceController : Controller
     private sealed record Row(StrategyType Strategy, string Underlying, DateTimeOffset EntryTime,
                               DateTimeOffset ExitTime, string? ExitReason, decimal Pnl);
 
-    public async Task<IActionResult> Index(string? underlying, string? strategy, string? period, CancellationToken ct = default)
+    public async Task<IActionResult> Index(string? strategy, string? period, CancellationToken ct = default)
     {
-        var underlyingKey = (underlying ?? "all").ToLowerInvariant();
-        if (underlyingKey is not ("nifty" or "banknifty")) underlyingKey = "all";
-
         StrategyType? strategyFilter = Enum.TryParse<StrategyType>(strategy, true, out var parsed) && Enum.IsDefined(parsed) ? parsed : null;
 
         var periodKey = (period ?? "90").ToLowerInvariant();
@@ -38,7 +35,6 @@ public sealed class PerformanceController : Controller
 
         var vm = new PerformanceViewModel
         {
-            UnderlyingFilter = underlyingKey,
             StrategyFilter = strategyFilter?.ToString().ToLowerInvariant() ?? "all",
             Period = periodKey
         };
@@ -48,7 +44,7 @@ public sealed class PerformanceController : Controller
             var q = _db.Positions.AsNoTracking()
                 .Where(p => p.Status == PositionStatus.Closed && p.ExitTime != null && p.FinalPnlRupees != null);
             if (strategyFilter is { } s) q = q.Where(p => p.Strategy == s);
-            q = q.ForUnderlying(Underlyings.FromFilterKey(underlyingKey));
+            q = q.ForUnderlying(Underlyings.Nifty50);   // only Nifty rows are shown
             if (periodKey != "all")
             {
                 var from = MarketTime.StartOfDay(MarketTime.Today.AddDays(-(int.Parse(periodKey) - 1)));
@@ -129,8 +125,6 @@ public sealed class PerformanceController : Controller
 
         vm.ByStrategy = rows.GroupBy(r => r.Strategy).OrderBy(g => g.Key)
             .Select(g => Slice(Display.Strategy(g.Key), g)).ToList();
-        vm.ByIndex = rows.GroupBy(r => r.Underlying).OrderBy(g => g.Key)
-            .Select(g => Slice(g.Key == Underlyings.BankNifty ? "Bank Nifty" : "Nifty 50", g)).ToList();
         vm.ByExit = rows.GroupBy(r => string.IsNullOrWhiteSpace(r.ExitReason) ? "Unknown" : r.ExitReason!)
             .Select(g => Slice(g.Key, g)).OrderByDescending(x => x.Trades).ToList();
     }

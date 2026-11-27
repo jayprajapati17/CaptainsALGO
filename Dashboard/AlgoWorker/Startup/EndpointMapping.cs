@@ -1,6 +1,5 @@
 using AlgoWorker.EmaCross;
 using AlgoData.Models;
-using AlgoWorker.BankNifty;
 using AlgoWorker.Configuration;
 using AlgoWorker.Hubs;
 using AlgoWorker.Services;
@@ -35,7 +34,7 @@ public static class EndpointMapping
     {
         app.MapPost("/api/positions/{id:int}/close", async (
             int id, VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt,
-            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr, EmaCrossService emaCross, CancellationToken ct) =>
+            ReversalPositionTracker rpt, EmaCrossService emaCross, CancellationToken ct) =>
         {
             if (await vpt.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "Ema" });
@@ -49,15 +48,6 @@ public static class EndpointMapping
             if (await rpt.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "Reversal" });
 
-            if (await bnt.ForceCloseAsync(id, ct))
-                return Results.Ok(new { closed = true, strategy = "Breakout", underlying = Underlyings.BankNifty });
-
-            if (await bne.Tracker.ForceCloseAsync(id, ct))
-                return Results.Ok(new { closed = true, strategy = "Ema", underlying = Underlyings.BankNifty });
-
-            if (await bnr.Tracker.ForceCloseAsync(id, ct))
-                return Results.Ok(new { closed = true, strategy = "Reversal", underlying = Underlyings.BankNifty });
-
             if (await emaCross.ForceCloseAsync(id, ct))
                 return Results.Ok(new { closed = true, strategy = "EmaCross" });
 
@@ -65,15 +55,12 @@ public static class EndpointMapping
         });
 
         app.MapGet("/api/positions/open", (VirtualPositionTracker vpt, BreakoutPositionTracker bpt, MacdPositionTracker mpt,
-            ReversalPositionTracker rpt, BankNiftyPositionTracker bnt, BankNiftyEmaPipeline bne, BankNiftyReversalPipeline bnr, EmaCrossService emaCross) =>
+            ReversalPositionTracker rpt, EmaCrossService emaCross) =>
         {
             var all = vpt.GetOpenPositionsSnapshot()
                 .Concat(bpt.GetOpenPositionsSnapshot())
                 .Concat(mpt.GetOpenPositionsSnapshot())
                 .Concat(rpt.GetOpenPositionsSnapshot())
-                .Concat(bnt.GetOpenPositionsSnapshot())
-                .Concat(bne.Tracker.GetOpenPositionsSnapshot())
-                .Concat(bnr.Tracker.GetOpenPositionsSnapshot())
                 .Concat(emaCross.GetOpenPositionsSnapshot());
             return Results.Ok(all);
         });
@@ -214,7 +201,7 @@ public static class EndpointMapping
 
             var indices = new List<IndexHealth> { Index("Nifty 50", upstox.Value.NiftyInstrumentKey) };
             foreach (var key in consumers.SelectMany(c => c.FeedInstrumentKeys).Distinct())
-                indices.Add(Index(key == upstox.Value.BankNiftyInstrumentKey ? "Bank Nifty" : key, key));
+                indices.Add(Index(key, key));
 
             // "Stale" = no tick for 2 minutes while the market should be open (an index ticks several times a second).
             var stale = indices.Any(i => i.AgeSeconds is null || i.AgeSeconds > 120);

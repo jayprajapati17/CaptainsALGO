@@ -29,7 +29,7 @@ public sealed class HistoricalSeederService
         ILogger<HistoricalSeederService> logger)
         : this(restClient, aggregator, strategy.Value, upstox.Value.NiftyInstrumentKey, clock, logger) { }
 
-    /// <summary>Generic form: seeds any index's EMA pipeline (Nifty from DI, Bank Nifty from its pipeline).</summary>
+    /// <summary>Generic form: seeds any index's EMA pipeline (Nifty from DI).</summary>
     public HistoricalSeederService(
         UpstoxRestClient restClient,
         CandleAggregatorService aggregator,

@@ -50,11 +50,8 @@ public sealed class LiveController : Controller
         }
 
         vm.NiftyCpr = await LoadCprAsync("Nifty 50", "nifty", AlgoData.Models.Underlyings.Nifty50, ct);
-        vm.BankNiftyCpr = await LoadCprAsync("Bank Nifty", "banknifty", AlgoData.Models.Underlyings.BankNifty, ct);
         vm.TargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 30, ct);
         vm.InitialRiskPoints = await LoadStrategyNumberAsync("TrailingInitialRiskPoints", 15, ct);
-        vm.BnTargetPoints = await LoadStrategyNumberAsync("TrailingTargetPoints", 50, ct, "BankNifty");
-        vm.BnInitialRiskPoints = await LoadStrategyNumberAsync("TrailingInitialRiskPoints", 30, ct, "BankNifty");
         return View(vm);
     }
 

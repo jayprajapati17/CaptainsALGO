@@ -92,7 +92,7 @@ public sealed class OptionInstrumentResolver
         ResolveCurrentAtmAsync(_upstox.NiftyInstrumentKey, spot, optionType, _strategy.StrikeStepPoints, today, ct);
 
     /// <summary>
-    /// Current-expiry ATM contract for ANY index (Nifty, Bank Nifty): the nearest listed expiry on/after today
+    /// Current-expiry ATM contract for ANY index (Nifty): the nearest listed expiry on/after today
     /// (from Upstox's own contract list) and the strike nearest to spot rounded to <paramref name="strikeStep"/>.
     /// </summary>
     public async Task<OptionInstrument?> ResolveCurrentAtmAsync(

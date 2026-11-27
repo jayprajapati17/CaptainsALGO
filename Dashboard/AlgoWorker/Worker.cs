@@ -21,7 +21,7 @@ public sealed class Worker : BackgroundService
     private readonly TelegramAlertService _telegram;
     private readonly ExpiryResolver _expiryResolver;
     private readonly UpstoxOptions _upstoxOptions;
-    private readonly IEnumerable<IMarketFeedConsumer> _feedConsumers; // other pipelines (e.g. Bank Nifty) that share this feed
+    private readonly IEnumerable<IMarketFeedConsumer> _feedConsumers; // other pipelines (e.g. EMA 9/21) that share this feed
     private HashSet<string> _foreignFeedKeys = new();   // index keys owned by those pipelines -- their ticks are not ours
     // Opening Range Breakout (ORB) strategy pipeline (5-min, intraday).
     private readonly FiveMinCandleAggregatorService _fiveMinAggregator;
@@ -113,7 +113,7 @@ public sealed class Worker : BackgroundService
         _fiveMinAggregator.CandleClosed += OnFiveMinCandleClosed;
         _breakoutEngine.BreakoutConfirmed += signal => _ = SafeAsync(ct => _breakoutPositionTracker.OnBreakoutConfirmedAsync(signal, ct), "OnBreakoutConfirmedAsync");
 
-        // >>> NEW: Upside Reversal strategy -- same 5-min candle stream.
+        // Liquidity Sweep (CE) strategy -- same 5-min candle stream.
         _reversalEngine.ReversalConfirmed += signal => _ = SafeAsync(ct => _reversalPositionTracker.OnReversalConfirmedAsync(signal, ct), "OnReversalConfirmedAsync");
 
         // >>> NEW: MACD strategy wiring -- own 3-min candle stream, own MACD engine, own signal/position pipeline.
@@ -175,7 +175,7 @@ public sealed class Worker : BackgroundService
         _logger.LogInformation("Market is open -- starting live WebSocket feed.");
         await _telegram.SendStatusAsync("Market open. Live tracking started.", ct);
 
-        // One shared WebSocket for every pipeline: the other pipelines' index keys (Bank Nifty, ...) are subscribed here too;
+        // One shared WebSocket for every pipeline: the other pipelines' index keys (if any) are subscribed here too;
         // they consume their own ticks from the same TickReceived event.
         _foreignFeedKeys = _feedConsumers.SelectMany(c => c.FeedInstrumentKeys).ToHashSet();
         var instrumentKeys = new[] { _upstoxOptions.NiftyInstrumentKey }.Concat(_foreignFeedKeys).Distinct().ToArray();
@@ -228,7 +228,7 @@ public sealed class Worker : BackgroundService
         // shape as the EMA/MACD seeders), similar to how BreakoutSignalEngine's
         // own IsSeeding/ConsumeCatchUpSignal are already built to support it.
 
-        // (Today's / tomorrow's CPR for Nifty and Bank Nifty is published by CprPublisherService.)
+        // (Today's / tomorrow's CPR for Nifty is published by CprPublisherService.)
 
         _seededToday = true;
         _lastSeededDate = today;
@@ -252,9 +252,9 @@ public sealed class Worker : BackgroundService
             _macdSignalEngine.IsSeeding = false;
         }
 
-        // >>> NEW: replay 5-min candles (previous days + today so far) into the ORB and Reversal engines.
+        // >>> NEW: replay 5-min candles (previous days + today so far) into the ORB and Liquidity-sweep engines.
         // Fixes the mid-day-restart gap for ORB (the real 09:15 range is restored, and a breakout that already
-        // happened never trades) and warms up EMA21/50 + previous-day low for the Reversal strategy.
+        // happened never trades) and warms up EMA 9/21/50 + previous-day low for the Liquidity-sweep strategy.
         _breakoutEngine.IsSeeding = true;
         _reversalEngine.IsSeeding = true;
         try
@@ -263,8 +263,8 @@ public sealed class Worker : BackgroundService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "5-min seeding failed -- ORB / Reversal will build their state from live candles instead.");
-            await _telegram.SendWarningAsync("Could not seed 5-min history -- ORB and Reversal strategies will build their state live (Reversal needs ~1 hour of live candles before it can trade).", ct);
+            _logger.LogError(ex, "5-min seeding failed -- ORB / Liquidity sweep will build their state from live candles instead.");
+            await _telegram.SendWarningAsync("Could not seed 5-min history -- ORB and Liquidity-sweep strategies will build their state live (Liquidity sweep needs ~1 hour of live candles before it can trade).", ct);
         }
         finally
         {
@@ -320,12 +320,12 @@ public sealed class Worker : BackgroundService
                 _aggregator.OnTick(tick);
                 _fiveMinAggregator.OnTick(tick); // same Nifty ticks also feed the breakout strategy's 5-min candles
                 _threeMinAggregator.OnTick(tick); // >>> NEW: same Nifty ticks also feed the MACD strategy's 3-min candles
-                await _reversalPositionTracker.OnSpotTick(tick.LastTradedPrice, CancellationToken.None); // Reversal SL/T1/T2 are Nifty spot levels
+                await _reversalPositionTracker.OnSpotTick(tick.LastTradedPrice, CancellationToken.None); // Liquidity-sweep stop-loss / EMA 21 target are Nifty spot levels
                 await BroadcastSpotAsync(tick.LastTradedPrice); // >>> NEW (Task 8): Dashboard header spot
             }
             else if (_foreignFeedKeys.Contains(tick.InstrumentKey))
             {
-                // An index owned by another pipeline (e.g. Bank Nifty) -- that pipeline handles it through its own TickReceived subscription.
+                // An index owned by another pipeline -- that pipeline handles it through its own TickReceived subscription.
             }
             else
             {
@@ -353,7 +353,7 @@ public sealed class Worker : BackgroundService
             _breakoutEngine.OnCandleClosed(candle);
             await _breakoutPositionTracker.OnCandleClosedAsync(candle.OpenTime, CancellationToken.None);
             _reversalEngine.OnCandleClosed(candle);
-            await _reversalPositionTracker.OnCandleClosedAsync(candle.OpenTime, CancellationToken.None);
+            await _reversalPositionTracker.OnCandleClosedAsync(candle.OpenTime, candle.Close, _reversalEngine.EmaShort, _reversalEngine.EmaLong, CancellationToken.None);
         }
         catch (Exception ex)
         {

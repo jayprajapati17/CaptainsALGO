@@ -13,21 +13,8 @@
     <div class="st-pair-ctl">
         <div class="st-pair-cell">
             <span class="st-tag st-tag-nifty">NIFTY</span>
-            @if (Model.Nifty is not null)
-            {
                 <partial name="_Field" model="Model.Nifty" />
                 @if (Model.Nifty.Error is not null) { <div class="st-err">@Model.Nifty.Error</div> }
-            }
-            else { <span class="st-pair-na" title="Not available for Nifty">&ndash;</span> }
-        </div>
-        <div class="st-pair-cell">
-            <span class="st-tag st-tag-bn">BANK NIFTY</span>
-            @if (Model.BankNifty is not null)
-            {
-                <partial name="_Field" model="Model.BankNifty" />
-                @if (Model.BankNifty.Error is not null) { <div class="st-err">@Model.BankNifty.Error</div> }
-            }
-            else { <span class="st-pair-na" title="Not available for Bank Nifty">&ndash;</span> }
         </div>
     </div>
 </div>

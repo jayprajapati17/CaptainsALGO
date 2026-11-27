@@ -17,7 +17,6 @@
         SettingsUi.TabOf(i) == SettingsUi.TabStrategies && !SettingsUi.IsTrailing(i) && !toggleKeys.Contains(SettingsUi.Key(i));
 
     var niftyTrail = items.Where(x => x.Item.Section == "Strategy" && SettingsUi.IsTrailing(x.Item)).Select(x => x.Item).ToList();
-    var bnTrail = items.Where(x => x.Item.Section == "BankNifty" && SettingsUi.IsTrailing(x.Item)).Select(x => x.Item).ToList();
 }
 
 <header class="ct-head">
@@ -73,13 +72,6 @@
             }
         </div>
 
-        @if (!items.Any(x => x.Item.Section == "BankNifty"))
-        {
-            <div class="ct-notice" style="background:var(--loss-tint);color:var(--loss-ink)">
-                No Bank Nifty settings found in the database. Restart the Worker once with the merged build (it adds them at startup), then refresh this page. If they still don't appear, check the Worker log for "could not seed the BankNifty rows".
-            </div>
-        }
-
         <div class="ct-notice">
             Items tagged <span class="ct-badge-restart" style="margin-left:0">restart required</span> are only read when the Worker starts.
         </div>
@@ -126,7 +118,6 @@
                             <h2 class="st-h2">Trailing stop-loss &middot; <span id="stProfLabel">Nifty</span></h2>
                             <div class="ct-seg st-mini-seg" role="group" aria-label="Stop-loss profile">
                                 <button type="button" class="st-prof active" data-pick="nifty">Nifty</button>
-                                <button type="button" class="st-prof" data-pick="bn">Bank Nifty</button>
                             </div>
                         </div>
                         <div class="st-chart-wrap"><svg id="stChart" viewBox="0 0 640 280" role="img" aria-label="Stop-loss level against premium gained"></svg></div>
@@ -150,8 +141,8 @@
 
                 <div class="st-col-side">
                     <div class="ct-card st-set-card">
-                        <div class="ct-set-head">Trailing stop-loss <span class="st-sub">common rule &middot; every strategy, both indices</span></div>
-                        @foreach (var p in SettingsUi.Pair(niftyTrail, bnTrail)) { <partial name="_PairRow" model="p" /> }
+                        <div class="ct-set-head">Trailing stop-loss <span class="st-sub">common rule &middot; every strategy</span></div>
+                        @foreach (var p in SettingsUi.Pair(niftyTrail)) { <partial name="_PairRow" model="p" /> }
                     </div>
                 </div>
             </div>
@@ -160,7 +151,7 @@
                 <div class="st-kicker">All strategy parameters</div>
                 <div class="st-details-list">
                     @{
-                        var paramGroups = Model.Sections.Where(sx => sx.Name is "Strategy" or "BankNifty")
+                        var paramGroups = Model.Sections.Where(sx => sx.Name == "Strategy")
                             .SelectMany(sx => sx.Groups.Select(g => (Section: sx.Name, Group: g)))
                             .GroupBy(x => x.Group.Name)
                             .ToList();
@@ -175,10 +166,9 @@
                     @foreach (var grp in paramGroups)
                     {
                         var niftyRows = grp.Where(x => x.Section == "Strategy").SelectMany(x => x.Group.Items).Where(InParamList);
-                        var bnRows = grp.Where(x => x.Section == "BankNifty").SelectMany(x => x.Group.Items).Where(InParamList);
-                        var pairs = SettingsUi.Pair(niftyRows, bnRows);
+                        var pairs = SettingsUi.Pair(niftyRows);
                         if (pairs.Count == 0) continue;
-                        var hasError = pairs.Any(p => p.Nifty?.Error is not null || p.BankNifty?.Error is not null);
+                        var hasError = pairs.Any(p => p.Nifty.Error is not null);
                         <details class="ct-card st-details" @(hasError ? "open" : "")>
                             <summary><span>@grp.Key</span><span class="st-sub">@pairs.Count settings</span></summary>
                             @foreach (var p in pairs) { <partial name="_PairRow" model="p" /> }
@@ -210,14 +200,14 @@
 
         @* ===================== UPSTOX (read-only) ===================== *@
         <div data-st-panel="Upstox" @(activeTab == "Upstox" ? "" : "hidden") class="st-panel">
-            <div class="ct-notice">Upstox settings are read-only here. Only Telegram, Strategy and Bank Nifty settings can be changed from the dashboard.</div>
+            <div class="ct-notice">Upstox settings are read-only here. Only Telegram, Strategy and EMA 9/21 settings can be changed from the dashboard.</div>
             <div class="st-split">
                 <div class="st-col-side st-col-first">
                     <div class="ct-card st-box" id="stTokenCard"
                          data-status-url="@WorkerEndpoints.TokenStatusUrl" data-authorize-url="@WorkerEndpoints.TokenAuthorizeUrl">
                         <h2 class="st-h2">Today's access token</h2>
                         <div class="st-token-state"><span class="st-led" id="stTokenLed"></span><span id="stTokenText">Checking&hellip;</span></div>
-                        <p class="st-text">Nifty and Bank Nifty share this one token. It expires every day, so generate a new one each morning.</p>
+                        <p class="st-text">This one token is used by every strategy. It expires every day, so generate a new one each morning.</p>
                         <div><button type="button" class="ct-btn ct-btn-primary border-0" id="stTokenBtn">Generate token</button></div>
                     </div>
                 </div>
@@ -234,11 +224,10 @@
         <div data-st-panel="Session" @(activeTab == "Session" ? "" : "hidden") class="st-panel st-grid2">
             @{
                 var niftySession = items.Where(x => x.Item.Section == "Strategy" && SettingsUi.IsSession(x.Item)).Select(x => x.Item);
-                var bnSession = items.Where(x => x.Item.Section == "BankNifty" && SettingsUi.IsSession(x.Item)).Select(x => x.Item);
             }
             <div class="ct-card st-set-card" style="grid-column:1/-1">
                 <div class="ct-set-head">Session &amp; timing</div>
-                @foreach (var p in SettingsUi.Pair(niftySession, bnSession)) { <partial name="_PairRow" model="p" /> }
+                @foreach (var p in SettingsUi.Pair(niftySession)) { <partial name="_PairRow" model="p" /> }
             </div>
         </div>
 

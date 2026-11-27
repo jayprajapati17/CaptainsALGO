@@ -13,7 +13,7 @@ public static class Display
         StrategyType.Ema => "EMA",
         StrategyType.Breakout => "Breakout",
         StrategyType.Macd => "MACD",
-        StrategyType.Reversal => "Reversal",
+        StrategyType.Reversal => "Liquidity sweep (CE)",
         StrategyType.EmaCrossA => "EMA 9/21 · 15m",
         StrategyType.EmaCrossB => "EMA 9/21 · 1h",
         _ => s.ToString()

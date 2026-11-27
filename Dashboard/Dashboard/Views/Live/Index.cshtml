@@ -8,9 +8,7 @@
      data-close-url="@Url.Action("Close", "Live")"
      data-open-url="@Url.Action("Open", "Live")"
      data-initial-risk="@Model.InitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     data-target-points="@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     data-bn-initial-risk="@Model.BnInitialRiskPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     data-bn-target-points="@Model.BnTargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)">
+     data-target-points="@Model.TargetPoints.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)">
 
     <header class="ct-head">
         <div>
@@ -32,10 +30,9 @@
         <div class="alert alert-warning py-2 mb-0" role="alert">@Model.WorkerError</div>
     }
 
-    @* ---------- Market band: one slim card per index (live spot, PCR, CPR ranges) ---------- *@
+    @* ---------- Market band: one slim card for the index (live spot, PCR, CPR ranges) ---------- *@
     <section class="ix-band">
         <partial name="_IndexCard" model="Model.NiftyCpr" />
-        <partial name="_IndexCard" model="Model.BankNiftyCpr" />
     </section>
 
     @* ---------- Positions ---------- *@
@@ -60,7 +57,7 @@
                 <a href="#" class="chip" data-filter="Ema">EMA</a>
                 <a href="#" class="chip" data-filter="Breakout">Breakout</a>
                 <a href="#" class="chip" data-filter="Macd">MACD</a>
-                <a href="#" class="chip" data-filter="Reversal">Reversal</a>
+                <a href="#" class="chip" data-filter="Reversal">Liquidity sweep (CE)</a>
                 <a href="#" class="chip" data-filter="EmaCrossA">EMA 9/21 15m</a>
                 <a href="#" class="chip" data-filter="EmaCrossB">EMA 9/21 1h</a>
             </div>
